@@ -34,86 +34,72 @@ class QuoteController extends Controller
 
         DB::beginTransaction();
         try{
-            $pos=DB::select("SELECT ma_company_dept_id FROM ma_user WHERE id=178 and is_deleted=FALSE and status=TRUE");
-            $pos=$pos[0]->ma_company_dept_id;
-            // dd($pos);
-            if($pos==5){
-                if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-                    $quote = Quote::orderBy('id','asc')
-                        ->where('status','t')
-                        ->where('is_deleted','f')
-                        ->get();
-                        return QuoteResource::Collection($quote);
-                    // dd(QuoteResource::Collection($quote));
-                }
-                else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
-                    $quote = Quote::orderBy('id','asc')
+            if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
+                $quote = Quote::orderBy('id','asc')
                     ->where('status','t')
                     ->where('is_deleted','f')
-                    ->where('assign_to',$userid)
+                    ->limit(10)
                     ->get();
                     return QuoteResource::Collection($quote);
-                    // dd("staff");
-        
-                }
-                else
-                {
-                    return view('no_perms');
-                }
+                // dd(QuoteResource::Collection($quote));
             }
-            elseif($pos==10)
-            {
-                if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-                    $quote = Quote::orderBy('id','asc')
-                        ->where('status','t')
-                        ->where('is_deleted','f')
-                        ->get();
-                        return QuoteResource::Collection($quote);
-                    // $quote=DB::
-                    // dd($quote);
-                }
-                else
-                {
-                    return view('no_perms');
-                }
+            else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
+                $quote = Quote::orderBy('id','asc')
+                ->where('status','t')
+                ->where('is_deleted','f')
+                ->where('assign_to',$userid)
+                ->limit(10)
+                ->get();
+                return QuoteResource::Collection($quote);
+                // dd("staff");
+
             }
             else
             {
-                return view('no_perms');
+                return [];
             }
-
-        } 
+        }
         catch(Exception $e)
         {
             DB::rollback();
-            return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
-        }
-        
-        
-        if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-            $quote = Quote::orderBy('id','asc')
-                ->where('status','t')
-                ->where('is_deleted','f')
-                ->get();
-                return QuoteResource::Collection($quote);
-            // dd("top");
-        }
-        else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
-            $quote = Quote::orderBy('id','asc')
-            ->where('status','t')
-            ->where('is_deleted','f')
-            ->where('assign_to',$userid)
-            ->get();
-            return QuoteResource::Collection($quote);
-            // dd("staff");
-
-        }
-        else
-        {
-            return view('no_perms');
+            return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
         }
     }
+    public function getQuoteDatatable(Request $request)
+    {
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
+        DB::beginTransaction();
+        try{
+            if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
+                $quote =Quote::getQuoteDataTable(-1,$request);//0 means get all data
+                    return $quote;
+                // dd(QuoteResource::Collection($quote));
+            }
+            else if (perms::check_perm_module_api('CRM_020607',$userid)) { // fro staff (Model and Leadlist by user)
+                $quote = Quote::getQuoteDataTable(0,$request);
+                return $quote;
+                // dd("staff");
+            }
+            else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
+                $quote = Quote::getQuoteDataTable($userid,$request);
+                return $quote;
+                // dd("staff");
+            }
+            else
+            {
+                return[];
+            }
+        }
+        catch(Exception $e)
+        {
+            DB::rollback();
+            return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
+        }
+    }
     public function getquotebranch($qid){
         // return QuoteBranch::get();
         $quote = QuoteBranch::where('crm_quote_id',$qid)
@@ -224,7 +210,7 @@ class QuoteController extends Controller
             }
 
             DB::commit();
-            return json_encode(["insert"=>"success","result"=>[]]);
+            return json_encode(["insert"=>"success","result"=>[],"quote_id"=>$quote_id]);
         } catch(Exception $e){
             DB::rollback();
             return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
@@ -493,33 +479,84 @@ class QuoteController extends Controller
                         $vat_number
                     ));
                     $customer=$customer[0]->insert_ma_customer;
+                   
                     // add in ma_customer_branch
                     foreach($branch as $row){
                         $branch_id=$row['crm_lead_branch']['id'];
+                      
+                        // get  branch name  and address
                         $address_id=DB::select("SELECT crm_lead_address_id,name_en FROM crm_lead_branch where id=$branch_id");
                         $branch_name=$address_id[0]->name_en;
-                    DB::select(
-                        'SELECT public."insert_ma_customer_branch"(?, ?, ?, ?, ?, ?)',
-                        array(
-                            $customer,
-                            $branch_name,
-                            $userid,
-                            null,
-                            $lead_id,
-                            $address_id[0]->crm_lead_address_id,
-                        ));
+
+                        //get product of beanch
+                        $product_branch=DB::select("SELECT stock_product_id FROM crm_lead_items where crm_lead_branch_id=$branch_id and status=TRUE and is_deleted=FALSE");
+                        $product_branch=$product_branch[0]->stock_product_id;
+                        //insert in to table ma_customer_branch
+                           $customer_branch=DB::select('SELECT public."insert_ma_customer_branch"(?, ?, ?, ?, ?, ?)',
+                                array(
+                                    $customer,
+                                    $branch_name,
+                                    $userid,
+                                    null,
+                                    $branch_id,
+                                    $address_id[0]->crm_lead_address_id,
+                                ));
+                                // dd($customer_branch);
+                            $customer_branch=$customer_branch[0]->insert_ma_customer_branch;
+                            
+                            // add in ma_customer_service
+                            $nservice_status="active";
+                           $dd= DB::select('SELECT public."insert_ma_customer_service"(?, ?, ?, ?, ?)',
+                                array(
+                                    $customer,
+                                    $customer_branch,
+                                    $product_branch,
+                                    $nservice_status,
+                                    $userid,
+                                ));
                     }
-                DB::commit();
-                return json_encode(["convert"=>"success"]);
+                    DB::commit();
+                    return json_encode(["convert"=>"success"]);
+                       
                 // return json_encode(["convert"=>$customer]);
             }catch(Exception $e){
                 DB::rollback();
                 return json_encode(["convert"=>"fail","result"=> $e->getMessage()]);
             }
+    }
+    public function updatestatus(Request $request){
 
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
+        $id=$request->input("status");
+        $qoute_id=$request->input("quoteid");
+        $comment_quote=$request->input("comment");
+        $qoutestatusid=$request->input("qoutestatusid");
+        // return json_encode(["convert"=>"success"]);
+        // dd($userid,$id,$qoute_id,$comment_quote,$qoutestatusid);
+        DB::beginTransaction();
+            try{
+                // update crm_quote_status
+                DB::select(
+                    'SELECT public."update_crm_quote_status"(?,?,?,?,?,?)',
+                    array(
+                        $qoutestatusid,
+                        $userid,
+                        $qoute_id,
+                        $comment_quote,
+                        't',
+                        $id
+                    ));
 
-
-
+                    DB::commit();
+                    return json_encode(["convert"=>"success"]);
+                // return json_encode(["convert"=>$customer]);
+            }catch(Exception $e){
+                DB::rollback();
+                return json_encode(["convert"=>"fail","result"=> $e->getMessage()]);
+            }
     }
 }

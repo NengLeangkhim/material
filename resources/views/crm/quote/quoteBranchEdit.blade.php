@@ -68,8 +68,8 @@
                                 <div>
                                 @if(isset($data))
                                     <input type="hidden" id="quote_id" name="quote_id" value="{{ $quoteId }}" readonly>
-                                    <input type="hidden" name="quote_branch_id" value="{{ $data['quote_branch_id'] }}" readonly>
-                                    <input type="hidden" name="lead_branch_id" value="{{ $data['lead_branch_id'] }}" readonly>
+                                    <input type="hidden" name="quote_branch_id" value="{{ $data['quote_branch_id'] ??"" }}" readonly>
+                                    <input type="hidden" name="lead_branch_id" value="{{ $data['lead_branch_id'] ??"" }}" readonly>
                                 @endif
                                 </div>
                                 <table class="table table-bordered" style="min-width: 850px;">
@@ -86,7 +86,7 @@
                                                 </th>
                                             </tr>
                                     </thead>
-                                    <tbody id="add_row_tablequoteItem" class="add_row_tablequoteItem" data-id="{{ count($response3->data) }}">
+                                    <tbody id="add_row_tablequoteItem" class="add_row_tablequoteItem" data-id="{{ count($response3->data) ??"" }}">
 
                                         @if(isset($response3->data))
                                             @foreach ($response3->data as $key=>$val)

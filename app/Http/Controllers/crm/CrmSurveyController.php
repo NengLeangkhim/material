@@ -58,10 +58,12 @@ class CrmSurveyController extends Controller
             $validator = \Validator::make($request->all(), [
                 'commentsurvey' =>  [  'required'
                                         ],
+                'possible'=>['required']
                 
                 ],
             [
                 'commentsurvey.required' => 'This Field is require !!',   //massage validator
+                'possible.required'=>'Please Check Yes or No !!',
                
                 ]
             );

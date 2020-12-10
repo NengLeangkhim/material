@@ -87,50 +87,21 @@
                                                 </div>
 
                                             </div>
-
-
-
-
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Status  <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Validation<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    {{-- Select active & Inactive Organization --}}
-                                                    <select  class="form-control select2" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
-                                                        <option value="">Select an Option</option>
-                                                        @if(isset($quotestatus))
-                                                            @foreach ($quotestatus as $key=>$val)
-                                                                    <option name="" value="{{$val->id}}">{{$val->name_en}}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                    <span id="crm_quote_status_type_idError" ><strong></strong></span>
+                                                    <input type="date" class="form-control"  name="due_date" id="due_date" placeholder="Selete Date">
+                                                    <span id="due_dateError" ><strong></strong></span>
+
                                                 </div>
                                             </div>
-
-
-                                            {{-- <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="getLeadBranch"  name="getLeadBranch"  placeholder="Select Branch" required readonly>
-                                                    <div class="input-group-prepend" align="right">
-                                                        <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
-                                                    </div>
-                                                    <input type="hidden" id="crm_lead_branch_id"  name="crm_lead_branch_id">
-                                                    <span id="getLeadBranchError" ><strong></strong></span>
-                                                </div>
-                                            </div> --}}
-
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -138,6 +109,7 @@
                                                         <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
                                                     </div>
                                                     <input type="text" class="form-control"  name="assign_toName" id="assign_toName" placeholder="Assign To" readonly>
+                                                    <input type="text" class="form-control"  value="4" name="crm_quote_status_type_id" id="crm_quote_status_type_id" placeholder="Assign To" hidden>
                                                     <div class="input-group-prepend" align="right">
                                                         <a href="javascript:void(0);" class="btn btn-info" id="" onclick="getShowPopup('/quote/add/listAssignTo',1,'modal-list-quote','listAssignTo','tblAssignTo','getSelectRow','em_name_en','assign_to','assign_toName');" ><i class="glyphicon glyphicon-plus"></i></a>
                                                     </div>
@@ -151,21 +123,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Validation<b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                                    </div>
-                                                    <input type="date" class="form-control"  name="due_date" id="due_date" placeholder="Selete Date">
-                                                    <span id="due_dateError" ><strong></strong></span>
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">

@@ -189,3 +189,5 @@ $(window).on('shown.bs.modal', function() {
 <script src="plugins/jsTableExport/html2canvas.min.js"></script>  <!-- this js html2canvas use to support export to pdf  -->
 <script src="plugins/jsTableExport/pdfmake.min.js"></script>  <!-- this js use for export data table to pdf -->
 
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
