@@ -798,6 +798,7 @@
           var to = $(this).children("option:selected"). val();
           var myvar= $( "#getcontact" ).val();
           if(to=='Not'){
+            $("#contact_id").val('');
             $("#name_en").val('');
             $("#name_kh").val('');
             $("#email").val('');
