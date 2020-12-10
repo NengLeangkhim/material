@@ -305,7 +305,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             vats = vat(amount);
                             vat_per_item = vats / qty;
 
-                            if(vat_number == ""){
+                            if(vat_number == null){
                                 tax_rate="Include";
                                 attr_tax_rate=1;
                                 price_show = newUnitPrice(discount_type,price,vat_per_item);
@@ -320,11 +320,11 @@ if (count($bsc_show_customer_branchs) >0) {
                                     "<td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td>"+
                                     "<td class='description'>"+quote_product.description+"</td>"+
                                     "<td class='qty'>"+quote_product.qty+"</td>"+
-                                    "<td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == ""  ? price_show : price).toFixed(4)+"</td>"+
+                                    "<td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == null  ? price_show : price).toFixed(4)+"</td>"+
                                     "<td class='discount'>"+parseFloat(quote_product.discount).toFixed(4)+" "+percent+"</td>"+
                                     "<td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td>"+
                                     "<td class='invoice_tax' data-invoice_tax="+attr_tax_rate+">"+tax_rate+"</td>"+
-                                    "<td class='item_amount' data-amount='"+amount+"' data-vat='"+vats+"'>"+parseFloat(vat_number == "" ? amount_show : amount).toFixed(4)+"</td>"+
+                                    "<td class='item_amount' data-amount='"+amount+"' data-vat='"+vats+"'>"+parseFloat(vat_number == null ? amount_show : amount).toFixed(4)+"</td>"+
                                 "</tr>";
                             $("#invoice_table").append(tr);
                         });
@@ -335,7 +335,7 @@ if (count($bsc_show_customer_branchs) >0) {
                     showGrandTotal();
                     let sum_price=0;
                     let total_label ='';
-                    if(vat_number == ""){
+                    if(vat_number == null){
                         total_label = "Total with Tax :";
                         document.getElementById('total_label').innerHTML=total_label;
                         $('#display_none_vat').hide();

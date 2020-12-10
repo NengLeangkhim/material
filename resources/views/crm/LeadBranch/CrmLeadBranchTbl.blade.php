@@ -14,7 +14,7 @@
                     <th style="color: #FFFFFF">Company Branch Name</th>
                     <th style="color: #FFFFFF">Email</th>
                     <th style="color: #FFFFFF">Phone</th>
-                    <th style="color: #FFFFFF">Schedule</th>
+                    <th style="color: #FFFFFF">Schedule Activity</th>
                     <th style="color: #FFFFFF">Lead Status</th>
                     <th style="color: #FFFFFF">Assign To</th>
                     <th style="color: #FFFFFF">Action</th>

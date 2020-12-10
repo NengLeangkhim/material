@@ -51,18 +51,44 @@
                                     </div>
                                     <?php
                                 }
-                                else {
+                                elseif($detailbranch[$i]['lead_status_id']==7){
                                     ?>
-                                        <div class="col-md-8 ">
+                                        <div class="col-md-6 ">
                                             <form id="frm_Crmlbranchsurvey" method="POST">
                                                 @csrf                                
                                                 <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
                                                 <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
                                                 <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
-                                                <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert To Organization</button>
+                                            <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/branch/{{$detailbranch[$i]['lead_id']}}')" >To Organization</button>
                                             </form>
                                         </div>
-                                        <div class="col-md-4 " >
+                                        <div class="col-md-6 " >
+                                            <button type="button" ​value="/crm/leadbranch/edit/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit form-control" >Edit</button>
+                                            <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >                                    
+                                        </div>
+                                    <?php
+                                }
+                                else {
+                                    ?>
+                                        <div class="col-md-6 ">
+                                            <form id="frm_Crmlbranchsurvey" method="POST">
+                                                @csrf                                
+                                                <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
+                                                <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
+                                                <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
+                                            <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/branch/{{$detailbranch[$i]['lead_id']}}')" >To Organization</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <form id="frm_Crmlbranchsurvey" method="POST">
+                                                @csrf                                
+                                                <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
+                                                <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
+                                                <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
+                                                <button type="button"  class="btn btn-danger btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/updatetojunk','frm_Crmlbranchsurvey','/branch/{{$detailbranch[$i]['lead_id']}}')" >Junk</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3 " >
                                             <button type="button" ​value="/crm/leadbranch/edit/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit form-control" >Edit</button>
                                             <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >                                    
                                         </div> 
