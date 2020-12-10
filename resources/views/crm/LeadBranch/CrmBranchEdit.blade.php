@@ -29,7 +29,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-md-6">
-                            <label for="lead">Lead<b style="color:red">*</b></label>
+                            <label for="lead">Lead<b style="color:red"></b></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
@@ -38,12 +38,13 @@
                                     for($i =0;$i<sizeof($updatelead); $i++){
                                     ?>
                                         <input type="hidden" name="lead_id" id="lead_id" value="{{$updatelead[$i]['lead_id']}}">
-                                        <select class="form-control select2" disabled>
-                                            <option value="{{$updatelead[$i]['lead_id']}}"> {{$updatelead[$i]['company_en']}}</option>
-                                            {{-- @foreach($lead as $key)
+                                        <input type="text" class="form-control" disabled value="{{$updatelead[$i]['company_en']}}">
+                                        {{-- <select class="form-control select2" disabled>
+                                            <option value="{{$updatelead[$i]['lead_id']}}"> </option>
+                                            @foreach($lead as $key)
                                                 <option value="{{$key->lead_id}}" {{$key->lead_id==$updatelead[$i]['lead_id'] ? 'selected="selected"':''}}> {{$key->customer_name_en}}</option>
-                                            @endforeach --}}
-                                        </select>
+                                            @endforeach
+                                        </select> --}}
                                         <?php
                                     }
 
@@ -752,6 +753,7 @@ $( "#contact_id" ).on('select2:select', function (e){
       var to = $(this).children("option:selected"). val();
       var myvar= $( "#getcontact" ).val();
       if(to=='Not'){
+        $("#contact_id").val('');
         $("#name_en").val('');
         $("#name_kh").val('');
         $("#email").val('');
