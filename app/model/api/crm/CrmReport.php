@@ -353,6 +353,7 @@ class CrmReport extends Model
 
     public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 2){ // status qualified
         try{
+            $assignTo = null;
             $select = '
                 SELECT
                     cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.crm_lead_source_id, cl.crm_lead_current_isp_id, cl.crm_lead_industry_id,
