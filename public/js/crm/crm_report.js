@@ -192,7 +192,7 @@ var reportContact = () => {
                     var data = google.visualization.arrayToDataTable(mydata);
                     var view = new google.visualization.DataView(data);
                     view.setColumns([0, 1,
-                                    { calc: "stringify",
+                                    {   calc: "stringify",
                                         sourceColumn: 1,
                                         type: "string",
                                         role: "annotation" },

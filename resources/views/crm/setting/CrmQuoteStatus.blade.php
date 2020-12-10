@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success" onclick="CrmModalAction('crm_quote_status_form','crm_quote_status_modal','ActionQuoteStatus','Add Quote Status')" ​><i class="fas fa-plus"></i> Add Quote Status</a>
 </div>

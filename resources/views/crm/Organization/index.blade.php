@@ -1,6 +1,15 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <style>
+                    th {
+                        font-size: 16px;
+                    }
+
+                    td {
+                        font-size: 14px;
+                    }
+                </style>
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -56,6 +65,9 @@
                 scrollX:true,
                 "autoWidth": false,
                 "serverSide": true,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true,
                 "ajax": "organizations/datatable",
                 "columnDefs": [
 
