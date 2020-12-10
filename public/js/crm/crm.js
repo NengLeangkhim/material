@@ -400,7 +400,7 @@ function CrmLeadBranchView(url,table){
             "serverSide": true,
             "autoWidth": false,
             "ajax": "/crm/leadbranch/datatable/"+$status,
-            "ordering": false,
+            "ordering": true,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowData!=null){ //check comment survey
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
@@ -409,6 +409,10 @@ function CrmLeadBranchView(url,table){
                 }
             },
             "columnDefs": [
+              {
+                "targets": 0,
+                "orderable": false
+                },
               {
                   "searchable": false,
                   "targets": 4

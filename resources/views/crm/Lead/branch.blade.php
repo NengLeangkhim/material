@@ -86,7 +86,7 @@
                                                             </td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["lead_status"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['create_date']}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{date('Y-m-d H:i:s',strtotime($branch[$i]['create_date']))}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
@@ -150,7 +150,7 @@
                                                             </td>
                                                             <td>{{$branch[$i]["lead_status"]}}</td>
                                                             <td>{{$branch[$i]['assig']}}</td>
-                                                            <td>{{$branch[$i]['create_date']}}</td>
+                                                            <td>{{date('Y-m-d H:i:s',strtotime($branch[$i]['create_date']))}}</td>
                                                             <td>
                                                                 <div class="container-fluid datatable-action-col">
                                                                     <div class="row form-inline">
