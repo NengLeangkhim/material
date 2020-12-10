@@ -139,7 +139,7 @@
                                     <select name="leave_type" id="" class="form-control">
                                       <option value="" hidden></option>
                                       @foreach ($leave_type as $leave)
-                                    <option value="{{$leave->id}}">{{$leave->name}} / {{$leave->name_kh}}</option>
+                                    <option value="{{$leave->id ?? 0}}">{{$leave->name ?? ''}} / {{$leave->name_kh ?? ''}}</option>
                                       @endforeach
                                     </select>
                                   </div>
@@ -165,7 +165,7 @@
                                     <select name="permission_approved" id="id_permission_approved" class="form-control">
                                       <option value="" hidden></option>
                                       @foreach ($approve as $em)
-                                        <option value="{{$em->id}}">{{$em->lastName}} {{$em->firstName}}</option>
+                                        <option value="{{$em->id ?? 0}}">{{$em->employee ?? ''}}</option>
                                       @endforeach
                                       
                                     </select>

@@ -7,7 +7,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-               
                 <div class="col-md-12">
                   <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -26,34 +25,38 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="late_missed_scan" role="tabpanel" aria-labelledby="home-tab">
                           <div class="col-md-12 text-right" style="margin-bottom:10px">
-                            <button class="btn bg-turbo-color"><i class="fas fa-plus"></i> Add</button>
+                            <button class="btn bg-turbo-color" onclick="hrms_modal_late_missed_scan()"><i class="fas fa-plus"></i> Add</button>
                           </div>
                           <table class="table table-bordered hrm_table">
                             <thead>
                               <th>#</th>
                               <th>Employee</th>
                               <th>Date</th>
-                              <th>Create By</th>
+                              <th>Type</th>
                               <th>Shif</th>
-                              <th>Description</th>
+                              <th>Reason</th>
                               <th>Action</th>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th>1</th>
-                                <td>Seng Kimsros</td>
-                                <td>2020-12-09</td>
-                                <td>Kimsros</td>
-                                <td>AM</td>
-                                <td>for testing</td>
-                                <td>
-                                  <div class="row">
-                                    <div class="col-md-4"><a href="javascript:;" onclick=""><i class="far fa-edit"></i></a></div>
-                                    <div class="col-md-4"><a href="javascript:;" onclick=""><i class="fas fa-info"></i></a></div>
-                                    <div class="col-md-4"><a href="javascript:;" onclick=""><i class="far fa-trash-alt"></i></a></div>
-                                  </div>
-                                </td>
-                              </tr>
+                              @php
+                                  $i=0;
+                              @endphp
+                              @foreach ($late_missed_scan as $late_missed)
+                                  <tr>
+                                    <th>{{++$i}}</th>
+                                  <td>{{$late_missed->employee ?? ''}}</td>
+                                  <td>{{$late_missed->date ?? ''}}</td>
+                                  <td>{{$late_missed->type ?? ''}}</td>
+                                  <td>{{$late_missed->shift ?? ''}}</td>
+                                  <td>{{$late_missed->reason ?? ''}}</td>
+                                    <td>
+                                      <div class="row">
+                                      <div class="col-md-4"><a href="javascript:;" onclick="hrms_modal_late_missed_scan({{$late_missed->id ?? 0}})"><i class="far fa-edit"></i></a></div>
+                                        <div class="col-md-4"><a href="javascript:;" onclick=""><i class="far fa-trash-alt"></i></a></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              @endforeach
                             </tbody>
                           </table>
                         </div>
@@ -146,7 +149,7 @@
                         <div class="tab-pane fade" id="permission_" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="tab-content" id="myTabContent">
                               <div class="col-md-12 text-right" style="margin-bottom:10px">
-                                <button class="btn bg-turbo-color"><i class="fas fa-plus"></i> Add</button>
+                                <button class="btn bg-turbo-color" onclick="hrms_modal_permission()"><i class="fas fa-plus"></i> Add</button>
                               </div>
                               <table class="table table-bordered hrm_table">
                                 <thead>
@@ -171,7 +174,7 @@
                                       <td>{{$permis->reason ?? ''}}</td>
                                       <td>{{$permis->approve_name ?? ''}}</td>
                                         <td class="text-center">
-                                        <div class="col-md-12"><a href="javascript:;" onclick="{{$permis->id}}"><i class="far fa-edit"></i></a></div>
+                                        <div class="col-md-12"><a href="javascript:;" onclick="hrms_modal_permission({{$permis->id ?? 0}})"><i class="far fa-edit"></i></a></div>
                                         </td>
                                       </tr>
                                   @endforeach
@@ -183,7 +186,7 @@
                       <div class="tab-pane fade" id="work_on_side" role="tabpanel" aria-labelledby="profile-tab">
                           <div class="tab-content" id="myTabContent">
                               <div class="col-md-12 text-right" style="margin-bottom:10px">
-                                <button class="btn bg-turbo-color"><i class="fas fa-plus"></i> Add</button>
+                                <button class="btn bg-turbo-color" onclick="hrms_modal_work_on_side()"><i class="fas fa-plus"></i> Add</button>
                               </div>
                               <table class="table table-bordered hrm_table">
                                 <thead>
@@ -194,15 +197,21 @@
                                   <th>Action</th>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th>1</th>
-                                    <td>Seng Kimsros</td>
-                                    <td>2020-12-09 13:00:00</td>
-                                    <td>UPG</td>
-                                    <td class="text-center">
-                                      <div class="col-md-12"><a href="javascript:;" onclick=""><i class="far fa-edit"></i></a></div>
-                                    </td>
-                                  </tr>
+                                  @php
+                                      $i=0;
+                                  @endphp
+                                  @foreach ($work_on_side as $onside)
+                                      <tr>
+                                      <th>{{++$i}}</th>
+                                      <td>{{$onside->employee ?? ''}}</td>
+                                      <td>{{$onside->date ?? ''}}</td>
+                                      <td>{{$onside->location ?? ''}}</td>
+                                        <td class="text-center">
+                                        <div class="col-md-12"><a href="javascript:;" onclick="{{$onside->id ?? 0}}"><i class="far fa-edit"></i></a></div>
+                                        </td>
+                                      </tr>
+                                  @endforeach
+                                  
                                 </tbody>
                               </table>
                           </div>

@@ -107,9 +107,12 @@ class AttendanceController extends Controller
         if (perms::check_perm_module('HRM_09010301')) {
             $id = $request->id;
             $leave_type=LeaveType::leave_type();
-            $employee=Employee::AllEmployee();
+            $approved_attendance = Request::create('/api/hrms_approve_attendance', 'GET');
+            $approved_attendance->headers->set('Accept', 'application/json');
+            $res = app()->handle($approved_attendance);
+            $response_attendance = json_decode($res->getContent());
             $mission='';
-            return view('hrms/Employee/Attendance/AttendanceEdit')->with(['id'=>$id,'leave_type'=>$leave_type,'approve'=>$employee]);
+            return view('hrms/Employee/Attendance/AttendanceEdit')->with(['id'=>$id,'leave_type'=>$leave_type,'approve'=>$response_attendance]);
         }else{
             return view('modal_no_perms')->with('modal', 'modal_attendance_edit');
         }

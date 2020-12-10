@@ -989,6 +989,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_my_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission');
         Route::get('hrm_search_mission','hrms\Employee\MissionAndOutsideController@hrm_search_mission');
         Route::get('hrm_my_search_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission_search');
+        Route::get('hrm_modal_late_missed_scan', 'hrms\Employee\MissionAndOutsideController@modal_late_missed_scan');
+        Route::post('hrm_insert_update_late_missed_scan', 'hrms\Employee\MissionAndOutsideController@insert_update_late_missed_scan');
+        Route::get('hrm_modal_permission', 'hrms\Employee\MissionAndOutsideController@modal_permission');
+        Route::get('hrm_modal_work_on_side', 'hrms\Employee\MissionAndOutsideController@modal_work_on_side');
     // End Mission And OutSide
 
     // Start Departement and Position

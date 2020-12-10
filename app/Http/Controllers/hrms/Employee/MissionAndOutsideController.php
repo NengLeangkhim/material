@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\model\hrms\employee;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\Employee as EmployeeEmployee;
+use App\model\Setting\LeaveType;
 use Illuminate\Validation\Validator;
 
 class MissionAndOutsideController extends Controller
@@ -17,11 +18,27 @@ class MissionAndOutsideController extends Controller
     function AllMissionAndOutSide()
     {
         $mission=MissionAndOutSide::MissionOutside();
+
+
         $permission=Request::create('/api/hrms_permission','GET');
         $permission->headers->set('Accept', 'application/json');
         $res = app()->handle($permission);
         $response_permission = json_decode($res->getContent());
-        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with(['mission'=>$mission,'permission'=>$response_permission]);
+
+        $late_missed_scan=Request::create('/api/hrms_late_missed_scan','GET');
+        $late_missed_scan->headers->set('Accept', 'application/json');
+        $res_late = app()->handle($late_missed_scan);
+        $response_late_missed_scan = json_decode($res_late->getContent());
+
+
+        $work_on_side = Request::create('/api/hrms_work_on_side', 'GET');
+        $work_on_side->headers->set('Accept', 'application/json');
+        $res_on_side = app()->handle($work_on_side);
+        $response_work_on_side = json_decode($res_on_side->getContent());
+
+
+
+        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with(['mission'=>$mission,'permission'=>$response_permission,'late_missed_scan'=>$response_late_missed_scan,'work_on_side'=> $response_work_on_side]);
     }
 
     // Show modal add or edit mission
@@ -146,4 +163,84 @@ class MissionAndOutsideController extends Controller
         return view('hrms/Employee/MissionAndOutSide/mision_search')->with('mission',$data);
         print_r($data);
     }
+
+
+    // late and missed scan
+    function modal_late_missed_scan(Request $request){
+        $employee=EmployeeEmployee::AllEmployee();
+
+        if($request->id>0){
+            $response_late_missed_scan=MissionAndOutSide::late_missed_scan_one($request->id);
+        }else{
+            $response_late_missed_scan='';
+        }
+        
+        return view('hrms/Employee/MissionAndOutSide/modal_late_missed_scan')->with(['employee'=>$employee, 'response_late_missed_scan'=> $response_late_missed_scan]);
+    }
+    function insert_update_late_missed_scan(Request $request){
+        DB::beginTransaction();
+        try {
+            $validation = \Validator::make($request->all(), [
+                'employees' => ['required', 'integer'],
+                'type' => ['required', 'string'],
+                'date' => ['required', 'date'],
+                'shift' => ['required', 'string'],
+                'reason' => ['required'],
+            ]);
+            if ($validation->fails()) {
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            }
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $userid = $_SESSION['userid'];
+            $emid=array();
+            array_push($emid,$request->employees);
+            if($request->id>0){
+                $sussess=MissionAndOutSide::UpdateMissionOutside($request->id,$userid,$request->date,$request->date,$request->reason,'t',$request->type,$request->shift,'','','','',$emid);
+            }else{
+                $sussess=MissionAndOutSide::InsertMissionOutSide($request->date,$request->date,$request->reason,$request->type,$userid,$request->shift,'','','','',$emid);
+            }
+            return response()->json(['success' => $sussess]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+        
+    }
+    // end late and missed scan
+
+
+    // Perission 
+        function modal_permission(Request $request){
+            $employee = EmployeeEmployee::AllEmployee();
+            $leave_type = LeaveType::leave_type();
+
+            $approved_attendance = Request::create('/api/hrms_approve_attendance', 'GET');
+            $approved_attendance->headers->set('Accept', 'application/json');
+            $res = app()->handle($approved_attendance);
+            $response_attendance = json_decode($res->getContent());
+
+            $permission_one = Request::create('/api/hrms_permission/'.$request->id, 'GET');
+            $permission_one->headers->set('Accept', 'application/json');
+            $res_one = app()->handle($permission_one);
+            $response_permission_one = json_decode($res_one->getContent());
+            
+
+            return view('hrms/Employee/MissionAndOutSide/modal_permission')->with(['employee'=>$employee,'leave_type'=>$leave_type,'approve_attendance'=>$response_attendance,'permission'=>$response_permission_one]);
+        }
+    // end Permission
+
+    // work on side
+        function modal_work_on_side(Request $request){
+            $employee = EmployeeEmployee::AllEmployee();
+            if($request->id>0){
+                
+                dd('id>0');
+            }else{
+                $response_permission='';
+            }
+            return view('hrms/Employee/MissionAndOutSide/modal_work_on_side')->with(['employee'=>$employee,'pemission'=>$response_permission]);
+        }
+    // end work on side
 }

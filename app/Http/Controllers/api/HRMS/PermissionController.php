@@ -73,6 +73,15 @@ class PermissionController extends Controller
     public function show($id)
     {
         //
+        if(is_numeric($id) && $id>0){
+            $sql = "SELECT ert.id,mu_user.id as emid,ert.leave_type_id,ert.approve_by,concat(mu_user.last_name_en,' ',mu_user.first_name_en) as employee_name,concat(mu_approve.last_name_en,' ',mu_approve.first_name_en) as approve_name,ert.reason,ert.date_from,ert.date_to FROM e_request_temp ert 
+            INNER JOIN ma_user mu_user on mu_user.id=ert.ma_user_id
+            INNER JOIN ma_user mu_approve on mu_approve.id=ert.approve_by where ert.id=$id ORDER BY ert.date_from desc limit 1";
+            $permission_list = DB::select($sql);
+            return response()->json($permission_list);
+        }else{
+            return response()->json(['error'=>'Parameter must be Number and Bigger than Zero']);
+        }
     }
 
     /**
