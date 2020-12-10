@@ -55,44 +55,40 @@
                                                 </td>
                                                 <td class="border">
                                                     <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id}}" >
-                                                        {{$val2->name}}
+                                                        {{$val2->name ?? ""}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
                                                     <div>
-                                                        {{-- @php
-                                                            $prdPrice = 0
-                                                        @endphp
-                                                        @if($getBranchDetail[0]->vat_number == '')
-                                                            @php
-                                                                $taxVat = floatval($val2->product_price * 0.1);
-                                                                $prdPrice = floatval($val2->product_price + $taxVat);
-                                                            @endphp
+                                                        @if($val2->product_price == "")
+                                                            @php $prdPrice = 0; @endphp
                                                         @else
-                                                            @php
-                                                                $prdPrice = $val2->product_price;
-                                                            @endphp
-                                                        @endif --}}
-                                                        {{ $val2->product_price}}
-                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$val2->product_price}}" readonly>
+                                                            @php $prdPrice = $val2->product_price; @endphp
+                                                        @endif
+                                                        {{ $prdPrice }}
+                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$prdPrice ?? ""}}" readonly>
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
                                                     <div class="stockItem_{{$val2->id}}">
-                                                        {{$val2->stock_qty}}
+                                                        @if($val2->stock_qty == "")
+                                                            0
+                                                        @else
+                                                            {{$val2->stock_qty ?? ""}}
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="border">
                                                     <div class="itemMeasurement_{{$val2->id}}">
-                                                        {{$val2->measurement}}
+                                                        {{$val2->measurement ?? ""}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
                                                     <div class="itemDescription_{{$val2->id}}">
-                                                        {{$val2->description}}
+                                                        {{$val2->description ?? ""}}
                                                     </div>
                                                 </td>
                                             </tr>

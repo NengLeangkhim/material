@@ -101,37 +101,6 @@
                         setDataList(bodyId, 'Liability', data.body.liability_list, col, data.header);
                         setDataList(bodyId, 'Equity', data.body.equity_list, col, data.header);
                     }
-                    
-                    // if(response.success){
-                    //     var data = response.data.body;
-                    //     var headerId = '#is-report-sub-header'
-                    //     var bodyId = '#is-report-body'
-                    //     $(headerId).empty()
-                    //     $(bodyId).empty()
-                    //     if(data.is_error){
-                    //         $(bodyId).append(`<h5 class="bold">${response.message}</h5>`)
-                    //         return
-                    //     }
-                    //     renderSection(bodyId, 'is-asset-id', 'Asset', data.asset_list)
-                    //     renderSection(bodyId, 'is-liability-id', 'Liability', data.liability_list)
-                    //     renderSection(bodyId, 'is-equity-id', 'Equity', data.equity_list)
-
-                    //     // if(response.success){
-                    //     //     var data = response.data;
-                    //     //     var col = 12 - ((data.header).length);
-
-                    //     //     var headerId = '#is-report-sub-header';
-                    //     //     var bodyId = '#is-report-body';
-                    //     //     $(headerId).empty();
-                    //     //     $(bodyId).empty();
-                    //     //     setReportHeader(headerId,data.header, col);
-                    //     //     setDataList(bodyId, 'Income', data.body.income_list, col);
-                    //     //     setDataList(bodyId, 'COGS', data.body.cogs_list, col);
-                    //     //     setCalculateDataList(bodyId, 'Gross Profit', data.body.gross_profit, col);
-                    //     //     setDataList(bodyId, 'Expense', data.body.expense_list, col   );
-                    //     //     setCalculateDataList(bodyId, 'Net Income', data.body.net_income , col);
-                    //     // }
-                    // }
                 },
                 fail : function(){
                     alert("ERROR")
