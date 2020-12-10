@@ -27,28 +27,29 @@
             // console.log('check branch in funct add='+branId);
             // check to assign new value to branId
             if(typeof(issetBranId) != 'undefined'){
-                branId = issetBranId;
+                branId2 = issetBranId;
             }
 
-            if(branId2 == 'quoteBranchEdit'){
+            var QuoteType = $(this).attr("data-code");
+            if(typeof QuoteType != 'undefined' && QuoteType == 'quoteBranchEdit'){
                 branId = '_new';
-                var numRow = $('#add_row_tablequoteItem').attr("data-id");
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
+                    var numRow = parseInt($('#countNumBranchEdit').val());
                     i = parseInt(i + numRow);
                     j = parseInt(j + numRow);
+                    // console.log('thissdasda I value='+i+'---J value='+j);
                 }
             }
-
             var tblRow =
                 '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'" data-code="'+branId+'">'  +
                     '<td class="">' +
                         '<div class="form-group">' +
                             '<div class="row pb-2">' +
                                 '<div class="col-6">'+
-                                    '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
+                                    '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" data-code="'+branId2+'"> <span>+ Add Product </span></button>'+
                                 '</div>' +
                                 '<div class="col-6">'+
-                                    '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
+                                    '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" data-code="'+branId2+'"> <span>+ Add Service </span></button>'+
                                 '</div>'+
                             '</div>' +
                             '<div class="row form-inline2">' +
@@ -118,10 +119,9 @@
                 '</tr>';
                 i++;
                 j++;
-                clearTrashButton(j,i); //call function clear trash icon
-                // console.log();
+                // clearTrashButton(j,i); //call function clear trash icon
             if(branId == '_new'){
-                $('#add_row_tablequoteItem').append(tblRow);
+                $('#add_row_tablequoteItem'+branId2+'').append(tblRow);
                 // console.log('row was apend in func add no branch='+branId);
             }else{
                 $('#add_row_tablequoteItem'+branId+'').append(tblRow);
@@ -167,7 +167,8 @@
             }
             $('tbody tr[data-id="row_'+btn_id+'"]').remove();  //use call method remove row quote
             j--;
-            clearTrashButton(j,i); //call function clear trash icon
+            // clearTrashButton(j,i); //call function clear trash icon
+
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
             for(var x=0; x<=i; x++){
@@ -175,7 +176,6 @@
                 if(value != ""){
                     var getNetPrice = parseFloat(value);
                     sumTotal += getNetPrice;
-                    // console.log(sumTotal);
                 }
             }
 
@@ -199,20 +199,20 @@
         function checkVatValue(vat,getsumtotal){
             var getTax = 0;
             var grandTotal = 0;
-            // console.log('vat in function='+vat);
             if(vat != ''){  // exclude tax
                 // console.log('function check vat, have val');
                 getTax = (getsumtotal * 0.1);
                 grandTotal = (getsumtotal + getTax);
                 $('#labelTaxQuote').text('Vat Exclude (10%)');
                 $('#getTaxation').text(getTax.toFixed(4));
-                $("#grandTotal").text(grandTotal.toFixed(4));
+                $('#grandTotal').text(grandTotal.toFixed(4));
             }else{ //include tax
-                // console.log('function check vat, null val');
                 $('#labelTaxQuote').text('Vat Exclude (0%)');
                 $('#getTaxation').text(getTax.toFixed(4));
-                $("#grandTotal").text(getsumtotal.toFixed(4));
+                $('#grandTotal').text(getsumtotal.toFixed(4));
             }
+            // console.log('granTotal='+getsumtotal+'--getTax='+getTax+'--brand='+branId+'---VatNum='+vat);
+
         }
 
 
@@ -300,10 +300,7 @@
 
                 var itemQty = parseFloat($.trim($(".itemQty_"+row_id+"").val()));
 
-                // var itemPrice = parseFloat($.trim($("[data-id=price"+row_id+"]").val()));   //old use
-
                 itemPrice = parseFloat($.trim($('#itemPrice_'+row_id+'').val()));
-
 
                 subTotal = (itemQty * itemPrice);
                 $("div #quote-sub-total_"+row_id+"").text(subTotal.toFixed(4));
@@ -327,9 +324,9 @@
 
 
                 var branId = $(this).data("code");
-                if(typeof(branId) == 'undefined' || branId == '_new'){
-                    branId = '';
-                }
+                // if(typeof(branId) == 'undefined' || branId == '_new'){
+                //     branId = '';
+                // }
                 var vatVal = $('#vatNumber'+branId+'').val();
                 // console.log('xx vatVal='+vatVal);
                 if(typeof(vatVal) == 'undefined' || vatVal == ''){
@@ -350,16 +347,14 @@
 
                 //for loop to get sumtotal all rows
                 if(i == 0){
-                    i = $('#add_row_tablequoteItem').data('id');
+                    i = $('#add_row_tablequoteItem'+branId+'').data('id');
                     j = parseInt(j + i);
                 }
                 for(var x=0; x<=i; x++){
 
                     var value = $("#quote-netPrice_"+x+"").text();
-
                     if(value != ''){
                         var getNetPrice = parseFloat(value);
-                        // console.log('netPrie='+getNetPrice);
                         sumTotal += getNetPrice;
                     }
 
@@ -380,9 +375,12 @@
                     }
 
                 }
-                checkVatValue(vatVal,sumTotal);
-                $("#sumTotal").text(sumTotal.toFixed(4));
-                generateGrandTotal(vatVal);
+
+
+                    checkVatValue(vatVal,sumTotal);
+                    $("#sumTotal").text(sumTotal.toFixed(4));
+                    generateGrandTotal(vatVal);
+
             });
         });
 
@@ -406,7 +404,7 @@
 
                         var branId_ = $(this).attr("data-id");
                         if(branId_ == '_new'){ // check if new name go to get branch value
-                            branId_ = $('#getBranchIdEdit').val(); //exchange value to branch id
+                            branId_ = $(this).attr("data-code"); //exchange value to branch id
                         }
                         var branId = "branId="+branId_;
                         // console.log('add prd branId='+branId);
@@ -455,7 +453,7 @@
 
             var branId_ = $(this).attr("data-id");
             if(branId_ == '_new'){ // check if new name go to get branch value
-                branId_ = $('#getBranchIdEdit').val(); //exchange value to branch id
+                branId_ = $(this).attr("data-code"); //exchange value to branch id
             }
             var branId = "branId="+branId_;
 
@@ -492,8 +490,6 @@
 
 
 
-
-
         //function click to get item to add quote
         $(document).on('click keyup','.getStockItem',function(){
 
@@ -502,6 +498,7 @@
                     var selectval = new Array;
                     var num = 0;
 
+                    // console.log('this branch for get item ='+branId);
 
                     //function for check seletion of checkbox
                     $("input[name=seleteItem]:checked").each(function(i){

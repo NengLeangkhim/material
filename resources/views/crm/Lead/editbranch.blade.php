@@ -29,7 +29,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-md-6">
-                                <label for="lead">Sreach Lead<b style="color:red">*</b></label>
+                                <label for="lead">Lead<b style="color:red"></b></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user-check"></i></span>
@@ -37,12 +37,14 @@
                                     <?php
                                         for($i =0;$i<sizeof($updatelead); $i++){
                                         ?>
-                                            <select class="form-control select2" name="lead_id" id="lead_id">
-                                                <option value=''>-- Select Lead  --</option>
+                                            <input type="hidden" name="lead_id" id="lead_id" value="{{$updatelead[$i]['lead_id']}}">
+                                            <input type="text" class="form-control" disabled value="{{$updatelead[$i]['company_en']}}">
+                                            {{-- <select class="form-control select2" disabled>
+                                                <option value="{{$updatelead[$i]['lead_id']}}"> </option>
                                                 @foreach($lead as $key)
                                                     <option value="{{$key->lead_id}}" {{$key->lead_id==$updatelead[$i]['lead_id'] ? 'selected="selected"':''}}> {{$key->customer_name_en}}</option>
                                                 @endforeach
-                                            </select>
+                                            </select> --}}
                                             <?php
                                         }
 
@@ -217,24 +219,11 @@
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
                                             <input type="text" hidden value="{{$_SESSION['token']}}" id="getcontact">
-                                            <?php
-                                                for($i =0;$i<sizeof($updatelead); $i++){
-                                                ?>
-                                                    <select class="form-control select2" name="contact_id" id="contact_id">
+                                            <select class="form-control" name="contact_id" id="contact_id">
+                                                <option value=''>-- Select Contact  --</option>   
                                                         <option value=''>-- Select Contact  --</option>
-                                                        <?php
-                                                            for($j=0; $j<sizeof($contact); $j++){
-                                                                ?>
-                                                                    <option value="{{$contact[$j]['id']}}" {{$contact[$j]['id']==$updatelead[$i]['contact_id'] ? 'selected="selected"':''}}> {{$contact[$j]['name_en']}}</option>
-
-                                                                <?php
-                                                            }
-                                                        ?>
-                                                    </select>
-                                                    <?php
-                                                }
-
-                                            ?>
+                                                <option value=''>-- Select Contact  --</option>   
+                                             </select>
                                         </div>
                                        </div>
                                     </div>
@@ -253,7 +242,8 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="name_kh">Full Name Khmer<b style="color:red">*</b></label>
+                                                    <input type="hidden" name="contact_id_old" id="contact_id_old" value="{{$updatelead[$i]['contact_id']}}">
+                                                    <label for="name_kh">Full Name Khmer<b style="color:red"></b></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -282,7 +272,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="exampleInputEmail1"> Email<b style="color:red">*</b></label>
+                                                    <label for="exampleInputEmail1"> Email<b style="color:red"></b></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-at"></i></span>
@@ -294,7 +284,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="phone"> Phone <b style="color:red">*</b></label>
+                                                    <label for="phone"> Phone <b style="color:red"></b></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
@@ -314,7 +304,7 @@
                                                         <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                                                    <label for="honorifics">Honorifics<b style="color:red">*</b></label>
+                                                                    <label for="honorifics">Honorifics<b style="color:red"></b></label>
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text"><i class="fas fa-industry"></i></span>
@@ -518,7 +508,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="row">
-                                                                            <div class="col-md-6">
+                                                                            {{-- <div class="col-md-6">
                                                                                 <label for="address_type">Address Type <b style="color:rgb(252, 2, 2)">*</b></label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
@@ -529,11 +519,11 @@
                                                                                         <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='install' ? 'selected="selected"':''}} >Install</option>
                                                                                         <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='main' ? 'selected="selected"':''}} >Main</option>
                                                                                     </select>
-                                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
+                                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> span for alert
                                                                                         <strong></strong>
                                                                                     </span>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> --}}
                                                                             <div class="col-md-6">
 
                                                                                 <label for="address_type"></label>
@@ -632,52 +622,51 @@
     </section>
 
     <script type="text/javascript">
+    // $( "#contact_id" ).change(function() {
+    //       var to = $(this). children("option:selected"). val();
+    //       var myvar= $( "#getcontact" ).val();
+    //     //   alert(to);
+    //       $.ajax({
+    //         url:'/api/contact/'+to,
+    //         type:'get',
+    //         dataType:'json',
+    //         headers: {
+    //           'Authorization': `Bearer ${myvar}`,
+    //       },
+    //         success:function(response){
 
-    $( "#contact_id" ).change(function() {
-          var to = $(this). children("option:selected"). val();
-          var myvar= $( "#getcontact" ).val();
-        //   alert(to);
-          $.ajax({
-            url:'/api/contact/'+to,
-            type:'get',
-            dataType:'json',
-            headers: {
-              'Authorization': `Bearer ${myvar}`,
-          },
-            success:function(response){
+    //                     var name_en = response['data'].name_en;
+    //                     var name_kh = response['data'].name_kh;
+    //                     var email = response['data'].email;
+    //                     var phone = response['data'].phone;
+    //                     var national_id = response['data'].national_id;
+    //                     var position = response['data'].position;
+    //                     var honorifics = response['data'].honorifics.name_en;
+    //                     var honorifics_id = response['data'].honorifics.id;
+    //                     // alert(honorifics);
+    //                     $("#name_en").val(name_en);
+    //                     $("#name_kh").val(name_kh);
+    //                     $("#email").val(email);
+    //                     $("#phone").val(phone);
+    //                     $("#national_id").val(national_id);
+    //                     $("#position").val(position);
+    //                     // $("#ma_honorifics_id").val(honorifics);
+    //                     var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
 
-                        var name_en = response['data'].name_en;
-                        var name_kh = response['data'].name_kh;
-                        var email = response['data'].email;
-                        var phone = response['data'].phone;
-                        var national_id = response['data'].national_id;
-                        var position = response['data'].position;
-                        var honorifics = response['data'].honorifics.name_en;
-                        var honorifics_id = response['data'].honorifics.id;
-                        // alert(honorifics);
-                        $("#name_en").val(name_en);
-                        $("#name_kh").val(name_kh);
-                        $("#email").val(email);
-                        $("#phone").val(phone);
-                        $("#national_id").val(national_id);
-                        $("#position").val(position);
-                        // $("#ma_honorifics_id").val(honorifics);
-                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
+    //                    $("#ma_honorifics_id").append(option);
 
-                       $("#ma_honorifics_id").append(option);
-
-                        // $('#name_en').prop('readonly', true);
-                        // $('#name_kh').prop('readonly', true);
-                        // $('#email').prop('readonly', true);
-                        // $('#phone').prop('readonly', true);
-                        // $('#national_id').prop('readonly', true);
-                        // $('#position').prop('readonly', true);
-                        // $('#ma_honorifics_id').attr('disabled', true);
+    //                     // $('#name_en').prop('readonly', true);
+    //                     // $('#name_kh').prop('readonly', true);
+    //                     // $('#email').prop('readonly', true);
+    //                     // $('#phone').prop('readonly', true);
+    //                     // $('#national_id').prop('readonly', true);
+    //                     // $('#position').prop('readonly', true);
+    //                     // $('#ma_honorifics_id').attr('disabled', true);
 
 
-            }
-        })
-        });
+    //         }
+    //     })
+    //     });
             $('.lead ').click(function(e)
             {
                 var ld = $(this).attr("​value");
@@ -772,4 +761,98 @@
                     clearMarkers();
                     markers = [];
                 }
+    // search contact
+    $(document).ready(function(){
+        // function search lead contacr
+        $('#contact_id').select2({
+            ajax: {
+                url: '/contact/search',
+                dataType: 'json',
+                type:'get',
+                delay: 250,
+                data: function (params) {
+                    return {  
+                        search: params.term // search term
+                            };   
+                },
+                processResults: function (response) {
+                    return {
+                        results: response.data
+                            };
+                },
+                cache: true
+            }
+        });
+
+    });
+    // Select contact change
+    // get value in search contact from selection and show in each field
+    $( "#contact_id" ).on('select2:select', function (e){
+          $("#name_en").val(''); //set option null before change
+          $("#name_kh").val('');
+          $("#email").val('');
+          $("#phone").val('');
+          $("#national_id").val('');
+          $("#position").val('');
+          $("#ma_honorifics_id").val('');
+          var to = $(this).children("option:selected"). val();
+          var myvar= $( "#getcontact" ).val();
+          if(to=='Not'){
+            $("#contact_id").val('');
+            $("#name_en").val('');
+            $("#name_kh").val('');
+            $("#email").val('');
+            $("#phone").val('');
+            $("#national_id").val('');
+            $("#position").val('');
+            $("#ma_honorifics_id").val('');
+            $('#name_en').prop('readonly', false);
+            $('#name_kh').prop('readonly', false);
+            $('#email').prop('readonly', false);
+            $('#phone').prop('readonly', false);
+            $('#national_id').prop('readonly', false);
+            $('#position').prop('readonly', false);
+            $('#ma_honorifics_id').attr('disabled', false);
+          }else{
+            $.ajax({
+              url:'/api/contact/'+to,
+              type:'get',
+              dataType:'json',
+              headers: {
+                'Authorization': `Bearer ${myvar}`,
+              },
+              success:function(response){
+
+                          var name_en = response.data.name_en;
+                          var name_kh = response.data.name_kh;
+                          var email = response.data.email;
+                          var phone = response.data.phone;
+                          var national_id = response.data.national_id;
+                          var position = response.data.position;
+                          if(response.data.honorifics == null){
+                             var honorifics_id ='';
+                          }else{
+                            var honorifics_id = response['data'].honorifics.id;
+                          }
+                          $("#name_en").val(name_en);
+                          $("#name_kh").val(name_kh);
+                          $("#email").val(email);
+                          $("#phone").val(phone);
+                          $("#national_id").val(national_id);
+                          $("#position").val(position);
+                          $("#ma_honorifics_id").val(honorifics_id);
+          
+                          $('#name_en').prop('readonly', true);
+                          $('#name_kh').prop('readonly', true);
+                          $('#email').prop('readonly', true);
+                          $('#phone').prop('readonly', true);
+                          $('#national_id').prop('readonly', true);
+                          $('#position').prop('readonly', true);
+                          $('#ma_honorifics_id').attr('disabled', true);
+  
+  
+              }
+            })
+          }
+        });
             </script>

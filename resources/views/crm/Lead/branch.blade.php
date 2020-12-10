@@ -31,7 +31,7 @@
                                     </div>
                                 </div> --}}
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap;">
                                         <thead>
                                             <tr style="background: #1fa8e0">
                                                 {{-- <th>Lead Number</th> --}}
@@ -152,28 +152,30 @@
                                                             <td>{{$branch[$i]['assig']}}</td>
                                                             <td>{{$branch[$i]['create_date']}}</td>
                                                             <td>
-                                                                <div class="row-12 form-inline">
-                                                                    <div class="col-md-6">
-                                                                        <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
-                                                                            <i class="far fa-eye"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-md-6 ">
-                                                                        <?php
-                                                                           if($branch[$i]["schedule_id"]!=null){
+                                                                <div class="container-fluid datatable-action-col">
+                                                                    <div class="row form-inline">
+                                                                        <div class="col-md-6">
+                                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
+                                                                                <i class="far fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-6 ">
+                                                                            <?php
+                                                                            if($branch[$i]["schedule_id"]!=null){
+                                                                                    ?>
+                                                                                        <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}"  value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                            <i class="fas fa-calendar-day"> </i>
+                                                                                        </button>
+                                                                                    <?php
+                                                                            }else {
                                                                                 ?>
-                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}"  value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
                                                                                         <i class="fas fa-calendar-day"> </i>
                                                                                     </button>
                                                                                 <?php
-                                                                           }else {
-                                                                              ?>
-                                                                                <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
-                                                                                    <i class="fas fa-calendar-day"> </i>
-                                                                                </button>
-                                                                              <?php
-                                                                           }
-                                                                        ?>
+                                                                            }
+                                                                            ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -311,7 +313,7 @@
                                  <div class="modal-footer justify-content-between">
                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                  {{-- <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_Crmbranchschdeule','/insertschedule','/lead','Insert  Schedule Successfully')">Create</button> --}}
-                                 <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/lead')">Create</button>
+                                 <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/schedule')">Create</button>
                              </div>
                             </form>
 
@@ -328,8 +330,9 @@
 
             $(function () {
                 $("#example1").DataTable({
-                "responsive": true,
+                // "responsive": true,
                 "autoWidth": false,
+                scrollX:true,
                 });
                 $('#example2').DataTable({
                 "paging": true,
