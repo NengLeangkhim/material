@@ -1,6 +1,15 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <style>
+                    th {
+                        font-size: 16px;
+                    }
+
+                    td {
+                        font-size: 14px;
+                    }
+                </style>
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -32,6 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    {{-- style="white-space: nowrap;" --}}
                                     <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap;">
                                         <thead>
                                             <tr style="background: #1fa8e0">
@@ -58,9 +68,13 @@
 
             $(function () {
                 t=$("#example1").DataTable({
-                scrollX:true,
+                "scrollX":true,
                 "autoWidth": false,
                 "serverSide": true,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true,
+                "info":false,
                 "ajax": "lead/datatable",
                 "columnDefs": [
                     {
@@ -92,7 +106,10 @@
                         "width": "100px",
                         "targets": 5,
                     },
-                ]
+                ],
+                "select":{
+                    "style":"multi"
+                }
                 });
             });
             $('.lead').click(function(e)

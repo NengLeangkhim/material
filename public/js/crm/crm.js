@@ -399,6 +399,9 @@ function CrmLeadBranchView(url,table){
             scrollX:true,
             "serverSide": true,
             "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false,
+            "paging": true,
             "ajax": "/crm/leadbranch/datatable/"+$status,
             "ordering": true,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {

@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_isp_form','crm_lead_isp_modal','ActionLeadISP','Add Lead Current ISP')" ​><i class="fas fa-plus"></i> Add Lead Current ISP</a>
 </div>
