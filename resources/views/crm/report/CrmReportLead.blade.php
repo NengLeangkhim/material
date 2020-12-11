@@ -16,6 +16,15 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid">
       <div class="row">
           <div class="col-12">
@@ -129,9 +138,9 @@
                             </div> --}}
                         {{-- </div><!--End Form Group--> --}}
 
-                        <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped" style="white-space: nowrap;">
-                                <thead>
+                        {{-- <div class="table-responsive" style="padding-top: 10px;"> --}}
+                            <table id="OrganizationTbl" class="display dataTable table table-bordered table-striped" style="white-space: nowrap;">
+                                {{-- <thead>
                                     <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
                                         <th style="color: #FFFFFF">No</th>
@@ -145,9 +154,9 @@
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">
-                                </tbody>
+                                </tbody> --}}
                             </table>
-                        </div>
+                        {{-- </div> --}}
                   </div><!--End Card Body-->
               </div><!--End Card-->
           </div><!--Col-12-->
@@ -155,7 +164,6 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
-
     $(document).ready(function() {
         $('.select2').select2();
     });
@@ -189,6 +197,7 @@
         })
     }
 
+    $(window).off("resize")
     $(document).ready(function(){
         setSelectOptionData('/api/leadsource','#select_source')
         setSelectOptionData('/api/leadassig','#select_assign_to')
@@ -219,23 +228,41 @@
                 success : function(response){
                     console.log(response.data);
                     if(response.success) {
-                        $.each(response.data, function(index, data){
-                            $('#lead-detail-body').append(`
-                                <tr>
-                                    <td style="display:none;"></td>
-                                    <td>${index+1}</td>
-                                    <td>${data.lead_number}</td>
-                                    <td>${data.branch_name_en}</td>
-                                    <td>${data.department_name_en}</td>
-                                    <td>${data.customer_name_en}</td>
-                                    <td>${data.priority}</td>
-                                    <td>${data.source_name_en}</td>
-                                    <td>${data.status_en}</td>
-                                </tr>
-                            `)
-                        })
+                        // $.each(response.data, function(index, data){
+                        //     $('#lead-detail-body').append(`
+                        //         <tr>
+                        //             <td style="display:none;"></td>
+                        //             <td>${index+1}</td>
+                        //             <td>${data.lead_number}</td>
+                        //             <td>${data.branch_name_en}</td>
+                        //             <td>${data.department_name_en}</td>
+                        //             <td>${data.customer_name_en}</td>
+                        //             <td>${data.priority}</td>
+                        //             <td>${data.source_name_en}</td>
+                        //             <td>${data.status_en}</td>
+                        //         </tr>
+                        //     `)
+                        // })
                         $('#OrganizationTbl').DataTable({
+                            data: response.data,
+                            header: false,
+                            columns : [
+                                {"data" : 1},
+                                {"data" : "lead_number"},
+                                {"data" : "branch_name_en"},
+                                {"data" : "department_name_en"},
+                                {"data" : "customer_name_en"},
+                                {"data" : "priority"},
+                                {"data" : "source_name_en"},
+                                {"data" : "status_en"},
+                            ],
                             'ordering': false,
+                            "scrollX":true,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },

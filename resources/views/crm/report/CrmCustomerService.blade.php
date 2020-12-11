@@ -185,6 +185,7 @@
             }
         })
     })
+
     $(document).ready(function(){
         // var url = '/api/crm/report/getTotalServicesInEachLeads'
         var url = '/crmreport/getCustomerService'
@@ -221,6 +222,12 @@
                         })
                         $('#CustomerServiceTbl').DataTable({
                             'ordering': false,
+                            "scrollX":true,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },

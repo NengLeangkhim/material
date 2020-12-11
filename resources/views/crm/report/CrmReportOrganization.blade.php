@@ -16,6 +16,15 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid">
       <div class="row">
           <div class="col-12">
@@ -191,7 +200,7 @@
             dataType : 'JSON'
         })
     }
-
+    $(window).off("resize")
     $(document).ready(function(){
         setSelectOptionData('/api/leadsource','#select_source')
         setSelectOptionData('/api/leadassig','#select_assign_to')
@@ -239,6 +248,12 @@
                         })
                         $('#OrganizationTbl3').DataTable({
                             'ordering': false,
+                            "scrollX":true,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },

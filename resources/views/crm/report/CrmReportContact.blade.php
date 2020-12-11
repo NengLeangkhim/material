@@ -16,6 +16,15 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid">
       <div class="row">
           <div class="col-12">
@@ -107,7 +116,7 @@
         format: 'YYYY-MM',
         sideBySide: true,
       });
-
+    $(window).off("resize")
     $(document).ready(function(){
         var url = '/api/crm/report/contactReportDetail'
 
@@ -147,6 +156,12 @@
                         })
                         $('#OrganizationTbl2').DataTable({
                             'ordering': false,
+                            "scrollX":true,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },
