@@ -762,7 +762,7 @@ class Crmlead extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and lb.crm_lead_id=$id");
+        where  lb.crm_lead_id=$id");
     }
     //get branch by lead id convert
     public static function getbranch_lead_convert($id){
