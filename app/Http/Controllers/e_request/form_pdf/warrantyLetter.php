@@ -59,7 +59,7 @@ class warrantyLetter extends Controller
             </div>
             <div class="lastrow_1">
                 <p>ធ្វើនៅថ្ងៃទី..............ខែ...............ឆ្នាំ២០...........<br>
-                <b>ស្នាមមេដៃស្តាំឬហត្ថលេខាសាមីខ្លួន</b></p>
+                <b>ស្នាមមេដៃស្តាំឬហត្ថលេខាសាមីខ្លួន &nbsp;&nbsp; </b></p>
             </div>
             <div class="footer_1" style="margin-top:20px;">
                 <p>ទម្រង់លិខិតធានាអះអាង​ &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  ​​&nbsp;  ​​&nbsp; &nbsp; &nbsp; &nbsp;​​&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  ​​&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
