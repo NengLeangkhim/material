@@ -603,9 +603,9 @@ class CrmReport extends Model
             $sql = '
                 SELECT
                 CASE possible WHEN TRUE THEN
-                        \'success\'
+                        \'possible\'
                     ELSE
-                        \'failure\'
+                        \'impossible\'
                 END AS status_en,
                 CASE possible WHEN TRUE THEN
                         \'ជោគជ័យ\'
