@@ -321,7 +321,7 @@ Route::get('RequestLetter','e_request\form_pdf\RequestLetter@RequestLetter');//
 Route::get('requestBuy','e_request\form_pdf\requestBuy@requestBuy');//
 Route::get('ExternalTrainingReportForm','e_request\form_pdf\ExternalTrainingReportForm@ExternalTrainingReportForm');//
 Route::get('WorkingPerformanceAppraisalForm','e_request\form_pdf\WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');//
-
+Route::get('working_performance_appraisal_form','e_request\form_pdf\working_performance_appraisal_form@working_performance_appraisal_form');
 //============reportPDF===========
 Route::get('certificate','Certificate@certificatePDF'); //certificate
 Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership

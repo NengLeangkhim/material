@@ -38,9 +38,9 @@ class WorkingPerformanceAppraisalForm extends Controller
                     <table style="margin-left:10px;">
                         <tr>
                             <td style="text-align:right;font-size:14px;padding:5px 85px;padding-right:10px;">ឈ្មោះ</td>
-                            <td style="text-align:right;font-size:14px;padding:5px 90px;">&nbsp;</td>
+                            <td style="text-align:right;font-size:14px;padding:5px 97px;">&nbsp;</td>
                             <td style="text-align:right;font-size:14px;padding-left:25px;padding-right:10px;padding:5px 0px;">តួនាទី</td>
-                            <td style="text-align:right;font-size:14px;padding:5px 90px;">&nbsp;</td>
+                            <td style="text-align:right;font-size:14px;padding:5px 97px;">&nbsp;</td>
                         </tr>
                         <tr>
                             <td style="text-align:right;font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;">កន្លែងបំពេញការងារ</td>
@@ -50,35 +50,35 @@ class WorkingPerformanceAppraisalForm extends Controller
                         </tr>
                         <tr>
                             <td style="text-align:right;font-size:14px;padding:5px 0%;padding-left:10px;">រយៈពេលវាយតម្លៃ</td>
-                            <td style="font-size:14px;padding:5px 0%;padding-left:10px;border-right: none;">ពីរ៖</td>
-                            <td style="text-align:center;font-size:14px;padding-left:10px;padding-right:10px;">ដល់៖</td>
-                            <td>&nbsp;</td>
+                            <td colspan="3" style="text-align:left;font-size:14px;padding:5px 0%;padding-left:10px;">
+                                <p> 
+                                    ពី៖ 
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <span>ដល់៖</span>
+                                </p>                                
+                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;">ប្រភេទនៃការវាយតម្លៃ៖</td>
+                            <td colspan="4" style="font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;padding-bottom:10px;">ប្រភេទនៃការវាយតម្លៃ៖<br><br>
+                            <p><input type="checkbox"> វាយតម្លៃការងារសាកល្បង &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                            <span><input type="checkbox"> វាយតម្លៃការងារប្រចាំឆ្នាំ</span></p><br>
+                            <p><input type="checkbox"> វាយតម្លៃពិសេស (មុខឬក្រោយកាលកំណត់)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                            <span><input type="checkbox"> វាយតម្លៃហ្វឹកហាត់ការងារ</span></p></td>
 
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;"><input type="checkbox">វាយតម្លៃការងារសាកល្បង</td>
-                            <td colspan="2" style="font-size:14px;padding:5px 0%;padding-left:100px;padding-right:10px;"><input type="checkbox">វាយតម្លៃការងារប្រចាំឆ្នាំ</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;padding-bottom:25px;"><input type="checkbox">វាយតម្លៃពិសេស (មុខឬក្រោយកាលកំណត់)</td>
-                            <td colspan="2" style="font-size:14px;padding-left:100px;padding-right:10px;padding-bottom:25px;"><input type="checkbox">វាយតម្លៃហ្វឹកហាត់ការងារ</td>
                         </tr>
                         <tr>
                             <td style="text-align:right;font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;">អ្នកគ្រប់គ្រងផ្ទាល់</td>
                             <td>&nbsp;</td>
-                            <td style="text-align:right;font-size:14px;padding:5px 0%;padding-left:10px;padding-right:10px;">កម្រិតវប្បធម៌</td>
+                            <td style="text-align:center;font-size:14px;padding:5px 0%;padding-left:7px;">កម្រិតវប្បធម៌</td>
                             <td>&nbsp;</td>
                         </tr>
                     </table>
                 </tbody>
                 <div>
 
-                    <p style="font-size:15px;margin-top:-1px;"><b>ផ្នែកទី១៖ សំណួរពិភាក្សា</b></p><br>
+                    <p style="font-size:15px;"><b>ផ្នែកទី១៖ សំណួរពិភាក្សា</b></p><br>
 
-                <div style="margin-left:10px;margin-top:-40px;">
+                <div style="margin-left:10px;margin-top:-35px;">
                     <table >
                         <tr>
                             <td style="padding:5px 0%;padding-right:150px;padding-left:10px;font-size:14px;"><i>១.១ ចូរបញ្ជាក់ពីការយល់ដឹងក្នុងតួនាទី និង ភារកិច្ចសំខាន់ៗរបស់អ្នក</i></td>
@@ -104,6 +104,17 @@ class WorkingPerformanceAppraisalForm extends Controller
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
+                            </td>
+                        </tr>
+                        </table>
+                            <div class="footer22" style="margin-top:-230px;margin-right:-10px;">
+                                <p>&nbsp;ទម្រង់វាយតម្លៃបុគ្គលិក &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                TT-HRAD-EPA-FM-000-00</p>
+                            </div>
+                        <table>
+                        <tr>
+                            <td style="padding:15px 10px;"> 
+                                
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
@@ -142,12 +153,23 @@ class WorkingPerformanceAppraisalForm extends Controller
                         </tr>
                         <tr>
                             <td style="padding:5px 0%;padding-left:10px;font-size:14px;"><i>១.៥ តើអ្នកគិតថាអ្នកគួរតែកែលម្អ ឬអភិវត្ឍខ្លួនឯកអ្វីខ្លះទៀត ដើម្បីអាចបំពេញការងារបានប្រសើរជាងឆ្នាំកន្លងទៅ?</i></td>
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td style="padding:15px 10px;">
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
-                                <p style="">...................................................................................................................................................</p><br>
+                                 <p style="">...................................................................................................................................................</p><br>                        
+                            </td>
+                        </tr>
+                        </table>
+                            <div class="footer22" style="margin-top:-230px;margin-right:-10px;">
+                                <p>&nbsp;ទម្រង់វាយតម្លៃបុគ្គលិក &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                TT-HRAD-EPA-FM-001-00</p>
+                            </div>
+                        <table>
+                        <tr>
+                            <td style="padding:15px 10px;">
+                               
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
                                 <p style="">...................................................................................................................................................</p><br>
@@ -157,7 +179,7 @@ class WorkingPerformanceAppraisalForm extends Controller
                         </tr>
                     </table>
                 </div>
-                <p style="margin-top:-2px;font-size:15px;"><b>ផ្នែកទី២៖ ពិន្ទុលទ្ធផលការងារ</b></p><br>
+                <p style="margin-top:-1px;font-size:15px;"><b>ផ្នែកទី២៖ ពិន្ទុលទ្ធផលការងារ</b></p><br>
                 <p style="margin-top:-40px;font-size:15px;"><b>ចំណុចទី១៖ ផ្នែកប្រតិបត្តិការ</b></p><br>
                 <div style="margin-left:10px;">
                     <table style="margin-top:-40px;">
@@ -288,6 +310,25 @@ class WorkingPerformanceAppraisalForm extends Controller
                             <td></td>
                             <td></td>
                         </tr>
+                    </table>
+                        <div class="footer22" style="margin-top:-220px;margin-right:-10px;">
+                            <p>&nbsp;ទម្រង់វាយតម្លៃបុគ្គលិក &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            TT-HRAD-EPA-FM-001-00</p>
+                        </div>
+                    <table>
+                        <tr>
+                            <td rowspan="2" style="font-size:14px;padding:5px 3px;">លរ​ </td>
+                            <td rowspan="2" style="font-size:14px;padding:5px 10px;text-align:center;width:42%;">ចំណុចដែលត្រូវវាយតម្លៃ</td>
+                            <td rowspan="1" style="font-size:14px;text-align:center;padding:5px 10px;">ពិន្ទុ</td>
+                            <td rowspan="1" colspan="2" style="font-size:14px;text-align:center;padding-left:10px;">ពិន្ទុ</td>
+                            <td rowspan="2" colspan="1" style="font-size:14px;text-align:center;padding:5px 15px;">មូលវិចារ</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:14px;padding:5px 10px;text-align:center;">អតិបរមា</td>
+                            <td style="font-size:14px;padding:5px 0px;text-align:center;">សាមីខ្លួន</td>
+                            <td style="font-size:14px;padding:5px 9px;text-align:center;">អ្នកវាយតម្លៃ</td>
+
+                        </tr>
                         <tr>
                             <td  style="font-size:14px;padding:5px 10px;">៤</td>
                             <td style="font-size:14px;padding:5px 10px;">​
@@ -297,8 +338,8 @@ class WorkingPerformanceAppraisalForm extends Controller
                                     ៤.៣​ រក្សាបាននូវព័ត៌មានសម្ងាត់របស់ក្រុមហ៊ុន<br>
                             </td>
                             <td style="text-align:center;font-size:14px;">២០</td>
-                            <td></td>
-                            <td></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td  style="font-size:14px;padding:5px 10px;">៥</td>
@@ -308,8 +349,8 @@ class WorkingPerformanceAppraisalForm extends Controller
                                     ៥.២​ ភាពទៀងទាត់នៃពេលវេលា<br>
                             </td>
                             <td style="text-align:center;font-size:14px;">១០</td>
-                            <td></td>
-                            <td></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                             <tr>
                             <td  style="font-size:14px;padding:5px 10px;">៦</td>
@@ -324,21 +365,20 @@ class WorkingPerformanceAppraisalForm extends Controller
                                     ៦.៧ មានគំនិតច្នៃប្រឌិតខ្ពស់ក្នុងការគ្រប់គ្រង
                             </td>
                             <td style="text-align:center;font-size:14px;">២០</td>
-                            <td></td>
-                            <td></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align:center;font-size:14px;padding:5px 10px;"><b>លទ្ធផលរួម</td>
                             <td style="text-align:center;font-size:14px;">១០០</td>
-                            <td></td>
-                            <td></td>
-
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>                   
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align:center;font-size:14px;padding:5px 10px;"><b>សរុប</td>
-                            <td></td>
-                            <td​></td>
-                            <td colspan="2"​ style="background-color:#ffc85c;"></td>
+                            <td>&nbsp;</td>
+                            <td​>&nbsp;</td>                        
+                            <td colspan="2"​ style="background-color:#ffc85c;">&nbsp;</td>
                         </tr>
                     </table>
                 </div>
@@ -371,7 +411,7 @@ class WorkingPerformanceAppraisalForm extends Controller
                             <td style="background-color:#ffc85c;text-align:center;">៣០%</td>
                             <td></td>
                             <td></td>
-                            <td></td>
+               
                         </tr>
                         <tr>
                             <td colspan="3" style="font-size:14px;padding:5px 10px;text-align:center;"><b>សរុប</td>
@@ -381,9 +421,9 @@ class WorkingPerformanceAppraisalForm extends Controller
                         </tr>
                     </table>
                 </div>
-                <div class="footer22" style="margin-top:-80px;">
+                <div class="footer22" style="margin-top:-20px;">
                     <p>&nbsp;ទម្រង់វាយតម្លៃបុគ្គលិក &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    TT-HRAD-STDP-FM-000-00</p>
+                    TT-HRAD-EPA-FM-001-00</p>
                 </div>
                 <p style="margin-top:-1px;font-size:15px;"><b>ផ្នែកទី៤៖ មតិយោបល់</b></p><br>
                 <div style="margin-left:10px;">
@@ -425,9 +465,9 @@ class WorkingPerformanceAppraisalForm extends Controller
 
                     </table>
                 </div>
-                <div class="footer22" style="">
+                <div class="footer22" style="margin-top:180px;">
                     <p>&nbsp;ទម្រង់វាយតម្លៃបុគ្គលិក &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    TT-HRAD-STDP-FM-000-00</p>
+                    TT-HRAD-EPA-FM-001-00</p>
                 </div>
             </div>
         </body>
