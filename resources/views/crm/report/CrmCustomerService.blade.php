@@ -160,11 +160,11 @@
 </section><!-- end section Main content -->
 <script>
     $('#CustomerServiceFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
     $('#CustomerServiceTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
     $('#select_source').ready(function(){
@@ -222,9 +222,9 @@
                         })
                         $('#CustomerServiceTbl').DataTable({
                             'ordering': false,
-                            "scrollX":true,
                             "autoWidth": false,
                             "serverSide": false,
+                            "scrollX":true,
                             "scrollY": "400px",
                             "scrollCollapse": false,
                             "paging": true

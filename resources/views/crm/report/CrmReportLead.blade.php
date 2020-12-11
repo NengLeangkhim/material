@@ -140,7 +140,7 @@
 
                         {{-- <div class="table-responsive" style="padding-top: 10px;"> --}}
                             <table id="OrganizationTbl" class="display dataTable table table-bordered table-striped" style="white-space: nowrap;">
-                                {{-- <thead>
+                                <thead>
                                     <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
                                         <th style="color: #FFFFFF">No</th>
@@ -154,7 +154,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">
-                                </tbody> --}}
+                                </tbody>
                             </table>
                         {{-- </div> --}}
                   </div><!--End Card Body-->
@@ -226,36 +226,36 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
-                    console.log(response.data);
+                    // console.log(response.data);
                     if(response.success) {
-                        // $.each(response.data, function(index, data){
-                        //     $('#lead-detail-body').append(`
-                        //         <tr>
-                        //             <td style="display:none;"></td>
-                        //             <td>${index+1}</td>
-                        //             <td>${data.lead_number}</td>
-                        //             <td>${data.branch_name_en}</td>
-                        //             <td>${data.department_name_en}</td>
-                        //             <td>${data.customer_name_en}</td>
-                        //             <td>${data.priority}</td>
-                        //             <td>${data.source_name_en}</td>
-                        //             <td>${data.status_en}</td>
-                        //         </tr>
-                        //     `)
-                        // })
+                        $.each(response.data, function(index, data){
+                            $('#lead-detail-body').append(`
+                                <tr>
+                                    <td style="display:none;"></td>
+                                    <td>${index+1}</td>
+                                    <td>${data.lead_number}</td>
+                                    <td>${data.branch_name_en}</td>
+                                    <td>${data.department_name_en}</td>
+                                    <td>${data.customer_name_en}</td>
+                                    <td>${data.priority}</td>
+                                    <td>${data.source_name_en}</td>
+                                    <td>${data.status_en}</td>
+                                </tr>
+                            `)
+                        })
                         $('#OrganizationTbl').DataTable({
-                            data: response.data,
-                            header: false,
-                            columns : [
-                                {"data" : 1},
-                                {"data" : "lead_number"},
-                                {"data" : "branch_name_en"},
-                                {"data" : "department_name_en"},
-                                {"data" : "customer_name_en"},
-                                {"data" : "priority"},
-                                {"data" : "source_name_en"},
-                                {"data" : "status_en"},
-                            ],
+                            // data: response.data,
+                            // header: false,
+                            // columns : [
+                            //     {"data" : 1},
+                            //     {"data" : "lead_number"},
+                            //     {"data" : "branch_name_en"},
+                            //     {"data" : "department_name_en"},
+                            //     {"data" : "customer_name_en"},
+                            //     {"data" : "priority"},
+                            //     {"data" : "source_name_en"},
+                            //     {"data" : "status_en"},
+                            // ],
                             'ordering': false,
                             "scrollX":true,
                             "autoWidth": false,
