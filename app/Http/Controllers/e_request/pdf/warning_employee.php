@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class warning_employee extends Controller
@@ -27,7 +28,7 @@ class warning_employee extends Controller
                             <h1 style=" font-size: 19px; margin-top: 0;">TURBOTECH CO., LTD</h1>
                         </div> 
                         <div class="heading">
-                            <h3 class="center_heading">ប្រធានគណៈកម្មាធិការធនធានមនុស្ស<br>ជម្រាបជូនមក</h3>
+                            <h3 class="center">ប្រធានគណៈកម្មាធិការធនធានមនុស្ស<br>ជម្រាបជូនមក</h3>
                             <p style="text-indent: 80px;">កម្មករ-និយោជិកឈ្មោះ.......................................................អត្តសញ្ញាប័ណ្ឌការងារលេខ...............................មុខងារជា...........................................បម្រើការងារនៅ.....................................................នៃក្រុមហ៊ុន ធើបូថេក ឯ.ក ។</p>
                         </div>
                         <table class="warning_employee">
@@ -44,7 +45,8 @@ class warning_employee extends Controller
                         </table>
                         <div class="heading">
                             <p style="text-indent: 80px;">តបតាមកម្មវត្តុ និងយោងខាងលើ ក្នុងនាមខ្ញុំជា <span style="font-size: 16px; font-weight: bold;">ប្រធានគណៈកម្មាធិកាធនធានមនុស្ស</span> សូមធ្វើការប្រមានដល់កម្មករ-និយោជិកមានឈ្មោះខាងលើ ចំពោះទង្វើខុសឆ្គងមួយចំនួនដូចខាងក្រោម៖</p>
-                            <table style="width: 100%; text-align: left; border:none;">
+                            
+                            <table class="warning_employee" style="width: 100%; text-align: left;">
                                 <tbody>
                                     <tr>
                                         <td style="width: 14%; border: none;"></td>
@@ -102,7 +104,7 @@ class warning_employee extends Controller
                             <p>-&nbsp; &nbsp;ឯកសារ-កាលប្បវត្តិ</p>
                         </div>
                         
-                        <div class="footer" style="margin-top: 35px;">
+                        <div class="footer" style="margin-top: -5px;">
                             <p​>&nbsp;&nbsp;ទម្រង់របាយការណ៍ត្អូញត្អែរ(Staff Complaint Report) &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TT-HRAD-SCPP-FM-003-00</p>
                         </div>
                     </div>                        

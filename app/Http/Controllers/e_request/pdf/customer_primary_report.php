@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class customer_primary_report extends Controller
@@ -18,10 +19,10 @@ class customer_primary_report extends Controller
             <table style="border: none !important; width:100%;">
                 <tr style="border: none !important;">
                     <td style="width: 25%; border: none !important;">
-                    <td style="width: 20%;border: none !important; padding-left:2rem;">
+                    <td style="width: 20%;border: none !important;">
                         <img style="width: 175px;" src="images/turbotech.png">
                     </td>
-                    <td style="width:30%;border: none !important;line-height: 2rem;">
+                    <td style="width:30%;border: none !important; line-height: 50px;">
                         <h1 style="font-size: 25px; color:#1fa8e0;">ក្រុមហ៊ុនធើបូថេក   ឯ.ក</h1>
                         <h1 style="font-size: 19px;color:#1fa8e0;">TURBOTECH CO., LTD</h1>
                     </td>
@@ -30,7 +31,7 @@ class customer_primary_report extends Controller
                 </tr>
             </table>
             <div class="heading">
-                <h3 class="center_heading">របាយការណ៍អតិថិជនបឋម</h3>
+                <h3 class="center">របាយការណ៍អតិថិជនបឋម</h3>
             </div>
 
 

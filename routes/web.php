@@ -312,27 +312,28 @@ Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWo
 Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
 Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
 //============reportPDF===========
-Route::get('certificate','Certificate@certificatePDF'); //certificate
-Route::get('expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
-Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
-Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
-Route::get('commission','calculate_price_commission@commissionPDF'); //Commission
-Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
-Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
-Route::get('customer_primary_report','customer_primary_report@customer_reportPDF'); //customer_primary_report
-Route::get('staff_complaint','staff_complaint_report@staff_complaintPDF'); //staff_complaint_report
-Route::get('warning_employee','warning_employee@warning_employeePDF'); //staff_complaint_report
-Route::get('change_history','change_history@change_historyPDF'); //change_history
-Route::get('meeting_note','meeting_note@meeting_notePDF'); //meeting_note
-Route::get('staff_note','staff_note@staff_notePDF'); //staff_note
-Route::get('training_staff_note','training_staff_note@training_staff_notePDF'); //training_staff_note
-Route::get('survey_staff_exit','survey_staff_exit@survey_staff_exitPDF'); //survey_staff_exit
-Route::get('training_need_analysis','training_need_analysis@training_need_analysisPDF'); //survey_staff_exit
+Route::get('certificate','e_request\pdf\Certificate@certificatePDF'); //certificate
+Route::get('expried_intership','e_request\pdf\Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('mistake','e_request\pdf\mistake_form@mistakePDF'); //Mistake_form
+Route::get('spend_eating','e_request\pdf\spend_eating_form@spend_eatingPDF'); //Mistake_form
+Route::get('commission','e_request\pdf\calculate_price_commission@commissionPDF'); //Commission
+Route::get('training_checking_list','e_request\pdf\training_checking_list@report_trainingPDF'); //training_check_list
+Route::get('training_request_proposal','e_request\pdf\training_request_proposal@training_requestPDF'); //training_request_proposal
+Route::get('customer_primary_report','e_request\pdf\customer_primary_report@customer_reportPDF'); //customer_primary_report
+Route::get('staff_complaint','e_request\pdf\staff_complaint_report@staff_complaintPDF'); //staff_complaint_report
+Route::get('warning_employee','e_request\pdf\warning_employee@warning_employeePDF'); //staff_complaint_report
+Route::get('change_history','e_request\pdf\change_history@change_historyPDF'); //change_history
+Route::get('meeting_note','e_request\pdf\meeting_note@meeting_notePDF'); //meeting_note
+Route::get('staff_note','e_request\pdf\staff_note@staff_notePDF'); //staff_note
+Route::get('training_staff_note','e_request\pdf\training_staff_note@training_staff_notePDF'); //training_staff_note
+Route::get('survey_staff_exit','e_request\pdf\survey_staff_exit@survey_staff_exitPDF'); //survey_staff_exit
+Route::get('training_need_analysis','e_request\pdf\training_need_analysis@training_need_analysisPDF'); //training_need_analysis
 Route::get('new_staff','e_request\pdf\new_staff@new_staffPDF'); //new_staff
 Route::get('personal_file_check_list','e_request\pdf\personal_file_check_list@personal_file_check_listPDF'); //personal_file_check_list
+Route::get('font_standard','e_request\pdf\font_standard@font_standardPDF'); //font_standard
 
 
-Route::get('annual_training_calendar','annual_training_calendar@annual_training_calendarPDF'); //annual_training_calendar
+Route::get('annual_training_calendar','e_request\pdf\annual_training_calendar@annual_training_calendarPDF'); //annual_training_calendar
 
 //=======================E-request==========================
 

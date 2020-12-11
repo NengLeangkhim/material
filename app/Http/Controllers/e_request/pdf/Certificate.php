@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -17,7 +18,7 @@ class Certificate extends Controller{
             </head>
             <body>
                 <div class="certificate" style=" margin-left: 1cm; margin-right: 1cm;">
-                    <div class="certificate_date" style="margin-top: 3.5cm;">
+                    <div class="certificate_date" style="margin-top: 3.5cm; padding-bottom: 80px;">
                         <p>Date:......./......./.......</p>
                     </div>
                     <div class="certificate_heading">
@@ -31,7 +32,7 @@ class Certificate extends Controller{
                     </div>
                     <div class="certificate_signature" style="float: left; margin-top: 100px; margin-buttom: 2cm;">
                         <hr>
-                        <h3>CHHUN SOPHEARAK</h3>
+                        <h3 style="padding-bottom: 20px;">CHHUN SOPHEARAK</h3>
                         <h3>CHIEF EXECUTIVE OFFICER</h3>
                     </div>
                 </div>

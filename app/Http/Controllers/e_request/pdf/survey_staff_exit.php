@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class survey_staff_exit extends Controller
@@ -25,7 +26,7 @@ class survey_staff_exit extends Controller
                     </div>
                 </div>
                 <div class="heading">
-                    <h3 class="center_heading">ការស្ទាបស្ទង់មតិកម្មករ-និយោជិកចាកចេញ</h3>
+                    <h3 class="center">ការស្ទាបស្ទង់មតិកម្មករ-និយោជិកចាកចេញ</h3>
                     <p style="line-height: 22px;">នាយកដ្ឋានធនធានមនុស្ស និង រដ្ឋបាល នៃ <b>ក្រុមហ៊ុន ធើបូថេក ឯ.ក</b> សូមថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅ<br>ចំពោះកម្មករ-និយោជិក ដែលបានចំណាយកម្លាំងកាយ ចិត្ត និងប្រាជ្ញាស្មារតី បំពេញការងារជូនធើបូថេកកន្លងមក។ ដើម្បីទទួលបានព័ត៌មានត្រឡប់ជាក់ស្ដែងនៃការចាកចេញរបស់អ្នកពីធើបូថេក ក្នុងគោលបំណងប្រមូលព័ត៌មានទាំងនោះមកកែលម្អធើបូថេក ទៅថ្ងៃមុខ សូមកម្មករ-និយោជិកមេត្តាចំណាយពេលបំពេញកម្រងសំណួរខាងក្រោមនេះ៖</p>
                     <h3 style="font-size: 16px;">១.ព័ត៌មានកម្មករ-និយោជិក</h3>
                 </div>

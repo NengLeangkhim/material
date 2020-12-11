@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class mistake_form extends Controller
@@ -27,7 +28,7 @@ class mistake_form extends Controller
                         <h1 style=" font-size: 19px; margin-top: 0;">TURBOTECH CO., LTD</h1>
                     </div> 
                     <div class="heading">
-                        <h3 class="center_heading">កិច្ចសន្យាទទួលស្គាល់កំហុស</h3>
+                        <h3 class="center">កិច្ចសន្យាទទួលស្គាល់កំហុស</h3>
                     </div>
                     <div class="p_text">
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ខ្ញុំបាទ/នាងខ្ញុំ...........................................................................................សញ្ជាតិ...................ភេទ.............

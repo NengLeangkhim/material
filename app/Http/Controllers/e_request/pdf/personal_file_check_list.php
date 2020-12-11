@@ -12,7 +12,7 @@ class personal_file_check_list extends Controller
     {
     	$html='<html>
             <head>
-                <title>E-Request Staff note</title>
+                <title>E-Request Pernonal File Check List</title>
                 <link rel="stylesheet" href="css/e_request/form_main.css">
             </head>
             <body>

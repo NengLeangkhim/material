@@ -1,3 +1,11 @@
+.w-50{width: 50% !important;}
+.mg-left-10{margin-left: 10px !important;}
+.mg-t-20{margin-top: 20px;}
+.pdd-l-10{padding-left: 10px !important;}
+.pdd-l-20{padding-left: 20px !important;}
+.pdd-r-10{padding-right: 10px !important;}
+.pdd-r-100{padding-right: 100px !important;}
+.pdd-t-50{padding-top: 50px !important;}
 .conatainer{
     max-width: 1148px;
 }
@@ -47,6 +55,14 @@
     height: 25px;
 }
 /* /.expried_intership */
+
+/* complaint_report */
+
+.complaint_report{
+    width: 100%;
+    font-size: 15px;
+    border: none;
+}
 
 /* mistake_form */
 
@@ -122,6 +138,18 @@ th, td {
 thead tr th{
     height: 60px;
 }
+.spend_eating{
+    width: 100%;
+    text-align: center;
+    height: 35px;
+    
+}
+.spend_eating tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 15px;
+}
 .footer_eating{
     border-top: 2px solid #1fa8e0;
     margin-top: 110px;
@@ -130,27 +158,60 @@ thead tr th{
 /* /spend_eating_form */
 
 /* /report_calculate_commission */
+.commission{
+    border: 1px solid black;
+    border-collapse: collapse;
+    height: 35px;
+    text-align: center;
+    width: 100%;
+}
+.commission tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    height: 35px;
+    text-align: center;
+}
+.commission_footer{
+    width: 100%;
+    border: none;
+}
 .commission_footer tr td{
     border: none;
-    width: 400px;
+    font-size: 14px;
+    text-align: center;
+
 }
-.footer_commission{
+
+/* .footer_commission{
     border-top: 2px solid black;
+    border-collapse: collapse;
     margin-top: 150px;
-}
+} */
 
 
 /* training_checking_list*/
-.staff_training_info tr td{
-    width: 400px;
-    height: 35px;
+.training_checking_list_staff{
+    width: 100%;
+}
+.training_checking_list_staff tr td{
+    height: 30px;
+    border: 1px solid black;
+    border-collapse: collapse;
     text-align: left;
     
 }
-.training_info tr td{
-    width: 200px;
-    height: 35px;
+.training_checking_list{
+    width: 100%;
     text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.training_checking_list tr td{
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid black;
+    border-collapse: collapse;
 } 
 .footer_training{
     border-top: 2px solid #1fa8e0;
@@ -162,13 +223,20 @@ thead tr th{
     height: 30px;
     width: 450px;
     text-align: right;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 .staff_training_request tr td{
-    height: 35px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    height: 30px;
     text-align: center;
+    
 }
 .staff_training_request{
     width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 .pdd-top-10px{
@@ -201,7 +269,7 @@ thead tr th{
 
 
 
-/* change_history */
+/* warning_employee */
 
 .copy_to p{
     font-size: 13px;
@@ -209,25 +277,36 @@ thead tr th{
 }
 .warning_employee tr,td{
     border: none;
-    padding: 0;
-    height: 35px;
+    height: 30px;
 }
 .warning_employee{
     width: 100%; 
     text-align: left;
     border:none;
 }
+
+/* change_history */
+
+.change_history_header{
+    border-bottom: 2px solid #1fa8e0;
+    font-size: 10px !important;
+}
+
+.change_history_table{
+    width: 100%; 
+    text-align: center; 
+}
 .change_history_table th,td{
     padding: 0;
     text-align: center;
-    height: 35px;
+    
     font-weight: normal;
 }
 
 /* meetting_note */
+
 .heading_text p{
     font-size: 15px;
-    text-indent: 80px;
 }
 .meeting_join_name tr,td{
     text-align: left;
@@ -331,6 +410,7 @@ thead tr th{
     width: 100%;
     border: 1px solid black;
     border-collapse: collapse;
+    
 }
 .training_analysis_staff_info tr td{
     border: 1px solid black;
@@ -352,7 +432,7 @@ thead tr th{
     padding-left: 10px;
 }
 .training_analysis_heading{
-    text-indent: 40px;
+    text-indent: 10px;
 }
 
 
@@ -378,8 +458,12 @@ thead tr th{
 
 
 /* personal_file_check_list */
-pdd-l-10{padding-left: 10px;}
-mg-0{margin: 0 !important;}
+.w-50{width: 50% !important;}
+.mg-left-10{margin-left: 10px !important;}
+.pdd-l-10{padding-left: 10px !important;}
+.pdd-l-20{padding-left: 20px !important;}
+.pdd-r-10{padding-right: 10px !important;}
+.pdd-r-100{padding-right: 100px !important;}
 
 .personal_file_check_list{
     border: 5px solid #4a6594;
@@ -402,5 +486,19 @@ mg-0{margin: 0 !important;}
     width: 200px;
     border: 2px solid black;
     padding: 5px;
+}
+
+/* font standard */
+.font_standard{
+    width: 100%;
+    border: none;
+}
+.font_standard tr td{
+    border: none;
+    font-size: 15px;
+    line-height: 25px;
+}
+.meeting_note{
+    line-height: 25px;
 }
 

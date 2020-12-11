@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class training_need_analysis extends Controller
@@ -17,7 +18,7 @@ class training_need_analysis extends Controller
             <body>
                 <div class="mistake_header">
                     <div class="logo" style="margin-left:20px;">
-                        <img style="width: 150px; height: 100px;margin-top:-10px;" src="images/turbotech.png">
+                        <img style="width: 180px; margin-top:-10px;" src="images/turbotech.png">
                     </div>
                     <div class="namecompany" style="text-align:center;margin-top:-117px;">
                         <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក   ឯ.ក</h1>
@@ -25,33 +26,35 @@ class training_need_analysis extends Controller
                     </div>
                 </div>
                 <div class="heading">
-                    <h3 class="center_heading">តារាងស្ទង់មតិតម្រូវការការសិក្សារបស់បុគ្គលិក</h3>
+                    <h3 class="center">តារាងស្ទង់មតិតម្រូវការការសិក្សារបស់បុគ្គលិក</h3>
                     <h3 style="font-size: 16px;">១.អំពីបុគ្គលិក</h3>
                 </div>
-                <table class="training_analysis_staff_info">
+                <table class="training_analysis_staff_info" style="margin-left: 20px; margin-right: 20px;">
                     <tbody>
                         <tr>
                             <td style="width: 50%;">ឈ្មោះ៖ <span>.........................................................</span></td>
-                            <td style="width: 50%;">ភេទ៖ <span>....................................................................</span></td>
+                            <td style="width: 50%;">ភេទ៖ <span>................................................................</span></td>
                         </tr>          
                         <tr>
                             <td style="width: 50%;">តួ​នាទី៖ <span>..........................................................</span></td>
-                            <td style="width: 50%;">នាយកដ្ឋាន៖ <span>..........................................................</span></td>
+                            <td style="width: 50%;">នាយកដ្ឋាន៖ <span>.......................................................</span></td>
                         </tr>          
                         <tr>
                             <td style="width: 50%;">កាលបរិច្ឆេទចូលបម្រើតួនាទីបច្ចុប្បន្ន</td>
-                            <td style="width: 50%;">..............................................................................</td>
+                            <td style="width: 50%;">..........................................................................</td>
                         </tr>          
                         <tr>
                             <td style="width: 50%;">កាលបរិច្ឆេទចូលបម្រើការងារដំបូង</td>
-                            <td style="width: 50%;">..............................................................................</td>
+                            <td style="width: 50%;">..........................................................................</td>
                         </tr>          
                     </tbody>
                 </table>
-                <div class="training_analysis_heading">
+                <div class="heading">
                     <h3 style="font-size: 16px;">២.ការជ្រើសរើស</h3>
+                </div>
+                <div class="training_analysis_heading">
                     <p​>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;សូមជ្រើសរើសប្រធានបទ &nbsp;ឫ &nbsp;ជំនាញណាមួយដែលអ្នកគិតថាសក្តិសមបំផុតសម្រាប់អ្នក &nbsp;ជាពិសេសលើការងារប្រចាំថ្ងៃរបស់អ្នក។ &nbsp; សូមជ្រើសរើសដោយការគូស &nbsp;TICK &nbsp;ពីលេខ១ដល់លេខ៥ ដែលលេខ១មាន<br>ន័យថាមិនសូវចាំបាច់ និងលេខ៥ ចាំបាច់បំផុត។</p>
-                    <h3 class="center_heading">សូមជ្រើសរើសប្រធានបទប្រាំក្នុង ចំណោមប្រធានបទខាងក្រោម៖</h3>
+                    <h3 class="center">សូមជ្រើសរើសប្រធានបទប្រាំក្នុង ចំណោមប្រធានបទខាងក្រោម៖</h3>
                 </div>
                 <table class="training_analysis">
                     <tbody>
