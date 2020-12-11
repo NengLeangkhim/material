@@ -19,38 +19,14 @@
 @endphp
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-md-3">
-                <h4><i class="fas fa-edit"></i> Update Purchase</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fas fa-edit"></i> Update Purchase</h1>
             </div>
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-building"></i></span>
-                            </div>
-                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id" {{$display}}>
-                                @if (count($account_payables) > 0)
-                                    @foreach ($account_payables as $account_payable)
-                                        <option 
-                                            @if ($purchase->chart_account_id == $account_payable->id)
-                                                selected
-                                            @endif
-                                            value="{{$account_payable->id}}">{{$account_payable->name_en}}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
                 <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
                     <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Puechase</li>
                 </ol>
@@ -63,11 +39,70 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <form id="frm_chart_account" action="">
+                {{-- <form id="frm_chart_account" action=""> --}}
                     @csrf
                     <!-- general form elements -->
                     <div class="card card-primary">
+                        <div class="card-header" style="background:#1fa8e0">
+                            <h3 class="card-title">Purchase Detail</h3>
+                        </div>
                         <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                            </div>
+                                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id" {{$display}}>
+                                                @if (count($account_payables) > 0)
+                                                    @foreach ($account_payables as $account_payable)
+                                                        <option 
+                                                            @if ($purchase->chart_account_id == $account_payable->id)
+                                                                selected
+                                                            @endif
+                                                            value="{{$account_payable->id}}">{{$account_payable->name_en}}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Choose Vat Chart Account <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                            </div>
+                                            
+                                            <select class="form-control select2 input_required" name="purchase_chart_vat_acc" id="purchase_chart_vat_acc" {{$display}}>
+                                                <option selected hidden disabled>select item</option>
+                                                
+                                                @if (count($show_vat_chart_accounts) > 0)
+                                                    @foreach ($show_vat_chart_accounts as $show_vat_chart_account)
+                                                        <option value="" disabled>{{$show_vat_chart_account->bsc_account_type_name}}</option>
+                                                        @php
+                                                            $sub_chart_acc = $show_vat_chart_account->vat_input_chart_accounts;
+                                                        @endphp
+                                                        @if ($sub_chart_acc != null)
+                                                            @foreach ($sub_chart_acc as $chart_acc)
+                                                                <option 
+                                                                    @if ($chart_acc->id == $purchase->vat_input_account_charts_id)
+                                                                        selected
+                                                                    @endif
+                                                                    value="{{$chart_acc->id}}">&nbsp;&nbsp;&nbsp;{{$chart_acc->name_en}}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -148,11 +183,11 @@
                                             <tr>
                                                 <th style="min-width: 165px;">Item</th>
                                                 <th style="min-width: 150px;">Description</th>
-                                                <th style="min-width: 65px;">Quantity</th>
+                                                <th style="min-width: 160px;" colspan="2">Quantity</th>
                                                 <th style="min-width: 80px;">Unit Price</th>
                                                 <th style="min-width: 120px;">Account</th>
-                                                <th hidden style="min-width: 90px;">Tax</th>
-                                                <th style="min-width: 125px;">Amount</th>
+                                                <th style="min-width: 100px;">Tax</th>
+                                                <th style="min-width: 125px;max-width:125px;">Amount</th>
                                                 <th {{$remove_btn}}></th>
                                             </tr>
                                         </thead>
@@ -181,12 +216,13 @@
                                                         </td>
 
                                                         <td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des">{{$p_detail->description}}</td>
-                                                        <td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="return (this.innerText.length < 5)">{{$p_detail->qty}}</td>
+                                                        <td style="max-width: 160px;border-right-style: hidden;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="return (this.innerText.length < 5)">{{$p_detail->qty}} </td>
+                                                        <td style="max-width: 70px;" class="item_unit" id="item_unit">{{ $p_detail->measurement_name}}</td>
                                                         <td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
                                                         <td style="max-width: 120px;"class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
-                                                        <td hidden style="padding: 0;min-width: 90px;" class="item_tax">
+                                                        <td style="padding: 0;min-width: 90px;" class="item_tax">
                                                             <select style="border: 0px; height: 51px; {{$bg_color}}" class="tax form-control" {{$display}}>
-                                                                <option value=""></option>
+                                                                <option value="" disabled hidden selected></option>
                                                                 <option 
                                                                     @if ($p_detail->tax == 1)
                                                                         selected
@@ -199,7 +235,13 @@
                                                                 </option>
                                                             </select>
                                                         </td>
-                                                        <td style="min-width: 125px;" class="item_amount" id="item_amount">{{$p_detail->amount}}</td>
+                                                        @php
+                                                            $vat_total=0;
+                                                            if ($p_detail->tax == 1) {
+                                                                $vat_total = ($p_detail->amount*10)/100;
+                                                            }
+                                                        @endphp
+                                                        <td style="min-width: 125px;max-width: 125px;" class="item_amount" data-tax_total="{{ $vat_total }}" id="item_amount">{{$p_detail->amount}}</td>
                                                         <td {{$remove_btn}} style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
                                                     </tr>
                                                 @endforeach
@@ -228,7 +270,7 @@
                                                         <label for="" id="txtTotal" class="txtTotal">0</label>
                                                     </div>
                                                 </div>
-                                                <div class="row" hidden>
+                                                <div class="row">
                                                     <div class="col-sm-6 text_right">
                                                         <label for="">VAT Total :</label>
                                                     </div>
@@ -309,7 +351,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>
@@ -321,6 +363,7 @@
         // Insert Table
         let count=parseInt($('#row_count').val())+1;
         showTotal();
+        total_Vat();
         showGrandTotal();
         $('#purchase_form').click(function(){
             inSertTable(count);
@@ -350,6 +393,8 @@
                     $('#' + delete_row).hide();
                     tr.find('.stock_product_id').attr('data-is_delete','1','data-is_old','1','data-is_new','0');
                     showTotal();
+                    tr.find('.item_amount').attr('data-tax_total',0);
+                    total_Vat();
                     showGrandTotal();
                 }
             }
@@ -365,8 +410,15 @@
             let price = tr.find('.item_unit_price').text();
             let amount = show_amount(qty, price);
             tr.find('.item_amount').text(amount.toFixed(4));
-            showTotal();
-            showGrandTotal();
+            let vat = tr.find('.tax').val();
+            if(parseInt(vat) == 1){
+                showTotal();
+                getVatTotal();
+                showGrandTotal();
+            }else{
+                showTotal();
+                showGrandTotal();
+            }
         });
         
         // Delegate Field Unit Price
@@ -376,8 +428,16 @@
             let qty =  tr.find('.item_qty').text();
             let amount =show_amount(qty,price);
             tr.find('.item_amount').text(amount.toFixed(4));
-            showTotal();
-            showGrandTotal();
+            let vat = tr.find('.tax').val();
+            if(parseInt(vat) == 1){
+                showTotal();
+                getVatTotal();
+                showGrandTotal();
+            }else{
+                showTotal();
+                showGrandTotal();
+            }
+
         });
 
         // Convert when user input unit price toFixed(.)
@@ -400,9 +460,33 @@
         $(".select2 .selection .add_class_select2").css('border','0px');
         $(".select2 .selection .add_class_select2").css('background-color','#ffffff !important');
 
+        //Delegate Field Tax 
+        $("#purchase_table tbody").delegate('.tax','change',function(){
+            let tr=$(this).closest('tr');
+            let tax = $(this).val();
+            let total_amount = 0;
+            let vat = 0;
+            
+            if(parseInt(tax) == 1){
+                total_amount = tr.find('.item_amount').text();
+                vat = parseFloat(total_amount * 10)/100;
+                tr.find('.item_amount').attr('data-tax_total',vat);
+                showTotal();
+                total_Vat();
+                showGrandTotal();
+            }else{
+                tr.find('.item_amount').attr('data-tax_total',0);
+                showTotal();
+                total_Vat();
+                showGrandTotal();
+            }
+            
+        });
+
         //
         $("#purchase_table tbody").delegate('.stock_product_id','change',function(){
             let tr=$(this).closest('tr');
+            let vat = 0;
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type:"POST",
@@ -415,22 +499,27 @@
                 success:function(data){
                     tr.find('.item_des').text(data['description']);
                     tr.find('.item_qty').text(1);
+                    tr.find('.item_unit').text(data['measurement_name']);
                     tr.find('.item_unit_price').text(data['product_price']);
                     tr.find('.item_account').text(data['chart_account_name']);
                     tr.find('.item_account').attr('data-id',data['bsc_account_charts_id']==null ? "null" : data['bsc_account_charts_id']);
                     tr.find('.item_tax [value=1]').attr('selected', 'true');
                     let amount = show_amount(1, data['product_price']);
                     tr.find('.item_amount').text(amount.toFixed(4));
+                    vat = parseFloat(amount * 10)/100;
+                    tr.find('.item_amount').attr('data-tax_total',vat);
                     showTotal();
+                    total_Vat();
                     showGrandTotal();
                     tr.find('.item_des').attr('contentEditable',true);
                     tr.find('.item_qty').attr('contentEditable',true);
                     tr.find('.item_unit_price').attr('contentEditable',true);
+
+                    tr.find('.tax').prop('disabled',false);
                     
                 }
             });
-        });      
-
+        });     
     });
 
     // Function Can Input only Number and . in Field Quantity and UnitPrice
@@ -476,16 +565,35 @@
         tr +='<tr id="row'+count+'">'+
                 '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;" data-is_old="0" data-is_new="1" data-is_delete="0"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td style="max-width: 150px;" contenteditable="false" class="item_des" id="item_des"></td>'+
-                '<td style="max-width: 65px;" contenteditable="false" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 90px;border-right-style: hidden;" contenteditable="false" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 70px;" class="item_unit" id="item_unit"></td>'+
                 '<td style="max-width: 80px;" contenteditable="false" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
-                '<td hidden style="max-width: 90px; padding: 0;" class="item_tax"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
-                '<td style="max-width: 125px;"class="item_amount" id="item_amount"></td>'+
+                '<td style="max-width: 100px; padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px; background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+                '<td style="max-width: 125px;"class="item_amount" id="item_amount" data-tax_total></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
             '</tr>';
         $('#purchase_table tbody').append(tr);
     }
 
+    // function total vat tax
+    function getVatTotal(){
+        let vat =0;
+        let total_amount = tr.find('.item_amount').text();
+        vat = parseFloat(total_amount * 10)/100;
+        tr.find('.item_amount').attr('data-tax_total',vat);
+        total_Vat();
+    }
+
+    function total_Vat(){
+        let vat = 0;
+        $('.item_amount').each(function(e){
+            if(!isNaN(parseFloat($(this).attr('data-tax_total')))){
+                vat += parseFloat($(this).attr('data-tax_total'));
+            }
+        });
+        document.getElementById('txtVatTotal').innerHTML=vat.toFixed(4);
+    }
 
     // function save all data
     function updateData(){
@@ -528,6 +636,7 @@
                         _token: CSRF_TOKEN,
                         purchase_id           : $("#purchase_id").val(),
                         bsc_account_charts_id : $("#purchase_account_chart_id").val(),
+                        bsc_vat_chart_account : $("#purchase_chart_vat_acc").val(),
                         suppier_id            : $("#purchase_supplier").val(),
                         billing_date          : $("#purchase_date").val(),
                         due_date              : $("#purchase_due_date").val(),  

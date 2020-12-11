@@ -30,6 +30,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // get  convert quotes
     Route::post("/convertqoute",'api\crm\QuoteController@convertqoute');
 
+    Route::POST('/updatequotestage','api\crm\QuoteController@updatestatus');
 
 });
 

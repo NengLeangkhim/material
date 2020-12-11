@@ -11,16 +11,18 @@ class ModelCrmQuoteStatusType extends Model
     protected $table = 'crm_quote_status_type';
     public $timestamps = false;
 
-    function saveData($id, $userId, $nameEn, $nameKh, $status){
+    function saveData($id, $userId, $nameEn, $nameKh, $status, $sequence, $color){
         try {
             if($id != null){
                 $leadStatus = $this->getOneData($id);
                 $nameEn = ($nameEn == null || $nameEn == '') ? $leadStatus->name_en : $nameEn;
                 $nameKh = ($nameKh == null || $nameKh == '') ? $leadStatus->name_kh : $nameKh;
                 $status = ($status == null || $status == '') ? $leadStatus->status : $status;
-                $sql = 'select update_crm_quote_status_type('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', \''.$status.'\') as id';
+                $sequence = ($sequence == null || $sequence == '') ? $leadStatus->sequence : $sequence;
+                $color = ($color == null || $color == '') ? $leadStatus->color : $color;
+                $sql = 'select update_crm_quote_status_type('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', \''.$status.'\',\''.$sequence.'\',\''.$color.'\') as id';
             } else {
-                $sql = 'select insert_crm_quote_status_type(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.') as id';
+                $sql = 'select insert_crm_quote_status_type(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.$sequence.', \''.$color.'\') as id';
             }
             $newId = DB::selectOne($sql)->id;
             $result = $this->getOneData($newId);
@@ -42,7 +44,7 @@ class ModelCrmQuoteStatusType extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_quote_status_type where is_deleted = false order by name_en');
+            $result = DB::select('select * from crm_quote_status_type where is_deleted = false order by sequence');
         } catch(QueryException $e){
             throw $e;
         }

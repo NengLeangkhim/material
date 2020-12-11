@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_industry_form','crm_lead_industry_insert','ActionLeadIndustry','Add Lead Industry')" ​><i class="fas fa-plus"></i> Add Lead Industry</a>
 </div>
@@ -10,12 +19,12 @@
     <div>
         <table class="table table-bordered display nowrap" style="width: 100%" id="Lead_industry_Tbl">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name English</th>
-                    <th>Name Khmer</th>
-                    <th>Create Date</th>
-                    <th>Action</th>
+                <tr style="background: #1fa8e0">
+                    <th style="color: #FFFFFF">#</th>
+                    <th style="color: #FFFFFF">Name English</th>
+                    <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Create Date</th>
+                    <th style="color: #FFFFFF">Action</th>
                 </tr>
             </thead>
             <tbody>

@@ -12,14 +12,14 @@ if (count($bsc_show_customer_branchs) >0) {
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h1><span><i class="fas fa-user-plus"></i></span> Create Invoice</h1>
+                <h1><span><i class="fas fa-file"></i></span> Create Invoice</h1>
             </div>
             <div class="col-md-5">
 
             </div>
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Invoice</a></li>
+                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Home</a></li>
                     <li class="breadcrumb-item active">New Invoice</li>
                 </ol>
             </div>
@@ -67,7 +67,17 @@ if (count($bsc_show_customer_branchs) >0) {
                                                 <option value="" selected hidden disabled>select item</option>
                                                 @if (count($vat_chart_accounts) >0)
                                                     @foreach ($vat_chart_accounts as $vat_chart_account)
-                                                        <option value="{{ $vat_chart_account->id }}">{{ $vat_chart_account->name_en }}</option>
+                                                        <option value="" disabled>{{ $vat_chart_account->bsc_account_type_name }}</option>
+                                                        @php
+                                                            $sub_vat_acc = $vat_chart_account->vat_chart_accounts;
+                                                        @endphp
+                                                        @if ($sub_vat_acc != null){
+                                                            @foreach ($sub_vat_acc as $sub_vat)
+                                                                <option value="{{ $sub_vat->id }}">&nbsp;&nbsp;&nbsp;{{ $sub_vat->name_en }}</option>
+                                                            @endforeach
+                                                        }
+
+                                                        @endif
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -115,7 +125,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control input_required"  name="billing_date" id="billing_date">
+                                            <input type="date" class="form-control input_required" value="{{ date('Y-m-d') }}"  name="billing_date" id="billing_date">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -177,7 +187,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                                 <th>Unit Price</th>
                                                 <th>Discount</th>
                                                 <th>Account</th>
-                                                <th style="white-space: nowrap">Tax Rate</th>
+                                                <th style="white-space: nowrap">Tax</th>
                                                 <th>Amount</th>
                                                 {{-- <th></th> --}}
                                             </tr>
@@ -295,13 +305,13 @@ if (count($bsc_show_customer_branchs) >0) {
                             vats = vat(amount);
                             vat_per_item = vats / qty;
 
-                            if(vat_number == ""){
-                                tax_rate="Tax";
+                            if(vat_number == null){
+                                tax_rate="Include";
                                 attr_tax_rate=1;
                                 price_show = newUnitPrice(discount_type,price,vat_per_item);
                                 amount_show = show_amount_old(discount_type,qty,price_show,discount);
                             }else{
-                                tax_rate="No Tax";
+                                tax_rate="Exclude";
                                 attr_tax_rate=0;
                             }
 
@@ -310,11 +320,11 @@ if (count($bsc_show_customer_branchs) >0) {
                                     "<td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td>"+
                                     "<td class='description'>"+quote_product.description+"</td>"+
                                     "<td class='qty'>"+quote_product.qty+"</td>"+
-                                    "<td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == ""  ? price_show : price).toFixed(4)+"</td>"+
+                                    "<td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == null  ? price_show : price).toFixed(4)+"</td>"+
                                     "<td class='discount'>"+parseFloat(quote_product.discount).toFixed(4)+" "+percent+"</td>"+
                                     "<td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td>"+
                                     "<td class='invoice_tax' data-invoice_tax="+attr_tax_rate+">"+tax_rate+"</td>"+
-                                    "<td class='item_amount' data-amount='"+amount+"' data-vat='"+vats+"'>"+parseFloat(vat_number == "" ? amount_show : amount).toFixed(4)+"</td>"+
+                                    "<td class='item_amount' data-amount='"+amount+"' data-vat='"+vats+"'>"+parseFloat(vat_number == null ? amount_show : amount).toFixed(4)+"</td>"+
                                 "</tr>";
                             $("#invoice_table").append(tr);
                         });
@@ -325,7 +335,7 @@ if (count($bsc_show_customer_branchs) >0) {
                     showGrandTotal();
                     let sum_price=0;
                     let total_label ='';
-                    if(vat_number == ""){
+                    if(vat_number == null){
                         total_label = "Total with Tax :";
                         document.getElementById('total_label').innerHTML=total_label;
                         $('#display_none_vat').hide();
@@ -409,10 +419,11 @@ if (count($bsc_show_customer_branchs) >0) {
                     },
                     dataType: "JSON",
                     success:function(data){
+                        let id = data.saved.data[0].insert_bsc_invoice;
                         if(data.saved.success == false){
                             sweetalert('error','Save is fail!');
                         }else{
-                            go_to('bsc_invoice_invoice_list');
+                            go_to('bsc_invoice_invoice_view/'+id);
                         }
                     }
                 });

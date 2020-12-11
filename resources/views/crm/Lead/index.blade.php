@@ -1,6 +1,15 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <style>
+                    th {
+                        font-size: 16px;
+                    }
+
+                    td {
+                        font-size: 14px;
+                    }
+                </style>
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -32,6 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    {{-- style="white-space: nowrap;" --}}
                                     <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap;">
                                         <thead>
                                             <tr style="background: #1fa8e0">
@@ -40,7 +50,7 @@
                                                 <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
                                                 <th style="color: #FFFFFF">Phone </th>
-                                                {{-- <th style="color: #FFFFFF">Facebook </th> --}}
+                                                <th style="color: #FFFFFF">Create Date </th>
                                                 <th style="color: #FFFFFF">Action</th>
                                                 {{-- <th>Detail</th> --}}
                                             </tr>
@@ -58,36 +68,47 @@
 
             $(function () {
                 t=$("#example1").DataTable({
-                scrollX:true,
+                "scrollX":true,
                 "autoWidth": false,
                 "serverSide": true,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true,
                 "ajax": "lead/datatable",
                 "columnDefs": [
                     {
                         "searchable": false,
+                        "render": function(data,type,row){
+                            return moment(data).format('YYYY-M-DD h:mm:ss');
+                        },
                         "targets": 4
                         },
                     {
                         // The `data` parameter refers to the data for the cell (defined by the
                         // `data` option, which defaults to the column being worked with, in
                         // this case `data: 0`.
+                        "searchable": false,
                         "render": function ( data, type, row ) {
-                            return '<div class="row-12 form-inline">'+
-                                        '<div class="col-md-6">'+
+                            return '<div class="container-fluid datatable-action-col" ><div class="row form-inline">'+
+                                        '<div class="col-6">'+
                                             '<a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/'+data+'" onclick="go_to(\'detaillead/'+data+'\')" title="Edit Lead">'+
                                                 '<i class="fas fa-edit">  </i>'+
                                             '</a>'+
                                         '</div>'+
-                                        '<div class="col-md-6 ">'+
+                                        '<div class="col-6 ">'+
                                             '<a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/'+data+'" onclick="go_to(\'branch/'+data+'\')" title="Show Branch Of Lead">'+
                                                 '<i class="fas fa-code-branch">  </i>'+
                                             '</a>'+
                                         '</div>'+
-                                    '</div>';
+                                    '</div></div>';
                         },
-                        "targets": 4
+                        "width": "100px",
+                        "targets": 5,
                     },
-                ]
+                ],
+                "select":{
+                    "style":"multi"
+                }
                 });
             });
             $('.lead').click(function(e)

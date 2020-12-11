@@ -1,6 +1,15 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <style>
+                    th {
+                        font-size: 16px;
+                    }
+
+                    td {
+                        font-size: 14px;
+                    }
+                </style>
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -79,6 +88,9 @@
                 scrollX:true,
                 "autoWidth": false,
                 "serverSide": true,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true,
                 "ajax": "contact/datatable",
                 "columnDefs": [
                       {
@@ -90,11 +102,11 @@
                           // `data` option, which defaults to the column being worked with, in
                           // this case `data: 0`.
                           "render": function ( data, type, row ) {
-                              return '<div class="row-12 form-inline">'+
+                              return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
                                           '<div class="col-md-12">'+
                                             '<button class="btn btn-info btn-block  btn-sm CrmEditContact" onclick=go_to("/contact/edit/'+data+'")><i class="fas fa-wrench"></i></button>'+
                                           '</div>'+
-                                      '</div>';
+                                      '</div></div>';
                           },
                           "targets": 4
                       },

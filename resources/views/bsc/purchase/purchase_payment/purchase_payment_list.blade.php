@@ -32,42 +32,44 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($purchases as $purchase)
-                                                    @php 
-                                                        $amount_paid = 0;
-                                                        $due_amount = 0;
-                                                        $status = '';
-                                                
-                                                        if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                @if (count($purchases) > 0)
+                                                    @foreach($purchases as $purchase)
+                                                        @php 
                                                             $amount_paid = 0;
-                                                            $due_amount = $purchase->grand_total;
-                                                            $status = 'Waiting Payment';
-                                                        }else if ($purchase->due_amount == 0) {
-                                                            $amount_paid = $purchase->amount_paid;
-                                                            $due_amount = $purchase->due_amount;
-                                                            $status = 'Paid'; 
-                                                        }else{
-                                                            $amount_paid = $purchase->amount_paid;
-                                                            $due_amount = $purchase->due_amount;
-                                                            $status = 'Waiting Payment'; 
-                                                        }
+                                                            $due_amount = 0;
+                                                            $status = '';
+                                                    
+                                                            if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $purchase->grand_total;
+                                                                $status = 'Waiting Payment';
+                                                            }else if ($purchase->due_amount == 0) {
+                                                                $amount_paid = $purchase->amount_paid;
+                                                                $due_amount = $purchase->due_amount;
+                                                                $status = 'Paid'; 
+                                                            }else{
+                                                                $amount_paid = $purchase->amount_paid;
+                                                                $due_amount = $purchase->due_amount;
+                                                                $status = 'Waiting Payment'; 
+                                                            }
 
-                                                        $paid = number_format($amount_paid, 4, '.', '');
-                                                        $due = number_format($due_amount, 4, '.', '');
-                                                    @endphp
-                                                    <tr>
-                                                        <td>{{ $purchase->invoice_number }}</td>
-                                                        <td>{{ $purchase->supplier_name }}</td>
-                                                        <td>{{ $purchase->billing_date }}</td>
-                                                        <td>{{ $purchase->due_date }}</td>
-                                                        <td>{{ $paid }}</td>
-                                                        <td>{{ $due }}</td>
-                                                        <td>{{ $status }}</td>
-                                                        <td style="text-align: center;">
-                                                            <a href="javascript:;" onclick="go_to('bsc_purchase_payment_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                                            $paid = number_format($amount_paid, 4, '.', '');
+                                                            $due = number_format($due_amount, 4, '.', '');
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $purchase->invoice_number }}</td>
+                                                            <td>{{ $purchase->supplier_name }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($purchase->billing_date)) }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
+                                                            <td>{{ $paid }}</td>
+                                                            <td>{{ $due }}</td>
+                                                            <td>{{ $status }}</td>
+                                                            <td style="text-align: center;">
+                                                                <a href="javascript:;" onclick="go_to('bsc_purchase_payment_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

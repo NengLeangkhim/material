@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-user-edit"></i></span>Update Customer Service</h1>
+                <h1><span><i class="fas fa-cogs"></i></span>Update Customer Service</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">

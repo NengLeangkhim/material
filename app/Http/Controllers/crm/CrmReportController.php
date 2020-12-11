@@ -44,7 +44,12 @@ class CrmReportController extends Controller
     }
     // Detail Lead Report
     public function CrmDetailLeadReport(){
-        return view('crm.report.CrmReportLead');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userId = $_SESSION['userid'];
+        $assign_perm = perms::check_perm_module('CRM_0201010101') || perms::check_perm_module('CRM_020103');
+        return view('crm.report.CrmReportLead',compact('assign_perm','userId'));
     }
     // Get data Contact Chart Report
     public function GetContactChart(Request $request){
@@ -143,7 +148,12 @@ class CrmReportController extends Controller
     }
     // Detail Organization Report
     public function CrmDetailOrganizationReport(){
-        return view('crm.report.CrmReportOrganization');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userId = $_SESSION['userid'];
+        $assign_perm = perms::check_perm_module('CRM_02010601');
+        return view('crm.report.CrmReportOrganization', compact('assign_perm','userId'));
     }
     // Get data Quote Chart Report
     public function GetQuoteChart(Request $request){
@@ -188,9 +198,26 @@ class CrmReportController extends Controller
             }
         // }
     }
+
+
     // Detail Quote Report
     public function CrmDetailQuoteReport(){
-        return view('crm.report.CrmReportQuote');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userId = $_SESSION['userid'];
+        $assign_perm = perms::check_perm_module('CRM_02010701');
+        // return view('crm.report.CrmReportQuote',compact('assign_perm','userId'));
+        return view('crm.report.CrmReportQuote', ["statusList"=>$this->getApiData('/api/quote/status'), 'assignToList' => $this->getApiData('/api/leadassig')->data,'assign_perm'=>$userId]);
+    }
+
+    function getApiData($route, $method = 'GET'){
+        $token = $this->getToken();
+        $request = Request::create($route,$method);
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        return json_decode($res->getContent());
     }
 
 
@@ -200,23 +227,50 @@ class CrmReportController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
-
-            $fromDate = date("Y-m-01");
-            $toDate = date("Y-m-t");
-            // dump($request->all());
-            $surveyReport = Request::create('/api/crm/report/getSurveyedResult?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
-            $surveyReport->headers->set('Accept', 'application/json');
-            $surveyReport->headers->set('Authorization', 'Bearer '.$token);
-            $res = app()->handle($surveyReport);
-            $response = json_decode($res->getContent());
-            // dd($response);
-            if(isset($response->success) && ($response->success == true)){
-                return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
-            }
-
+        $fromDate = date("Y-m-01");
+        $toDate = date("Y-m-t");
+        // dump($request->all());
+        $surveyReport = Request::create('/api/crm/report/getSurveyedResult?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+        $surveyReport->headers->set('Accept', 'application/json');
+        $surveyReport->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($surveyReport);
+        $response = json_decode($res->getContent());
+        // dd($response);
+        if(isset($response->success) && ($response->success == true)){
+            return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+        }
     }
 
+    public function getCustomerService() {
+        return view('crm/report.CrmCustomerService');
+    }
 
+    public function getCustomerServiceData(Request $request) {
+        // get token <- SESSION
+        // request -> api`
+        // get data hz -> return
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // ?status=true
+        // request param
+        // name/10
+        // path variable
+        $token = $_SESSION['token'];
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        $serviceId = $request->service_id;
+        // dump($request->all());
+        $customerService = Request::create('/api/crm/report/getTotalServicesInEachLeads?from_date='.$fromDate.'&to_date='.$toDate.'&service_id='.$serviceId.' ','GET');
+        $customerService->headers->set('Accept', 'application/json');
+        $customerService->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($customerService);
+        $response = json_decode($res->getContent());
+        // dd($response);
+        if(isset($response->success) && ($response->success == true)){
+            return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+        }
+    }
 
 
 

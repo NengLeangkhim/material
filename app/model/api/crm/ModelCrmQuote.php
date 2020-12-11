@@ -17,19 +17,21 @@ class ModelCrmQuote extends Model
     private static function getQuoteByUserSql($userid){
         if($userid>0){
             $condition="and (cq.create_by,cq.assign_to)=($userid,$userid)";
-        }else{
+        }else if($userid==0){
+            $condition="and cq.id in (select crm_quote_id from crm_quote_status where crm_quote_status_type_id=9 )";
+        }else if($userid==-1){
             $condition='';
         }
         return "SELECT cq.id,
         cl.customer_name_en ,cl.vat_number,
-        cq.quote_number,cq.subject,cq.due_date,
+        cq.quote_number,cq.subject,cq.due_date,cq.create_date,
         ast.first_name_en||' '||ast.last_name_en as assign_to,
         (select (select name_en from crm_quote_status_type where id=cqs.crm_quote_status_type_id) as stage from crm_quote_status cqs where cqs.crm_quote_id=cq.id ORDER BY create_date DESC limit 1),
         (select case when count(*)=0 then 'No' ELSE 'Yes' END as invoice from bsc_invoice where crm_quote_id=cq.id)
         from crm_quote cq
         left join ma_user ast on ast.id=cq.assign_to
         left join crm_lead cl on cl.id=cq.crm_lead_id
-        where cq.is_deleted=false $condition";
+        where cq.is_deleted=false $condition order by cq.create_date desc";
     }
     public static function getQuoteDataTable($userid,$request){
         $table = '('.self::getQuoteByUserSql($userid).') as foo';
@@ -50,7 +52,8 @@ class ModelCrmQuote extends Model
             array( 'db' => 'assign_to',     'dt' => 5 ),
             array( 'db' => 'invoice',     'dt' => 6 ),
             array( 'db' => 'due_date',     'dt' => 7 ),
-            array( 'db' => 'id',     'dt' => 8 ),
+            array( 'db' => 'create_date',     'dt' => 8 ),
+            array( 'db' => 'id',     'dt' => 9 ),
         );
 
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));

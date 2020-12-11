@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_status_form','crm_lead_status','ActionLeadStatus','Add Lead Status')" ​><i class="fas fa-plus"></i> Add Lead Status</a>
 </div>
@@ -10,13 +19,14 @@
     <div>
         <table class="table table-bordered nowrap" style="width: 100%;" id="Lead_Status_Tbl">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name English</th>
-                    <th>Name Khmer</th>
-                    <th>Sequence</th>
-                    <th>Create Date</th>
-                    <th>Action</th>
+                <tr style="background: #1fa8e0">
+                    <th style="color: #FFFFFF">#</th>
+                    <th style="color: #FFFFFF">Name English</th>
+                    <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Sequence</th>
+                    <th style="color: #FFFFFF">Color</th>
+                    <th style="color: #FFFFFF">Create Date</th>
+                    <th style="color: #FFFFFF">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +39,7 @@
                     <td>{{$row->name_en}}</td>
                     <td>{{$row->name_kh}}</td>
                     <td>{{$row->sequence}}</td>
+                    <td class="text-center" ><input style="border: none; background-color: white;" type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td class="text-center">
                         <a href="#" id="{{$row->id}}" class="btn btn-info btn-block CrmEditLeadStatus"><i class="fas fa-wrench"></i></a>
@@ -79,7 +90,7 @@
                                 </span>
                             </div>
                         </div>
-                       <div class="col-md-6">
+                       <div class="col-md-5">
                        <div class="form-group">
                            <label for="plan_from">Sequence<span class="text-danger"></span></label>
                            <input type="number" name="sequence" id="sequence" placeholder="Sequence" class="form-control">
@@ -88,7 +99,13 @@
                            </span>
                        </div>
                        </div>
-                       <div class="col-md-6">
+                       <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="plan_from">Color<span class="text-danger"></span></label>
+                                <input type="color" id="color" name="color" class="form-control">
+                            </div>
+                        </div>
+                       <div class="col-md-5">
                         <div class="form-group">
                             <label for="name_kh">Status<span class="text-danger"></span></label>
                             <select name="status" class="form-control" id="status">

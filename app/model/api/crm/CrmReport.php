@@ -145,7 +145,7 @@ class CrmReport extends Model
                 (($fromDate == null || $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
                 .(($statusId == null || $statusId == '') ? ' ' : ''.(($fromDate == null || $toDate == null) ? ' WHERE ' : ' AND ').' crm_lead_status_id = '.$statusId);
                 // dd('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select sr.* from crm_lead_status as ls inner join status_report sr on ls.id = sr.crm_lead_status_id');
-            $result = DB::select('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select ls.id as crm_lead_status_id, ls.name_en as status_en, ls.name_kh as status_kh, COALESCE(sr.total_lead, null, 0, total_lead) total_lead from crm_lead_status as ls left join status_report sr on ls.id = sr.crm_lead_status_id WHERE ls.status = TRUE AND ls.is_deleted = FALSE ORDER BY ls.sequence ');
+            $result = DB::select('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select ls.id as crm_lead_status_id, ls.name_en as status_en, ls.name_kh as status_kh, ls.color, COALESCE(sr.total_lead, null, 0, total_lead) total_lead from crm_lead_status as ls left join status_report sr on ls.id = sr.crm_lead_status_id WHERE ls.status = TRUE AND ls.is_deleted = FALSE ORDER BY ls.sequence ');
         } catch(QueryException $e){
             throw $e;
         }
@@ -208,7 +208,7 @@ class CrmReport extends Model
                with quote_status as ( SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
                 '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.color as crm_quote_status_type_color, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
                 ;
             ');
         } catch(QueryException $e){
@@ -366,7 +366,7 @@ class CrmReport extends Model
                     crm_lead cl
                     INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id
                     INNER JOIN crm_lead_detail cld ON clb.id = cld.crm_lead_branch_id
-                    INNER JOIN crm_lead_assign cla ON cld.id = cla.crm_lead_branch_id
+                    INNER JOIN crm_lead_assign cla ON clb.id = cla.crm_lead_branch_id
                     INNER JOIN crm_lead_status cls ON cld.crm_lead_status_id = cls.id
             ';
             $condition = ''.
@@ -486,7 +486,7 @@ class CrmReport extends Model
                 WHERE id in (
                     SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
                     FROM crm_lead_detail
-                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
                     ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false
@@ -545,11 +545,12 @@ class CrmReport extends Model
         return $result;
     }
 
-    public function getTotalServicesInEachLeads($fromDate = null, $toDate = null, $userId = null){
+    public function getTotalServicesInEachLeads($fromDate = null, $toDate = null, $userId = null, $serviceId = null){
         try {
             $condition =
                 (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
                 .($userId == null ? ' ' : ' AND cla.ma_user_id = ' .$userId. ' ' )
+
             ;
             $sql = '
             WITH me AS (
@@ -567,7 +568,7 @@ class CrmReport extends Model
                 RIGHT JOIN stock_product sp ON me.stock_product_id = sp.id
                 INNER JOIN stock_product_type spt ON sp.stock_product_type_id = spt.id
             WHERE spt.group_type = \'service\'
-            ';
+            '.($serviceId == null ? ' ' : ' AND sp.id = '.$serviceId.' ');
             $result = DB::select($sql);
         } catch(QueryException $e){
             throw $e;
@@ -602,9 +603,9 @@ class CrmReport extends Model
             $sql = '
                 SELECT
                 CASE possible WHEN TRUE THEN
-                        \'success\'
+                        \'possible\'
                     ELSE
-                        \'failure\'
+                        \'impossible\'
                 END AS status_en,
                 CASE possible WHEN TRUE THEN
                         \'ជោគជ័យ\'

@@ -46,12 +46,28 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_source" id="select_source">
+                                        <select class="form-control select2" name="select_source" id="select_source">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                @if($assign_perm)
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Assign To</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="select_assign_to" id="select_assign_to">
+                                                <option value="0">All Staff</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @else
+                                    <input type="hidden" name="select_assign_to" id="select_assign_to" value="{{ $userId }}">
+                                @endif
+
+                                {{-- <div class="col-md-4">
                                     <label for="exampleInputEmail1">Assign To</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -61,8 +77,10 @@
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
+
                             </div>
+
                         </div><!--End Form Group-->
                         <div class="form-group">
                             <div class="row">
@@ -113,18 +131,18 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl3" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
-                                        <th>No</th>
-                                        <th>Lead Number</th>
-                                        <th>Company Name</th>
-                                        <th>Customer Name</th>
-                                        <th>Branch Email</th>
-                                        <th>VAT Number</th>
-                                        <th>Website</th>
-                                        <th>Priority</th>
-                                        <th>Facebook</th>
-                                        <th>Email</th>
+                                        <th style="color: #FFFFFF">No</th>
+                                        <th style="color: #FFFFFF">Lead Number</th>
+                                        <th style="color: #FFFFFF">Company Name</th>
+                                        <th style="color: #FFFFFF">Customer Name</th>
+                                        <th style="color: #FFFFFF">Branch Email</th>
+                                        <th style="color: #FFFFFF">VAT Number</th>
+                                        <th style="color: #FFFFFF">Website</th>
+                                        <th style="color: #FFFFFF">Priority</th>
+                                        <th style="color: #FFFFFF">Facebook</th>
+                                        <th style="color: #FFFFFF">Email</th>
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">
@@ -138,6 +156,12 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
+
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+
     $('#DetailOrganizationFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,

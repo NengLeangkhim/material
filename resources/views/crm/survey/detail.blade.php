@@ -325,7 +325,7 @@
                         map: map,
                         // Icon and set locating of title for icon
                         icon: {
-                            url: "img/icon.png",
+                            url: "img/pop.png",
                             anchor: new google.maps.Point(13, 15),
                             labelOrigin: new google.maps.Point(16, -15),
                             scaledSize: new google.maps.Size(30, 30), // scaled size
@@ -334,8 +334,9 @@
                         label: {
                             text: value.name_en,
                             fontSize: '12px',
-                            color: 'black',
-                            fontWeight: '400',
+                            color: 'red',
+                            fontWeight: 'bold',
+
                         },
                     });
                 });

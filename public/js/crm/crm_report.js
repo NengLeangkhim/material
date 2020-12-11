@@ -26,25 +26,26 @@ var reportLeadByStatus = () => {
         data: $('#FrmChartReport').serialize(),
         success: function(response) {
             if (response.success == true){
-
                 var data = response.data;
                 if(data.length < 1){
                     returnNoData('Branchchart');
                 }
-
                 google.charts.load("current", {packages:["corechart"]});
                 google.charts.setOnLoadCallback(drawChart);
                 // var chartColor = ['color: #EE5A24','color: #C4E538','color: #fff200','color: #18dcff','color: #7d5fff','color: #00cec9','color: #ff3838'];
                 // console.log('this color arrr='+chartColor);
+                var colors = {};
                 var mydata = [['Task', 'Hours per Day']];
                 var numCount = 0;
                 $.each(data, function(k, val){
+                    colors[k] = {color: val['color']}
                     if(data[k]['total_lead'] == 0){
                         numCount += 1;
                     }
                     mydata.push([data[k]['status_en'], data[k]['total_lead']]);
                     // mydata.push(['darasok'+k+'', k]);
                 })
+                console.log(colors);
                 // console.log('countNum='+numCount+'datelength='+data.length);
                 if(numCount == data.length){
                     returnNoData('Branchchart');
@@ -54,24 +55,9 @@ var reportLeadByStatus = () => {
                     var options = {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
-                        colors: [''],
+                        // colors: [''],
                         // legend: 'none',
-                        slices: {
-                            // 0: { color: '#ff3838' },
-                            // 1: { color: '#7d5fff' },
-                            // 2: { color: '#fff200' },
-                            // 3: { color: '#C4E538' },
-                            // 4: { color: '#00cec9' },
-                            // 5: { color: '#EE5A24' },
-                            // 6: { color: '#18dcff' },
-                            0: { color: 'rgb(125, 105, 11)' },
-                            1: { color: 'rgb(145, 205, 66)' },
-                            2: { color: 'rgb(54, 162, 235)' },
-                            3: { color: 'rgb(75, 102, 42)'  },
-                            4: { color: 'rgb(255, 205, 86)' },
-                            5: { color: 'rgb(255, 99, 132)' },
-                            6: { color: 'rgb(105, 155, 16)' },
-                        }
+                        slices: colors,
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
                     chart.draw(data, options);
@@ -206,7 +192,7 @@ var reportContact = () => {
                     var data = google.visualization.arrayToDataTable(mydata);
                     var view = new google.visualization.DataView(data);
                     view.setColumns([0, 1,
-                                    { calc: "stringify",
+                                    {   calc: "stringify",
                                         sourceColumn: 1,
                                         type: "string",
                                         role: "annotation" },
@@ -382,11 +368,11 @@ var reportQuoteByStatus = () => {
                     google.charts.load("current", {packages:["corechart"]});
                     google.charts.setOnLoadCallback(drawChart);
                     var mydata = [['Year', ' ', { role: 'style' }]];
-                    var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
-                    $.each(data, function(k, val){
-                        mydata.push([UpperCaseFirstLetter(data[k]['quote_status_name_en']), data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: '+colorChart[k]+';']);
+                    // var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
+                    $.each(data, function(index,val){
+                        mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, val.crm_quote_status_type_color]);
                     });
-                    console.log(mydata);
+                    // console.log(mydata);
                     function drawChart(){
                         var data = google.visualization.arrayToDataTable(mydata);
                         // var data = google.visualization.arrayToDataTable([
@@ -637,7 +623,29 @@ var reportSurvey = () => {
         });
     }
 
-
+    // Customer Service
+    $(document).on('click','#btnCustomerServiceExcel',function(){
+        var table = $('#CustomerServiceTbl').DataTable();
+        if(!table.data().any()){  // condition true it mean table empty data
+            sweetalert('warning', 'No data export !');
+            console.log('No Data');
+        }else{
+            exportTableToExcel('CustomerServiceReport');
+            console.log('Data');
+        }
+    });
+    // button to click export quote report to pdf file
+    $(document).on("click", "#btnCustomerServicePDF", function () {
+        var table = $('#CustomerServiceTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+            console.log('No Data');
+        }else{
+            exportTableToPDF('CustomerServiceTbl','CustomerServiceReport');
+            console.log('Data');
+        }
+    });
+    // END Customer Service
 
     // function click to export quote as excel
     $(document).on('click','#btnReportQuoteExcel',function(){

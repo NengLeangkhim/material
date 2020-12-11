@@ -17,7 +17,15 @@
 
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
 
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -57,7 +65,7 @@
         </div>
     </div>
      {{-- detail schedule --}}
-     <div id="view_schedule"></div>  
+     <div id="view_schedule"></div>
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -80,7 +88,7 @@
                                                  <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                              </div>
                                              <input type="text" class="form-control" id="name_en"  name="name_en"   placeholder=""  >
-                                             <span class="invalid-feedback" role="alert" id="name_enError"> 
+                                             <span class="invalid-feedback" role="alert" id="name_enError">
                                                 <strong></strong>
                                             </span>
                                          </div>
@@ -96,7 +104,7 @@
                                                 <strong></strong>
                                             </span>
                                          </div>
-                                     </div>                                                
+                                     </div>
                                  </div>
                              </div>
                              <div class="form-group">
@@ -111,7 +119,7 @@
                                              <span class="invalid-feedback" role="alert" id="to_do_dateError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
-                                            
+
                                          </div>
                                      </div>
                                      <div class="col-md-6">
@@ -121,18 +129,18 @@
                                                  <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                              </div>
                                              <select class="form-control " name="priority" id="priority" >
-                                                 <option value=''>-- Select  Prioroty --</option>  
+                                                 <option value=''>-- Select  Prioroty --</option>
                                                  <option value="urgent">Urgent</option>
                                                  <option value="high">Hight</option>
                                                  <option value="medium">Medium</option>
                                                  <option value="low">Low</option>
-                                               
+
                                              </select>
                                              <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
                                          </div>
-                                     </div>                                                
+                                     </div>
                                  </div>
                              </div>
                              <div class="form-group">
@@ -144,14 +152,14 @@
                                                  <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                              </div>
                                              <select class="form-control" name="schedule_type_id" id="schedule_type_id" >
-                                                 <?php 
+                                                 <?php
                                                  for($i =0;$i<sizeof($schedule_type);$i++){
                                                      ?>
-                                                        <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} /  {{$schedule_type[$i]["name_kh"]}} </option> 
+                                                        <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} /  {{$schedule_type[$i]["name_kh"]}} </option>
                                                      <?php
                                                  }
                                                  ?>
-                                                
+
                                              </select>
                                              <span class="invalid-feedback" role="alert" id="schedule_type_idError"> {{--span for alert--}}
                                                 <strong></strong>
@@ -164,23 +172,23 @@
                                              <div class="input-group-prepend">
                                                  <span class="input-group-text"><i class="far fa-comments"></i></span>
                                              </div>
-                                             <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >                                                         
+                                             <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >
                                              <span class="invalid-feedback" role="alert" id="commentError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
                                          </div>
-                                     </div>                                                
+                                     </div>
                                  </div>
                              </div>
-                         
+
                  </div>
                      <div class="modal-footer justify-content-between">
                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                      {{-- <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_Crmbranchschdeule','/insertschedule','/lead','Insert  Schedule Successfully')">Create</button> --}}
-                     <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/leadbranch')">Create</button>
+                     <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/schedule')">Create</button>
                  </div>
                 </form>
-                
+
             </div>
             <!-- /.modal-content -->
         </div>
@@ -191,7 +199,7 @@
 
 <script type="text/javascript">
     CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl');
-    // get modal add schedule 
+    // get modal add schedule
     function lead_branch_schedule(id){
         $("#modal-default").modal('show'); //Set modal show
         $('#branchID').val(id);
@@ -204,7 +212,7 @@
                 success:function(data){
                     // alert(data);
                     $('#view_schedule').html(data);
-                    $('#crm_view_perform_schedule').modal('show');//It will display modal on webpage   
+                    $('#crm_view_perform_schedule').modal('show');//It will display modal on webpage
                 }
         });
     }

@@ -1,6 +1,15 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <style>
+                    th {
+                        font-size: 16px;
+                    }
+
+                    td {
+                        font-size: 14px;
+                    }
+                </style>
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -56,6 +65,9 @@
                 scrollX:true,
                 "autoWidth": false,
                 "serverSide": true,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true,
                 "ajax": "organizations/datatable",
                 "columnDefs": [
 
@@ -65,7 +77,7 @@
                         // this case `data: 0`.
                         "searchable": false,
                         "render": function ( data, type, row ) {
-                            return '<div class="row-12 form-inline">'+
+                            return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
                                         '<div class="col-md-6">'+
                                             '<a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/'+data+'" onclick="go_to(\'detaillead/'+data+'\')" title="Edit Organization">'+
                                                 '<i class="fas fa-edit">  </i>'+
@@ -76,8 +88,9 @@
                                                 '<i class="fas fa-code-branch">  </i>'+
                                             '</a>'+
                                         '</div>'+
-                                    '</div>';
+                                    '</div></div>';
                         },
+                        "width": "100px",
                         "targets": 5,
                     },
                   ]
