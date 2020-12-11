@@ -403,7 +403,7 @@ function CrmLeadBranchView(url,table){
             "scrollCollapse": false,
             "paging": true,
             "ajax": "/crm/leadbranch/datatable/"+$status,
-            "ordering": true,
+            "ordering": false,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowData!=null){ //check comment survey
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
