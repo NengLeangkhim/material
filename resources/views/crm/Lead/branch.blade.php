@@ -50,7 +50,7 @@
                                         <tbody>
                                             <?php
                                             for($i =0;$i<sizeof($branch);$i++){
-                                                if($branch[$i]["survey_comment"]!=null){
+                                                if($branch[$i]["lead_status_id"]==4){
                                                     ?>
                                                         <tr style="">
                                                             <td style="color: #d42931 ; font-weight:bold">
