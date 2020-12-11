@@ -5,15 +5,15 @@
             }
       foreach($contact as $row){
       //  $honor = $row->ma_honorifics_id;
-        $id = $row->id;
-        $name_en = $row->name_en;
-        $name_kh = $row->name_kh;
-        $email = $row->email;
-        $phone = $row->phone;
-        $facebook = $row->facebook;
-        $position = $row->position;
-        $nation = $row->national_id;
-        $honorifics1 = $row->honorifics->id;
+        $id = $row->id??'';
+        $name_en = $row->name_en??'';
+        $name_kh = $row->name_kh??'';
+        $email = $row->email??'';
+        $phone = $row->phone??'';
+        $facebook = $row->facebook??'';
+        $position = $row->position??'';
+        $nation = $row->national_id??'';
+        $honorifics1 = $row->honorifics->id??'';
       }
   @endphp 
     <script>
@@ -52,7 +52,7 @@
                                 <input type="hidden" name="create_by" value="{{$_SESSION['userid']}}">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="ma_honorifics_id">Honorifics <b style="color:red">*</b></label>
+                                        <label for="ma_honorifics_id">Honorifics</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
@@ -63,9 +63,9 @@
                                                     <option value="{{$row->id}}">{{$row->name}}</option> 
                                                     @endforeach
                                                 </select>
-                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
+                                                {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> span for alert
                                                     <strong></strong>
-                                                </span>
+                                                </span> --}}
                                             </div> 
                                     </div>
                                      <div class="col-md-6">
@@ -85,27 +85,27 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="name_kh">Contact Name khmer <b style="color:red">*</b></label>
+                                        <label for="name_kh">Contact Name khmer </label>
                                          <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
                                             <input type="text" class="form-control" name="name_kh" id="name_kh" value="{{$name_kh}}" placeholder="Customer Name khmer" >
-                                                <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                {{-- <span class="invalid-feedback" role="alert" id="name_khError"> span for alert
                                                     <strong></strong>
-                                                </span>
+                                                </span> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="email">Primary Email<b style="color:red">*</b></label>
+                                        <label for="email">Primary Email</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-at"></i></span>
                                             </div>
                                             <input type="email" class="form-control"  name="email" id="email" value="{{$email}}" placeholder="Primary Email">
-                                                <span class="invalid-feedback" role="alert" id="emailError"> {{--span for alert--}}
+                                                {{-- <span class="invalid-feedback" role="alert" id="emailError"> span for alert
                                                     <strong></strong>
-                                                </span>
+                                                </span> --}}
                                         </div>
                                     </div>
                                 </div>

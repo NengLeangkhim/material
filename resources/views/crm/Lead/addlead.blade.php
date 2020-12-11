@@ -263,8 +263,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                     </div>
-                                                    <select class="form-control select2"  multiple="multiple" name="service" id="service" placeholder='Choose service'>
-                                                        <option value=''>-- Select Lead Assigened To --</option>
+                                                    <select class="form-control"  multiple="multiple" name="service" id="service" placeholder='Choose service'>
+                                                        <option value=''>-- Select Service --</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -474,8 +474,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                     </div>
-                                                    <select class="form-control select2"  multiple="multiple" name="service" id="service">
-                                                        <option value=''>-- Select Lead Assigened To --</option>
+                                                    <select class="form-control"  multiple="multiple" name="service" id="service">
+                                                        <option value=''>-- Select Service --</option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
                                                         <strong></strong>
@@ -540,18 +540,6 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="name_kh">Full Name Khmer</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
-                                                    <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
                                                 <label for="name_en">Full Name English </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -559,6 +547,18 @@
                                                     </div>
                                                     <input type="text" class="form-control" name="name_en" id="name_en" placeholder="Last Name" >
                                                     <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="name_kh">Full Name Khmer</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
+                                                    <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
                                                 </div>
@@ -609,6 +609,9 @@
                                                                         <option value=''>-- Select Contact Honorifics --</option>
                                                                         <option value='1'>Mr</option>
                                                                         <option value='2'>Ms</option>
+                                                                        <option value='3'>Mrs.</option>
+                                                                        <option value='4'>Dr.</option>
+                                                                        <option value='5'>Prof.</option>
 
                                                                     </select>
                                                                     <span class="invalid-feedback" role="alert" id="ma_honorifics_idError">
@@ -750,7 +753,9 @@
                                                                         <option value=''>-- Select Contact Honorifics --</option>
                                                                         <option value='1'>Mr</option>
                                                                         <option value='2'>Ms</option>
-
+                                                                        <option value='3'>Mrs.</option>
+                                                                        <option value='4'>Dr.</option>
+                                                                        <option value='5'>Prof.</option>
                                                                     </select>
                                                                     <span class="invalid-feedback" role="alert" id="ma_honorifics_idError">
                                                                         <strong></strong>
@@ -1292,6 +1297,10 @@
             clearMarkers();
             markers = [];
         }
+        $(function(){
+            //Initialize Select2 Elements
+            $('#service').select2();
+        })
             // get data into combobox branch
         $('#branch').ready(function(){
             var myvar= $("#getlead").val();
@@ -1477,7 +1486,7 @@
                     return false;
                 return true;
             }
-            // get value in search contact from selection and show in each field
+        // get value in search contact from selection and show in each field
         $( "#contact_id" ).on('select2:select', function (e){
           $("#name_en").val(''); //set option null before change
           $("#name_kh").val('');

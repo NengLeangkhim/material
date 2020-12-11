@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_status_form','crm_lead_status','ActionLeadStatus','Add Lead Status')" ​><i class="fas fa-plus"></i> Add Lead Status</a>
 </div>
