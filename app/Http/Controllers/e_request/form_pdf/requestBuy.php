@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class requestBuy extends Controller
@@ -35,7 +36,7 @@ class requestBuy extends Controller
             </div>
             <table class="table" style="margin-left: 20px; margin-right: 20px;">
                 <tbody>
-                    <tr style="background-color:#f1f6f9;">
+                    <tr style="background-color:#cceeff;">
                         <td rowspan="3" style="font-size:15px;padding:6px 15px;"><p><b>លរ</p></td>
                         <td rowspan="3"  style="font-size:15px;padding:6px 83px;"><p><b>បរិយាយ</p></td>
                         <td rowspan="3"  style="font-size:15px;padding:6px 5px;"><p><b>ចំនួន</p></td>
@@ -43,11 +44,11 @@ class requestBuy extends Controller
 
 
                     </tr>
-                    <tr style="background-color:#f1f6f9;">
+                    <tr style="background-color:#cceeff;">
                         <td colspan="2" style="padding:5px 0px;"><p><input type="checkbox"> &nbsp; &nbsp;  &nbsp;.....................</p></td>
                         <td colspan="2"><p><input type="checkbox"> &nbsp; &nbsp;  &nbsp;.....................</p></td>
                     </tr>
-                    <tr style="background-color:#f1f6f9;">
+                    <tr style="background-color:#cceeff;">
                         <td colspan="1"​ style="font-size:13px;padding:5px 0px;"><p></p>តម្លៃសរុប</td>
                         <td colspan="1" style="font-size:13px;"><p>តម្លៃឯកតា</p></td>
                         <td colspan="1" style="font-size:13px;"><p>តម្លៃសរុប</p></td>
@@ -136,4 +137,5 @@ class requestBuy extends Controller
         // // $mpdf->Output($filename, 'D');//download
         return $mpdf->Output($filename,'I');
     }
+
 }

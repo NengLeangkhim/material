@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class TrainingInvitationLetter extends Controller
@@ -21,12 +22,11 @@ class TrainingInvitationLetter extends Controller
                 <img style="width: 170px; height: 100px;margin-top:-10px;" src="img/formimage/turbotech.png">
             </div>
              <div class="namecompany" style="text-align:center;margin-top:-117px;">
-                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1>
-                <h1 style=" font-size: 19px;">TURBOTECH CO., LTD</h1>
+                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1><br>
+                <h1 style=" font-size: 19px;margin-top:-28px;">TURBOTECH CO., LTD</h1>
             </div>
-            <br>
-            <br>
-            <div class="title18" style="margin-top:25px;">
+  
+            <div class="title18" style="margin-top:65px;">
                 <h3>លិខិតអញ្ជើញ</h3><br>
             </div>
             <div class="row1_18">

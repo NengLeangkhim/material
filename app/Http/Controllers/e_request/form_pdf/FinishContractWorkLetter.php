@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class FinishContractWorkLetter extends Controller
@@ -21,12 +22,11 @@ class FinishContractWorkLetter extends Controller
                 <img style="width: 170px; height: 100px;margin-top:-10px;" src="img/formimage/turbotech.png">
             </div>
              <div class="namecompany" style="text-align:center;margin-top:-117px;">
-                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1>
-                <h1 style=" font-size: 19px;">TURBOTECH CO., LTD</h1>
+                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1><br>
+                <h1 style=" font-size: 19px;margin-top:-28px;">TURBOTECH CO., LTD</h1>
             </div>
-            <br>
-            <br>
-            <div class="title11">
+
+            <div class="title11" style="margin-top:10px;">
                 <h3>លិខិតបញ្ចប់កិច្ចសន្យាការងារ</h3><br>
                 <h3 style="margin-top:-30px;">អគ្គនាយក ក្រុមហ៊ុន ធើបូថេក ឯ.ក</h3><br>
                 <h3 style="margin-top:-30px;">ជម្រាបមក</h3>

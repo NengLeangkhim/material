@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PDF;
-class PdfController extends Controller
+
+class Request_form extends Controller
 {
-    public function request()
+    public function Request_form()
     {
     	$html='<html>
         <head>
@@ -21,12 +22,11 @@ class PdfController extends Controller
                 <img style="width: 170px; height: 100px;margin-top:-10px;" src="img/formimage/turbotech.png">
             </div>
              <div class="namecompany" style="text-align:center;margin-top:-117px;">
-                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1>
-                <h1 style=" font-size: 19px;">TURBOTECH CO., LTD</h1>
+                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1><br>
+                <h1 style=" font-size: 19px;margin-top:-30px;">TURBOTECH CO., LTD</h1>
             </div>
-            <br>
-            <br>
-            <div class="title">
+ 
+            <div class="title" style="margin-top:10px;">
                 <h1>សំណើសុំឧបត្ថម្ភការសិក្សា</h1>
             </div>
             <div class="row1">
@@ -89,7 +89,7 @@ class PdfController extends Controller
 
         $mpdf = new \Mpdf\Mpdf($config);
         $mpdf->WriteHTML($html);
-        $filename = 'request.pdf';
+        $filename = 'Request_form.pdf';
 
         // // $mpdf->Output($filename, 'D');//download
         return $mpdf->Output($filename,'I');

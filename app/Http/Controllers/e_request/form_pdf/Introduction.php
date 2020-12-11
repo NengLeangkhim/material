@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class Introduction extends Controller
@@ -47,7 +48,7 @@ class Introduction extends Controller
                 <p style="margin-right:25px;margin-top:-35px;">......................ថ្ងៃទី..............ខែ...............ឆ្នាំ២០២....</p> <br>              
                 <h3>អគ្គនាយក</h3>
             </div>
-            <div class="footer8">
+            <div class="footer8" >
                 <h4>ចម្លងជូន :</h4><br>
                 <p  style="margin-left:20px;margin-top:-30px;">អគ្គនាយក</p><br>
                 <h4 style="margin-left:60px;margin-top:-30px;">-ដើម្បីជូនជ្រាបជាព័ត៌មាន</h4><br>

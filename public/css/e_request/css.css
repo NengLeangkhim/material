@@ -63,7 +63,7 @@
 
 .footer p{
     margin-left:20px;
-    margin-top:51px;
+    margin-top:57px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -299,7 +299,7 @@
 }
 .footer6{
     margin-top: 200px;
-    font-size: 11pt;
+    font-size: 14px;
     margin-left: 20px;
 }
 /* Request form Letter */
@@ -553,7 +553,7 @@
 .footer2_11 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:50px;
+    margin-top:80px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -614,7 +614,7 @@
 .footer2_12 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:50px;
+    margin-top:75px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -706,14 +706,14 @@
     margin-top:-35px;
 }
 .row1_14{
-    margin-top: -40px;
+    margin-top: -30px;
     font-size: 15px;
     margin-left: 20px;
     margin-right: 20px;
 }
 .footer14 p{
 
-    margin-top:310px;
+    margin-top:290px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -753,7 +753,7 @@ table ,th ,td{
 .footer15 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:110px;
+    margin-top:100px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -795,7 +795,7 @@ table ,th ,td{
     text-align:right;
 }
 .lastrow16 h3{
-    margin-right: 60px;
+    margin-right: 90px;
     font-size: 11pt;
     margin-top:-35px;
     text-align:right;
@@ -829,7 +829,7 @@ table ,th ,td{
 .footer17 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:0px;
+    margin-top:-3px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -876,7 +876,7 @@ table ,th ,td{
 .footer18 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:80px;
+    margin-top:88px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }

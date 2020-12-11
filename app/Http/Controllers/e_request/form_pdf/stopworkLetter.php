@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PDF;
+
 class stopworkLetter extends Controller
 {
-    public function stopworkLetter()
+     public function stopworkLetter()
     {
     	$html='<html>
         <head>
@@ -21,12 +22,10 @@ class stopworkLetter extends Controller
                 <img style="width: 170px; height: 100px;margin-top:-10px;" src="img/formimage/turbotech.png">
             </div>
              <div class="namecompany_2" style="text-align:center;margin-top:-117px;">
-                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1>
-                <h1 style=" font-size: 19px;">TURBOTECH CO., LTD</h1>
+                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1><br>
+                <h1 style=" font-size: 19px;margin-top:-28px;">TURBOTECH CO., LTD</h1>
             </div>
-            <br>
-            <br>
-            <div class="title_2">
+            <div class="title_2" style="margin-top:15px;">
                 <h1>លិខិតសុំលាឈប់ពីការងារ</h1>
             </div>
             <div class="row1_2">
@@ -56,7 +55,7 @@ class stopworkLetter extends Controller
             </div>
             <div class="lastrow_2">
                 <p>ធ្វើនៅថ្ងៃទី.........ខែ.........ឆ្នាំ...........</p><br>                
-                <p style="margin-right:20px;margin-top:-40px;">ហត្ថលេខាសាមីខ្លួន</p>
+                <p style="margin-right:35px;margin-top:-40px;">ហត្ថលេខាសាមីខ្លួន</p>
             </div>
   
             <table class="table" style="border:none;margin-left: 20px; margin-right: 20px;">
@@ -93,7 +92,7 @@ class stopworkLetter extends Controller
                 </tbody>
             </table>
                 
-            <div class="footer_2">
+            <div class="footer_2"  style="margin-top:8px;">
                 <p>ទម្រង់លិខិតសុំលាឈប់ពីការងារ &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 TT-HRAD-RTP-FM-001-00</p>
             </div>

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ReceiveWorkLetter extends Controller
@@ -21,12 +22,12 @@ class ReceiveWorkLetter extends Controller
                 <img style="width: 170px; height: 100px;margin-top:-10px;" src="img/formimage/turbotech.png">
             </div>
              <div class="namecompany" style="text-align:center;margin-top:-117px;">
-                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1>
-                <h1 style=" font-size: 19px;">TURBOTECH CO., LTD</h1>
+                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1><br>
+                <h1 style=" font-size: 19px;margin-top:-28px;">TURBOTECH CO., LTD</h1>
             </div>
             <br>
             <br>
-            <div class="title19" style="margin-top:-45px; text-align:center;font-size:15px;">
+            <div class="title19" style="margin-top:-37px; text-align:center;font-size:15px;">
                 <h3>លិខិតប្រគល់ទទួលសម្ភារៈ</h3><br>
             </div>
             <div class="row1_19" style="font-size:15px;margin-left:20px;margin-right:20px;margin-top:-55px;">
