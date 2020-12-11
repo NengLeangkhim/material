@@ -94,7 +94,7 @@ class MissionAndOutsideController extends Controller
             if($id>0){
                 $stm=MissionAndOutSide::UpdateMissionOutside($id,$userid,$f_date,$t_date,$description,'t',$type,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }else{
-                $stm=$ms->InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
+                $stm= MissionAndOutSide::InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }
 
             return response()->json(['success'=>$stm]);
@@ -194,13 +194,19 @@ class MissionAndOutsideController extends Controller
                 session_start();
             }
             $userid = $_SESSION['userid'];
+            $date=$request->date;
+            $reason=$request->reason;
+            $type=$request->type;
+            $shift=$request->shift;
+            $em=$request->employees;
             $emid=array();
-            array_push($emid,$request->employees);
+            array_push($emid,$em);
             if($request->id>0){
                 $sussess=MissionAndOutSide::UpdateMissionOutside($request->id,$userid,$request->date,$request->date,$request->reason,'t',$request->type,$request->shift,'','','','',$emid);
             }else{
-                $sussess=MissionAndOutSide::InsertMissionOutSide($request->date,$request->date,$request->reason,$request->type,$userid,$request->shift,'','','','',$emid);
+                $sussess=MissionAndOutSide::InsertMissionOutSide($date,$date,$reason,$type,$userid,$shift,'','','','',$emid);
             }
+            DB::commit();
             return response()->json(['success' => $sussess]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -220,27 +226,131 @@ class MissionAndOutsideController extends Controller
             $approved_attendance->headers->set('Accept', 'application/json');
             $res = app()->handle($approved_attendance);
             $response_attendance = json_decode($res->getContent());
-
-            $permission_one = Request::create('/api/hrms_permission/'.$request->id, 'GET');
-            $permission_one->headers->set('Accept', 'application/json');
-            $res_one = app()->handle($permission_one);
-            $response_permission_one = json_decode($res_one->getContent());
+            if($request->id>0){
+                $permission_one = Request::create('/api/hrms_permission/' . $request->id, 'GET');
+                $permission_one->headers->set('Accept', 'application/json');
+                $res_one = app()->handle($permission_one);
+                $response_permission_one = json_decode($res_one->getContent());
+            }else{
+                $response_permission_one='';
+            }
+            
             
 
             return view('hrms/Employee/MissionAndOutSide/modal_permission')->with(['employee'=>$employee,'leave_type'=>$leave_type,'approve_attendance'=>$response_attendance,'permission'=>$response_permission_one]);
         }
+
+    function insert_permission_employee(Request $request)
+    {
+        try {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $userid = $_SESSION['userid'];
+            $validation = \Validator::make($request->all(), [
+                'employees' => ['required', 'integer'],
+                'type' => ['required'],
+                'date' => ['required', 'date'],
+                'shift' => ['required'],
+                'approved_by' => ['required','integer'],
+                'reason' => ['required']
+            ]);
+            if ($validation->fails()) {
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            }
+            if($request->shift=='am'){
+                $date_from=$request->date.' 08:00:00';
+                $date_to=$request->date.' 12:00:00';
+            }elseif($request->shift=='pm'){
+                $date_from = $request->date . ' 13:30:00';
+                $date_to = $request->date . ' 17:30:00';
+            }else{
+                $date_from = $request->date . ' 08:00:00';
+                $date_to = $request->date . ' 17:30:00';
+            }
+
+            if($request->id>0){
+                $response = Request::create('/api/hrms_permission/'.$request->id, 'PUT', [
+                    'ma_user_id' => $request->employees,
+                    'leave_type_id' => $request->type,
+                    'editor_id' => $userid,
+                    'reason' => $request->reason,
+                    'shift' => $request->shift,
+                    'approved_by' => $request->approved_by,
+                    'date_from' => $date_from,
+                    'date_to' => $date_to,
+                ]);
+                $response->headers->set('Accept', 'application/json');
+                $response = app()->handle($response);
+                $respon = json_decode($response->getContent());
+                if (isset($respon->success)) {
+                    return response()->json(["success" => $respon->success]);
+                } else {
+                    return response()->json(['error' => $respon->error]);
+                }
+            }else{
+                $response = Request::create('/api/hrms_permission', 'POST', [
+                    'ma_user_id' => $request->employees,
+                    'leave_type_id' => $request->type,
+                    'editor_id' => $userid,
+                    'reason' => $request->reason,
+                    'shift' => $request->shift,
+                    'approved_by' => $request->approved_by,
+                    'date_from' => $date_from,
+                    'date_to' => $date_to,
+                ]);
+                $response->headers->set('Accept', 'application/json');
+                $response = app()->handle($response);
+                $respon = json_decode($response->getContent());
+                if (isset($respon->success)) {
+                    return response()->json(["success" => $respon->success]);
+                } else {
+                    return response()->json(['error' => $respon->error]);
+                }
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     // end Permission
 
     // work on side
         function modal_work_on_side(Request $request){
             $employee = EmployeeEmployee::AllEmployee();
             if($request->id>0){
-                
-                dd('id>0');
+                $work_on_side = Request::create('/api/hrms_work_on_side/'.$request->id, 'GET');
+                $work_on_side->headers->set('Accept', 'application/json');
+                $res_on_side = app()->handle($work_on_side);
+                $response_work_on_side = json_decode($res_on_side->getContent());
             }else{
-                $response_permission='';
+                $response_work_on_side='';
             }
-            return view('hrms/Employee/MissionAndOutSide/modal_work_on_side')->with(['employee'=>$employee,'pemission'=>$response_permission]);
+            return view('hrms/Employee/MissionAndOutSide/modal_work_on_side')->with(['employee'=>$employee,'work_on_side'=>$response_work_on_side]);
+        }
+
+
+        function insert_work_on_side(Request $request){
+            $validation=\Validator::make($request->all(),[
+            'employees'=>['required','integer'],
+            'date'=>['required','date'],
+            'shift'=>['required','string'],
+            'location'=>['required'],
+            ]);
+            if ($validation->fails()) {
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            }
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $userid = $_SESSION['userid'];
+            $emid=array();
+            array_push($emid,$request->employees);
+            if($request->id>0){
+                $success=MissionAndOutSide::UpdateMissionOutside($request->id,$userid,$request->date,$request->date,$request->location,'t', 'work on side',$request->shift,'','','','',$emid);
+            }else{
+                $success=MissionAndOutSide::InsertMissionOutSide($request->date,$request->date,$request->location,'work on side',$userid,$request->shift,'','','','',$emid);
+            }
+            return response()->json(['success'=>$success]);
         }
     // end work on side
 }

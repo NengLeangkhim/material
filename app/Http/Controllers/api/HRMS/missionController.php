@@ -93,11 +93,15 @@ class missionController extends Controller
             $sql= "select hm.id,concat(mu.last_name_en,' ',mu.first_name_en) as employee,hm.date_from as date,hm.type,hm.shift,hm.description as reason FROM hr_mission hm 
                 INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id 
                 INNER JOIN ma_user mu on mu.id=hmd.ma_user_id
-                WHERE hm.status='t' and hm.is_deleted='f' and lower(hm.type)='missed scan' or lower(hm.type)='late' ORDER BY hm.date_from desc";
+                WHERE hm.status='t' and hm.is_deleted='f' and (lower(hm.type)='missed scan' or lower(hm.type)='late') and hmd.status='t' and hmd.is_deleted='f' ORDER BY hm.date_from desc";
             $late_missed_scan=DB::select($sql);
             return response()->json($late_missed_scan);
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function late_missed_scan_one($id){
+        return 'ok';
     }
 }

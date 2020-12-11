@@ -15,7 +15,7 @@
             <form id="fm_late_missed_scan" onsubmit="return false">
               @csrf
             <div class="row">
-              <input type="hidden" name="id" id="" value="">
+              <input type="hidden" name="id" value="{{$response_late_missed_scan[0]->id ?? 0}}">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Employee <span class="text-danger">*</span></label>

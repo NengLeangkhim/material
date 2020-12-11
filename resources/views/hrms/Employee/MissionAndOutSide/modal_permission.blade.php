@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_permission" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
+<div class="modal fade show" id="modal_attendance_edit" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -11,11 +11,10 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            @dump($permission)
-            <form id="fm_late_missed_scan" onsubmit="return false">
+            <form id="fm_attendance_edit_permission" onsubmit="return false">
               @csrf
             <div class="row">
-              <input type="hidden" name="id" id="" value="">
+            <input type="hidden" name="id" value="{{$permission[0]->id ?? 0}}">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Employee <span class="text-danger">*</span></label>
@@ -64,22 +63,28 @@
             <div class="col-md-6">
                 @php
                     $shift=[
-                        'am'=>'AM / ព្រឹក','pm'=>'PM / ល្ងាច',
+                        'am'=>'AM / ព្រឹក',
+                        'pm'=>'PM / ល្ងាច',
                         'full'=>'Full / មួយថ្ងៃ'
-                        ]
+            ];
+                      if(isset($permission[0])){
+                        $shift_from_database=strtolower($permission[0]->shift);
+                      }else {
+                        $shift_from_database='';
+                      }
                 @endphp
                   <div class="form-group">
                   <label>Shift <span class="text-danger">*</span></label>
                   <select name="shift" class="form-control" required>
                       <option value="" hidden></option>
-                      @foreach ($shift as $key=>$shif)
-                        @if (($response_late_missed_scan[0]->shift ?? '')==$key)
-                            <option selected value="{{$key}}">{{$shif}}</option>
-                        @else
-                            <option value="{{$key}}">{{$shif}}</option>
-                        @endif
-                        
-                      @endforeach
+                        @foreach ($shift as $key=>$shif)
+                          @if ($shift_from_database==$key)
+                              <option selected value="{{$key}}">{{$shif}}</option>
+                          @else
+                              <option value="{{$key}}">{{$shif}}</option>
+                          @endif
+                          
+                        @endforeach
                   </select>
                   <div id="shift" class="text-sm text-danger"></div>
                 </div>
@@ -87,7 +92,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Approved By <span class="text-danger">*</span></label>
-                  <select name="type" id="type" class="form-control" required>
+                  <select name="approved_by" id="type" class="form-control" required>
                       <option value="" hidden></option>
                       @foreach ($approve_attendance as $approve)
                         @if (($permission[0]->approve_by ?? 0)==$approve->id)
@@ -114,7 +119,7 @@
             <!-- /.row -->
             <div class="col-md-12 text-right">
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button class="btn bg-turbo-color" onclick="hrms_insert_late_missed_scan()">Save</button>
+                <button class="btn bg-turbo-color" onclick="hrms_insert_permission()">Save</button>
             </div>
             </form>
           </div>

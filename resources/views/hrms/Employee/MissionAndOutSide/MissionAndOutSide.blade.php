@@ -50,9 +50,9 @@
                                   <td>{{$late_missed->shift ?? ''}}</td>
                                   <td>{{$late_missed->reason ?? ''}}</td>
                                     <td>
-                                      <div class="row">
-                                      <div class="col-md-4"><a href="javascript:;" onclick="hrms_modal_late_missed_scan({{$late_missed->id ?? 0}})"><i class="far fa-edit"></i></a></div>
-                                        <div class="col-md-4"><a href="javascript:;" onclick=""><i class="far fa-trash-alt"></i></a></div>
+                                      <div class="row text-center">
+                                        <div class="col-md-6"><a href="javascript:;" onclick="hrms_modal_late_missed_scan({{$late_missed->id ?? 0}})"><i class="far fa-edit"></i></a></div>
+                                        <div class="col-md-6"><a href="javascript:;" onclick="hrm_delete_data({{$late_missed->id ?? 0}},'hrm_delete_missionoutside','hrm_mission_outside','Delete Successfully !','HRM_09010403')"><i class="far fa-trash-alt"></i></a></div>
                                       </div>
                                     </td>
                                   </tr>
@@ -157,6 +157,7 @@
                                   <th>Employee</th>
                                   <th>Date From</th>
                                   <th>Date To</th>
+                                  <th>Shift</th>
                                   <th>Reason</th>
                                   <th>Approve By</th>
                                   <th>Action</th>
@@ -171,6 +172,7 @@
                                         <td>{{$permis->employee_name ?? ''}}</td>
                                       <td>{{$permis->date_from ?? ''}}</td>
                                       <td>{{$permis->date_to ?? ''}}</td>
+                                      <td>{{$permis->shift ?? ''}}</td>
                                       <td>{{$permis->reason ?? ''}}</td>
                                       <td>{{$permis->approve_name ?? ''}}</td>
                                         <td class="text-center">
@@ -207,7 +209,7 @@
                                       <td>{{$onside->date ?? ''}}</td>
                                       <td>{{$onside->location ?? ''}}</td>
                                         <td class="text-center">
-                                        <div class="col-md-12"><a href="javascript:;" onclick="{{$onside->id ?? 0}}"><i class="far fa-edit"></i></a></div>
+                                        <div class="col-md-12"><a href="javascript:;" onclick="hrms_modal_work_on_side({{$onside->id ?? 0}})"><i class="far fa-edit"></i></a></div>
                                         </td>
                                       </tr>
                                   @endforeach

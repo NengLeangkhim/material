@@ -11,18 +11,17 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            @dump($pemission)
-            <form id="fm_late_missed_scan" onsubmit="return false">
+            <form id="fm_work_on_side" onsubmit="return false">
               @csrf
             <div class="row">
-              <input type="hidden" name="id" id="" value="">
+            <input type="hidden" name="id" id="" value="{{$work_on_side[0]->id ?? 0}}">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Employee <span class="text-danger">*</span></label>
                   <select name="employees" id="employee" class="form-control" required>
                       <option value="" hidden></option>
                       @foreach ($employee as $em)
-                        @if (($response_late_missed_scan[0]->emid ?? 0)==$em->id)
+                        @if (($work_on_side[0]->emid ?? 0)==$em->id)
                             <option selected value="{{$em->id}}">{{$em->lastName ?? ''}} {{$em->firstName ?? ''}}</option>
                         @else
                             <option value="{{$em->id}}">{{$em->lastName ?? ''}} {{$em->firstName ?? ''}}</option>
@@ -37,7 +36,7 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="date" value="{{date('Y/m/d',strtotime($response_late_missed_scan[0]->date ?? date('Y/m/d')))}}" required autocomplete="off">
+                  <input type="date" class="form-control" name="date" value="{{date('Y/m/d',strtotime($work_on_side[0]->date ?? date('Y/m/d')))}}" required autocomplete="off">
                   <div id="date" class="text-sm text-danger"></div>
                 </div>
             </div>
@@ -54,7 +53,7 @@
                   <select name="shift" class="form-control" required>
                       <option value="" hidden></option>
                       @foreach ($shift as $key=>$shif)
-                        @if (($response_late_missed_scan[0]->shift ?? '')==$key)
+                        @if (($work_on_side[0]->shift ?? '')==$key)
                             <option selected value="{{$key}}">{{$shif}}</option>
                         @else
                             <option value="{{$key}}">{{$shif}}</option>
@@ -68,8 +67,8 @@
               <div class="col-md-12">
                   <div class="form-group">
                   <label>Location <span class="text-danger">*</span></label>
-                  <textarea name="reason" rows="5" class="form-control" required>{{$response_late_missed_scan[0]->reason ?? ''}}</textarea>
-                  <div id="reason" class="text-sm text-danger"></div>
+                  <textarea name="location" rows="5" class="form-control" required>{{$work_on_side[0]->location ?? ''}}</textarea>
+                  <div id="location" class="text-sm text-danger"></div>
                 </div>
               </div>
               <!-- /.col -->
@@ -77,7 +76,7 @@
             <!-- /.row -->
             <div class="col-md-12 text-right">
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button class="btn bg-turbo-color" onclick="hrms_insert_late_missed_scan()">Save</button>
+                <button class="btn bg-turbo-color" onclick="hrms_insert_work_on_side()">Save</button>
             </div>
             </form>
           </div>

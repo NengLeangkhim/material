@@ -17,7 +17,7 @@ class WorkOnSideController extends Controller
     {
         //
         try {
-            $sql= "SELECT hm.id,mu.id as emid,concat(mu.last_name_en,' ',mu.first_name_en) as employee,hm.date_from as date,hm.description as location,hm.shift FROM hr_mission hm inner join hr_mission_detail hmd on hm.id=hmd.hr_mission_id inner join ma_user mu on hmd.ma_user_id=mu.id WHERE lower(hm.type)='work on side' and hmd.status='t' and hmd.is_deleted='f' and hm.status='t' and hm.is_deleted='f'";
+            $sql= "SELECT hm.id,mu.id as emid,concat(mu.last_name_en,' ',mu.first_name_en) as employee,hm.date_from as date,hm.description as location,hm.shift FROM hr_mission hm inner join hr_mission_detail hmd on hm.id=hmd.hr_mission_id inner join ma_user mu on hmd.ma_user_id=mu.id WHERE lower(hm.type)='work on side' and hmd.status='t' and hmd.is_deleted='f' and hm.status='t' and hm.is_deleted='f' order by hm.id desc";
             $work_on_side=DB::select($sql);
             return response()->json($work_on_side);
         } catch (\Throwable $th) {
@@ -55,6 +55,13 @@ class WorkOnSideController extends Controller
     public function show($id)
     {
         //
+        try {
+            $sql = "SELECT hm.id,mu.id as emid,concat(mu.last_name_en,' ',mu.first_name_en) as employee,hm.date_from as date,hm.description as location,hm.shift FROM hr_mission hm inner join hr_mission_detail hmd on hm.id=hmd.hr_mission_id inner join ma_user mu on hmd.ma_user_id=mu.id WHERE lower(hm.type)='work on side' and hmd.status='t' and hmd.is_deleted='f' and hm.status='t' and hm.is_deleted='f' and hm.id=$id limit 1";
+            $work_on_side = DB::select($sql);
+            return response()->json($work_on_side);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

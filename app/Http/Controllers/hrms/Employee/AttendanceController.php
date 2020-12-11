@@ -175,37 +175,4 @@ class AttendanceController extends Controller
             ];
             return view($view)->with('data', $data);
     }
-
-
-
-    function insert_permission_employee(Request $request){
-        try {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            $userid = $_SESSION['userid'];
-            $validation=\Validator::make($request->all(),[
-                'id'=>['required','integer'],
-                'leave_type'=>['required','integer'],
-                'permission_date'=>['required','date'],
-                'permission_reason'=>['required','date'],
-                'permission_shift'=>['required'],
-                'permission_approved'=>['required']
-            ]);
-            if($validation->fails()){
-                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
-            }
-            $response = Request::create('/api/hrms_permission', 'POST',[
-                'ma_user_id' =>$request->id,
-                'editor_id'=>$userid,
-                'reason'=>$request->permission_reason,
-                'date_from'=>$request->date_from,
-                'date_to'=>$request->date_to
-            ]);
-            $request->headers->set('Accept', 'application/json');
-            return response()->json($response);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
 }
