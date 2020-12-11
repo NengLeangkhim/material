@@ -180,7 +180,7 @@
                                                     }
                                                     else {
                                                         ?>
-                                                        {{$detailbranch[$i]["possible"]=='true' ? 'YES':'NO'}}
+                                                        {{$detailbranch[$i]["possible"]=='true' ? 'Possible':'Impossible'}}
                                                         <?php
                                                     }
                                                 }
