@@ -353,7 +353,6 @@ class CrmReport extends Model
 
     public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 2){ // status qualified
         try{
-            $assignTo = null;
             $select = '
                 SELECT
                     cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.crm_lead_source_id, cl.crm_lead_current_isp_id, cl.crm_lead_industry_id,
@@ -367,7 +366,7 @@ class CrmReport extends Model
                     crm_lead cl
                     INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id
                     INNER JOIN crm_lead_detail cld ON clb.id = cld.crm_lead_branch_id
-                    INNER JOIN crm_lead_assign cla ON cld.id = cla.crm_lead_branch_id
+                    INNER JOIN crm_lead_assign cla ON clb.id = cla.crm_lead_branch_id
                     INNER JOIN crm_lead_status cls ON cld.crm_lead_status_id = cls.id
             ';
             $condition = ''.
