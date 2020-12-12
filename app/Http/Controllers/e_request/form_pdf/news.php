@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PDF;
-class notice extends Controller
+
+class news extends Controller
 {
-    public function notice()
+    public function news()
     {
         $html='<html>
         <head>
@@ -34,7 +35,7 @@ class notice extends Controller
                 <p style="margin-top:-5px;margin-left:125px;">សេចក្តីដូចយោងខាងលើ ខ្ញុំសូមជម្រាបជូន លោក-លោកស្រី ប្រធាននាយកដ្ឋាន </p><br>
                 <p style="margin-top:-35px;margin-left:80px;">និងនិយោជិតគ្រប់លំដាប់ថ្នាក់ ជ្រាបថា៖ ក្រុមហ៊ុន ធើបូថេក សឺលូសិន ឯ.ក...............................<br>
                 ..........................................................................................................................................។</p>
-               
+
             </div>
             <div class="row6_6">
                 <p style="margin-left:125px;margin-right:20px;">អាស្រ័យដូចបានជម្រាបជូនខាងលើ សូម លោក/លោកស្រី.....ជ្រាបជាព័ត៌មាន និង</p><br>
@@ -42,8 +43,8 @@ class notice extends Controller
             </div>
 
             <div class="lastrow_6">
-                <p>ថ្ងៃ.................កើត/រោច ខែ............ឆ្នាំ...........ព.ស ២៥៦....</p><br> 
-                <p style="margin-right:25px;margin-top:-35px;">......................ថ្ងៃទី..............ខែ...............ឆ្នាំ២០២....</p> <br>              
+                <p>ថ្ងៃ.................កើត/រោច ខែ............ឆ្នាំ...........ព.ស ២៥៦....</p><br>
+                <p style="margin-right:25px;margin-top:-35px;">......................ថ្ងៃទី..............ខែ...............ឆ្នាំ២០២....</p> <br>
                 <h3>អគ្គនាយក</h3>
             </div>
             <div class="footer6">
@@ -62,12 +63,12 @@ class notice extends Controller
             "autoScriptToLang" => true,
             "autoLangToFont" => true,
         ];
-    
+
         $mpdf = new \Mpdf\Mpdf($config);
         $mpdf->WriteHTML($html);
-        $filename = 'Notice.pdf';
-    
+        $filename = 'news.pdf';
+
         // // $mpdf->Output($filename, 'D');//download
         return $mpdf->Output($filename,'I');
-    }    
+    }
 }

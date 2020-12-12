@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PDF;
+
 class warrantyLetter extends Controller
 {
     public function warrantyletter()
@@ -21,12 +22,10 @@ class warrantyLetter extends Controller
                 <img style="width: 170px; height: 100px;margin-top:-10px;" src="img/formimage/turbotech.png">
             </div>
              <div class="namecompany1_1" style="text-align:center;margin-top:-117px;">
-                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1>
-                <h1 style=" font-size: 19px;">TURBOTECH CO., LTD</h1>
+                <h1 style="font-size: 25px;">ក្រុមហ៊ុនធើបូថេក​​ ឯ.ក</h1><br>
+                <h1 style=" font-size: 19px;margin-top:-28px;">TURBOTECH CO., LTD</h1>
             </div>
-            <br>
-            <br>
-            <div class="title1_1">
+            <div class="title1_1"  style="margin-top:30px;">
                 <h1>លិខិតធានាអះអាង</h1>
             </div>
             <div class="row1_1">
@@ -60,9 +59,9 @@ class warrantyLetter extends Controller
             </div>
             <div class="lastrow_1">
                 <p>ធ្វើនៅថ្ងៃទី..............ខែ...............ឆ្នាំ២០...........<br>
-                <b>ស្នាមមេដៃស្តាំឬហត្ថលេខាសាមីខ្លួន</b></p>
+                <b>ស្នាមមេដៃស្តាំឬហត្ថលេខាសាមីខ្លួន &nbsp;&nbsp; </b></p>
             </div>
-            <div class="footer_1">
+            <div class="footer_1" style="margin-top:20px;">
                 <p>ទម្រង់លិខិតធានាអះអាង​ &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  ​​&nbsp;  ​​&nbsp; &nbsp; &nbsp; &nbsp;​​&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  ​​&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
                 TT-HRAD-RTP-FM-011-00</p>
             </div>
@@ -82,5 +81,4 @@ class warrantyLetter extends Controller
         // // $mpdf->Output($filename, 'D');//download
         return $mpdf->Output($filename,'I');
     }
-    
 }

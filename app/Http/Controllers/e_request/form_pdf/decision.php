@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Decision extends Controller
+class decision extends Controller
 {
     public function Decision()
     {
@@ -52,7 +53,7 @@ class Decision extends Controller
             </div>
             <div class="footer9">
                 <h4>កន្លែងទទួល :</h4><br>
-                <p  style="margin-left:20px;margin-top:-30px;">ខាងលើ</p><br>
+                <p  style="margin-left:20px;margin-top:-30px;">ដូចប្រការ ៣ ខាងលើ</p><br>
                 <h4 style="margin-left:20px;margin-top:-25px;">-ដើម្បីជូនជ្រាបជាព័ត៌មាន និងសហការអនុវត្ត</h4><br>
                 <p style="margin-left:20px;margin-top:-30px;">ឯកសារ-</p>
             </div>

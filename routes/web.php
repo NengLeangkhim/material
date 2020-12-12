@@ -298,19 +298,30 @@ Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_vi
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
 //======================PDF======================
-Route::get('request','PdfController@request');
-Route::get('warrantyLetter','warrantyLetter@warrantyletter');
-Route::get('stopworkLetter','stopworkLetter@stopworkLetter');
-Route::get('inviteLetter','inviteLetter@inviteLetter');
-Route::get('inviteeetingLetter','inviteMeetingLetter@inviteMeetingLetter');
-Route::get('notice','notice@notice');
-Route::get('requestForm','requestForm@requestForm');
-Route::get('Introduction','Introduction@Introduction');
-Route::get('Decision','Decision@Decision');
-Route::get('requestPaymentForm','requestPaymentForm@requestPaymentForm');
-Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWorkLetter');
-Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
-Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
+Route::get('Request_form','e_request\form_pdf\Request_form@Request_form');//
+Route::get('warrantyLetter','e_request\form_pdf\warrantyLetter@warrantyletter');//
+Route::get('stopworkLetter','e_request\form_pdf\stopworkLetter@stopworkLetter');//
+Route::get('inviteLetter','e_request\form_pdf\inviteLetter@inviteLetter');//
+Route::get('inviteMeetingLetter','e_request\form_pdf\inviteMeetingLetter@inviteMeetingLetter');//
+Route::get('news','e_request\form_pdf\news@news');//footer not yet
+Route::get('requestForm','e_request\form_pdf\requestForm@requestForm');//footer not yet
+Route::get('Introduction','e_request\form_pdf\Introduction@Introduction');//footer not yet
+Route::get('Decision','e_request\form_pdf\decision@Decision');//footer not yet
+Route::get('requestPaymentForm','e_request\form_pdf\requestPaymentForm@requestPaymentForm');//footer not yet
+Route::get('FinishContractWorkLetter','e_request\form_pdf\FinishContractWorkLetter@FinishContractWorkLetter');//footer not yet
+Route::get('IntroductionCEO','e_request\form_pdf\IntroductionCEO@IntroductionCEO');//
+Route::get('StopWorkStaff','e_request\form_pdf\StopWorkStaff@StopWorkStaff');//footer not yet
+Route::get('ProtestLetter','e_request\form_pdf\ProtestLetter@ProtestLetter');//
+Route::get('Training','e_request\form_pdf\Training@Training');//
+Route::get('TrainingPreAndPostTest','e_request\form_pdf\TrainingPreAndPostTest@TrainingPreAndPostTest');//
+Route::get('TrainingEvaluationForm','e_request\form_pdf\TrainingEvaluationForm@TrainingEvaluationForm');//
+Route::get('TrainingInvitationLetter','e_request\form_pdf\TrainingInvitationLetter@TrainingInvitationLetter');//
+Route::get('ReceiveWorkLetter','e_request\form_pdf\ReceiveWorkLetter@ReceiveWorkLetter');//
+Route::get('RequestLetter','e_request\form_pdf\RequestLetter@RequestLetter');//
+Route::get('requestBuy','e_request\form_pdf\requestBuy@requestBuy');//
+Route::get('ExternalTrainingReportForm','e_request\form_pdf\ExternalTrainingReportForm@ExternalTrainingReportForm');//
+Route::get('WorkingPerformanceAppraisalForm','e_request\form_pdf\WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');//
+Route::get('working_performance_appraisal_form','e_request\form_pdf\working_performance_appraisal_form@working_performance_appraisal_form');
 //============reportPDF===========
 Route::get('certificate','e_request\pdf\Certificate@certificatePDF'); //certificate
 Route::get('expried_intership','e_request\pdf\Expried_intership@Expried_internshipPDF'); //Expried_intership

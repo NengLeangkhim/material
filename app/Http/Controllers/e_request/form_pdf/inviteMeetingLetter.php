@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\e_request\form_pdf;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PDF;
+
 class inviteMeetingLetter extends Controller
 {
     public function inviteMeetingLetter()
