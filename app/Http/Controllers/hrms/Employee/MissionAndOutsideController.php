@@ -68,7 +68,6 @@ class MissionAndOutsideController extends Controller
         }
         if (perms::check_perm_module('HRM_090104')) {
             $validation=\Validator::make($request->all(),[
-                'type'=>'required',
                 'missioncheck'=>'required',
                 'from_date'=>'required','date',
                 'to_date'=>'required','date',
@@ -80,7 +79,7 @@ class MissionAndOutsideController extends Controller
             $ms = new MissionAndOutSide();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
-            $type=$_POST['type'];
+            $type='Mission';
             $emid=$_POST['missioncheck'];
             $f_date=$_POST['from_date'];
             $t_date=$_POST['to_date'];

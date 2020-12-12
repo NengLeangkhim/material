@@ -10,12 +10,12 @@ class MissionAndOutSide extends Model
     public static function MissionOutside($id=0){
         try {
             if($id>0){
-                $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and type='mission' and id=$id";
+                $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and lower(type)='mission' and id=$id order by id desc";
                 $stm= DB::select($sql);
                 $sqldetail= "SELECT ma_user_id FROM hr_mission_detail where status='t' and is_deleted='f' and hr_mission_id=$id";
                 $stmdetail=DB::select($sqldetail);
                 $data=[
-                    "id"=>$stm[0]->id,
+                    "id"=>$stm[0]->id ?? 0,
                     "home_number"=>$stm[0]->home_number,
                     "street"=>$stm[0]->street,
                     "date_from"=>$stm[0]->date_from,
@@ -73,7 +73,7 @@ class MissionAndOutSide extends Model
                 $stm = DB::select($sql);
             }
             if($stm[0]->insert_hr_mission_detail>0){
-                return "Insert Successfully";
+                return "Successfully";
             }else{
                 return "error";
             }

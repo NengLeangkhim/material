@@ -17,7 +17,7 @@
               <div class="row">
                 <input type="hidden" name="id" value="@php if(isset($data[1])){echo $data[1]['id'];} @endphp">
                 <div class="col-md-12">
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label>Type <span class="text-danger">*</span></label>
                     <select name="type" id="" class="form-control">
                       @php
@@ -63,7 +63,7 @@
                       
                     </select>
                     <label id="type" class="text-danger d-none">type is required *</label>
-                  </div>
+                  </div> --}}
                   <div class="form-group">
                     <label>Staff <span class="text-danger">*</span></label>
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
