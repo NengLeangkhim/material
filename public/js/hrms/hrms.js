@@ -490,7 +490,7 @@ function hrms_date(){
                     console.log(this.responseText);
                     data=JSON.parse(this.responseText);
                     if($.isEmptyObject(data.error)){
-                        setTimeout(function () { go_to('hrm_attendance'); }, 300);
+                        setTimeout(function () { go_to('hrm_mission_outside'); }, 300);
                         hrms_notification(data.success);
                         // alert(data.success);
                         $('#modal_attendance_edit').modal('hide');

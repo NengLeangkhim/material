@@ -196,6 +196,7 @@
                                   <th>Employee</th>
                                   <th>Date Time</th>
                                   <th>Location</th>
+                                  <th>Shift</th>
                                   <th>Action</th>
                                 </thead>
                                 <tbody>
@@ -208,6 +209,7 @@
                                       <td>{{$onside->employee ?? ''}}</td>
                                       <td>{{$onside->date ?? ''}}</td>
                                       <td>{{$onside->location ?? ''}}</td>
+                                      <td>{{$onside->shift ?? ''}}</td>
                                         <td class="text-center">
                                         <div class="col-md-12"><a href="javascript:;" onclick="hrms_modal_work_on_side({{$onside->id ?? 0}})"><i class="far fa-edit"></i></a></div>
                                         </td>
