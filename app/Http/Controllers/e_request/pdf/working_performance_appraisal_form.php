@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\e_request\form_pdf;
+namespace App\Http\Controllers\e_request\pdf;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -320,8 +320,7 @@ Route::get('ReceiveWorkLetter','e_request\form_pdf\ReceiveWorkLetter@ReceiveWork
 Route::get('RequestLetter','e_request\form_pdf\RequestLetter@RequestLetter');//
 Route::get('requestBuy','e_request\form_pdf\requestBuy@requestBuy');//
 Route::get('ExternalTrainingReportForm','e_request\form_pdf\ExternalTrainingReportForm@ExternalTrainingReportForm');//
-Route::get('WorkingPerformanceAppraisalForm','e_request\form_pdf\WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');//
-Route::get('working_performance_appraisal_form','e_request\form_pdf\working_performance_appraisal_form@working_performance_appraisal_form');
+
 //============reportPDF===========
 Route::get('certificate','e_request\pdf\Certificate@certificatePDF'); //certificate
 Route::get('expried_intership','e_request\pdf\Expried_intership@Expried_internshipPDF'); //Expried_intership
@@ -342,7 +341,8 @@ Route::get('training_need_analysis','e_request\pdf\training_need_analysis@traini
 Route::get('new_staff','e_request\pdf\new_staff@new_staffPDF'); //new_staff
 Route::get('personal_file_check_list','e_request\pdf\personal_file_check_list@personal_file_check_listPDF'); //personal_file_check_list
 Route::get('font_standard','e_request\pdf\font_standard@font_standardPDF'); //font_standard
-
+Route::get('WorkingPerformanceAppraisalForm','e_request\pdf\WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');//WorkingPerformanceAppraisalForm
+Route::get('working_performance_appraisal_form','e_request\pdf\working_performance_appraisal_form@working_performance_appraisal_form'); //working_performance_appraisal_form
 
 Route::get('annual_training_calendar','e_request\pdf\annual_training_calendar@annual_training_calendarPDF'); //annual_training_calendar
 
