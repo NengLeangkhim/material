@@ -100,7 +100,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailOrganizationFrom"  name='DetailOrganizationFrom'  required>
+                                        <input type="text" class="form-control" value="<?php echo date('Y-m')?>" id="DetailOrganizationFrom"  name='DetailOrganizationFrom'  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -109,7 +109,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailOrganizationTo" name='DetailOrganizationTo'  required>
+                                        <input type="text" class="form-control" value="<?php echo date('Y-m')?>" id="DetailOrganizationTo" name='DetailOrganizationTo'  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center">
@@ -173,11 +173,11 @@
 
 
     $('#DetailOrganizationFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
       $('#DetailOrganizationTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
 

@@ -169,11 +169,11 @@
     });
 
     $('#DetailLeadFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
       $('#DetailLeadTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
 
@@ -244,18 +244,6 @@
                             `)
                         })
                         $('#OrganizationTbl').DataTable({
-                            // data: response.data,
-                            // header: false,
-                            // columns : [
-                            //     {"data" : 1},
-                            //     {"data" : "lead_number"},
-                            //     {"data" : "branch_name_en"},
-                            //     {"data" : "department_name_en"},
-                            //     {"data" : "customer_name_en"},
-                            //     {"data" : "priority"},
-                            //     {"data" : "source_name_en"},
-                            //     {"data" : "status_en"},
-                            // ],
                             'ordering': false,
                             "scrollX":true,
                             "autoWidth": false,

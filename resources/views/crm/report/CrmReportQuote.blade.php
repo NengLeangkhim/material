@@ -175,11 +175,11 @@
     });
 
     $('#DetailQuoteFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
     $('#DetailQuoteTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
 
