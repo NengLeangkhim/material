@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                   <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#late_missed_scan" role="tab" aria-controls="home" aria-selected="true">Late or Missed Scan</a>
+                          <a class="nav-link show active" id="home-tab" data-toggle="tab" href="#late_missed_scan" role="tab" aria-controls="home" aria-selected="true">Late or Missed Scan</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#mission" role="tab" aria-controls="profile" aria-selected="false">Mission</a>

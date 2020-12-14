@@ -17,7 +17,6 @@ $staff_suggestion = hr_dashboardController::Staff_Suggestion();
 $resigned_employee = hr_dashboardController::resigned_employee();
 $new_entrance=hr_dashboardController::new_entrance();
 
-
 // print_r($staff_suggestion);
 //function divide number to two digits
 Function index_num($v1){
