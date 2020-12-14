@@ -16,6 +16,15 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid">
       <div class="row">
           <div class="col-12">
@@ -129,8 +138,8 @@
                             </div> --}}
                         {{-- </div><!--End Form Group--> --}}
 
-                        <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped" style="white-space: nowrap;">
+                        {{-- <div class="table-responsive" style="padding-top: 10px;"> --}}
+                            <table id="OrganizationTbl" class="display dataTable table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
@@ -147,7 +156,7 @@
                                 <tbody id="lead-detail-body">
                                 </tbody>
                             </table>
-                        </div>
+                        {{-- </div> --}}
                   </div><!--End Card Body-->
               </div><!--End Card-->
           </div><!--Col-12-->
@@ -155,17 +164,16 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
-
     $(document).ready(function() {
         $('.select2').select2();
     });
 
     $('#DetailLeadFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
       $('#DetailLeadTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
 
@@ -189,6 +197,7 @@
         })
     }
 
+    $(window).off("resize")
     $(document).ready(function(){
         setSelectOptionData('/api/leadsource','#select_source')
         setSelectOptionData('/api/leadassig','#select_assign_to')
@@ -217,7 +226,7 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
-                    console.log(response.data);
+                    // console.log(response.data);
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
@@ -236,6 +245,12 @@
                         })
                         $('#OrganizationTbl').DataTable({
                             'ordering': false,
+                            "scrollX":true,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },

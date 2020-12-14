@@ -191,9 +191,9 @@
                     @foreach ($attendance[8] as $e)
                         <tr>
                         <td>
-                          <div class="row">
-                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_attendance_edit','modal_attendance_edit',{{$e[0]}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0]}},'tbl_hrm_attendance_detail')"><i class="fas fa-info"></i></a></div>
+                          <div class="row text-center">
+                            {{-- <div class="col-md-6"><a href="javascript:;" onclick="hrms_edit_attendance({{$e[0] ?? 0}})"><i class="far fa-edit"></i></a></div> --}}
+                            <div class="col-md-12"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0] ?? 0}},'tbl_hrm_attendance_detail')"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
                       <th>{{++$i}}</th>

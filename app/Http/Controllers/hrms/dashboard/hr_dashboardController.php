@@ -501,6 +501,29 @@ class hr_dashboardController extends Controller
     }
 
 
+    public static function resigned_employee(){
+        try {
+            $resign=Employee::Employee_Leave();
+            $all_em=Employee::AllEmployee();
+            $all=count($resign)+count($all_em);
+            $resign_person=(count($resign)/$all)*100;
+            return round($resign_person,2);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public static function new_entrance(){
+        try {
+            $em=count(Employee::AllEmployee());
+            $new_employee_for_this_month=hr_dashboardModel::new_employee_for_this_month();
+            return round(($new_employee_for_this_month/$em)*100,2);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
 
 
 
