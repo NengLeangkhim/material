@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <div class="row">                                           
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <label for="name_en">Full Name English </label>
                                                 <div class="input-group">
@@ -176,7 +176,7 @@
                                                     </div>
                                                     <input type="text" class="form-control" name="name_en" id="name_en" placeholder="Last Name" >
                                                     {{-- <span class="invalid-feedback" role="alert" id="name_enError">
-                                                        
+
                                                         <strong></strong>
                                                     </span> --}}
                                                      {{--span for alert--}}
@@ -439,7 +439,7 @@
                                                                         {{-- <strong></strong>
                                                                     </span>
                                                                 </div> --}}
-                                                            {{-- </div> --}} 
+                                                            {{-- </div> --}}
                                                             <div class="col-md-6">
                                                                 <div class="input-group pt-4 pl-2">
                                                                     <div class="input-group-prepend pr-4">
@@ -499,39 +499,39 @@
                             <script>
                                 var map;
                                 var markers = [];
-                        
+
                                 function initMapBranch() {
-                        
+
                                     var haightAshbury = {
                                         lat: 11.620803,
                                         lng: 104.892215
                                     };
-                        
-                        
+
+
                                     var get_latlng = 0;
                                     map = new google.maps.Map(document.getElementById('map'), {
                                         zoom: 12, // Set the zoom level manually
                                         center: haightAshbury,
                                         mapTypeId: 'roadmap'
                                     });
-                        
-                        
+
+
                                     //declear default value for latlong on map
                                     addMarker(haightAshbury);
                                     document.getElementById('latlong').value = '11.620803, 104.892215';
-                        
+
                                     // This event listener will call addMarker() when the map is clicked.
                                     map.addListener('click', function(event) {
                                         if (markers.length >= 1) {
                                             deleteMarkers();
                                         }
-                        
+
                                         addMarker(event.latLng);
                                         get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
                                         document.getElementById('latlong').value = get_latlng;
                                     });
                                 }
-                        
+
                                 // Adds a marker to the map and push to the array.
                                 function addMarker(location) {
                                     var marker = new google.maps.Marker({
@@ -540,19 +540,19 @@
                                     });
                                     markers.push(marker);
                                 }
-                        
+
                                 // Sets the map on all markers in the array.
                                 function setMapOnAll(map) {
                                     for (var i = 0; i < markers.length; i++) {
                                         markers[i].setMap(map);
                                     }
                                 }
-                        
+
                                 // Removes the markers from the map, but keeps them in the array.
                                 function clearMarkers() {
                                     setMapOnAll(null);
                                 }
-                        
+
                                 // Deletes all markers in the array by removing references to them.
                                 function deleteMarkers() {
                                     clearMarkers();
@@ -582,15 +582,15 @@
                                                     var company = response['data'][i].company;
                                                     // alert(name);
                                                     var option = "<option value='"+id+"'>"+name+" / "+company+"</option>";
-                        
+
                                                     $("#branch").append(option);
                                                 }
                                         //     }
                                         }
                                     })
-                        
+
                                 })
-                        
+
                                 // get  current_speed_isp in  selection
                                 $('#current_speed_isp').ready(function(){
                                   $('#current_speed_isp').find('option').not(':first').remove();
@@ -599,21 +599,21 @@
                                           type:'get',
                                           dataType:'json',
                                           success:function(response){
-                        
+
                                                   for(var i=0; i<response['data'].length ;i++){
                                                       var id = response['data'][i].id;
                                                       var name = response['data'][i].name_en;
                                                       // alert(name);
                                                       var option = "<option value='"+id+"'>"+name+"</option>";
-                        
+
                                                       $("#current_speed_isp").append(option);
                                                   }
                                           //     }
                                           }
                                       })
-                        
+
                                   })
-                        
+
                               // get  service in  selection
                                 $('#service').ready(function(){
                                   $('#service').find('option').not(':first').remove();
@@ -627,12 +627,12 @@
                                                       var name = response['data'][i].name;
                                                       // alert(name);
                                                       var option = "<option value='"+id+"'>"+name+"</option>";
-                        
+
                                                       $("#service").append(option);
                                                   })
                                           }
                                       })
-                        
+
                                   })
                                 $(document).ready(function(){
                                     // function search lead
@@ -641,11 +641,11 @@
                                             url: '/lead/search',
                                             dataType: 'json',
                                             type:'get',
-                                            delay: 250,
+                                            delay: 1200,
                                             data: function (params) {
-                                                return {  
+                                                return {
                                                     search: params.term // search term
-                                                };   
+                                                };
                                             },
                                             processResults: function (response) {
                                                 return {
@@ -661,11 +661,11 @@
                                             url: '/contact/search',
                                             dataType: 'json',
                                             type:'get',
-                                            delay: 250,
+                                            delay: 1200,
                                             data: function (params) {
-                                                return {  
+                                                return {
                                                     search: params.term // search term
-                                                };   
+                                                };
                                             },
                                             processResults: function (response) {
                                                 return {
@@ -740,7 +740,7 @@
                           $("#national_id").val(national_id);
                           $("#position").val(position);
                           $("#ma_honorifics_id").val(honorifics_id);
-          
+
                           $('#name_en').prop('readonly', true);
                           $('#name_kh').prop('readonly', true);
                           $('#email').prop('readonly', true);
@@ -748,8 +748,8 @@
                           $('#national_id').prop('readonly', true);
                           $('#position').prop('readonly', true);
                           $('#ma_honorifics_id').attr('disabled', true);
-  
-  
+
+
               }
             })
           }
