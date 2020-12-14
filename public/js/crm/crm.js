@@ -395,17 +395,18 @@ function CrmLeadBranchView(url,table){
       data:{},
       success:function(data){
         $('#CrmTabManageSetting').html(data);
-        $('#'+table+'').dataTable({
+        dt= $('#'+table+'').DataTable({
             scrollX:true,
             "serverSide": true,
             "autoWidth": false,
             "scrollY": "400px",
             "scrollCollapse": false,
             "paging": true,
+            "searchDelay":500,
             "ajax": "/crm/leadbranch/datatable/"+$status,
             "ordering": false,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                if(aData.DT_RowId==4){ //check comment surveyed
+                if(aData.DT_RowId==4){ //check status surveyed
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
                 }else{
                   $(nRow).css({'color':'black'});
@@ -467,9 +468,23 @@ function CrmLeadBranchView(url,table){
                 "targets": 7
             },
             ],
-            // "columnDefs": [
-
-            // ]
+            "initComplete": function()
+            {
+                $(".dataTables_filter input")
+                .unbind() // Unbind previous default bindings
+                .bind("keyup", function(e) { // Bind our desired behavior
+                    // If the length is 3 or more characters, or the user pressed ENTER, search
+                    if(this.value.length > 3 || e.keyCode == 13) {
+                        // Call the API search function
+                        dt.search(this.value).draw();
+                    }
+                    // Ensure we clear the search if they backspace far enough
+                    if(this.value == "") {
+                        dt.search("").draw();
+                    }
+                    return;
+                });
+            }
         }); //Set table to datatable
 
   }
