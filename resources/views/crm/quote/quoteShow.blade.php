@@ -17,8 +17,8 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">View Organization</li>
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">View Organization</li>
                             </ol>
                         </div>
                     </div>
@@ -39,22 +39,22 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive">
-                                            <table id="tblQuoteList"  class="table table-bordered table-hover" style="white-space:nowrap;">
-                                                <thead>
-                                                    <tr style="background: #1fa8e0">
-                                                        <th style="color: #FFFFFF">Quote Number</th>
-                                                        <th style="color: #FFFFFF">Subject</th>
-                                                        <th style="color: #FFFFFF">Organization Name</th>
-                                                        <th style="color: #FFFFFF">VAT Number</th>
-                                                        <th style="color: #FFFFFF">Quote Stage</th>
-                                                        <th style="color: #FFFFFF">Assigned To </th>
-                                                        <th style="color: #FFFFFF">Has Invoice</th>
-                                                        <th style="color: #FFFFFF">Due Date</th>
-                                                        <th style="color: #FFFFFF">Create Date</th>
-                                                        <th style="color: #FFFFFF;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
+                                        <table id="tblQuoteList"  class="table table-bordered table-hover" style="white-space:nowrap;">
+                                            <thead>
+                                                <tr style="background: #1fa8e0">
+                                                    <th style="color: #FFFFFF">Quote Number</th>
+                                                    <th style="color: #FFFFFF">Subject</th>
+                                                    <th style="color: #FFFFFF">Organization Name</th>
+                                                    <th style="color: #FFFFFF">VAT Number</th>
+                                                    <th style="color: #FFFFFF">Quote Stage</th>
+                                                    <th style="color: #FFFFFF">Assigned To </th>
+                                                    <th style="color: #FFFFFF">Has Invoice</th>
+                                                    <th style="color: #FFFFFF">Due Date</th>
+                                                    <th style="color: #FFFFFF">Create Date</th>
+                                                    <th style="color: #FFFFFF;">Action</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

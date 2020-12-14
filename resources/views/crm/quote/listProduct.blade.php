@@ -49,12 +49,12 @@
                                                 <td class="border">
                                                     <input type="hidden" id="showItemType_{{$row_id}}" value="Product">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input"  value="{{$val2->id}}" name="seleteItem">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input"  value="{{$val2->id ?? ""}}" name="seleteItem">
                                                         <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id}}" >
+                                                    <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id ?? ""}}" >
                                                         {{$val2->name ?? ""}}
                                                     </div>
                                                 </td>
@@ -67,12 +67,12 @@
                                                             @php $prdPrice = $val2->product_price; @endphp
                                                         @endif
                                                         {{ $prdPrice }}
-                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$prdPrice ?? ""}}" readonly>
+                                                        <input type="hidden" class="itemPrice_{{$val2->id ?? ""}}" value="{{$prdPrice ?? ""}}" readonly>
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div class="stockItem_{{$val2->id}}">
+                                                    <div class="stockItem_{{$val2->id ?? ""}}">
                                                         @if($val2->stock_qty == "")
                                                             0
                                                         @else
@@ -81,13 +81,13 @@
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div class="itemMeasurement_{{$val2->id}}">
+                                                    <div class="itemMeasurement_{{$val2->id ?? ""}}">
                                                         {{$val2->measurement ?? ""}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div class="itemDescription_{{$val2->id}}">
+                                                    <div class="itemDescription_{{$val2->id ?? ""}}">
                                                         {{$val2->description ?? ""}}
                                                     </div>
                                                 </td>
