@@ -19,27 +19,29 @@
 <section class="content">
 
     <style type="text/css">
-        /* body
-        {
-            font-family: Arial;
-            font-size: 10pt;
-        } */
-        table
+       th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+        /* table
         {
             border: 1px solid #ccc;
             border-collapse: collapse;
         }
         table th
-        {
+        { */
             /* background-color: #F7F7F7; */
-            color: #333;
+            /* color: #333;
             font-weight: bold;
         }
         table th, table td
         {
             padding: 5px;
             border: 1px solid #ccc;
-        }
+        } */
     </style>
 
     <div class="container-fluid">
@@ -75,7 +77,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom' value="<?php echo date('Y-m')?>"  required>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -85,7 +87,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteTo" name='DetailQuoteTo' value="<?php echo date('Y-m')?>"  required>
-                                       
+
                                     </div>
                                 </div>
 
@@ -117,7 +119,7 @@
                                                 @forelse ($assignToList as $item)
                                                     <option value="{{$item->id}}">{{$item->name}}</option>
                                                 @empty
-    
+
                                                 @endforelse
                                             </select>
                                         </div>
@@ -173,11 +175,11 @@
     });
 
     $('#DetailQuoteFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
     $('#DetailQuoteTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
 
@@ -202,7 +204,7 @@
     //     })
     // }
 
-
+    $(window).off("resize")
     $(document).ready(function(){
         // setSelectOptionData('/quote/add/listAssignTo','#select_assign_to')
         // setSelectOptionData('/api/quote/status','#select_status')
@@ -233,7 +235,8 @@
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             var getDate = moment(data.crm_quote_status_create_date);
-                            var create_date = getDate.format("YYYY-MM-DD HH:m:s a");
+                            //  HH:m:s a
+                            var create_date = getDate.format("YYYY-MM-DD");
                             $('#quote-detail-body').append(`
                                 <tr>
                                     <td style="display:none;"></td>
@@ -242,7 +245,7 @@
                                     <td>${data.lead_number}</td>
                                     <td>${data.customer_name_en}</td>
                                     <td>${create_date}</td>
-                                    <td>${data.due_date}</td>
+                                    <td>${moment(data.due_date).format("YYYY-MM-DD")}</td>
                                     <td>${data.email}</td>
                                     <td>${data.website}</td>
                                     <td>${data.quote_status_name_en}</td>
@@ -252,6 +255,12 @@
                     }
                     $('#QuoteDetailTbl').DataTable({
                         'ordering': false,
+                        "scrollX":true,
+                        "autoWidth": false,
+                        "serverSide": false,
+                        "scrollY": "400px",
+                        "scrollCollapse": false,
+                        "paging": true
                     });
 
                 },

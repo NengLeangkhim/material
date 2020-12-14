@@ -111,6 +111,11 @@ function CrmSettingView(url, table) {
             $('#' + table + '').dataTable({
                 'responsive': true,
                 scrollX: true,
+                "autoWidth": false,
+                "serverSide": false,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true
             }); //Set table to datatable
 
         }
@@ -1247,7 +1252,27 @@ $(document).on('click', '#btnUpdateQuoteBranch', function() {
 
 
 
-
+// =================Survey============================
+function CrmSurveyView(url,table){
+    $.ajax({
+        url:url,  //get URL to route
+        type:"get",
+        data:{},
+        success:function(data){
+            $('#CrmTabManageSurvey').html(data);
+            $('#'+table+'').DataTable({
+                // 'responsive': true,
+                'ordering': false,
+                scrollX:true,
+                "autoWidth": false,
+                "serverSide": false,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true
+            }); //Set table to datatable
+        }
+    });
+}
 
 
 

@@ -79,10 +79,11 @@
                     {
                         "searchable": false,
                         "render": function(data,type,row){
-                            return moment(data).format('YYYY-M-DD h:mm:ss');
+                            return moment(data).format('YYYY-M-DD');
                         },
                         "targets": 4
-                        },
+                    },
+
                     {
                         // The `data` parameter refers to the data for the cell (defined by the
                         // `data` option, which defaults to the column being worked with, in

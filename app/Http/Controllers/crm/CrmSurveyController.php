@@ -14,21 +14,21 @@ class CrmSurveyController extends Controller
     //get survey
     public function index(){
         if(perms::check_perm_module('CRM_021101')){
-            $survey=ModelCrmLead::Getsurvey();
-            $result=json_decode($survey,true);
-            $survey_result=ModelCrmLead::GetsurveyResult();
-            $survey_result=json_decode($survey_result,true);
+            // $survey=ModelCrmLead::Getsurvey();
+            // $result=json_decode($survey,true);
+            // $survey_result=ModelCrmLead::GetsurveyResult();
+            // $survey_result=json_decode($survey_result,true);
             $pop=CRMLeadPOP::getPOP();
                 // dd($pop,$survey_result);
 
-            if($survey_result!=null){
+            // if($survey_result!=null){
                 // dd($result,$survey_resul);
-                return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data'],'pop'=>$pop]);
+                // return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data'],'pop'=>$pop]);
+                return view('crm.survey.index',['pop'=>$pop]);
+            // }else{
+            //     return view('no_perms');
+            // }
 
-            }else{
-                return view('no_perms');
-            }
-        
         }else{
             return view('no_perms');
         }
@@ -45,7 +45,7 @@ class CrmSurveyController extends Controller
             $pop=json_encode(CRMLeadPOP::getPOP());
             // dd($survey);
             return view('crm.survey.detail',['detailbranch'=>$result_detail_branch["data"],'survey'=>$survey,'pop'=>$pop]);
-        
+
         }else{
             return view('no_perms');
         }
@@ -59,18 +59,18 @@ class CrmSurveyController extends Controller
                 'commentsurvey' =>  [  'required'
                                         ],
                 'possible'=>['required']
-                
+
                 ],
             [
                 'commentsurvey.required' => 'This Field is require !!',   //massage validator
                 'possible.required'=>'Please Check Yes or No !!',
-               
+
                 ]
             );
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_021103')){//module code list
@@ -83,10 +83,38 @@ class CrmSurveyController extends Controller
                 if($response->insert==='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }
-                
+
             }else{
                 return view('no_perms');
             }
+        }
+    }
+
+    public function CrmSurveyList() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_021101')){
+            $survey=ModelCrmLead::Getsurvey();
+            $result=json_decode($survey,true);
+            return view('crm.survey.CrmSurveyList',['survey'=>$result['data']]);
+        }
+        else{
+            return view('no_perms');
+        }
+    }
+    public function CrmSurveyResult() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_021101')){
+            $survey_result=ModelCrmLead::GetsurveyResult();
+            // dd($survey_result);
+            $survey_result=json_decode($survey_result,true);
+            return view('crm.survey.CrmSurveyResult',['survey_result'=>$survey_result['data']]);
+        }
+        else{
+            return view('no_perms');
         }
     }
 }
