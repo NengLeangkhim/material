@@ -65,45 +65,62 @@
 
 
             <script type="text/javascript">
-                $("#tblQuoteList").DataTable({
-                    scrollX:true,
-                    // "responsive": true,
-                    "autoWidth": false,
-                    "serverSide": true,
-                    "scrollY": "400px",
-                    "scrollCollapse": false,
-                    "paging": true,
-                    "ajax": "/quote/datatable",
-                    "columnDefs": [
-                        {
-                            // The `data` parameter refers to the data for the cell (defined by the
-                            // `data` option, which defaults to the column being worked with, in
-                            // this case `data: 0`.
-                            "searchable": false,
-                            "render": function ( data, type, row ) {
-                                return  '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
-                                        '<div class="col-md-4">'+
-                                            '<a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action(\'/quote/detail\', \''+data+'\')"  >'+
-                                                '<i class="far fa-eye"></i>'+
-                                            '</a>'+
-                                        '</div>'+
-                                        '<div class="col-md-4">'+
-                                            '<a href="#" class="btn btn-success btn-sm" id="btnEditQuote" onclick="goto_Action(\'/quote/leadBranch\', \''+data+'\')">'+
-                                                '<i class="fas fa-wrench"></i>'+
-                                            '</a>'+
-                                        '</div>'+
-                                        '<div class="col-md-4 ">'+
-                                        '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <span class="glyphicon glyphicon-remove"></span>  </a>'+
-                                        '</div>'+
-                                        '</div></div>';
-                            },
-                            "width": "100px",
-                            "targets": 9,
-                        },
-                        {
-                            "searchable": false,
-                            "targets": [7,8],
-                        }
-                    ]
-                });
+                        t=$("#tblQuoteList").DataTable({
+                            scrollX:true,
+                            // "responsive": true,
+                            "autoWidth": false,
+                            "serverSide": true,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true,
+                            "ajax": "/quote/datatable",
+                            "columnDefs": [
+                                    {
+                                        // The `data` parameter refers to the data for the cell (defined by the
+                                        // `data` option, which defaults to the column being worked with, in
+                                        // this case `data: 0`.
+                                        "searchable": false,
+                                        "render": function ( data, type, row ) {
+                                            return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
+                                                    '<div class="col-md-4">'+
+                                                        '<a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action(\'/quote/detail\', \''+data+'\')"  >'+
+                                                            '<i class="far fa-eye"></i>'+
+                                                        '</a>'+
+                                                    '</div>'+
+                                                    '<div class="col-md-4">'+
+                                                        '<a href="#" class="btn btn-success btn-sm" id="btnEditQuote" onclick="goto_Action(\'/quote/leadBranch\', \''+data+'\')">'+
+                                                            '<i class="fas fa-wrench"></i>'+
+                                                        '</a>'+
+                                                    '</div>'+
+                                                    '<div class="col-md-4 ">'+
+                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <span class="glyphicon glyphicon-remove"></span>  </a>'+
+                                                    '</div>'+
+                                                '</div></div>';
+                                        },
+                                        "width": "100px",
+                                        "targets": 9,
+                                    },
+                                    {
+                                        "searchable": false,
+                                        "targets": [7,8],
+                                    },
+                             ],
+                             "initComplete": function()
+                            {
+                                $(".dataTables_filter input")
+                                .unbind() // Unbind previous default bindings
+                                .bind("keyup", function(e) { // Bind our desired behavior
+                                    // If the length is 3 or more characters, or the user pressed ENTER, search
+                                    if(this.value.length > 3 || e.keyCode == 13) {
+                                        // Call the API search function
+                                        t.search(this.value).draw();
+                                    }
+                                    // Ensure we clear the search if they backspace far enough
+                                    if(this.value == "") {
+                                        t.search("").draw();
+                                    }
+                                    return;
+                                });
+                            }
+                        });
             </script>
