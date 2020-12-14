@@ -494,6 +494,7 @@ function hrms_date(){
                         hrms_notification(data.success);
                         // alert(data.success);
                         $('#modal_attendance_edit').modal('hide');
+                        hrms_tab_mission_active(2);
                     }else{
                             $.each(data.error, function(key,value){
                                 $('#'+key).removeClass('d-none');
@@ -1475,6 +1476,7 @@ function hrms_insert_work_on_side(){
                 hrms_notification(data.success);
                 // alert(data.success);
                 $('#modal_work_on_side').modal('hide');
+                hrms_tab_mission_active(3);
             } else {
                 $.each(data.error, function (key, value) {
                     $('#' + key).text(value);
@@ -1485,7 +1487,24 @@ function hrms_insert_work_on_side(){
     request.send(form_data);
 }
 // end modal add and edit work on side
-
+function hrms_tab_mission_active(id){
+    var tabs_id = ('late_missed_scan', 'mission', 'permission_','work_on_side');
+    $('#myTab li a').each(function(index){
+        if(index==id){
+            $(this).addClass('active');
+        }else{
+            $(this).removeClass('active');
+        }
+    });
+    $('.tab-pane').each(function(index){
+        
+        if(index==id){
+            $(this).addClass('show active');
+        }else{
+            $(this).removeClass('show active');
+        }
+    });
+}
 // modal add late and missed scan
 function hrms_modal_late_missed_scan(id = -1) {
     if (check_session()) { return; }
@@ -1523,6 +1542,7 @@ function hrms_modal_late_missed_scan(id = -1) {
                     hrms_notification(data.success);
                     // alert(data.success);
                     $('#modal_late_missed_scan').modal('hide');
+                    hrms_tab_mission_active(0);
                 } else {
                     $.each(data.error, function (key, value) {
                         $('#' + key).text(value);
@@ -1564,6 +1584,7 @@ function hrms_modal_late_missed_scan(id = -1) {
                                     hrms_notification(data.success);
                                     // alert(data.success);
                                     $('#modal_missionoutside').modal('hide');
+                                    // hrms_tab_mission_active(1);
                                 }else{
                                     $.each(data.error, function(key,value){
                                         $('#'+key).removeClass('d-none');
@@ -1574,6 +1595,7 @@ function hrms_modal_late_missed_scan(id = -1) {
                         request.send(form_data);
                     }
                 })
+        hrms_tab_mission_active(1);
     }
 // end insert or update mission
 // Search mission by month
