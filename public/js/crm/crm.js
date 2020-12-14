@@ -385,80 +385,25 @@ $(document).on('click', '.CrmEditQuoteStatus', function() {
 });
 // -----------Setting CRM ---------- //
 //--------------Lead Branch -------------//
-function CrmLeadBranchView(url,table){
-  $status = /[^/]*$/.exec(url)[0];
-  $.ajax({
-      url:url,  //get URL to route
-      type:"get",
-      data:{},
-      success:function(data){
-        $('#CrmTabManageSetting').html(data);
-        $('#'+table+'').dataTable({
-            scrollX:true,
-            "serverSide": true,
-            "autoWidth": false,
-            "scrollY": "400px",
-            "scrollCollapse": false,
-            "paging": true,
-            "ajax": "/crm/leadbranch/datatable/"+$status,
-            "ordering": false,
-            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                if(aData.DT_RowId==4){ //check comment surveyed
-                  $(nRow).css({'color':'#d42931','font-weight':'bold'});
-                }else{
-                  $(nRow).css({'color':'black'});
-                }
-            },
-            "columnDefs": [
-              {
-                "targets": 0,
-                "orderable": false
-                },
-              {
-                  "searchable": false,
-                  "targets": 4
-                  },
-              {
-                  // The `data` parameter refers to the data for the cell (defined by the
-                  // `data` option, which defaults to the column being worked with, in
-                  // this case `data: 0`.
-                  "render": function ( data, type, row ) {
-                    if(data!=null){
-                      return '<label for="">Yes</label>';
-                    }else{
-                      return '<label for="">No</label>';
-                    }
-                  },
-                  "targets": 4
-              },
-            {
-                // The `data` parameter refers to the data for the cell (defined by the
-                // `data` option, which defaults to the column being worked with, in
-                // this case `data: 0`.
-                "searchable": false,
-                "width": "100px",
-                "render": function ( data, type, row ) {
-                    var st='<div class="container-fluid datatable-action-col">';
-                    st+='<div class="row form-inline">'+
-                    '<div class="col-md-6">'+
-                        '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
-                            '<i class="far fa-eye"></i>'+
-                        '</a>'+
-                    '</div>';
-                    if(row[4]!=null){
-                    st+='<div class="col-md-6 ">'+
-                                '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
-                                    '<i class="fas fa-calendar-day"> </i>'+
-                                '</a>'+
-                            '</div>'+
-                        '</div>';
-                    }else{
-                    st+='<div class="col-md-6 ">'+
-                                '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
-                                    '<i class="fas fa-calendar-day"> </i>'+
-                                '</a>'+
-                            '</div>'+
-                        '</div>';
+function CrmLeadBranchView(url, table) {
+    $status = /[^/]*$/.exec(url)[0];
+    $.ajax({
+        url: url, //get URL to route
+        type: "get",
+        data: {},
+        success: function(data) {
+            $('#CrmTabManageSetting').html(data);
+            $('#' + table + '').dataTable({
+                scrollX: true,
+                "serverSide": true,
+                "autoWidth": false,
+                "ajax": "/crm/leadbranch/datatable/" + $status,
+                "ordering": false,
+                "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.DT_RowData != null) { //check comment survey
+                        $(nRow).css({ 'color': '#d42931', 'font-weight': 'bold' });
+                    } else {
+                        $(nRow).css({ 'color': 'black' });
                     }
                 },
                 "columnDefs": [{
