@@ -42,7 +42,7 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Reason of Warning <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="em_reason_of_warning" value="@php if(isset($warning)){echo $warning[0]->warning_reason;} @endphp" required autocomplete="off">
+                  <input type="text" class="form-control" name="em_reason_of_warning" value="{{$warning[0]->warning_reason ?? ''}}" required autocomplete="off">
                   <div class="text-danger d-none text-sm" id="em_reason_of_warning">This field is required</div>
                 </div>
               </div>
@@ -73,29 +73,8 @@
                   <div class="text-danger d-none text-sm" id="em_warning_by">This field is required</div>
                 </div>
               </div>
-              <div class="col-md-6">
-                  <div class="form-group">
-                  <label>Edit By <span class="text-danger">*</span></label>
-                  <select name="em_edit_by" class="form-control" required>
-                    <option value="1" hidden></option>
-                    @foreach ($employee as $em_edit_by)
-                      @if (isset($warning))
-                          @if ($em_edit_by->id==$warning[0]->edited_by)
-                              <option selected value="{{$em_edit_by->id}}">{{$em_edit_by->lastName}} {{$em_edit_by->firstName}}</option>
-                          @else
-                              <option value="{{$em_edit_by->id}}">{{$em_edit_by->lastName}} {{$em_edit_by->firstName}}</option>
-                          @endif
-                      @else
-                          <option value="{{$em_edit_by->id}}">{{$em_edit_by->lastName}} {{$em_edit_by->firstName}}</option>
-                      @endif
-                      
-                    @endforeach
-                    
-                  </select>
-                  <div class="text-danger d-none text-sm" id="em_edit_by">This field is required</div>
-                </div>
-              </div>
-              <div class="col-md-6">
+                 
+              <div class="col-md-12">
                   <div class="form-group">
                   <label>Approved By <span class="text-danger">*</span></label>
                   <select name="em_approved_by" class="form-control" required>

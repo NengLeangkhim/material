@@ -150,32 +150,31 @@ class AllemployeeController extends Controller
                 'emPosition'=>'required',
                 'emEmail'=>['required','email',Rule::unique('ma_user','email')->ignore($request->emid)],
                 'emChildren'=>['required'],
-                'ivillage'=>'required',
-                'icommune'=>'required',
-                'idistrict'=>'required',
-                'icity'=>'required',
-                'permanent_province'=>'required',
-                'permenent_idistrict'=>'required',
-                'permenent_commune'=>'required',
-                'permenent_village'=>'required',
-                'type_of_dentification'=>'required',
-                'number_of_dentification'=>'required',
-                'religion'=>'required',
-                'parent_father_name'=>'required',
-                'parent_mother_name'=>'required',
-                'parent_father_occupation'=>'required',
-                'parent_mother_occupation'=>'required',
-                'parent_province'=>'required',
-                'parent_idistrict'=>'required',
-                'parent_commune'=>'required',
-                'parent_village'=>'required',
-                'parent_mobile_phone'=>'required'
+                // 'ivillage'=>'required',
+                // 'icommune'=>'required',
+                // 'idistrict'=>'required',
+                // 'icity'=>'required',
+                // 'permanent_province'=>'required',
+                // 'permenent_idistrict'=>'required',
+                // 'permenent_commune'=>'required',
+                // 'permenent_village'=>'required',
+                // 'type_of_dentification'=>'required',
+                // 'number_of_dentification'=>'required',
+                // 'religion'=>'required',
+                // 'parent_father_name'=>'required',
+                // 'parent_mother_name'=>'required',
+                // 'parent_father_occupation'=>'required',
+                // 'parent_mother_occupation'=>'required',
+                // 'parent_province'=>'required',
+                // 'parent_idistrict'=>'required',
+                // 'parent_commune'=>'required',
+                // 'parent_village'=>'required',
+                // 'parent_mobile_phone'=>'required'
                 ]
             );
             if($validation->fails()){
                 return response()->json(['error' => $validation->getMessageBag()->toArray()]);
             }
-
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }

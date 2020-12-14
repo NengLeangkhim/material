@@ -27,8 +27,8 @@
                             <div class="is-menu row justify-content-between">
                                 <div class="is-menu-left col-9 row justify-content-start">
                                     <div class="input-group col-10">
-                                        <input type="date" id="from-date" class="form-control" aria-label="Text input with dropdown button">
-                                        <input type="date" id="to-date" class="form-control" aria-label="Text input with dropdown button">
+                                        <input type="date" id="from-date" class="form-control" value="{{ date('Y-m-01') }}" aria-label="Text input with dropdown button">
+                                        <input type="date" id="to-date" class="form-control" value="{{ date('Y-m-d') }}" aria-label="Text input with dropdown button">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
@@ -155,11 +155,11 @@
                     <h4>${name} Section</h4>
                     <hr>
                     ${list.data.map(e=>`
-                        <div class="row">
+                        <div class="row">0
                             <div class="col-${col}" style="padding: 0">${e.name_en}</div>
                             ${e.value_list.map(ef=>`
                                 <!-- <div class="col-1 text-right">${ef.total_amount == 0 ? '-' : ((e.currency_name_en == 'USD') ? USD_FOMMATER.format(ef.total_amount) : KHR_FOMMATER.format(ef.total_amount))}</div> -->
-                                <div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">${ef.total_amount == 0 ? '-' : ef.total_amount}</div>
+                                <div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">${ef.total_amount == 0 ? '-' : parseFloat(ef.total_amount).toFixed(4)}</div>
                             `).join('')}
                         </div>
                     `).join('')}
@@ -168,7 +168,7 @@
                             <div class="col-${col}" style="padding: 0;">${name} in ${e.currency_name_en}</div>
                             ${e.value_list.map(ef=>`
                                 <!-- <div class="col-1 text-right">${ef.total_amount == 0 ? '-' : ((e.currency_name_en == 'USD') ? USD_FOMMATER.format(ef.total_amount) : KHR_FOMMATER.format(ef.total_amount))}</div> -->
-                                <div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">${ef.total_amount == 0 ? '-' : ef.total_amount}</div>
+                                <div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">${ef.total_amount == 0 ? '-' : parseFloat(ef.total_amount).toFixed(4)}</div>
                             `).join('')}
                         </div>
                     `).join('')}
@@ -187,7 +187,7 @@
                             <div class="col-${col}" style="padding: 0;">${name} in ${e.currency_name_en}</div>
                             ${e.value_list.map(ef=>`
                                 <!-- <div class="col-1 text-right">${ef.total_amount == 0 ? '-' : ((e.currency_name_en == 'USD') ? USD_FOMMATER.format(ef.total_amount) : KHR_FOMMATER.format(ef.total_amount))}</div> -->
-                                <div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">${ef.total_amount == 0 ? '-' : ef.total_amount}</div>
+                                <div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">${ef.total_amount == 0 ? '-' : parseFloat(ef.total_amount).toFixed(4)}</div>
                             `).join('')}
                         </div>
                     `).join('')}

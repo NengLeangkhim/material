@@ -60,7 +60,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 @if($assign_perm)
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Assign To</label>

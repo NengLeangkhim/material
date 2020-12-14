@@ -259,11 +259,11 @@ class InvoicePreviewController extends Controller
                     <thead>
                         <tr style="background-color:#1fa8e1;">
                             <th width="5%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ល.រ​ <br> No</span></th>
-                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">Customer Branch</span></th>
-                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">Item</span></th>
+                            <th width="18%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">សាខាអតិថិជន <br> Customer Branch</span></th>
+                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">​ផលិតផល <br>Item</span></th>
                             <th width="25%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិយាយសេវាកម្ម​ <br> Description</span></th>
                             <th width="10%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិមាណ <br> Quantity</span></th>
-                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃ​ឯកតា <br> Unit Price</span></th>
+                            <th width="12%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃ​ឯកតា <br> Unit Price</span></th>
                             <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃសេវា <br> Amount</span></th>
                         </tr>
                     </thead>

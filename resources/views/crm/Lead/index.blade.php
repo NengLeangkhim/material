@@ -74,7 +74,6 @@
                 "scrollY": "400px",
                 "scrollCollapse": false,
                 "paging": true,
-                "info":false,
                 "ajax": "lead/datatable",
                 "columnDefs": [
                     {
