@@ -23,16 +23,90 @@ class LeadController extends Controller
             // $lead=ModelCrmLead::CrmGetLead();
             // $result =json_decode($lead,true);
             // if($result!=null){
-                return view('crm.Lead.index',['lead'=>$result["data"]??'']);//pass param in case if error happend
+                // return view('crm.Lead.index',['lead'=>$result["data"]??'']);//pass param in case if error happend
             // }
             // else{
             //     return view('no_perms');
             // }
 
+
+            return view('crm.Lead.lead');
+
         }else{
             return view('no_perms');
         }
     }
+
+
+    // function to show add lead home
+    public static function addleadhome(){
+        if(isset($_GET['option_'])){
+            $optionAddLead = $_GET['option_'];
+            echo $optionAddLead;
+            if($optionAddLead == 1){ // this type add lead home short
+                return view('crm.lead.addleadhomeshort');
+            }
+            if($optionAddLead == 2){ // this type add lead home fullss
+                return view('crm.lead.addleadhomefull');
+            }
+
+        }else{
+            return view('no_perms');
+        }
+    }
+
+
+
+     // function to show add lead business
+     public static function addleadbusiness(){
+        if(isset($_GET['option_'])){
+            $optionAddLead = $_GET['option_'];
+            echo $optionAddLead;
+            if($optionAddLead == 1){ // this type add lead business short
+                return view('crm.lead.addleadbusinessshort');
+            }
+            if($optionAddLead == 2){ // this type add lead business fullss
+                return view('crm.lead.addleadbusinessfull');
+            }
+
+        }else{
+            return view('no_perms');
+        }
+    }
+
+
+     // function to show add lead enterprise
+     public static function addleadenterprise(){
+        if(isset($_GET['option_'])){
+            $optionAddLead = $_GET['option_'];
+            echo $optionAddLead;
+            if($optionAddLead == 1){ // this type add lead enterprise short
+                return view('crm.lead.addleadenterpriseshort');
+            }
+            if($optionAddLead == 2){ // this type add lead enterprise full
+                return view('crm.lead.addleadenterprisefull');
+            }
+
+        }else{
+            return view('no_perms');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //get lead to support for datatable request
     public function getleadDatatable(Request $request){
         $request=str_replace($request->Url(),'',$request->fullUrl());

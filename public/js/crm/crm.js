@@ -583,6 +583,63 @@ $("#lead_id").change(function() {
 // });
 
 
+    // function to onclick change type of add lead
+    function addLeadOption(route,btnId) {
+        var option = $("input[name='optionAddLead']:checked").val();
+        console.log('this option val='+option);
+        if(typeof option != 'undefined' && (option == 1 || option == 2)){
+                $.ajax({
+                    url:route,  //get URL to route
+                    type:"get",
+                    data:{
+                        option_:option,
+                    },
+                    success:function(data){
+                        $('#contentShowAddLeadType').html(data);
+                    }
+                });
+        }else{
+            $("#" + btnId + "").notify(
+                "No type selected !",
+                "info", {
+                    position: "bottom",
+                }
+            );
+        }
+
+    }
+
+
+    //function to click to change type option add lead
+    $(document).on('click',"input[name='optionAddLead']", function () {
+        var option = $(this).val();
+        alert('radion button sleled tyep=='+option);
+        var xx = $("input[name='btnGroupAddLead']").hasClass("active");
+        console.log(xx);
+        // $("input[name='btnGroupAddLead']").each(function(i) {
+        // });
+            // if($(this).hasClass('active')){
+            //     console.log('this value===='+$(this).val());
+            //     return $(this).val();
+            // }
+
+        // console.log(valLink);
+        // $.ajax({
+        //     url:route,  //get URL to route
+        //     type:"get",
+        //     data:{
+        //         option_:option,
+        //     },
+        //     success:function(data){
+        //         $('#contentShowAddLeadType').html(data);
+        //     }
+        // });
+    })
+
+
+
+
+
 //========================>> Start-Quote-CRM JS <<=========================================================
 
 
