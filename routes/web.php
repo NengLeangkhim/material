@@ -62,6 +62,8 @@ Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lea
 Route::get('/leadbranch', function() {
     return view('crm.LeadBranch.FormStepByStep');
 });
+
+
 // All
 Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
