@@ -93,7 +93,7 @@
                                                         '</a>'+
                                                     '</div>'+
                                                     '<div class="col-md-4 ">'+
-                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <span class="glyphicon glyphicon-remove"></span>  </a>'+
+                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <i style="color:white;" class="fa fa-trash"></i>  </a>'+
                                                     '</div>'+
                                                 '</div></div>';
                                         },
