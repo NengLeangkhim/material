@@ -24,7 +24,7 @@ class ModelCrmQuote extends Model
         }
         return "SELECT cq.id,
         cl.customer_name_en ,cl.vat_number,
-        cq.quote_number,cq.subject,cq.due_date,cq.create_date,
+        cq.quote_number,cq.subject,cq.due_date::DATE,cq.create_date::DATE,
         ast.first_name_en||' '||ast.last_name_en as assign_to,
         (select (select name_en from crm_quote_status_type where id=cqs.crm_quote_status_type_id) as stage from crm_quote_status cqs where cqs.crm_quote_id=cq.id ORDER BY create_date DESC limit 1),
         (select case when count(*)=0 then 'No' ELSE 'Yes' END as invoice from bsc_invoice where crm_quote_id=cq.id)

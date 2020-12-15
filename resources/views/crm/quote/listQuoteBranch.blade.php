@@ -50,24 +50,24 @@
                                         </td>
                                         <td class="border">
                                             <div   class="branchKhName" >
-                                                {{$val2->name_en}}
+                                                {{$val2->name_en ?? ""}}
                                             </div>
                                         </td>
 
                                         <td class="border">
                                             <div class="branchEnName" >
-                                                {{$val2->name_kh}}
+                                                {{$val2->name_kh ?? ""}}
                                             </div>
                                         </td>
 
                                         <td class="border">
                                             <div class="branchEmail">
-                                                {{$val2->email}}
+                                                {{$val2->email ?? ""}}
                                             </div>
                                         </td>
                                         <td class="border">
                                             <div class="branchCompany">
-                                                {{$val2->company_detail??''}}
+                                                {{$val2->company_detail ??''}}
                                             </div>
                                         </td>
 

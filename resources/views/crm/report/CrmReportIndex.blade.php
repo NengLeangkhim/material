@@ -318,7 +318,6 @@
         reportLeadByStatus();
         reportSurvey();
     });
-
     $(window).resize(function () {
             reportQuoteByStatus();
             reportContact();

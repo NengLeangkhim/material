@@ -58,24 +58,34 @@ class PermissionController extends Controller
             $validation=Validator::make($request->all(),[
                 'ma_user_id'=>['required','integer'],
                 'editor_id'=>['required','integer'],
+                'date'=>['required','date'],
                 'reason'=>'required',
-                'date_from'=>['required','date'],
-                'date_to'=>['required','date'],
+                'shift'=>['required','string'],
                 'approved_by'=>['required','integer'],
                 'leave_type_id'=>['required','integer']
             ]);
             if($validation->fails()){
                 return response()->json(['error' => $validation->getMessageBag()->toArray()]);
             }
+            if ($request->shift == 'am') {
+                $date_from = $request->date . ' 08:00:00';
+                $date_to = $request->date . ' 12:00:00';
+            } elseif ($request->shift == 'pm') {
+                $date_from = $request->date . ' 13:30:00';
+                $date_to = $request->date . ' 17:30:00';
+            } else {
+                $date_from = $request->date . ' 08:00:00';
+                $date_to = $request->date . ' 17:30:00';
+            }
             $sql = "INSERT INTO e_request_temp
                     (ma_user_id,create_by,reason,date_from,date_to,approve_by,leave_type_id)
-                    VALUES ('$request->ma_user_id','$request->editor_id','$request->reason','$request->date_from','$request->date_to','$request->approved_by','$request->leave_type_id');";
+                    VALUES ('$request->ma_user_id','$request->editor_id','$request->reason','$date_from','$date_to','$request->approved_by','$request->leave_type_id');";
             DB::select($sql);
             DB::commit();
             return response()->json(['success'=>'Insert Successfully !!']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['error'=>'Data is not insert !!']);
+            return response()->json(['error'=>$th]);
         }
     }
 
@@ -126,18 +136,27 @@ class PermissionController extends Controller
                 'ma_user_id' => ['required', 'integer'],
                 'editor_id' => ['required', 'integer'],
                 'reason' => 'required',
-                'date_from' => ['required', 'date'],
-                'date_to' => ['required', 'date'],
+                'shift'=>['required','string'],
                 'approved_by' => ['required', 'integer'],
                 'leave_type_id' => ['required', 'integer']
             ]);
             if ($validation->fails()) {
                 return response()->json(['error' => $validation->getMessageBag()->toArray()]);
             }
+            if ($request->shift == 'am') {
+                $date_from = $request->date . ' 08:00:00';
+                $date_to = $request->date . ' 12:00:00';
+            } elseif ($request->shift == 'pm') {
+                $date_from = $request->date . ' 13:30:00';
+                $date_to = $request->date . ' 17:30:00';
+            } else {
+                $date_from = $request->date . ' 08:00:00';
+                $date_to = $request->date . ' 17:30:00';
+            }
             $data=[
                 'ma_user_id'=>$request->ma_user_id,
-                'date_from'=>$request->date_from,
-                'date_to'=>$request->date_to,
+                'date_from'=>$date_from,
+                'date_to'=>$date_to,
                 'create_date'=>date('Y/m/d h:m:s'),
                 'reason'=>$request->reason,
                 'approve_by'=>$request->approved_by,
