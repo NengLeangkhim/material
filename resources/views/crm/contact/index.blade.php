@@ -110,7 +110,24 @@
                           },
                           "targets": 4
                       },
-                  ]
+                ],
+                "initComplete": function()
+                {
+                    $(".dataTables_filter input")
+                    .unbind() // Unbind previous default bindings
+                    .bind("keyup", function(e) { // Bind our desired behavior
+                        // If the length is 3 or more characters, or the user pressed ENTER, search
+                        if(this.value.length > 3 || e.keyCode == 13) {
+                            // Call the API search function
+                            t.search(this.value).draw();
+                        }
+                        // Ensure we clear the search if they backspace far enough
+                        if(this.value == "") {
+                            t.search("").draw();
+                        }
+                        return;
+                    });
+                }
               });
 
               $('#crm_contact').click(function(e) // function go to add contact
