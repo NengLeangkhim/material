@@ -57,7 +57,7 @@ class ModelLeadBranch extends Model
         }
         return "SELECT  crm_lead.lead_number,crm_lead.customer_name_en,lb.crm_lead_id as lead_id,lb.id as branch_id,lb.name_en as name_en_branch,
         lb.email as email_branch,lb.phone as branch_phone,la.ma_user_id as lead_assig_id,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,ls.id as status_id,
-        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE ORDER BY id DESC LIMIT 1)
         from  crm_lead_branch  lb
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
