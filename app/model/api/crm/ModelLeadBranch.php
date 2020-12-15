@@ -71,8 +71,7 @@ class ModelLeadBranch extends Model
 							)ld on ld.crm_lead_branch_id= lb.id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        where ld.status=true and ld.is_deleted=false $sql $user
-		ORDER BY crm_lead.id,lb.id ASC";
+        where ld.status=true and ld.is_deleted=false $sql $user";
     }
     public static function getleadBranchDataTable($request,$status,$userid){
         if(is_null($userid)){
