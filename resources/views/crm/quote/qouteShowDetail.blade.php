@@ -560,7 +560,7 @@
                 var token=$("#token").val();
                 // alert(lead_id+" "+quote_id+" "+token);
                     Swal.fire({ //get from sweetalert function
-                    title: 'Cancel',
+                    title: 'Update',
                     text: "Are you sure this qoute to customer? ",
                     icon: 'warning',
                     showCancelButton: true,
@@ -585,7 +585,7 @@
                                         'Authorization': `Bearer ${token}`,
                                         },
                                     success:function(data){
-                                        sweetalert('success','Convert Quote successed!');
+                                        sweetalert('success','Update quote success');
                                         goto_Action('/quote/detail',crm_quote_id )
                                     },
                                     error: function(data) {
@@ -606,7 +606,7 @@
              {
 
                 Swal.fire({ //get from sweetalert function
-                title: 'Cancel',
+                title: 'Update',
                 text: "Are you Sure? ",
                 icon: 'warning',
                 showCancelButton: true,
@@ -626,15 +626,14 @@
                             sweetalert('success','Convert Quote successed!');
                             goto_Action('/quote/detail',crm_quote_id )
                         },
-                        error: function(data) {
-
+                        error: function(data){
                             sweetalert('warning','Data not accessing to server!');
                         }
                     })
                 }
             });
 
-             }
+            }
 
 
         })

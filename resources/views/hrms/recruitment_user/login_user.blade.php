@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="img/icon.png">
-    
+
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <link rel="stylesheet" type="text/css" href="css/overWriteMain.css">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
     <link rel="stylesheet" href="css/animate.css">
-    
+
     <title>User Login</title>
     <style>
         .material-half-bg{
@@ -45,7 +45,7 @@
     <section class="login-content">
         {{-- <div class="login-box"> --}}
         <div class="login-box">
-            
+
             <form class="login-form" action="/hrm_recruitment_login" method="post" >
                 @csrf
                 <h3 class="login-head"><img src="images/turbotech.png" width="85%" height="85%" alt=""></h3>
@@ -65,7 +65,7 @@
                         <i class="fa fa-lg fa-fw fa-key"></i>
                     </div>
                      <div class="text-danger">
-                    
+
                 </div>
                 </div>
 
@@ -73,8 +73,9 @@
                     <button type="submit" class="btn btn-danger btn-block" name="btn_userLogin" >SIGN IN</button>
                 </div>
 
-                <div class="form-group btn-container pt-2" style="text-align: center	;">
-                    <a href="hrm_index_user_register"><h5>Create Account <i style="font-size:18px; "class="fas fa-long-arrow-alt-right"></i></h5></a>
+                <div class="form-group btn-container pt-2" style="text-align: center;">
+                    {{-- <a href="hrm_index_user_register"><h5>Create Account <i style="font-size:18px; "class="fas fa-long-arrow-alt-right"></i></h5></a> --}}
+                    <a href="hrm_recruitment_user_register"><h5>Create Account <i style="font-size:18px; "class="fas fa-long-arrow-alt-right"></i></h5></a>
                 </div>
 
 
@@ -101,7 +102,7 @@
     if(isset($login_faile)){
         $xx = $login_faile;
     }
-    
+
 @endphp
 
 <script type="text/javascript">

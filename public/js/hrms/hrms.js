@@ -460,6 +460,51 @@ function hrms_date(){
                 }
             }
         }
+
+        function hrms_edit_attendance(id){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_attendance_edit',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_attendance_edit').modal('show');
+                    hrms_date();
+                    $('select[name=permission_approved]').select2();
+                }
+            });
+        }
+        function hrms_insert_permission(){
+            if(!hrms_validation('fm_attendance_edit_permission')){return;}
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm_attendance_edit_permission');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrms_insert_permission");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_mission_outside'); }, 300);
+                        hrms_notification(data.success);
+                        // alert(data.success);
+                        $('#modal_attendance_edit').modal('hide');
+                        hrms_tab_mission_active(2);
+                    }else{
+                            $.each(data.error, function(key,value){
+                                $('#'+key).removeClass('d-none');
+                                // $('#'+key).html(value);
+                            });
+                    }
+                }
+            }
+            request.send(form_data);
+    }
     // End Attendance
    // Overtime
         function hrms_modal_overtime(id=-1){
@@ -1374,6 +1419,143 @@ function preview_image(event) {
         });
     }
 // end modal add and edit mission
+
+
+// modal add and edit permission
+    function hrms_modal_permission(id=-1) {
+        if (check_session()) {return;}
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_modal_permission',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: id,
+            },
+            success: function (data) {
+                document.getElementById('modal').innerHTML = data;
+                $('#modal_attendance_edit').modal('show');
+                hrms_date();
+                $("#employee").select2();
+            }
+        });
+    }
+// end modal add and edit permission
+
+// modal add and edit work on side
+function hrms_modal_work_on_side(id = -1) {
+    if (check_session()) { return; }
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_modal_work_on_side',
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id,
+        },
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#modal_work_on_side').modal('show');
+            hrms_date();
+            $("#employee").select2();
+        }
+    });
+}
+
+function hrms_insert_work_on_side(){
+    if (!hrms_validation('fm_work_on_side')) { return; }
+    if (check_session()) { return; }
+    var form_element = document.getElementById('fm_work_on_side');
+    var form_data = new FormData(form_element);
+    var request = new XMLHttpRequest();
+    request.open("POST", "hrms_insert_work_on_side");
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            data = JSON.parse(this.responseText);
+            if ($.isEmptyObject(data.error)) {
+                setTimeout(function () { go_to('hrm_mission_outside'); }, 300);
+                hrms_notification(data.success);
+                // alert(data.success);
+                $('#modal_work_on_side').modal('hide');
+                hrms_tab_mission_active(3);
+            } else {
+                $.each(data.error, function (key, value) {
+                    $('#' + key).text(value);
+                });
+            }
+        }
+    }
+    request.send(form_data);
+}
+// end modal add and edit work on side
+function hrms_tab_mission_active(id){
+    var tabs_id = ('late_missed_scan', 'mission', 'permission_','work_on_side');
+    $('#myTab li a').each(function(index){
+        if(index==id){
+            $(this).addClass('active');
+        }else{
+            $(this).removeClass('active');
+        }
+    });
+    $('.tab-pane').each(function(index){
+        
+        if(index==id){
+            $(this).addClass('show active');
+        }else{
+            $(this).removeClass('show active');
+        }
+    });
+}
+// modal add late and missed scan
+function hrms_modal_late_missed_scan(id = -1) {
+    if (check_session()) { return; }
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_modal_late_missed_scan',
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id,
+        },
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#modal_late_missed_scan').modal('show');
+            hrms_date();
+            $("#employee").select2();
+        }
+    });
+}
+// end modal late and missed scan
+
+// insert late and missed scan
+    function hrms_insert_late_missed_scan(){
+        if (!hrms_validation('fm_late_missed_scan')) { return; }
+        if (check_session()) { return; }
+        var form_element = document.getElementById('fm_late_missed_scan');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST", "hrm_insert_update_late_missed_scan");
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                data = JSON.parse(this.responseText);
+                if ($.isEmptyObject(data.error)) {
+                    setTimeout(function () { go_to('hrm_mission_outside'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#modal_late_missed_scan').modal('hide');
+                    hrms_tab_mission_active(0);
+                } else {
+                    $.each(data.error, function (key, value) {
+                        $('#' + key).text(value);
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+// end insert late and missed scan
+
+
+
 // insert or update mission
     function hrms_insert_update_mission(){
         if(!hrms_validation('fm_missionoutside')){return;}
@@ -1402,6 +1584,7 @@ function preview_image(event) {
                                     hrms_notification(data.success);
                                     // alert(data.success);
                                     $('#modal_missionoutside').modal('hide');
+                                    // hrms_tab_mission_active(1);
                                 }else{
                                     $.each(data.error, function(key,value){
                                         $('#'+key).removeClass('d-none');
@@ -1412,6 +1595,7 @@ function preview_image(event) {
                         request.send(form_data);
                     }
                 })
+        hrms_tab_mission_active(1);
     }
 // end insert or update mission
 // Search mission by month
@@ -1442,6 +1626,7 @@ function hrms_search_mission(route){
         }
     });
 }
+
 
 
 

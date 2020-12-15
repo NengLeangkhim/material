@@ -14,7 +14,8 @@ $plan_training = hr_dashboardController::plan_trainingToday();
 $position_available = hr_dashboardController::AvailablePosition();
 $staff_mission = hr_dashboardController::Num_staffMission();
 $staff_suggestion = hr_dashboardController::Staff_Suggestion();
-
+$resigned_employee = hr_dashboardController::resigned_employee();
+$new_entrance=hr_dashboardController::new_entrance();
 
 // print_r($staff_suggestion);
 //function divide number to two digits
@@ -50,24 +51,6 @@ Function index_num($v1){
 
                               <div class="chartjs-wrapper " >
                                   <h1 style="text-align: center; color:#12b9d6"><?php echo $plan_training; ?> </h1>
-                                  {{-- <canvas id="pieChart_staffgender" width="100%" height="100px;"></canvas> --}}
-                                  {{-- <table class="table_style1" >
-                                        <tr class="tr-review">
-                                          <td>This Month<td>
-                                          <td> <?php  echo $can['ddd'];
-                                                ?>
-                                                <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
-                                          <td>
-                                        </tr>
-                                        <tr class="tr-review">
-                                        <td>This Week<td>
-                                        <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                                        </tr class="tr-review">
-                                        <tr>
-                                        <td>This Year<td>
-                                        <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                                        </tr>
-                                  </table> --}}
                               </div>
                           </div>
                   </div>
@@ -80,29 +63,7 @@ Function index_num($v1){
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
                               <?php echo 'Position'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
-
-
-                          {{-- <table class="table_style1" >
-                              <tr class="tr-review">
-                                <td>Today<td>
-                                <td> <?php  echo $can['ddd'];
-                                      ?>
-                                      <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
-                                <td>
-                              </tr>
-                              <tr class="tr-review">
-                              <td>This Week<td>
-                              <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                              </tr class="tr-review">
-                              <tr>
-                              <td>This Year<td>
-                              <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                              </tr>
-                          </table> --}}
-
                               <div class="chartjs-wrapper " >
-
-                                  {{-- <canvas id="barChart_candidate" width="100%" height="30px;"></canvas> --}}
                                 <h1 style="text-align: center; color:#12b9d6" >{!! $position_available !!} </h1>
                               </div>
                           </div>
@@ -115,29 +76,8 @@ Function index_num($v1){
                           <h4 class="mb-1" style="text-align:center; font-weight: bold; ">
                               <?php echo 'Staff  Mission'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
-
-                          {{-- <table class="table_style1" >
-                              <tr class="tr-review">
-                                <td>Today<td>
-                                <td> <?php  echo $can['ddd'];
-                                      ?>
-                                      <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
-                                <td>
-                              </tr>
-                              <tr class="tr-review">
-                              <td>This Week<td>
-                              <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                              </tr class="tr-review">
-                              <tr>
-                              <td>This Year<td>
-                              <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                              </tr>
-                          </table> --}}
                               <div class="chartjs-wrapper" >
                                 <h1 style="text-align: center; color:#12b9d6">{!! $staff_mission !!} </h1>
-
-                                  {{-- <canvas id="barChart_candidate" width="100%" height="30px;"></canvas> --}}
-
                               </div>
                           </div>
                   </div>
@@ -150,33 +90,39 @@ Function index_num($v1){
                       <h4 class="mb-1" style="font-weight: bold; text-align: center ">
                           <?php echo 'Staff Suggestion'; ?> </h4>
                           <h5 style="text-align: center">Today</h5>
-
-                      {{-- <table class="table_style1" >
-                          <tr class="tr-review">
-                            <td>Today<td>
-                            <td> <?php  echo $can['ddd'];
-                                  ?>
-                                  <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
-                            <td>
-                          </tr>
-                          <tr class="tr-review">
-                          <td>This Week<td>
-                          <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                          </tr class="tr-review">
-                          <tr>
-                          <td>This Year<td>
-                          <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                          </tr>
-                      </table> --}}
                           <div class="chartjs-wrapper " >
                               <h1 style="text-align: center; color:#12b9d6">{!! $staff_suggestion !!} </h1>
-                              {{-- <canvas id="idChart_suggestion" width="100%" height="50px;"></canvas> --}}
-
                           </div>
                       </div>
               </div>
             </div>
+      </div>
 
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class=" card card-mini mb-4">
+                    <div class="card-body">
+                    <h4 class="mb-1" style="font-weight: bold; text-align: center ">
+                        <?php echo 'New Entrance'; ?> </h4>
+                        <h5 style="text-align: center">This Month</h5>
+                        <div class="chartjs-wrapper " >
+                            <h1 style="text-align: center; color:#12b9d6">{!! $new_entrance !!}% </h1>
+                        </div>
+                    </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class=" card card-mini mb-4">
+                    <div class="card-body">
+                    <h4 class="mb-1" style="font-weight: bold; text-align: center ">
+                        <?php echo 'Resigned Employee'; ?> </h4>
+                        <h5 style="text-align: center">​​</h5>
+                        <div class="chartjs-wrapper " >
+                            <h1 style="text-align: center; color:#12b9d6">{!! $resigned_employee !!}% </h1>
+                        </div>
+                    </div>
+            </div>
+          </div>
       </div>
 
       {{-- // row 2 --}}
@@ -194,18 +140,15 @@ Function index_num($v1){
                                     <td>Male<td>
                                     <td> :<?php  echo index_num($staff_gender['male']);
                                           ?>
-                                          {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span> --}}
                                     <td>
                                   </tr>
                                   <tr class="tr-review">
                                       <td>Female<td>
                                       <td> :<?php  echo index_num($staff_gender['female']); ?>
-                                    {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                                   </tr class="tr-review">
                                   <tr class="tr-review">
                                     <td>Other<td>
                                     <td> :<?php  echo '00'; ?>
-                                  {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                                 </tr class="tr-review">
 
                               </table>
@@ -266,17 +209,14 @@ Function index_num($v1){
                           <tr class="tr-review">
                               <td>Today<td>
                               <td> :<?php  echo $member_join['ddd']; ?>
-                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                           </tr>
                           <tr class="tr-review">
                               <td>This Week<td>
                               <td> :<?php  echo $member_join['www']; ?>
-                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                           </tr class="tr-review">
                           <tr>
                               <td>This Year<td>
                               <td> :<?php  echo $member_join['yyy']; ?>
-                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                           </tr>
                       </table>
                       <div class="chart-container" >
@@ -297,17 +237,14 @@ Function index_num($v1){
                           <tr class="tr-review">
                               <td>Today<td>
                               <td> :<?php  echo $promote['ddd']; ?>
-                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                           </tr>
                           <tr class="tr-review">
                               <td>This Week<td>
                               <td> :<?php  echo $promote['www']; ?>
-                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                           </tr class="tr-review">
                           <tr>
                               <td>This Year<td>
                               <td> :<?php  echo $promote['yyy']; ?>
-                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                           </tr>
                       </table>
                       <div class="chartjs-wrapper img_dashboard" style="background-image: url('/img/');">
@@ -335,29 +272,19 @@ Function index_num($v1){
                         <tr class="tr-review">
                           <td>Permission<td>
                           <td> :<?php   echo $attendancec['all_em'];   ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>
                         <tr class="tr-review">
                           <td>In time<td>
                           <td> :<?php   echo $attendancec['intime'];   ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>
                         <tr class="tr-review">
                           <td>Late<td>
                           <td> :<?php   echo $attendancec['late'];   ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>
                         <tr class="tr-review">
                           <td>Absents<td>
                           <td> :<?php   echo $attendancec['absent'];   ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>
-                        {{-- <tr class="tr-review">
-                          <td>Permission<td>
-                          <td> :<?php   echo '00';   ?>
-                            <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                        </tr> --}}
-
                       </table>
                       <div class="media py-3 align-items-center justify-content-between">
                                 
@@ -404,25 +331,7 @@ Function index_num($v1){
                         <div class="card-body">
                         <h3 class="mb-1" style="font-weight: bold; ">
                             <?php echo 'Staff Suggestion'; ?> </h3>
-                        {{-- <table class="table_style1" >
-                            <tr class="tr-review">
-                              <td>Today<td>
-                              <td> <?php  echo $can['ddd'];
-                                    ?>
-                                    <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
-                              <td>
-                            </tr>
-                            <tr class="tr-review">
-                            <td>This Week<td>
-                            <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                            </tr class="tr-review">
-                            <tr>
-                            <td>This Year<td>
-                            <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                            </tr>
-                        </table> --}}
                             <div class="chartjs-wrapper " >
-                                {{-- <h1 style="text-align: center;">00</h1> --}}
                                 <canvas id="idChart_suggestion" width="100%" height="30px;"></canvas>
 
                             </div>

@@ -16,6 +16,15 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid" id="cus-ser">
         <div class="row">
             <div class="col-12">
@@ -151,11 +160,11 @@
 </section><!-- end section Main content -->
 <script>
     $('#CustomerServiceFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
     $('#CustomerServiceTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
     });
     $('#select_source').ready(function(){
@@ -176,6 +185,7 @@
             }
         })
     })
+
     $(document).ready(function(){
         // var url = '/api/crm/report/getTotalServicesInEachLeads'
         var url = '/crmreport/getCustomerService'
@@ -212,6 +222,12 @@
                         })
                         $('#CustomerServiceTbl').DataTable({
                             'ordering': false,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollX":true,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },

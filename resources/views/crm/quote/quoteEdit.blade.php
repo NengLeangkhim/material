@@ -11,8 +11,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="" onclick="goto_Action('/quote/leadBranch', '{{ $quoteDetail->data->id }}')">Edit Branch</a></li>
-                    <li class="breadcrumb-item active">Lead Edit</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="" onclick="go_to('/quote')">Quote List</a></li>
+                    <li class="breadcrumb-item active">Quote Edit</li>
                 </ol>
             </div>
         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.card -->
+
         <div class="col-md-12">
             <!--  =====This part for edit quote lead & qoute stage ====== -->
             <div class="row-12">
@@ -73,8 +73,8 @@
                                             <input type="text" hidden value="{{$_SESSION['token']}}" id="token">
                                         </dd>
                                     <dt class="col-sm-4 dt">Assign To</dt>
-                                        <dd class="col-sm-8 dd">
-                                            <select class="form-control select2"  name="assign_to" id="assign_to" >
+                                        <dd class="col-md-8 col-sm-8 dd">
+                                            <select class="form-control input-sm selectSearch"  name="assign_to" id="assign_to" >
                                                 <option value="{{ $quoteDetail->data->assign_to->id }}">
                                                     {{ $quoteDetail->data->assign_to->first_name_en.' '.$quoteDetail->data->assign_to->last_name_en ??""}}
                                                 </option>
@@ -89,19 +89,22 @@
                                             </select>
                                             <span id="assign_toError" ><strong></strong></span>
                                         </dd>
-                                    <dt class="col-sm-4 dt">Quote Status</dt>
+
+                                    {{-- <dt class="col-sm-4 dt">Quote Status</dt>
                                         <dd class="col-sm-8 dd">
                                             <select class="form-control select2" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
-                                                <?php
+                                                @php
                                                     $num = count($quoteDetail->data->quote_stage ??"");
-                                                    // echo $quoteDetail->data->quote_stage[($num-1)]->name_en;
-                                                ?>
+                                                @endphp
                                                 @foreach ($quoteStatus as $key=>$val )
                                                         <option value="{{$val->id ?? ''}}" {{$val->id ?? '' == $quoteDetail->data->quote_stage[($num-1)]->id ??'' ? 'selected="selected"':''}}> {{$val->name_en}}</option>
-
                                                 @endforeach
                                             </select>
-                                        </dd>
+                                        </dd> --}}
+                                    @php
+                                        $num = count($quoteDetail->data->quote_stage ??"");
+                                    @endphp
+                                    <input type="hidden" name="crm_quote_status_type_id" value="{{ $quoteDetail->data->quote_stage[($num-1)]->id ??''}}">
                                     <dt class="col-sm-4 dt">Due Date</dt>
                                         <dd class="col-sm-8 dd">
                                             <input type="text" name="due_date" id="due_date" class="form-control" value="{{ $quoteDetail->data->due_date ??""}}" placeholder="Due Date" >
@@ -189,6 +192,7 @@
                                                                             <input type="hidden" id="quote_id" name="quote_id" value="{{ $value->crm_quote_id ?? ""}}" readonly>
                                                                             <input type="hidden" name="quote_branch_id" value="{{ $value->id ?? ""}}" readonly>
                                                                             <input type="hidden" name="lead_branch_id" value="{{ $value->crm_lead_branch->id ?? ""}}" readonly>
+                                                                            <input type="hidden" id="vatNumber{{ $value->crm_lead_branch->id ?? ""}}" value="{{ $value->crm_lead_branch->vat_number ?? ''}}" readonly>
                                                                         </div>
                                                                         <table class="table table-bordered" style="min-width: 850px;">
                                                                             <thead class="thead-item-list">
@@ -200,7 +204,6 @@
                                                                                         <th class="td-item-quote">List Price($)</th>
                                                                                         <th class="td-item-quote">Total($)</th>
                                                                                         <th style="width: 50px;" >
-                                                                                            {{-- <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="quoteBranchEdit" ><span><i class="fa fa-plus"></i></span></button> --}}
                                                                                             <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="{{ $value->crm_lead_branch->id ?? ''}}" data-code="quoteBranchEdit"><span><i class="fa fa-plus"></i></span></button>
                                                                                         </th>
                                                                                     </tr>
@@ -209,10 +212,9 @@
 
                                                                                 @if(isset($quoteBranchDetail[$key]->data))
                                                                                     @foreach ($quoteBranchDetail[$key]->data as $key2=>$val2)
+                                                                                        <input type="hidden" name="storeAllBranchId[]" value="{{ $value->crm_lead_branch->id ?? ''}}" placeholder="this use to get all branch id for counting">
                                                                                         <input type="hidden" name="quote_detail_id[]" value="{{ $val2->id ?? ''}}" readonly>
                                                                                         <input type="hidden" id="getBranchIdEdit" value="{{ $value->crm_lead_branch->id ?? ''}}" readonly>
-                                                                                        <input type="hidden" id="vatNumber" value="{{ $value->crm_lead_branch->vat_number ?? ''}}" readonly>
-
                                                                                         <tr id="{{ $Countnum }}" class="tr-quote-row row-quote-item row-quote-item_{{ $Countnum }}" data-id="row_{{ $Countnum }}" data-code="{{ $value->crm_lead_branch->id ?? "" }}">
                                                                                             <td style="width: 30%;">
 
@@ -238,7 +240,7 @@
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <div id="itemType_{{$Countnum}}" class="btn-list-item text-center">{{ ucfirst($val2->stock_product->group_type) ?? ''}}</div>
+                                                                                                <div id="itemType_{{$Countnum}}" class="btn-list-item text-center">{{ ucfirst($val2->stock_product->group_type ?? "") ?? ""}}</div>
                                                                                             </td>
                                                                                             <td style="width: 120px;">
                                                                                                 <input type="text"  class="valid-numeric form-control itemQty_{{ $Countnum }} qty{{ $Countnum }}" name="qty[]" id="{{ $Countnum }}" data-id="qty{{ $Countnum }}" demo="itemQty"  value="{{ $val2->qty ?? ''}}"  required placeholder="Qty">
@@ -248,7 +250,7 @@
                                                                                             </td>
                                                                                             <td>
                                                                                                 <div id="" class="btn-list-item text-center">
-                                                                                                    @if($val2->stock_product->measure == '')
+                                                                                                    @if(isset($val2->stock_product->measure) && $val2->stock_product->measure == '')
                                                                                                         @php $measurement= 'Not value' @endphp
                                                                                                     @else
                                                                                                         @php $measurement= $val2->stock_product->measure ?? '' @endphp
@@ -304,8 +306,10 @@
 
                                                                                             </td>
                                                                                             <td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_{{$Countnum}}">
-                                                                                                @if($Countnum != 0)
-                                                                                                    <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$Countnum}}"  data-id="{{ $Countnum ?? ''}}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                                                                @if(count($quoteBranchDetail[$key]->data) <= 1)
+                                                                                                    <button style="width: auto;"  class="trashRemove_{{ $value->crm_lead_branch->id ?? ''}} btnRemoveRow btn btn-denger" id="{{$Countnum}}"  data-id="{{ $Countnum ?? ''}}" data-code="{{ $value->crm_lead_branch->id ?? ''}}"  disabled="disabled"><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                                                                @else
+                                                                                                    <button style="width: auto;"  class="trashRemove_{{ $value->crm_lead_branch->id ?? ''}} btnRemoveRow btn btn-denger" id="{{$Countnum}}"  data-id="{{ $Countnum ?? ''}}" data-code="{{ $value->crm_lead_branch->id ?? ''}}" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
                                                                                                 @endif
                                                                                             </td>
 
@@ -320,8 +324,6 @@
                                                                         </table>
                                                                     </dl>
                                                                 </div>
-
-
 
                                                                 <dl class="col-sm-12 ">
                                                                     <div class="text-right" >
@@ -397,7 +399,6 @@
                                                                             <td  ><span style="padding-right: 12px;">Grand Total</span></td>
                                                                             <td  ><div id="grandTotal"> 0.0 </div></td>
                                                                         </tr>
-
                                                                     </tbody>
 
                                                                 </table>
@@ -424,12 +425,21 @@
 
         $(".row-quote-item").keyup();
         $(".row-quote-item").keyup();
+
         $(document).ready(function(){
-            $('.select2').select2();
+            $('.selectSearch').select2();
+
+
+            $("input[name='storeAllBranchId[]']").map(function () {
+                // console.log('running in this function=='+this.value);
+                checkBranchReminderRow(this.value);
+            }).get();
+
+
         });
 
         function cancelEditLead(){
-            var qId = <?php echo json_encode($quoteDetail->data->id); ?>;
+            // var qId = <?php echo json_encode($quoteDetail->data->id); ?>;
             Swal.fire({ //get from sweetalert function
                 title: 'Cancel',
                 text: "Do you want to cancel ? ",
@@ -440,7 +450,25 @@
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if(result.value) {
-                    goto_Action('/quote/leadBranch', qId);
+                    go_to('/quote');
+                }
+            });
+        }
+
+
+
+        function cancelEditBranch(){
+            Swal.fire({ //get from sweetalert function
+                title: 'Cancel',
+                text: "Do you want to cancel ? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if(result.value) {
+                    go_to('/quote');
                 }
             });
         }

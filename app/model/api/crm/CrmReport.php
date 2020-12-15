@@ -366,7 +366,7 @@ class CrmReport extends Model
                     crm_lead cl
                     INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id
                     INNER JOIN crm_lead_detail cld ON clb.id = cld.crm_lead_branch_id
-                    INNER JOIN crm_lead_assign cla ON cld.id = cla.crm_lead_branch_id
+                    INNER JOIN crm_lead_assign cla ON clb.id = cla.crm_lead_branch_id
                     INNER JOIN crm_lead_status cls ON cld.crm_lead_status_id = cls.id
             ';
             $condition = ''.
@@ -486,7 +486,7 @@ class CrmReport extends Model
                 WHERE id in (
                     SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
                     FROM crm_lead_detail
-                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
                     ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false
@@ -603,9 +603,9 @@ class CrmReport extends Model
             $sql = '
                 SELECT
                 CASE possible WHEN TRUE THEN
-                        \'success\'
+                        \'possible\'
                     ELSE
-                        \'failure\'
+                        \'impossible\'
                 END AS status_en,
                 CASE possible WHEN TRUE THEN
                         \'ជោគជ័យ\'

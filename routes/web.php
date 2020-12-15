@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\TryCatch;
 |
 */
 
-Route::get('pdf-create','PdfController@create');
+Route::get('pdf-create','PdfController@request');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -79,13 +79,14 @@ Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleres
 // start survey
 //get survey
 Route::get('/survey','crm\CrmSurveyController@index');
-
-
 //get detail survey
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
-
+// Table survey list
+Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
+// Table survey result
+Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 // end survey
 
 
@@ -1021,6 +1022,12 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_my_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission');
         Route::get('hrm_search_mission','hrms\Employee\MissionAndOutsideController@hrm_search_mission');
         Route::get('hrm_my_search_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission_search');
+        Route::get('hrm_modal_late_missed_scan', 'hrms\Employee\MissionAndOutsideController@modal_late_missed_scan');
+        Route::post('hrm_insert_update_late_missed_scan', 'hrms\Employee\MissionAndOutsideController@insert_update_late_missed_scan');
+        Route::get('hrm_modal_permission', 'hrms\Employee\MissionAndOutsideController@modal_permission');
+        Route::get('hrm_modal_work_on_side', 'hrms\Employee\MissionAndOutsideController@modal_work_on_side');
+        Route::post('hrms_insert_permission', 'hrms\Employee\MissionAndOutsideController@insert_permission_employee');
+        Route::post('hrms_insert_work_on_side', 'hrms\Employee\MissionAndOutsideController@insert_work_on_side');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -1192,9 +1199,9 @@ Route::post('hrm_recruitment_user_submit_answer','hrms\recruitment_user\recruitm
 Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment_userController@candidate_logout');
 
 // view user entry info to register
-Route::get('hrm_index_user_register',function(){
-    return view('hrms.recruitment_user.index_recruitment_register');
-});
+// Route::get('hrm_index_user_register',function(){
+//     return view('hrms.recruitment_user.index_recruitment_register');
+// });
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){

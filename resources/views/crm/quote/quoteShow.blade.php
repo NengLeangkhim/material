@@ -1,6 +1,15 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <style>
+                    th {
+                        font-size: 16px;
+                    }
+
+                    td {
+                        font-size: 14px;
+                    }
+                </style>
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -8,8 +17,8 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">View Organization</li>
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">View Organization</li>
                             </ol>
                         </div>
                     </div>
@@ -30,22 +39,22 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive">
-                                            <table id="tblQuoteList"  class="table table-bordered table-hover" style="white-space:nowrap;">
-                                                <thead>
-                                                    <tr style="background: #1fa8e0">
-                                                        <th style="color: #FFFFFF">Quote Number</th>
-                                                        <th style="color: #FFFFFF">Subject</th>
-                                                        <th style="color: #FFFFFF">Organization Name</th>
-                                                        <th style="color: #FFFFFF">VAT Number</th>
-                                                        <th style="color: #FFFFFF">Quote Stage</th>
-                                                        <th style="color: #FFFFFF">Assigned To </th>
-                                                        <th style="color: #FFFFFF">Has Invoice</th>
-                                                        <th style="color: #FFFFFF">Due Date</th>
-                                                        <th style="color: #FFFFFF">Create Date</th>
-                                                        <th style="color: #FFFFFF;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
+                                        <table id="tblQuoteList"  class="table table-bordered table-hover" style="white-space:nowrap;">
+                                            <thead>
+                                                <tr style="background: #1fa8e0">
+                                                    <th style="color: #FFFFFF">Quote Number</th>
+                                                    <th style="color: #FFFFFF">Subject</th>
+                                                    <th style="color: #FFFFFF">Organization Name</th>
+                                                    <th style="color: #FFFFFF">VAT Number</th>
+                                                    <th style="color: #FFFFFF">Quote Stage</th>
+                                                    <th style="color: #FFFFFF">Assigned To </th>
+                                                    <th style="color: #FFFFFF">Has Invoice</th>
+                                                    <th style="color: #FFFFFF">Due Date</th>
+                                                    <th style="color: #FFFFFF">Create Date</th>
+                                                    <th style="color: #FFFFFF;">Action</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -56,11 +65,14 @@
 
 
             <script type="text/javascript">
-                        $("#tblQuoteList").DataTable({
+                        t=$("#tblQuoteList").DataTable({
                             scrollX:true,
                             // "responsive": true,
                             "autoWidth": false,
                             "serverSide": true,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true,
                             "ajax": "/quote/datatable",
                             "columnDefs": [
                                     {
@@ -76,12 +88,12 @@
                                                         '</a>'+
                                                     '</div>'+
                                                     '<div class="col-md-4">'+
-                                                        '<a href="#" class="btn btn-success btn-sm" onclick="goto_Action(\'/quote/leadBranch\', \''+data+'\')">'+
+                                                        '<a href="#" class="btn btn-success btn-sm" id="btnEditQuote" onclick="goto_Action(\'/quote/leadBranch\', \''+data+'\')">'+
                                                             '<i class="fas fa-wrench"></i>'+
                                                         '</a>'+
                                                     '</div>'+
                                                     '<div class="col-md-4 ">'+
-                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <span class="glyphicon glyphicon-remove"></span>  </a>'+
+                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <i style="color:white;" class="fa fa-trash"></i>  </a>'+
                                                     '</div>'+
                                                 '</div></div>';
                                         },
@@ -91,7 +103,27 @@
                                     {
                                         "searchable": false,
                                         "targets": [7,8],
+                                    },
+                             ],
+                             "initComplete": function()
+                            {
+                                $(".dataTables_filter input")
+                                .unbind() // Unbind previous default bindings
+                                .bind("keyup", function(e) { // Bind our desired behavior
+                                    // If the length is 3 or more characters, or the user pressed ENTER, search
+                                    if(this.value.length >= 3 || e.keyCode == 13) {
+                                        // Call the API search function
+                                        t.search(this.value).draw();
+                                        notify_alert('.dataTables_filter input','success', 'top center', 'search success')
+                                    }else{
+                                        notify_alert('.dataTables_filter input','warn', 'top center', 'please input 3 characters or more')
                                     }
-                             ]
+                                    // Ensure we clear the search if they backspace far enough
+                                    if(this.value == "") {
+                                        t.search("").draw();
+                                    }
+                                    return;
+                                });
+                            }
                         });
             </script>

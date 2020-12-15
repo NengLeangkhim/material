@@ -540,18 +540,6 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="name_kh">Full Name Khmer</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
-                                                    <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
                                                 <label for="name_en">Full Name English </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -559,6 +547,18 @@
                                                     </div>
                                                     <input type="text" class="form-control" name="name_en" id="name_en" placeholder="Last Name" >
                                                     <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="name_kh">Full Name Khmer</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
+                                                    <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
                                                 </div>
@@ -959,7 +959,7 @@
                                                                         {{-- <strong></strong>
                                                                     </span>
                                                                 </div>
-                                                            </div> --}} 
+                                                            </div> --}}
                                                             <div class="col-md-6">
                                                                 <div class="input-group pt-4 pl-2">
                                                                     <div class="input-group-prepend pr-4">
@@ -1378,11 +1378,11 @@
                     url: '/lead/search',
                     dataType: 'json',
                     type:'get',
-                    delay: 250,
+                    delay: 1200,
                     data: function (params) {
-                        return {  
+                        return {
                             search: params.term // search term
-                        };   
+                        };
                     },
                     processResults: function (response) {
                         return {
@@ -1398,11 +1398,11 @@
                     url: '/contact/search',
                     dataType: 'json',
                     type:'get',
-                    delay: 250,
+                    delay: 1200,
                     data: function (params) {
-                        return {  
+                        return {
                             search: params.term // search term
-                        };   
+                        };
                     },
                     processResults: function (response) {
                         return {
@@ -1540,7 +1540,7 @@
                           $("#national_id").val(national_id);
                           $("#position").val(position);
                           $("#ma_honorifics_id").val(honorifics_id);
-          
+
                           $('#name_en').prop('readonly', true);
                           $('#name_kh').prop('readonly', true);
                           $('#email').prop('readonly', true);
@@ -1548,8 +1548,8 @@
                           $('#national_id').prop('readonly', true);
                           $('#position').prop('readonly', true);
                           $('#ma_honorifics_id').attr('disabled', true);
-  
-  
+
+
               }
             })
           }

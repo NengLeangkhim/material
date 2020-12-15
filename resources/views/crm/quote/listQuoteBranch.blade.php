@@ -45,29 +45,29 @@
                                             <input type="hidden"  id="brdcompanyEn_{{$val2->id}}" value="{{$val2->name_en}}">
                                             <input type="hidden"  id="brdAddressNameEn_{{$val2->id}}" value="{{$val2->address_en??''}}">
                                             <input type="hidden"  id="branAddressId_{{$val2->crm_lead_address_id}}" value="{{$val2->crm_lead_address_id}}">
-                                            <input type="hidden"  id="branVatNumber_{{$val2->id}}" value="{{$val2->vat_number??''}}">
+                                            <input type="hidden"  id="branVatNumber_{{$val2->id}}" value="{{ $getVatNum ?? ""}}">
 
                                         </td>
                                         <td class="border">
                                             <div   class="branchKhName" >
-                                                {{$val2->name_en}}
+                                                {{$val2->name_en ?? ""}}
                                             </div>
                                         </td>
 
                                         <td class="border">
                                             <div class="branchEnName" >
-                                                {{$val2->name_kh}}
+                                                {{$val2->name_kh ?? ""}}
                                             </div>
                                         </td>
 
                                         <td class="border">
                                             <div class="branchEmail">
-                                                {{$val2->email}}
+                                                {{$val2->email ?? ""}}
                                             </div>
                                         </td>
                                         <td class="border">
                                             <div class="branchCompany">
-                                                {{$val2->company_detail??''}}
+                                                {{$val2->company_detail ??''}}
                                             </div>
                                         </td>
 

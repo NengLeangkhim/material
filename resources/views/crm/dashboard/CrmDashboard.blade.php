@@ -519,8 +519,8 @@
             function CrmSurveyChart(success,failure) {
                 var data = google.visualization.arrayToDataTable([
                     ['','',{role: 'style'}],
-                    ['Success',success,'color:#25CCF7'],
-                    ['Failure',failure,'color:#ff3d67']
+                    ['Possible',success,'color:#25CCF7'],
+                    ['Impossible',failure,'color:#ff3d67']
                 ]);
                 var view = new google.visualization.DataView(data);
                 view.setColumns([0, 1,

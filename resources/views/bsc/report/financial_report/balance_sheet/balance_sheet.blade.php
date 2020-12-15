@@ -28,7 +28,7 @@
                                     <div class="is-menu row justify-content-between">
                                         <div class="is-menu-left col-9 row justify-content-start">
                                             <div class="input-group col-6">
-                                                <input type="date" id="end-date" class="form-control" aria-label="Text input with dropdown button">
+                                                <input type="date" id="end-date" class="form-control" value="{{ date('Y-m-d') }}" aria-label="Text input with dropdown button">
                                             </div>
                                             <div class="input-group col-6">
                                                 <select class="form-control" name="select_source" id="is-comparison-number">
@@ -101,37 +101,6 @@
                         setDataList(bodyId, 'Liability', data.body.liability_list, col, data.header);
                         setDataList(bodyId, 'Equity', data.body.equity_list, col, data.header);
                     }
-                    
-                    // if(response.success){
-                    //     var data = response.data.body;
-                    //     var headerId = '#is-report-sub-header'
-                    //     var bodyId = '#is-report-body'
-                    //     $(headerId).empty()
-                    //     $(bodyId).empty()
-                    //     if(data.is_error){
-                    //         $(bodyId).append(`<h5 class="bold">${response.message}</h5>`)
-                    //         return
-                    //     }
-                    //     renderSection(bodyId, 'is-asset-id', 'Asset', data.asset_list)
-                    //     renderSection(bodyId, 'is-liability-id', 'Liability', data.liability_list)
-                    //     renderSection(bodyId, 'is-equity-id', 'Equity', data.equity_list)
-
-                    //     // if(response.success){
-                    //     //     var data = response.data;
-                    //     //     var col = 12 - ((data.header).length);
-
-                    //     //     var headerId = '#is-report-sub-header';
-                    //     //     var bodyId = '#is-report-body';
-                    //     //     $(headerId).empty();
-                    //     //     $(bodyId).empty();
-                    //     //     setReportHeader(headerId,data.header, col);
-                    //     //     setDataList(bodyId, 'Income', data.body.income_list, col);
-                    //     //     setDataList(bodyId, 'COGS', data.body.cogs_list, col);
-                    //     //     setCalculateDataList(bodyId, 'Gross Profit', data.body.gross_profit, col);
-                    //     //     setDataList(bodyId, 'Expense', data.body.expense_list, col   );
-                    //     //     setCalculateDataList(bodyId, 'Net Income', data.body.net_income , col);
-                    //     // }
-                    // }
                 },
                 fail : function(){
                     alert("ERROR")
@@ -145,23 +114,6 @@
             currency: 'USD',
             minimumFractionDigits: 2
         });
-
-        var renderSection = (bodyId, id, title, data) => {
-            $(bodyId).append(
-            `
-                <hr>
-                <div id="${id}">
-                    <h5>${title}</h5>
-                    <hr>
-                    ${data.data.map(e=>`<div class="row ml-2"> <div class="col-8">${e.name_en}</div><div class="col-4">${USD_FOMMATER.format(e.value)}</div> </div>`).join('')}
-                    <div class="row bold">
-                        <div class="col-8">Total ${title}</div>
-                        <div class="col-4">${USD_FOMMATER.format(data.total)}</div>
-                    </div>
-                </div>
-            `
-            )
-        }
     });
 
     function setReportHeader (id, data, col){
@@ -188,7 +140,7 @@
                 let row_total_account_type = "";
                 if(get_total_account_type != ""){
                     $.each(get_total_account_type, function(ii, total_account_type){
-                        let total_account_type_date = total_account_type.total_account_type == 0 ? '-' : total_account_type.total_account_type;
+                        let total_account_type_date = total_account_type.total_account_type == 0 ? '-' : parseFloat(total_account_type.total_account_type).toFixed(4);
                         row_total_account_type += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_account_type_date +'</div>';
                     });
                 }else{
@@ -203,7 +155,7 @@
                         let row_amount_chart = "";
                         if(get_amount_chart != ""){
                             $.each(get_amount_chart, function(ii, amount_chart){
-                                let total_amount_chart_date = amount_chart.total_amount == 0 ? '-' : amount_chart.total_amount;
+                                let total_amount_chart_date = amount_chart.total_amount == 0 ? '-' : parseFloat(amount_chart.total_amount).toFixed(4);
                                 row_amount_chart += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_amount_chart_date+'</div>';
                             });
                         }
@@ -227,7 +179,7 @@
         let row_total_account = "";
         if(get_total_account != ""){
             $.each(get_total_account, function(index, total_account){
-                let total_account_date = total_account.total_account == 0 ? '-' : total_account.total_account;
+                let total_account_date = total_account.total_account == 0 ? '-' : parseFloat(total_account.total_account).toFixed(4);
                 row_total_account += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_account_date+'</div>';
             });
         }else{

@@ -9,6 +9,7 @@ class Request_form extends Controller
 {
     public function Request_form()
     {
+        
     	$html='<html>
         <head>
         <meta charset="UTF-8">

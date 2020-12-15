@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\MissionAndOutSide;
 use App\model\setting\LeaveType;
+use Illuminate\Support\Facades\Http;
 
 class AttendanceController extends Controller
 {
@@ -102,32 +103,37 @@ class AttendanceController extends Controller
     //     return view('hrms/Employee/Attendance/CalculateAttendanceDetail');
     // }
 
-    function AttendanceEdit(){
+    function AttendanceEdit(Request $request){
         if (perms::check_perm_module('HRM_09010301')) {
-            $id = $_GET['id'];
-            echo 'wdefef';
-            return view('hrms/Employee/Attendance/AttendanceEdit')->with('id', $id);
+            $id = $request->id;
+            $leave_type=LeaveType::leave_type();
+            $approved_attendance = Request::create('/api/hrms_approve_attendance', 'GET');
+            $approved_attendance->headers->set('Accept', 'application/json');
+            $res = app()->handle($approved_attendance);
+            $response_attendance = json_decode($res->getContent());
+            $mission='';
+            return view('hrms/Employee/Attendance/AttendanceEdit')->with(['id'=>$id,'leave_type'=>$leave_type,'approve'=>$response_attendance]);
         }else{
             return view('modal_no_perms')->with('modal', 'modal_attendance_edit');
         }
         
     }
 
-    function AttendanceEditInsert()
+    function AttendanceEditInsert(Request $request)
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $userid = $_SESSION['userid'];
-        $id = $_POST['id'];
-        $type = $_POST['type'];
-        $street = $_POST['street'];
-        $home_number = $_POST['home_number'];
-        $latelg = $_POST['latelg'];
-        $gazetteer_code = $_POST['gazetteers_code'];
-        $description = $_POST['description'];
-        $date_from=$_POST['date_from'];
-        $date_to=$_POST['date_to'];
+        $id = $request->id;
+        $type =$request->type;
+        $street = $request->street;
+        $home_number =$request->home_number;
+        $latelg = $request->latelg;
+        $gazetteer_code = $request->gazetteers_code;
+        $description =$request->description;
+        $date_from=$request->date_from;
+        $date_to=$request->date_to;
         $emid=array();
         array_push($emid,$id);
         $stm=MissionAndOutSide::InsertMissionOutSide($date_from,$date_to,$description,$type,$userid,$id,$street,$home_number,$latelg,$gazetteer_code,$emid);

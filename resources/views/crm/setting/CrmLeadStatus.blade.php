@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_status_form','crm_lead_status','ActionLeadStatus','Add Lead Status')" ​><i class="fas fa-plus"></i> Add Lead Status</a>
 </div>
@@ -31,7 +40,7 @@
                     <td>{{$row->name_kh}}</td>
                     <td>{{$row->sequence}}</td>
                     <td class="text-center" ><input style="border: none; background-color: white;" type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
-                    <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
+                    <td>{{date('Y-m-d',strtotime($row->create_date))}}</td> {{-- Format: Y-m-d H:i:s --}}
                     <td class="text-center">
                         <a href="#" id="{{$row->id}}" class="btn btn-info btn-block CrmEditLeadStatus"><i class="fas fa-wrench"></i></a>
                     </td>
