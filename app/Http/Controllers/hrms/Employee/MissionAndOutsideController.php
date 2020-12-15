@@ -257,27 +257,15 @@ class MissionAndOutsideController extends Controller
             if ($validation->fails()) {
                 return response()->json(['error' => $validation->getMessageBag()->toArray()]);
             }
-            if($request->shift=='am'){
-                $date_from=$request->date.' 08:00:00';
-                $date_to=$request->date.' 12:00:00';
-            }elseif($request->shift=='pm'){
-                $date_from = $request->date . ' 13:30:00';
-                $date_to = $request->date . ' 17:30:00';
-            }else{
-                $date_from = $request->date . ' 08:00:00';
-                $date_to = $request->date . ' 17:30:00';
-            }
-
             if($request->id>0){
                 $response = Request::create('/api/hrms_permission/'.$request->id, 'PUT', [
                     'ma_user_id' => $request->employees,
                     'leave_type_id' => $request->type,
                     'editor_id' => $userid,
+                    'date'=>$request->date,
                     'reason' => $request->reason,
                     'shift' => $request->shift,
                     'approved_by' => $request->approved_by,
-                    'date_from' => $date_from,
-                    'date_to' => $date_to,
                 ]);
                 $response->headers->set('Accept', 'application/json');
                 $response = app()->handle($response);
@@ -292,11 +280,11 @@ class MissionAndOutsideController extends Controller
                     'ma_user_id' => $request->employees,
                     'leave_type_id' => $request->type,
                     'editor_id' => $userid,
+                    'date'=>$request->date,
                     'reason' => $request->reason,
                     'shift' => $request->shift,
                     'approved_by' => $request->approved_by,
-                    'date_from' => $date_from,
-                    'date_to' => $date_to,
+                    'shift' => $request->shift,
                 ]);
                 $response->headers->set('Accept', 'application/json');
                 $response = app()->handle($response);
@@ -305,6 +293,7 @@ class MissionAndOutsideController extends Controller
                     return response()->json(["success" => $respon->success]);
                 } else {
                     return response()->json(['error' => $respon->error]);
+
                 }
             }
         } catch (\Throwable $th) {

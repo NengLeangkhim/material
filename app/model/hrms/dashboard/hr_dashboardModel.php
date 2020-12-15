@@ -126,9 +126,10 @@ WHERE mu.status='t' AND mu.is_deleted ='f' and mu.is_employee='t' and mp.status=
     public static function staff_mission($curret_date){
         $sql= " SELECT count(DISTINCT(hmd.ma_user_id)) FROM hr_mission  hm 
         INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id
-        WHERE hm.status='t' and hm.is_deleted='f' and '$curret_date' BETWEEN hm.date_from::date and hm.date_to::date and hm.type='Mission' ";
+        WHERE hm.status='t' and hm.is_deleted='f' and '$curret_date'::date BETWEEN hm.date_from::date and hm.date_to::date and lower(hm.type)='mission' ";
         try {
             $r = DB::select($sql);
+            dd($r);
             return $r;
         }catch(\Illuminate\Database\QueryException $ex){
             dump($ex->getMessage());

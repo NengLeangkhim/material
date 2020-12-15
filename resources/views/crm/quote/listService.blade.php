@@ -47,13 +47,13 @@
                                                 <td class="border">
                                                     <input type="hidden" id="showItemType_{{$row_id}}" value="Service">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id}}" name="seleteItem">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id ?? ""}}" name="seleteItem">
                                                         <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id}}" >
-                                                        {{$val2->name}}
+                                                    <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id ?? ""}}" >
+                                                        {{$val2->name ?? ""}}
                                                     </div>
                                                 </td>
 
@@ -72,26 +72,26 @@
                                                                 $prdPrice = $val2->product_price;
                                                             @endphp
                                                         @endif --}}
-                                                        {{$val2->product_price}}
-                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{ $val2->product_price }}" readonly>
+                                                        {{$val2->product_price ?? ""}}
+                                                        <input type="hidden" class="itemPrice_{{$val2->id ?? ""}}" value="{{ $val2->product_price ?? ""}}" readonly>
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div class="stockItem_{{$val2->id}}">
-                                                        {{$val2->stock_qty}}
+                                                    <div class="stockItem_{{$val2->id ?? ""}}">
+                                                        {{$val2->stock_qty ?? ""}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div class="itemMeasurement_{{$val2->id}}">
-                                                        {{$val2->measurement}}
+                                                    <div class="itemMeasurement_{{$val2->id ?? ""}}">
+                                                        {{$val2->measurement ?? ""}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div class="itemDescription_{{$val2->id}}">
-                                                        {{$val2->description}}
+                                                    <div class="itemDescription_{{$val2->id ?? ""}}">
+                                                        {{$val2->description ?? ""}}
                                                     </div>
                                                 </td>
                                             </tr>
