@@ -39,16 +39,17 @@ class InvoicePreviewController extends Controller
         $invoice_head = $data->data->preview_invoice;
         $invoice_detail = $data->data->preview_invoice_detail;
         $invoice_cur = $data->data->preview_currency_rate;
+        $invoice_payments = $data->data->invoice_payments;
         $invoices=DB::select("SELECT * FROM public.get_gazetteers_address('".$invoice_head->address_name."') as address");
         $address = $invoices[0]->address;
 
-        $mylogo=$this->logosource($invoice_head,$invoice_detail,$address,$invoice_cur);
+        $mylogo=$this->logosource($invoice_head,$invoice_detail,$address,$invoice_cur,$invoice_payments);
         $mpdf->WriteHTML($mylogo);
         $mpdf->Output();
 
 
     }
-    public function logosource($invoice_head,$invoice_detail,$address,$invoice_cur){
+    public function logosource($invoice_head,$invoice_detail,$address,$invoice_cur,$invoice_payments){
         $logo = '<table style="border:none;pedding:0;margin:0;width:100%">
         <tr>
             <td>
@@ -81,7 +82,7 @@ class InvoicePreviewController extends Controller
         </table>
         '.$this->head().'
         '.$this->getCustomer($invoice_head,$address).'
-        '.$this->getTotal($invoice_detail,$invoice_head,$invoice_cur).'
+        '.$this->getTotal($invoice_detail,$invoice_head,$invoice_cur,$invoice_payments).'
         '.$this->getNote().'
         '.$this->getSignature().'
 
@@ -198,7 +199,7 @@ class InvoicePreviewController extends Controller
         return $customer;
     }
 
-    public function getTotal($invoice_detail,$invoice_head,$invoice_cur){
+    public function getTotal($invoice_detail,$invoice_head,$invoice_cur,$invoice_payments){
         $vat_number = $invoice_head->vat_number;
         $vat_type = $invoice_head->vat_type;
         $rate = 0;
@@ -254,6 +255,21 @@ class InvoicePreviewController extends Controller
             }
         }
 
+        $span_h = '';
+        $span_b = '';
+        $due_amount = 0;
+        $mydisplay = 'display:none';
+        if(!empty($invoice_payments)){
+            foreach($invoice_payments as $invoice_payment){
+                $mydisplay = '';
+                $due_amount = $invoice_payment->due_amount;
+                $span_h .='<span style="text-align:center;font-size: 10px;font-weight: bold;"><span​>Payment</span​> <br>
+                            <span style="font-size: 10px;"><strong>Date</strong> </span><br/>';
+                $span_b .='<span style="font-size: 11px;"> <strong>$ '.$invoice_payment->amount_paid.'</strong></span><br/>
+                            <span style="font-size: 11px;"> <strong>'.date('d-m-Y', strtotime($invoice_payment->date_paid)).'</strong></span><br/>';
+            }
+        }
+
         $description = '
                 <table rules="all" border="1" style="width:100%;border: 1px solid black;border-collapse: collapse;">
                     <thead>
@@ -302,6 +318,20 @@ class InvoicePreviewController extends Controller
                             </td>
                             <td style="text-align: right;padding:10px;"><span style="font-size: 11px;"> <strong>៛ '.number_format($total_riel,0,"",",").'</strong></span></td>
                         </tr>
+
+                        <div style="'.$mydisplay.'">
+                            <tr>
+                                <td colspan="2" style="text-align: right;padding:5px;">
+                                    '.$span_h.'
+                                    <span style="font-size: 10px;"><strong>Due Amount</strong> </span>
+                                </td>
+                                <td style="text-align: right;padding:10px;">
+                                    '.$span_b.'
+                                    <span style="font-size: 11px;"> <strong>$ '.$due_amount.'</strong></span>
+                                </td>
+                            </tr>
+                        </div>
+
                     </tbody>
 
             </table>
