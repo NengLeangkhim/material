@@ -202,10 +202,10 @@
             </div>
             <div class="col-md-3" style="padding-left: 30px;padding-right: 30px">
                 <input type="hidden" value="@php if(isset($data[1])){ echo $data[1]['image']; } @endphp" name="imgdirectory">
-                <div id="image-preview" style="margin-top: 0px" class="">
+                <div id="image-preview" style="margin-top: 0px;" class="">
                   <label for="image-upload" id="image-label">Choose Image</label>
                   <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile">
-                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo $data[1]['image'];} @endphp"/>
+                  <img id="output_image" name="emProfile" height="300px" width="250px" src="@php if(isset($data[1])){ echo $data[1]['image'];} @endphp"/>
                 </div>
             </div>
 
