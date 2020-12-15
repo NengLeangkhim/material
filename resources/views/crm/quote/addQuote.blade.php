@@ -417,66 +417,8 @@
         </div>
     </section>
 
-    {{-- =================Modal lead source========================= --}}
-    {{-- <div class="modal fade" id="modal-info">
-        <form id="ifrm_source" action="/addleadsource" method="POST">
-            @csrf
-            <div class="modal-dialog">
-            <div class="modal-content bg-info">
-                <div class="modal-header">
-                <h4 class="modal-title">Create Lead Source</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website" required>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadsource','ifrm_source','ileadsource')">Save </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-            </div>
-        </form>
-        <!-- /.modal-dialog -->
-      </div>
-       <!-- =================Modal lead industry========================= -->
-    <div class="modal fade" id="modal-info-industry">
-        <form id="ifrm_industry" >
-            @csrf
-            <div class="modal-dialog">
-            <div class="modal-content bg-info">
-                <div class="modal-header">
-                <h4 class="modal-title">Create Lead industry</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="lead_source" name="industry"  placeholder="Website" required>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadindustry','ifrm_industry','iindustry')">Save </button>
-                </div>
-            </div>
-            </div>
-        </form>
-    </div> --}}
 
 
-
-    {{-- <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script> --}}
 
     <script type="text/javascript">
 

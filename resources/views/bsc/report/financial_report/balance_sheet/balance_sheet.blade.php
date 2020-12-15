@@ -15,6 +15,16 @@
     }
 </style>
 
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><strong style="font-size: 25px;">Balance Sheet</strong></h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -24,11 +34,10 @@
                         {{-- <div class="row"> --}}
                             {{-- <div class="col-12"> --}}
                                 <div class="card-body">
-                                    <h2 id="something">Balance Sheet</h2>
                                     <div class="is-menu row justify-content-between">
                                         <div class="is-menu-left col-9 row justify-content-start">
                                             <div class="input-group col-6">
-                                                <input type="date" id="end-date" class="form-control" aria-label="Text input with dropdown button">
+                                                <input type="date" id="end-date" class="form-control" value="{{ date('Y-m-d') }}" aria-label="Text input with dropdown button">
                                             </div>
                                             <div class="input-group col-6">
                                                 <select class="form-control" name="select_source" id="is-comparison-number">
@@ -51,11 +60,9 @@
                         {{-- </div> --}}
                         <div class="is-report">
                             <div class="is-report-header">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Balance Sheet">
-                                  </div>
-                                  <p class="card-text">Turbotech</p>
-                                  <p class="card-text">For the year ended (DATE)</p>
+                                <h1><strong style="font-size: 25px;">Balance Sheet</strong></h1>
+                                <p class="card-text">Turbotech</p>
+                                {{-- <p class="card-text">For the year ended (DATE)</p> --}}
                             </div>
                             <hr>
                             <div id="is-report-sub-header" class="row"></div>
@@ -97,7 +104,6 @@
                         $(bodyId).empty();
                         setReportHeader(headerId,data.header, col);
                         setDataList(bodyId, 'Asset', data.body.asset_list, col, data.header);
-                        
                         setDataList(bodyId, 'Liability', data.body.liability_list, col, data.header);
                         setDataList(bodyId, 'Equity', data.body.equity_list, col, data.header);
                     }
@@ -114,23 +120,6 @@
             currency: 'USD',
             minimumFractionDigits: 2
         });
-
-        var renderSection = (bodyId, id, title, data) => {
-            $(bodyId).append(
-            `
-                <hr>
-                <div id="${id}">
-                    <h5>${title}</h5>
-                    <hr>
-                    ${data.data.map(e=>`<div class="row ml-2"> <div class="col-8">${e.name_en}</div><div class="col-4">${USD_FOMMATER.format(e.value)}</div> </div>`).join('')}
-                    <div class="row bold">
-                        <div class="col-8">Total ${title}</div>
-                        <div class="col-4">${USD_FOMMATER.format(data.total)}</div>
-                    </div>
-                </div>
-            `
-            )
-        }
     });
 
     function setReportHeader (id, data, col){
@@ -157,7 +146,7 @@
                 let row_total_account_type = "";
                 if(get_total_account_type != ""){
                     $.each(get_total_account_type, function(ii, total_account_type){
-                        let total_account_type_date = total_account_type.total_account_type == 0 ? '-' : total_account_type.total_account_type;
+                        let total_account_type_date = total_account_type.total_account_type == 0 ? '-' : parseFloat(total_account_type.total_account_type).toFixed(4);
                         row_total_account_type += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_account_type_date +'</div>';
                     });
                 }else{
@@ -172,7 +161,7 @@
                         let row_amount_chart = "";
                         if(get_amount_chart != ""){
                             $.each(get_amount_chart, function(ii, amount_chart){
-                                let total_amount_chart_date = amount_chart.total_amount == 0 ? '-' : amount_chart.total_amount;
+                                let total_amount_chart_date = amount_chart.total_amount == 0 ? '-' : parseFloat(amount_chart.total_amount).toFixed(4);
                                 row_amount_chart += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_amount_chart_date+'</div>';
                             });
                         }
@@ -196,7 +185,7 @@
         let row_total_account = "";
         if(get_total_account != ""){
             $.each(get_total_account, function(index, total_account){
-                let total_account_date = total_account.total_account == 0 ? '-' : total_account.total_account;
+                let total_account_date = total_account.total_account == 0 ? '-' : parseFloat(total_account.total_account).toFixed(4);
                 row_total_account += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_account_date+'</div>';
             });
         }else{
@@ -205,7 +194,7 @@
             });
         }
         row_account = '<div class="row" style="font-weight: bold;">'+
-                            '<div class="col-'+col+'" style="padding: 0;">Total '+name+'</div>'+
+                            '<div class="col-'+col+'">Total '+name+'</div>'+
                             row_total_account+
                         '</div>';
         $(id).append(`

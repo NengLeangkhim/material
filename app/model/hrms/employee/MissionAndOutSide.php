@@ -10,12 +10,12 @@ class MissionAndOutSide extends Model
     public static function MissionOutside($id=0){
         try {
             if($id>0){
-                $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and id=$id";
+                $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and lower(type)='mission' and id=$id order by id desc";
                 $stm= DB::select($sql);
                 $sqldetail= "SELECT ma_user_id FROM hr_mission_detail where status='t' and is_deleted='f' and hr_mission_id=$id";
                 $stmdetail=DB::select($sqldetail);
                 $data=[
-                    "id"=>$stm[0]->id,
+                    "id"=>$stm[0]->id ?? 0,
                     "home_number"=>$stm[0]->home_number,
                     "street"=>$stm[0]->street,
                     "date_from"=>$stm[0]->date_from,
@@ -29,7 +29,7 @@ class MissionAndOutSide extends Model
                 ];
                 return $data;
             }else{
-                $sql = "SELECT id,home_number,street,date_from,date_to,type,description,shift,street,home_number from hr_mission where status='t' and is_deleted='f'";
+                $sql = "SELECT id,home_number,street,date_from,date_to,type,description,shift,street,home_number from hr_mission where status='t' and is_deleted='f' and lower(type)='mission'";
             return $stm=DB::select($sql);
             }
         } catch (\Throwable $th) {
@@ -40,37 +40,44 @@ class MissionAndOutSide extends Model
         
     }
 
+    // mission one row and one employee
+    public static function mission_one_row_one_employee($id){
+        try {
+            $sql="";
+            return DB::select($sql);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     // Insert Mission
     public static function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
         try {
             $sql= "SELECT public.insert_hr_mission('$date_from','$date_to','$description','$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
             $stm=DB::select($sql);
             if($stm[0]->insert_hr_mission>0){
-                return self::InsertMissionOutsideDetail($stm[0]->insert_hr_mission,1,$create_by,$emid);
+                return self::InsertMissionOutsideDetail($stm[0]->insert_hr_mission,$create_by,$emid);
             }else{
                 return "error";
             }
         } catch (\Throwable $th) {
-            DB::rollBack();
             throw $th;
         }
         
     }
 
     // Insert mission detail
-    public static function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
+    public static function InsertMissionOutsideDetail($hr_mission_id,$create_by,$staff_id){
         try {
             foreach($staff_id as $modetail){
                 $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$modetail,$create_by)";
                 $stm = DB::select($sql);
             }
             if($stm[0]->insert_hr_mission_detail>0){
-                return "Insert Successfully";
+                return "Successfully";
             }else{
                 return "error";
             }
         } catch (\Throwable $th) {
-            DB::rollBack();
             throw $th;
         }
         
@@ -85,13 +92,13 @@ class MissionAndOutSide extends Model
             if ($stm[0]->update_hr_mission > 0) {
                 $sql_delete_mission_detail= "SELECT public.delete_hr_mission_detail($id,$update_by)";
                 DB::select($sql_delete_mission_detail);
-                $stm_insert_mission_detail=self::InsertMissionOutsideDetail($id,'',$update_by,$emid);
+
+                $stm_insert_mission_detail=self::InsertMissionOutsideDetail($id,$update_by,$emid);
                 return $stm_insert_mission_detail;
             } else {
                 return "error";
             }
         } catch (\Throwable $th) {
-            DB::rollBack();
             throw $th;
         }
         
@@ -100,8 +107,10 @@ class MissionAndOutSide extends Model
     // Delete Mission
     public static function DeleteMissionOutSide($id,$by){
         try {
-            $sql= "SELECT public.delete_hr_mission($id,$by)";
-            DB::select($sql);
+            $sql_mission= "SELECT public.delete_hr_mission($id,$by)";
+            $sql_delete_mission_detail = "SELECT public.delete_hr_mission_detail($id,$by)";
+            DB::select($sql_delete_mission_detail);
+            DB::select($sql_mission);
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -191,4 +200,67 @@ class MissionAndOutSide extends Model
         }
         
     }
+
+    // late and missed scan
+    public static function late_missed_scan_one($id)
+    {
+        try {
+            $sql = "select hm.id,mu.id as emid,concat(mu.last_name_en,' ',mu.first_name_en) as employee,hm.date_from as date,hm.type,hm.shift,hm.description as reason FROM hr_mission hm 
+                INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id 
+                INNER JOIN ma_user mu on mu.id=hmd.ma_user_id
+                WHERE hm.status='t' and hm.is_deleted='f' and hm.id=$id ORDER BY hm.date_from desc";
+            $late_missed_scan = DB::select($sql);
+            return $late_missed_scan ?? null ;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    // insert mission and mission detail
+
+    // Insert Mission late missed scan
+    public static function insert_late_missed_scan($date_from, $date_to, $description, $type, $create_by, $shift, $street, $home_number, $latlg, $gazetteers_code, $emid)
+    {
+        try {
+            $sql = "SELECT public.insert_hr_mission('$date_from','$date_to','$description','$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
+            $stm = DB::select($sql);
+            if ($stm[0]->insert_hr_mission > 0) {
+                return self::insert_late_missed_mission_detail($stm[0]->insert_hr_mission, $create_by, $emid);
+            } else {
+                return "error";
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    // Insert mission detail
+    public static function insert_late_missed_mission_detail($hr_mission_id, $create_by, $staff_id)
+    {
+        try {
+            foreach ($staff_id as $modetail) {
+                return $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$modetail,$create_by)";
+                $stm = DB::select($sql);
+            }
+            if ($stm[0]->insert_hr_mission_detail > 0) {
+                return "Successfully !!";
+            } else {
+                return "error";
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+
+    //work on side
+    public static function work_on_side_one($id){
+        try {
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }   
 }
