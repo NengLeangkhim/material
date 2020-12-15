@@ -122,7 +122,7 @@
     });
 
     GetData();  
-    function GenerateCalander(events) {  
+    function GenerateCalander(events) {   
     var calendar = new Calendar(calendarEl, {
       plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
       header    : {

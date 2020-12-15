@@ -71,5 +71,15 @@
   <link rel="stylesheet" href="plugins/fullcalendar-daygrid/main.min.css">
   <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
   <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.min.css">
+
+  {{-- Smart Wizard CSS --}}
+  <link rel="stylesheet" href="plugins/SmartWizard/css/smart_wizard.min.css"/>
+
+  {{-- Smart Wizard Theme CSS --}}
+  <link rel="stylesheet" href="plugins/SmartWizard/css/theme/smart_wizard_theme_arrows.min.css"/>
+  <link rel="stylesheet" href="plugins/SmartWizard/css/smart_wizard_dots.css"/>
+  <link rel="stylesheet" href="plugins/SmartWizard/css/smart_wizard_dark.css"/>
+  <link rel="stylesheet" href="plugins/SmartWizard/css/smart_wizard_progress.css"/>
+
 </head>
 
