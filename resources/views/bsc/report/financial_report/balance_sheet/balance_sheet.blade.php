@@ -28,7 +28,7 @@
                                     <div class="is-menu row justify-content-between">
                                         <div class="is-menu-left col-9 row justify-content-start">
                                             <div class="input-group col-6">
-                                                <input type="date" id="end-date" class="form-control" aria-label="Text input with dropdown button">
+                                                <input type="date" id="end-date" class="form-control" value="{{ date('Y-m-d') }}" aria-label="Text input with dropdown button">
                                             </div>
                                             <div class="input-group col-6">
                                                 <select class="form-control" name="select_source" id="is-comparison-number">
@@ -114,23 +114,6 @@
             currency: 'USD',
             minimumFractionDigits: 2
         });
-
-        var renderSection = (bodyId, id, title, data) => {
-            $(bodyId).append(
-            `
-                <hr>
-                <div id="${id}">
-                    <h5>${title}</h5>
-                    <hr>
-                    ${data.data.map(e=>`<div class="row ml-2"> <div class="col-8">${e.name_en}</div><div class="col-4">${USD_FOMMATER.format(e.value)}</div> </div>`).join('')}
-                    <div class="row bold">
-                        <div class="col-8">Total ${title}</div>
-                        <div class="col-4">${USD_FOMMATER.format(data.total)}</div>
-                    </div>
-                </div>
-            `
-            )
-        }
     });
 
     function setReportHeader (id, data, col){
@@ -157,7 +140,7 @@
                 let row_total_account_type = "";
                 if(get_total_account_type != ""){
                     $.each(get_total_account_type, function(ii, total_account_type){
-                        let total_account_type_date = total_account_type.total_account_type == 0 ? '-' : total_account_type.total_account_type;
+                        let total_account_type_date = total_account_type.total_account_type == 0 ? '-' : parseFloat(total_account_type.total_account_type).toFixed(4);
                         row_total_account_type += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_account_type_date +'</div>';
                     });
                 }else{
@@ -172,7 +155,7 @@
                         let row_amount_chart = "";
                         if(get_amount_chart != ""){
                             $.each(get_amount_chart, function(ii, amount_chart){
-                                let total_amount_chart_date = amount_chart.total_amount == 0 ? '-' : amount_chart.total_amount;
+                                let total_amount_chart_date = amount_chart.total_amount == 0 ? '-' : parseFloat(amount_chart.total_amount).toFixed(4);
                                 row_amount_chart += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_amount_chart_date+'</div>';
                             });
                         }
@@ -196,7 +179,7 @@
         let row_total_account = "";
         if(get_total_account != ""){
             $.each(get_total_account, function(index, total_account){
-                let total_account_date = total_account.total_account == 0 ? '-' : total_account.total_account;
+                let total_account_date = total_account.total_account == 0 ? '-' : parseFloat(total_account.total_account).toFixed(4);
                 row_total_account += '<div class="col-1 text-right" style="padding-left: 0; padding-right: 4px;">'+total_account_date+'</div>';
             });
         }else{
