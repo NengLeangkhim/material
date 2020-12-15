@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['middleware' => ['jwt.verify']], function() {
+    // insert lead
+    Route::post('/insertlead','api\crm\LeadController@insertLead');
     //get all schedule
     Route::get('/getschedule','api\crm\LeadController@getschedule');
     // get lead
@@ -38,8 +40,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
 
     Route::get('/getbranchconvert/{id}','api\crm\LeadController@getbranchByIdconvert');
-    // insert lead
-    Route::post('/insertlead','api\crm\LeadController@insertLead');
+    
     // Update lead
     Route::post('/updatebranch','api\crm\LeadController@updatebranch');
     //get survey
