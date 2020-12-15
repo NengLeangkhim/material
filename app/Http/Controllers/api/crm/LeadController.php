@@ -116,10 +116,13 @@ class LeadController extends Controller
     //  insert lead
     public  static function  insertLead(Request $request){
         //Lead
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        $userid = $_SESSION['userid'];
+        // if (session_status() == PHP_SESSION_NONE) {
+        //     session_start();
+        // }
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
         $lead_id=$request->input('lead_id')!=""? $request->input('lead_id'):"null";
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
