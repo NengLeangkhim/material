@@ -421,7 +421,7 @@ function CrmLeadBranchView(url,table){
             "paging": true,
             "searchDelay":500,
             "ajax": "/crm/leadbranch/datatable/"+$status,
-            "ordering": false,
+            "ordering": true,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowId==4){ //check status surveyed
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
@@ -430,10 +430,10 @@ function CrmLeadBranchView(url,table){
                 }
             },
             "columnDefs": [
-                // {
-                //     "targets": 0,
-                //     "orderable": false
-                //     },
+                {
+                    "targets": 0,
+                    "orderable": false
+                    },
                 {
                     "searchable": false,
                     "targets": 4
