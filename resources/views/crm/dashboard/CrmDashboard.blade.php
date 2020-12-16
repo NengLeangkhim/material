@@ -69,7 +69,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Schedule</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number">{{$total_contact}}</h1>
+                                        <h1 class="chart-number">{{$total_schedule}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Qualified Lead</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number">{{$total_contact}}</h1>
+                                        <h1 class="chart-number">{{$total_lead_qualified}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                            <h3 class="card-title text-dark text-bold">Survey Chart</h3>
+                            <h3 class="card-title text-dark text-bold">Survey Result</h3>
                         </div>
                         <div class="card-body">
                             <div class="chart">
@@ -534,7 +534,7 @@
                     2
                 ]);
                 var options = {
-                    title: 'Survey Performance',
+                    // title: 'Survey Performance',
                     colors:['',''],
                     annotations: {
                         textStyle: {

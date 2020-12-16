@@ -171,11 +171,15 @@
                             <div class="col-md-12" id="closest_pop_name"></div>
                         </div>
                         <input type="hidden" name="pop_location" value="{{ $pop??'' }}">
+                        
+                        {{-- {{dd($pop)}} --}}
                         <div id="map"></div>
                     </div>
                     {{-- map --}}
                         <form id="frm_crmsurvey" method="POST">
                             @csrf
+                            <input type="hidden" name="pop_id">
+                            <input type="hidden" name="pop_distant">
                             <div class="container-fluid" style="border: 1px soild red">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -184,6 +188,7 @@
                                                 <label for="address_type"></label>
                                                 <div class="input-group">
                                                 </div>
+                                                {{-- <input type="text"  id="closest_pop_name" name="pop_id" > --}}
                                                 <div class="custom-control custom-checkbox">
                                                     {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="possible" >
                                                     <label for="customCheckbox2"  class="custom-control-label">Yes Or No</label> --}}
@@ -317,9 +322,11 @@
                     pop_latlg=value.latlg.split(',');//index 0 = lat;1=long
                     let latLng= new google.maps.LatLng(pop_latlg[0], pop_latlg[1]);
                     // pops_latlng_obj.push(latLng);
+                    // alert(pops_latlng_obj);
                     pops_latlng_obj[key]=[];
                     pops_latlng_obj[key].push(latLng);
                     pops_latlng_obj[key].push(value.name_en);
+                    pops_latlng_obj[key].push(value.id);
                     new google.maps.Marker({
                         position: latLng,
                         map: map,
@@ -344,7 +351,7 @@
                 console.log('Error on  json parse');
             }
         }
-        var closest_pop,closest_pop_name;
+        var closest_pop,closest_pop_name,pop_id;
         function find_closest_marker(customer_location) {
 
             var distances = [];
@@ -358,6 +365,8 @@
             }
             closest_pop = new google.maps.LatLng(pops_latlng_obj[closest][0].lat(), pops_latlng_obj[closest][0].lng());
             closest_pop_name=pops_latlng_obj[closest][1];
+            pop_id=pops_latlng_obj[closest][2];
+            $('input[type="hidden"][name="pop_id"]').val(pop_id);
             return closest_pop;
         }
         function calculateAndDisplayRoute(directionsService, directionsDisplay, popPosition) {
@@ -408,6 +417,9 @@
                 console.log(responses);
                 if (responses && responses.length > 0) {
                     updateMarkerAddress('Distance: ' + distance.toFixed(0) + ' m ; ' + 'Coordination: ' + newMapCode );
+                    //put distant value to input for insert
+                    $('input[type="hidden"][name="pop_distant"]').val(distance.toFixed(0) + ' m');
+                    // alert($('input[type="hidden"][name="pop_distant"]').val());
                 } else {
                     updateMarkerAddress('Cannot determine address at this location.');
                 }

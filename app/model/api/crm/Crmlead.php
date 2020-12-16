@@ -954,12 +954,15 @@ class Crmlead extends Model
             // update contact
             $contact_branch=DB::select("SELECT id FROM crm_lead_branch_crm_lead_contact_rel where crm_lead_branch_id=$branch_id and status=TRUE and is_deleted=FALSE");
            
+            // dd($contact_branch,$con_id);
             if($contact_branch==null && $con_id!=null ){
 
+                // dd("addd");
                     //insert into crm_lead_brach_contact_rel
                     CrmLead::insert_branch_contact_rel($branch_id,$con_id);
             }
             else {
+                // dd("show");
                     $contact=Crmlead::updatetablecontact($con_id,$user_create,$name_en,$name_kh,$email,$phone,$facebook_con,$position,$national_id,$gender);
                     $contact_id=$contact[0]->update_crm_lead_contact;
                      //update branch and contact rel
@@ -1369,16 +1372,18 @@ class Crmlead extends Model
         WHERE cs.is_deleted=FALSE and cs.status=TRUE and lb.id=$id");
     }
     //Model insert​ Survey result
-    public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch){
+    public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch,$pop_id,$pop_distant){
 
         if(isset($survey_id)){
             try{
-                    DB::select('SELECT insert_crm_survey_result(?,?,?,?)',
+                    DB::select('SELECT insert_crm_survey_result(?,?,?,?,?,?)',
                     array(
                         $survey_id,
                         $possible,
                         $userid,
                         $comment,
+                        $pop_id,
+                        $pop_distant
                     )
                 );
                 try{

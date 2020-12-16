@@ -415,8 +415,8 @@ class CrmReport extends Model
     public function getTotalSurvey($fromDate = null, $toDate = null){
         try {
             $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
-            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
-            $result = DB::selectOne('SELECT COUNT(*) AS total_survey FROM crm_survey_result '.$condition);
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\' OR status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_survey FROM crm_survey '.$condition);
         } catch(QueryException $e){
             throw $e;
         }
@@ -449,6 +449,29 @@ class CrmReport extends Model
             $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_contact FROM crm_lead_contact '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+    // get schedule by today
+    public function getTotalschedule($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_schedule FROM crm_lead_schedule '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+    
+    // get access by today
+    public function getTotalleadqualified($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\' AND  crm_lead_status_id=2 '.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_lead_qualified FROM crm_lead_detail '.$condition);
         } catch(QueryException $e){
             throw $e;
         }

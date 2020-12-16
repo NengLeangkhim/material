@@ -276,6 +276,8 @@ class CrmReportApiController extends Controller
             $totalQuote = $this->crmReport->getTotalQuote($fromDate, $toDate);
             $totalContact = $this->crmReport->getTotalContact($fromDate, $toDate);
             $totalSurvey = $this->crmReport->getTotalSurvey($fromDate, $toDate);
+            $totalschedule=$this->crmReport->getTotalschedule($fromDate, $toDate);
+            $totalleadqualified=$this->crmReport->getTotalleadqualified($fromDate, $toDate);
             $result = [
                 'total_lead' => $totalLeadLeadBranch[0]->total_lead
                 ,'total_branch' => $totalLeadLeadBranch[0]->total_branch
@@ -283,6 +285,8 @@ class CrmReportApiController extends Controller
                 ,'total_quote' => $totalQuote->total_quote
                 ,'total_contact' => $totalContact->total_contact
                 ,'total_survey' => $totalSurvey->total_survey
+                ,'total_schedule' => $totalschedule->total_schedule
+                ,'totalleadqualified' => $totalleadqualified->total_lead_qualified
             ];
         } catch(QueryException $e){
             // dd($e);

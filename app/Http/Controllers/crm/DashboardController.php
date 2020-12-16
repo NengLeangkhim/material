@@ -29,7 +29,10 @@ class DashboardController extends Controller
         $total_contact = $responseBody->data->total_contact; // get total contact
         $total_quote = $responseBody->data->total_quote; // get total quote
         $total_survey = $responseBody->data->total_survey; // get total quote
-        return view('crm.dashboard.CrmDashboard',['total_lead'=>$total_lead == '' ? '0' : $total_lead,'total_branch'=>$total_branch == '' ? '0' : $total_branch,'total_contact'=>$total_contact == '' ? '0' : $total_contact,'total_quote'=>$total_quote == '' ? '0' : $total_quote,'total_survey'=>$total_survey == '' ? '0' : $total_survey]);
+        $total_schedule = $responseBody->data->total_schedule; // get total schedule
+        $total_lead_qualified  = $responseBody->data->totalleadqualified; // get total schedule
+        // dd($total_schedule);
+        return view('crm.dashboard.CrmDashboard',['total_lead'=>$total_lead == '' ? '0' : $total_lead,'total_branch'=>$total_branch == '' ? '0' : $total_branch,'total_contact'=>$total_contact == '' ? '0' : $total_contact,'total_quote'=>$total_quote == '' ? '0' : $total_quote,'total_survey'=>$total_survey == '' ? '0' : $total_survey,'total_schedule'=>$total_schedule == '' ? '0' : $total_schedule,'total_lead_qualified'=>$total_lead_qualified == '' ? '0' : $total_lead_qualified]);
     }
 
     public function GetSurveyChart(Request $request){

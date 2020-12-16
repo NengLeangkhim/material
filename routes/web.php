@@ -58,10 +58,10 @@ Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in 
 Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lead and lead branch
 //end lead
 // index
-// Route::get('/leadbranch','crm\LeadBranchController@index');
-Route::get('/leadbranch', function() {
-    return view('crm.LeadBranch.FormStepByStep');
-});
+Route::get('/leadbranch','crm\LeadBranchController@index');
+// Route::get('/leadbranch', function() {
+//     return view('crm.LeadBranch.FormStepByStep');
+// });
 // All
 Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
