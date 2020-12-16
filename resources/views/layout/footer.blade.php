@@ -191,3 +191,6 @@ $(window).on('shown.bs.modal', function() {
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+{{-- Smart Wizard --}}
+<script src="plugins/SmartWizard/js/jquery.smartWizard.min.js"></script>
