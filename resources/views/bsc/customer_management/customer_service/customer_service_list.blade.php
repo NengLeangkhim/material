@@ -25,11 +25,11 @@
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
-                                <tr>
-                                    <th>Customer Name</th>
-                                    <th>Customer Branch Name</th>
-                                    <th>Service</th>
-                                    <th>Status</th>
+                                <tr class="background_color_tr">
+                                    <th class="background_color_td">Customer Name</th>
+                                    <th class="background_color_td">Customer Branch Name</th>
+                                    <th class="background_color_td">Service</th>
+                                    <th class="background_color_td">Status</th>
                                 </tr>
                             </thead>
                             <tbody>

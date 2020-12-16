@@ -628,12 +628,24 @@ class InvoiceController extends Controller
                 ->where([
                     ['ma_currency_rate.status','=','t'],
                     ['ma_currency_rate.is_deleted','=','f']
-                ])->get();
+                    ])->get();
+        $invoice_payments = DB::table('bsc_payment')
+        ->where([
+            ['bsc_payment.bsc_invoice_id','=',$id],
+            ['bsc_payment.inbound','=','t'],
+            ['bsc_payment.status','=','t'],
+            ['bsc_payment.is_deleted','=','f']
+        ])
+        ->get();
+
         $arr_invoice_preview = [
             'preview_invoice' => $preview_invoice,
             'preview_invoice_detail' => $preview_invoice_detail,
-            'preview_currency_rate' => $preview_currency_rate
+            'preview_currency_rate' => $preview_currency_rate,
+            'invoice_payments' => $invoice_payments
         ];
+
+
         return $this->sendResponse($arr_invoice_preview, 'Invoice preview retrieved successfully.');
     }
 }

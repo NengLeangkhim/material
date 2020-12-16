@@ -2,7 +2,6 @@
 var RowBranch = []; //declear as global variable
 
 function checkBranchReminderRow(branId2) {  // function to check trash button on row quote branch item
-    // console.log('this func check branch reminder');
     var getBranch = [];
     if (RowBranch.length === 0) {
         getBranch.push(branId2);
@@ -10,15 +9,12 @@ function checkBranchReminderRow(branId2) {  // function to check trash button on
     } else {
         var status = true;
         jQuery.each(RowBranch, function(index, val) {
-            // var lastCount = RowBranch.length;
             if (val[0] != branId2) {
-
                 jQuery.each(RowBranch, function(index2, val2) {
                     if (branId2 == val2[0]) {
                         status = false;
                     }
                 });
-
                 if (status == true) {
                     getBranch.push(branId2);
                     RowBranch.push(getBranch);

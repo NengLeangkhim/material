@@ -959,7 +959,7 @@
                                                                         {{-- <strong></strong>
                                                                     </span>
                                                                 </div>
-                                                            </div> --}} 
+                                                            </div> --}}
                                                             <div class="col-md-6">
                                                                 <div class="input-group pt-4 pl-2">
                                                                     <div class="input-group-prepend pr-4">
@@ -1378,11 +1378,11 @@
                     url: '/lead/search',
                     dataType: 'json',
                     type:'get',
-                    delay: 250,
+                    delay: 1200,
                     data: function (params) {
-                        return {  
+                        return {
                             search: params.term // search term
-                        };   
+                        };
                     },
                     processResults: function (response) {
                         return {
@@ -1398,11 +1398,11 @@
                     url: '/contact/search',
                     dataType: 'json',
                     type:'get',
-                    delay: 250,
+                    delay: 1200,
                     data: function (params) {
-                        return {  
+                        return {
                             search: params.term // search term
-                        };   
+                        };
                     },
                     processResults: function (response) {
                         return {
@@ -1540,7 +1540,7 @@
                           $("#national_id").val(national_id);
                           $("#position").val(position);
                           $("#ma_honorifics_id").val(honorifics_id);
-          
+
                           $('#name_en').prop('readonly', true);
                           $('#name_kh').prop('readonly', true);
                           $('#email').prop('readonly', true);
@@ -1548,8 +1548,8 @@
                           $('#national_id').prop('readonly', true);
                           $('#position').prop('readonly', true);
                           $('#ma_honorifics_id').attr('disabled', true);
-  
-  
+
+
               }
             })
           }

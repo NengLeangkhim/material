@@ -68,6 +68,7 @@
                 "scrollY": "400px",
                 "scrollCollapse": false,
                 "paging": true,
+                "searchDelay":500,
                 "ajax": "organizations/datatable",
                 "columnDefs": [
 
@@ -93,7 +94,27 @@
                         "width": "100px",
                         "targets": 5,
                     },
-                  ]
+                ],
+                "initComplete": function()
+                {
+                    $(".dataTables_filter input")
+                    .unbind() // Unbind previous default bindings
+                    .bind("keyup", function(e) { // Bind our desired behavior
+                        // If the length is 3 or more characters, or the user pressed ENTER, search
+                        if(this.value.length >= 3 || e.keyCode == 13) {
+                            // Call the API search function
+                            t.search(this.value).draw();
+                            notify_alert('.dataTables_filter input','success', 'top center', 'search success')
+                        }else{
+                            notify_alert('.dataTables_filter input','warn', 'top center', 'please input 3 characters or more')
+                        }
+                        // Ensure we clear the search if they backspace far enough
+                        if(this.value == "") {
+                            t.search("").draw();
+                        }
+                        return;
+                    });
+                }
               });
               $('.organization_detail').click(function(e)
               {
