@@ -1173,9 +1173,9 @@ Route::post('hrm_recruitment_user_submit_answer','hrms\recruitment_user\recruitm
 Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment_userController@candidate_logout');
 
 // view user entry info to register
-Route::get('hrm_index_user_register',function(){
-    return view('hrms.recruitment_user.index_recruitment_register');
-});
+// Route::get('hrm_index_user_register',function(){
+//     return view('hrms.recruitment_user.index_recruitment_register');
+// });
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){

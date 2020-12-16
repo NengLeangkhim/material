@@ -94,7 +94,7 @@ class recruitment_userController extends Controller
             throw $th;
         }
     }
-    
+
 
     //function use for route Get Method
     public function register_candidateGet(){
@@ -105,7 +105,7 @@ class recruitment_userController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-        
+
     }
     // end function account submit
 

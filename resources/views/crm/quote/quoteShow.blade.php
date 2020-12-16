@@ -93,7 +93,7 @@
                                                         '</a>'+
                                                     '</div>'+
                                                     '<div class="col-md-4 ">'+
-                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <span class="glyphicon glyphicon-remove"></span>  </a>'+
+                                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <i style="color:white;" class="fa fa-trash"></i>  </a>'+
                                                     '</div>'+
                                                 '</div></div>';
                                         },
@@ -111,9 +111,12 @@
                                 .unbind() // Unbind previous default bindings
                                 .bind("keyup", function(e) { // Bind our desired behavior
                                     // If the length is 3 or more characters, or the user pressed ENTER, search
-                                    if(this.value.length > 3 || e.keyCode == 13) {
+                                    if(this.value.length >= 3 || e.keyCode == 13) {
                                         // Call the API search function
                                         t.search(this.value).draw();
+                                        notify_alert('.dataTables_filter input','success', 'top center', 'search success')
+                                    }else{
+                                        notify_alert('.dataTables_filter input','warn', 'top center', 'please input 3 characters or more')
                                     }
                                     // Ensure we clear the search if they backspace far enough
                                     if(this.value == "") {
