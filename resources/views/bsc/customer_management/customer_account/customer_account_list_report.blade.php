@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> Customer Account</h1>
+                <h1><i class="fas fa-user"></i> Customer Account Report</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,18 +26,27 @@
                 </div><br/>
                 <div class="card">
                     {{-- ======================= Start Tab menu =================== --}}
-                    <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist" style="font-size: 14px">
                         <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new_cus" role="tab" aria-controls="home" aria-selected="true">New Customer</a>
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new_cus" role="tab" aria-controls="home" aria-selected="true">Customer Detail</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Closed Customer</a>
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Closed</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspend_cus" role="tab" aria-controls="profile" aria-selected="false">Suspend Customer</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspend_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Active</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Locked Customer</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Suspend</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Locked</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">New Customer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Unpaid Customer</a>
                         </li>
                     </ul><br/>
                     {{-- ======================= End Tab menu =================== --}}
@@ -72,7 +81,6 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
@@ -128,7 +136,6 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
@@ -183,7 +190,6 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
@@ -238,7 +244,6 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
