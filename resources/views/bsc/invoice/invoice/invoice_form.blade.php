@@ -34,6 +34,89 @@ if (count($bsc_show_customer_branchs) >0) {
                 {{-- <form id="frm_chart_account" action=""> --}}
                     @csrf
                     <!-- general form elements -->
+                    {{-- customer detail --}}
+                    <div class="card card-primary">
+                        <div class="card-header" style="background:#1fa8e0">
+                            <h3 class="card-title">Customer Detail</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Customer ID<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <select class="form-control input_required select2" name="customer_id" id="customer_id">
+                                                <option value="" selected hidden disabled>select item</option>
+                                                <option value="">TT-001</option>
+                                                <option value="">TT-002</option>
+                                                <option value="">TT-003</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Customer Name<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required" name="customer_name_en" id="customer_name_en" placeholder="Customer Name" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">ឈ្មោះអតិថិជន<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required" name="customer_name_kh" id="customer_name_kh" placeholder="ឈ្មោះអតិថិជន" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Deposit<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required" name="deposit" id="deposit" placeholder="Deposit" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Balance<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required" name="balance" id="balance" placeholder="Balance" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Invoice Balance<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required" name="invoice_balance" id="invoice_balance" placeholder="Invoice Balance" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- invoice detail --}}
                     <div class="card card-primary">
                         <div class="card-header" style="background:#1fa8e0">
                             <h3 class="card-title">Invoice Detail</h3>
@@ -85,8 +168,23 @@ if (count($bsc_show_customer_branchs) >0) {
                                         <input type="hidden" id="crm_quote_id" name="crm_quote_id">
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="form-group">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Select Account / Connection<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <select class="form-control input_required select2" name="account_connection" id="account_connection">
+                                                <option value="" selected hidden disabled>select item</option>
+                                                <option value="">TT-001</option>
+                                                <option value="">TT-002</option>
+                                                <option value="">TT-003</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
                                         <div class="input-group">
@@ -105,7 +203,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         <input type="hidden" id="crm_quote_id" name="crm_quote_id">
                                     </div>
                                     <input type="hidden" id="billing_address" name="billing_address">
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -113,7 +211,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                             </div>
                                             <input type="text" class="form-control input_required" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
@@ -135,6 +233,34 @@ if (count($bsc_show_customer_branchs) >0) {
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
                                             <input type="date" class="form-control input_required" name="due_date" id="due_date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Address<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required"   name="Address" id="Address" placeholder="Address">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Invoice Type<b class="color_label">*</b></label>
+                                        <div class="input-group" style="width: 100%">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <select class="form-control input_required select2" name="invoice_type" id="invoice_type">
+                                                <option value="" selected hidden disabled>select item</option>
+                                                <option value="">TT-001</option>
+                                                <option value="">TT-002</option>
+                                                <option value="">TT-003</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
