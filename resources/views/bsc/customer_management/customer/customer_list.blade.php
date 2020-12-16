@@ -28,15 +28,15 @@
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                             <thead>
-                                <tr>
-                                    <th>Lead Number</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Deposit</th>
-                                    <th>Balance</th>
-                                    <th>Invoice Balance</th>
-                                    <th>VAT Type</th>
-                                    <th>VAT Number</th>
+                                <tr class="background_color_tr">
+                                    <th class="background_color_td">Lead Number</th>
+                                    <th class="background_color_td">Name</th>
+                                    <th class="background_color_td">Email</th>
+                                    <th class="background_color_td">Deposit</th>
+                                    <th class="background_color_td">Balance</th>
+                                    <th class="background_color_td">Invoice Balance</th>
+                                    <th class="background_color_td">VAT Type</th>
+                                    <th class="background_color_td">VAT Number</th>
                                     {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
