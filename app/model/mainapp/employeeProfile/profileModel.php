@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class profileModel extends Model
 {
-    
+
     // get employee info for profile
     public static function getUserInfo($id)
     {
@@ -26,9 +26,9 @@ class profileModel extends Model
                     ->where('us.status','=','t')
                     ->where('us.id','=',$id)
                     ->orderBy('us.id','ASC')
-                    ->get(); 
+                    ->get();
             return $r;
-                
+
         }catch(\Illuminate\Database\QueryException $ex){
             dump($ex->getMessage());
             echo '<br><a href="/">go back</a><br>';
@@ -49,7 +49,7 @@ class profileModel extends Model
     // get data detail of employee one row
     public static function get_data_info_of_one_employee($id){
         try {
-            $sql="SELECT 
+            $sql="SELECT
                 mu.id,
                 mu.id_number,
                 concat(mu.first_name_en,' ',mu.last_name_en) as full_name,
@@ -400,8 +400,8 @@ class profileModel extends Model
     public static function user_contact($id){
         try {
             $user_contact=DB::select("SELECT muit.name_en as iden_type,muc.ma_identification_number,muc.issued_date,muc.issued_place,muc.issued_by,mubg.name_en as blood_name,mur.name_en as religion,muc.is_marriage FROM ma_user_contact muc
-                INNER JOIN ma_user_identification_type muit ON muc.ma_identification_type_id=muit.id 
-                INNER JOIN ma_user_religion mur on mur.id=muc.ma_religion_id 
+                INNER JOIN ma_user_identification_type muit ON muc.ma_identification_type_id=muit.id
+                INNER JOIN ma_user_religion mur on mur.id=muc.ma_religion_id
                 LEFT JOIN ma_user_blood_group mubg on mubg.id=muc.ma_blood_group_id WHERE muc.ma_user_id=$id and muc.status='t' and muc.is_deleted='f'");
             if(count($user_contact)>0){
                 $data=[
@@ -426,7 +426,7 @@ class profileModel extends Model
                     'is_marriage'=>null,
                 ];
             }
-            return $data;        
+            return $data;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -436,8 +436,8 @@ class profileModel extends Model
     // get relatetive
     public static function get_relative($id,$relative_type){
         try {
-            $sql="SELECT mur.name_en as relative_type_name,murt.name_kh as relative_type_name_kh,occupation,birth_date,muel.name_en as education_level,mur.phone_number,mur.home_phone,mur.gazetteer_code,mur.home,mur.street,mur.group FROM ma_user_relative mur 
-                INNER JOIN ma_user_relative_type murt on murt.id=mur.ma_relative_type_id 
+            $sql="SELECT mur.name_en as relative_type_name,murt.name_kh as relative_type_name_kh,occupation,birth_date,muel.name_en as education_level,mur.phone_number,mur.home_phone,mur.gazetteer_code,mur.home,mur.street,mur.group FROM ma_user_relative mur
+                INNER JOIN ma_user_relative_type murt on murt.id=mur.ma_relative_type_id
                 LEFT JOIN ma_user_education_level muel on muel.id=mur.ma_education_level_id WHERE mur.ma_user_id=$id and mur.ma_relative_type_id=$relative_type and mur.status='t' and mur.is_deleted='f' LIMIT 1";
             $re=DB::select($sql);
             if(count($re)>0){

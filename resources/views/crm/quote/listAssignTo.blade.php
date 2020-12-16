@@ -39,31 +39,31 @@
                                 @if(isset($employee))
                                     @foreach($employee as $key=>$val)
                                                 {{-- {{ print_r($val->first_name_en) }}<br><br> --}}
-                                                <tr id="{{$val->id}}">
+                                                <tr id="{{$val->id ?? ""}}">
                                                     <td class="border">
                                                         {{$key+1}}
-                                                        <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val->id}}">
+                                                        <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val->id ?? ""}}">
                                                     </td>
                                                     <td class="border">
-                                                        <div id="em_name_kh{{$val->id}}"  class="em_name_kh" >
-                                                            {{$val->first_name_kh.' '.$val->last_name_kh}}
+                                                        <div id="em_name_kh{{$val->id ?? ""}}"  class="em_name_kh" >
+                                                            {{$val->first_name_kh.' '.$val->last_name_kh ?? ""}}
                                                         </div>
                                                     </td>
 
                                                     <td class="border">
-                                                        <div  id="em_name_en_{{$val->id}}" class="em_name_en">
-                                                            {{$val->first_name_en.' '.$val->last_name_en}}
+                                                        <div  id="em_name_en_{{$val->id ?? ""}}" class="em_name_en">
+                                                            {{$val->first_name_en.' '.$val->last_name_en ?? ""}}
                                                         </div>
                                                     </td>
 
                                                     <td class="border">
                                                         <div class="leadNumber">
-                                                            {{$val->id_number}}
+                                                            {{$val->id_number ?? ""}}
                                                         </div>
                                                     </td>
                                                     <td class="border">
                                                         <div class="leadEmail">
-                                                            {{$val->positionName}}
+                                                            {{$val->positionName ?? ""}}
                                                         </div>
                                                     </td>
 

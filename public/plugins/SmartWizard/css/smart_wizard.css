@@ -193,12 +193,12 @@
 }
 
 .sw-theme-default > .nav .nav-link.done {
-  color: #5cb85c !important;
+  color: #17a2b8 !important;
   cursor: pointer;
 }
 
 .sw-theme-default > .nav .nav-link.done::after {
-  background: #5cb85c;
+  background: #17a2b8;
   width: 100%;
 }
 

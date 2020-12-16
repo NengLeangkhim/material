@@ -212,9 +212,9 @@
 
                                                                                 @if(isset($quoteBranchDetail[$key]->data))
                                                                                     @foreach ($quoteBranchDetail[$key]->data as $key2=>$val2)
+                                                                                        <input type="hidden" name="storeAllBranchId[]" value="{{ $value->crm_lead_branch->id ?? ''}}" placeholder="this use to get all branch id for counting">
                                                                                         <input type="hidden" name="quote_detail_id[]" value="{{ $val2->id ?? ''}}" readonly>
                                                                                         <input type="hidden" id="getBranchIdEdit" value="{{ $value->crm_lead_branch->id ?? ''}}" readonly>
-
                                                                                         <tr id="{{ $Countnum }}" class="tr-quote-row row-quote-item row-quote-item_{{ $Countnum }}" data-id="row_{{ $Countnum }}" data-code="{{ $value->crm_lead_branch->id ?? "" }}">
                                                                                             <td style="width: 30%;">
 
@@ -306,8 +306,10 @@
 
                                                                                             </td>
                                                                                             <td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_{{$Countnum}}">
-                                                                                                @if($key2 != 0)
-                                                                                                    <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$Countnum}}"  data-id="{{ $Countnum ?? ''}}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                                                                @if(count($quoteBranchDetail[$key]->data) <= 1)
+                                                                                                    <button style="width: auto;"  class="trashRemove_{{ $value->crm_lead_branch->id ?? ''}} btnRemoveRow btn btn-denger" id="{{$Countnum}}"  data-id="{{ $Countnum ?? ''}}" data-code="{{ $value->crm_lead_branch->id ?? ''}}"  disabled="disabled"><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                                                                @else
+                                                                                                    <button style="width: auto;"  class="trashRemove_{{ $value->crm_lead_branch->id ?? ''}} btnRemoveRow btn btn-denger" id="{{$Countnum}}"  data-id="{{ $Countnum ?? ''}}" data-code="{{ $value->crm_lead_branch->id ?? ''}}" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
                                                                                                 @endif
                                                                                             </td>
 
@@ -397,7 +399,6 @@
                                                                             <td  ><span style="padding-right: 12px;">Grand Total</span></td>
                                                                             <td  ><div id="grandTotal"> 0.0 </div></td>
                                                                         </tr>
-
                                                                     </tbody>
 
                                                                 </table>
@@ -424,8 +425,17 @@
 
         $(".row-quote-item").keyup();
         $(".row-quote-item").keyup();
+
         $(document).ready(function(){
             $('.selectSearch').select2();
+
+
+            $("input[name='storeAllBranchId[]']").map(function () {
+                // console.log('running in this function=='+this.value);
+                checkBranchReminderRow(this.value);
+            }).get();
+
+
         });
 
         function cancelEditLead(){

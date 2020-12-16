@@ -112,23 +112,23 @@
 }
 
 .sw-theme-arrows>ul.step-anchor>li.active>a {
+    border-color: #d42931!important;
+    color: #fff!important;
+    background: #d42931!important
+}
+
+.sw-theme-arrows>ul.step-anchor>li.active>a:after {
+    border-left: 30px solid #d42931!important
+}
+
+.sw-theme-arrows>ul.step-anchor>li.done>a {
     border-color: #1fa8e0!important;
     color: #fff!important;
     background: #1fa8e0!important
 }
 
-.sw-theme-arrows>ul.step-anchor>li.active>a:after {
-    border-left: 30px solid #1fa8e0!important
-}
-
-.sw-theme-arrows>ul.step-anchor>li.done>a {
-    border-color: #b1dfbb!important;
-    color: #fff!important;
-    background: #b1dfbb!important
-}
-
 .sw-theme-arrows>ul.step-anchor>li.done>a:after {
-    border-left: 30px solid #b1dfbb
+    border-left: 30px solid #1fa8e0
 }
 
 .sw-theme-arrows>ul.step-anchor>li.danger>a {
@@ -169,5 +169,5 @@
 
 .sw-theme-arrows::before {
     border: 10px solid #f3f3f3;
-    /* border-top: 10px solid #5cb85c */
+    border-top: 10px solid #17a2b8
 }
