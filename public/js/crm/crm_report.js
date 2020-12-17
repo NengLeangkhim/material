@@ -375,17 +375,18 @@ var reportQuoteByStatus = () => {
         success: function(response) {
             if (response.success == true) {
                 var data = response.data;
-                console.log(data);
+                var mydata = [
+                    ['', ' ', { 'role': 'style' }]
+                ];
+                // console.log(data);
                 if (data.length < 1) {
-                    $('#QuoteChart').text("");
-                    $('#QuoteChart').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
-                    return 0;
+                    // $('#QuoteChart').text("");
+                    // $('#QuoteChart').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
+                    // return 0;
+                    mydata.push(['No Data', 0, '{stroke-width: 1; stroke-color: red; color:#12CBC4;}']);
                 }
                 google.charts.load("current", { packages: ["corechart"] });
                 google.charts.setOnLoadCallback(drawChart);
-                var mydata = [
-                    ['Year', ' ', { 'role': 'style' }]
-                ];
                 // var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
                 $.each(data, function(index, val) {
                     mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, '{stroke-width: 1;stroke-color: red;color:' + val.crm_quote_status_type_color + ';}']);
