@@ -26,8 +26,8 @@ class CrmLeadStatus extends Model
             $result = json_encode(['data'=>$this->getOneData($newId),'success'=>'true']);
             // dump($result);
         } catch(QueryException $e){
-            // throw $e;
-            return $e;
+            throw $e;
+            // return $e;
         }
         return $result;
 
