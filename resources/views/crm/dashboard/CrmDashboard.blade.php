@@ -455,7 +455,8 @@
                     vAxis: {
                         minValue: 0,
                         maxValue: 100
-                    }
+                    },
+                    dataOpacity: 0.3,
                 };
                 var chart = new google.visualization.ColumnChart(document.getElementById('Schedule_activitied_Chart'))
                 chart.draw(view, options)

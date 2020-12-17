@@ -160,6 +160,7 @@ class CrmReport extends Model
      * @throws QueryException $e
      */
     public function getscheduleactivities($fromDate = null, $toDate = null){
+       
         try {
             $condition =
                 (($fromDate == null || $toDate == null) ? ' ' : ' WHERE  is_result_type=FALSE and is_stage_2=FALSE and is_quote_type=FALSE  and cls.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
@@ -172,6 +173,7 @@ class CrmReport extends Model
             from crm_lead_schedule_type clst
             LEFT JOIN schedule_type sr on clst.id=sr.id
             where is_result_type=FALSE and is_stage_2=FALSE and is_quote_type=FALSE ORDER BY clst.id');
+            // dd($fromDate);
             // dd($result);
         } catch(QueryException $e){
             throw $e;
