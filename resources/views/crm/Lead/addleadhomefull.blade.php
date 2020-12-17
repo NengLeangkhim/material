@@ -2,9 +2,9 @@
 <section class="content">
     <div class="col-md-12">
         <div class="">
-            <div class="p-2 pl-4">
+            {{-- <div class="p-2 pl-4">
                 <h5><span><i class="fas fa-user-plus"></i></span> Add Lead Home</h5>
-            </div>
+            </div> --}}
             <div class="card-body">
                 <form id="frm_Crmlead" method="POST">
                     @csrf
@@ -524,6 +524,7 @@
 
     })
 
+
     $('#service').ready(function(){
           $('#service').find('option').not(':first').remove();
               $.ajax({
@@ -540,12 +541,16 @@
                               $("#service").append(option);
                           })
                   }
-              })
+            });
+
+            // $('.service').select2();
 
     })
 
     $(document).ready(function(){
-        $('.select2').select2();
+        $('.select2').select2({
+            placeholder: 'Select an option'
+        });
 
 
         $('#lead_id').select2({

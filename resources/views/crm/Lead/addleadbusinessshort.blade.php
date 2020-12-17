@@ -1,9 +1,9 @@
 
 <section class="content">
     <div class="">
-        <div class="p-2 pl-4">
+        {{-- <div class="p-2 pl-4">
             <h5><span><i class="fas fa-user-plus"></i></span> Add Lead Business</h5>
-        </div>
+        </div> --}}
         <div class="card-body">
             <form id="frm_Crmlead" method="POST">
                 @csrf
@@ -204,7 +204,9 @@
 
 
         $(document).ready(function(){
-            $('.select2').select2();
+            $('.select2').select2({
+                placeholder: 'Select an option'
+            });
             $('#lead_id').select2({
                 ajax: {
                     url: '/lead/search',
