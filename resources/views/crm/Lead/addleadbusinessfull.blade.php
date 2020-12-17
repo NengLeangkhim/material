@@ -31,6 +31,9 @@
                                             <select name="lead_id" id="lead_id" class="form-control">
                                                 <option value='0'>-- Select Lead To Add Branch --</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -133,6 +136,9 @@
                                             <select class="form-control select2" name="current_speed_isp" id="current_speed_isp">
                                                 <option value=''>-- Select Current Speed Isp --</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="current_speed_ispError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -148,6 +154,9 @@
                                             <select class="form-control select2"  name="branch" id='branch' >
                                                 <option value=''>-- Select Branch --</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -170,6 +179,9 @@
                                                     <option value="{{$row->id}}">{{$row->lead_source}}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
 
                                             <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
                                                 <strong></strong>
@@ -189,6 +201,9 @@
                                                     <option value="{{$row->id}}">{{$row->name_en}}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -221,6 +236,9 @@
                                             <select class="form-control select2"  multiple="multiple" name="service" id="service" placeholder='Choose service'>
                                                 <option value=''>-- Select Service --</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -243,6 +261,9 @@
                                                     @endforeach
                                                 @endif
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="assig_toError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -286,6 +307,9 @@
                                                 <option value='medium'>Medium</option>
                                                 <option value='low'>Low</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -333,6 +357,9 @@
                                                 {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
                                                 <option value=''>-- Select Contact  --</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -414,6 +441,9 @@
                                                 <option value='4'>Dr.</option>
                                                 <option value='5'>Prof.</option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="ma_honorifics_idError">
                                                 <strong></strong>
                                             </span>
@@ -531,6 +561,9 @@
                                                     @endforeach
                                                 @endif
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="addresscodeError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -545,6 +578,9 @@
                                             <select class="form-control select2  dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
                                                 <option> </option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -562,6 +598,9 @@
                                             <select class="form-control select2 dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
                                                 <option> </option>
                                             </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="communeError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -577,6 +616,10 @@
                                             <select class="form-control select2" name="village" id="village" dats-dependent="village" >
                                                 <option value="">select Village</option>
                                             </select>
+
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
                                             <span class="invalid-feedback" role="alert" id="villageError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
