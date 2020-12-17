@@ -326,6 +326,11 @@ class LeadController extends Controller
         $branch_id = Lead::getbranchById($id);
         return GetLeadBranch::Collection($branch_id);
     }
+    // get lead status by lead branch id
+    public function getleadstatusbyleadid($id){
+        $lead_status = Lead::getleadstatusbyleadid($id);
+        return json_encode(["query"=>"success","data"=>$lead_status]);
+    }
     //
     public function getbranchByIdconvert($id){
         $branch_id = Lead::getbranchByIdconvert($id);
@@ -567,6 +572,11 @@ class LeadController extends Controller
         $schedule = Lead::getschedulebyid($id); // all lead
             return GetLeadSchedule::Collection($schedule);
     }
+    // get schedule by id
+    public function getschedulebyleadid($id){
+        $schedule = Lead::getschedulebyleadid($id); // all lead branch
+        return json_encode(["query"=>"success","data"=>$schedule]);
+    }
     //insert schedule
     public function insertschedule(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -673,7 +683,7 @@ class LeadController extends Controller
             return [];
         }
     }
-    // Search Lead 
+    // Search Lead
     public function CrmLeadSearch(Request $request){
         if(is_null($request->search)){
             $search = null;

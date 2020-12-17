@@ -32,6 +32,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/editlead','api\crm\LeadController@editlead');
     // get brand by lead id
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
+    // get lead status by lead branch id
+    Route::get('/getbranchstatus/{id}','api\crm\LeadController@getleadstatusbyleadid');
     // get brand by lead id
     Route::get('/getbranchbyleadconver/{id}','api\crm\LeadController@getbranch_lead_convert');
     // get branch by id
@@ -67,6 +69,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::Post('/updatescheduletype','api\crm\LeadController@updatescheduletype');
     //get  schedule by id
     Route::get('/getschedule/{id}','api\crm\LeadController@getschedulebyid');
+    //get  schedule by lead id
+    Route::get('/getschedule/lead/{id}','api\crm\LeadController@getschedulebyleadid');
     //insert schedule
     Route::post('/insertschedule','api\crm\LeadController@insertschedule');
     //update schedule
@@ -75,7 +79,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
-   
+
 });
 
 
