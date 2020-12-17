@@ -128,7 +128,7 @@ class LeadController extends Controller
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
-        $company_en=ucwords($request->input('company_en'))!="" ? $request->input('company_en'):null;
+        $company_en=ucwords($request->input('company_en')!="" ? $request->input('company_en'):null);
         $company_kh=$request->input('company_kh')!="" ? $request->input('company_kh'):null;
         $primary_email=$request->input('primary_email')!="" ? $request->input('primary_email'):null;
         $primary_phone=$request->input('primary_phone')!="" ? $request->input('primary_phone'):null;
@@ -198,7 +198,7 @@ class LeadController extends Controller
             $lead_detail_id=$request->input('lead_detail_id')!=""?$request->input('lead_detail_id'):null;
             $lead_item_id=$request->input('lead_item_id')!=""?$request->input('lead_item_id'):null;
             $branch_id=$request->input('branch_id')!=""?$request->input('branch_id'):null;
-            $company_en=ucwords($request->input('company_en'))!=""?$request->input('company_en'):null;
+            $company_en=ucwords($request->input('company_en')!=""?$request->input('company_en'):null);
             $company_kh=$request->input('company_kh')!=""?$request->input('company_kh'):null;
             $primary_email=$request->input('primary_email')!=""?$request->input('primary_email'):null;
             $primary_phone=$request->input('primary_phone')!=""?$request->input('primary_phone'):null;
