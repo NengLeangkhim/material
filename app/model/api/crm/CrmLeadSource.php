@@ -15,7 +15,7 @@ class CrmLeadSource extends Model
                 $nameEn = ($nameEn == null || $nameEn == '') ? $data->name_en : $nameEn;
                 $nameKh = ($nameKh == null || $nameKh == '') ? $data->name_kh : $nameKh;
                 $status = ($status == null || $status == '') ? $data->status : $status;
-                $sql = 'select update_crm_lead_source('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', true) as id';
+                $sql = 'select update_crm_lead_source('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', '.$status.'::boolean) as id';
             } else {
                 $sql = 'select insert_crm_lead_source(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.') as id';
             }
