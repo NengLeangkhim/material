@@ -353,16 +353,14 @@ $(document).on('click', '.CrmEditScheduleType', function() {
             $.each(response.data, function(i, e) { //read array json for show to textbox
                 $('#name_kh').val(response.data.name_kh);
                 $('#name_en').val(response.data.name_en);
+                $('#color').val(response.data.color);
+                $('#comment').val(response.data.comment);
                 if (response.data.status == true) {
                     $('#status').val(1);
                 } else {
                     $('#status').val(0);
                 }
-                if (response.data.is_result_type == true) {
-                    $('#is_result_type').val("t");
-                } else {
-                    $('#is_result_type').val("f");
-                }
+                $("input[name=schedule_type][value=" + response.data.type + "]").prop('checked', true);
             });
         }
     });
