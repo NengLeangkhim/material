@@ -56,21 +56,29 @@ class ModelLeadBranch extends Model
             $user="and la.ma_user_id='$userid'";
         }
         return "SELECT  crm_lead.lead_number,crm_lead.customer_name_en,lb.crm_lead_id as lead_id,lb.id as branch_id,lb.name_en as name_en_branch,
-        lb.email as email_branch,lb.phone as branch_phone,la.ma_user_id as lead_assig_id,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,ls.id as status_id,
-        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE ORDER BY id DESC LIMIT 1) as  schedule_id
-        from  crm_lead_branch  lb
-        JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
-        JOIN ma_user u on la.ma_user_id=u.id
-        JOIN (SELECT id,crm_lead_branch_id,crm_lead_status_id,comment,create_date,create_by,status,is_deleted
+        lb.email as email_branch,lb.phone as branch_phone,la.ma_user_id as lead_assig_id,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,
+		ls.name_en as status_name,ls.id as status_id,CONCAT(u1.last_name_en,' ',u1.first_name_en) as create_by,
+		CASE
+			WHEN cli.is_home = 't' THEN 'Home'
+			WHEN cli.is_enterprise = 't' THEN 'Enterprise'
+			WHEN cli.is_business = 't' THEN 'Business'
+			ELSE 'Oppa'
+		END AS customer_type
+        from  crm_lead_branch lb
+		JOIN crm_lead on crm_lead.id= lb.crm_lead_id
+		LEFT JOIN crm_lead_industry cli on cli.id= crm_lead.crm_lead_industry_id
+		JOIN ma_user u1 on lb.create_by=u1.id
+        JOIN (SELECT id,crm_lead_branch_id,crm_lead_status_id,status,is_deleted
 							FROM crm_lead_detail
 							WHERE (id,crm_lead_branch_id) IN
 								(SELECT MAX(id),crm_lead_branch_id
 								 FROM crm_lead_detail
 								 GROUP BY crm_lead_branch_id
-								)GROUP BY id,crm_lead_branch_id,crm_lead_status_id,comment,create_date,create_by,status,is_deleted
+								)GROUP BY id,crm_lead_branch_id,crm_lead_status_id,status,is_deleted
 							)ld on ld.crm_lead_branch_id= lb.id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        join crm_lead on crm_lead.id= lb.crm_lead_id
+        JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
+        JOIN ma_user u on la.ma_user_id=u.id
         where ld.status=true and ld.is_deleted=false $sql $user";
     }
     public static function getleadBranchDataTable($request,$status,$userid){
@@ -98,14 +106,16 @@ class ModelLeadBranch extends Model
         //     array('db'=>'status_id','dt'=>'DT_RowId'),
         // );
         $columns = array(
-            array( 'db' => 'customer_name_en', 'dt' => 0 ),
-            array( 'db' => 'name_en_branch', 'dt' => 1 ),
-            array( 'db' => 'email_branch',  'dt' => 2 ),
-            array( 'db' => 'branch_phone',   'dt' => 3 ),
-            array( 'db' => 'schedule_id',   'dt' => 4 ),
-            array( 'db' => 'status_name',   'dt' => 5 ),
-            array( 'db' => 'user_assig_to',   'dt' => 6 ),
-            array( 'db' => 'branch_id',     'dt' => 7 ),
+            array( 'db' => 'lead_number','dt' => 0),
+            array( 'db' => 'customer_name_en','dt' => 1),
+            array( 'db' => 'name_en_branch','dt' => 2),
+            array( 'db' => 'email_branch','dt' => 3),
+            array( 'db' => 'branch_phone','dt' => 4),
+            array( 'db' => 'customer_type', 'dt' => 5),
+            array( 'db' => 'status_name','dt' => 6),
+            array( 'db' => 'user_assig_to','dt' => 7),
+            array( 'db' => 'create_by','dt' => 8),
+            array( 'db' => 'branch_id','dt' => 9),
             array('db'=>'status_id','dt'=>'DT_RowId'),
         );
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
