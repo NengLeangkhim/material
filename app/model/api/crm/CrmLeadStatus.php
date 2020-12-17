@@ -20,12 +20,14 @@ class CrmLeadStatus extends Model
                 $color = ($color == null || $color == '') ? $data->color : $color;
                 $sql = 'select update_crm_lead_status('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', \''.$status.'\', \''.$sequence.'\', \''.$color.'\') as id';
             } else {
-                $sql = 'select insert_crm_lead_status(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.($sequence == null ? 'null' : $sequence).', '.($color == null ? 'null' : $color).') as id';
+                $sql = 'select insert_crm_lead_status(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.($sequence == null ? 'null' : $sequence).', \''.($color == null ? 'null' : $color).'\') as id';
             }
             $newId = DB::selectOne($sql)->id;
-            $result = $this->getOneData($newId);
+            $result = json_encode(['data'=>$this->getOneData($newId),'success'=>'true']);
+            // dump($result);
         } catch(QueryException $e){
-            throw $e;
+            // throw $e;
+            return $e;
         }
         return $result;
 
@@ -42,7 +44,10 @@ class CrmLeadStatus extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_lead_status where is_deleted = false and status=true order by sequence');
+            $result = DB::select("select crm_lead_status.*,ma_user.first_name_en||' '||ma_user.last_name_en as create_by_name,
+                                    case when crm_lead_status.status=false then 'Inactive' else 'Active' end as status_text
+                                    from crm_lead_status join ma_user on ma_user.id=crm_lead_status.create_by
+                                    where crm_lead_status.is_deleted = false order by crm_lead_status.sequence");
         } catch(QueryException $e){
             throw $e;
         }

@@ -79,7 +79,8 @@ class CrmSettingController extends Controller
                 if(perms::check_perm_module('CRM_02090101')){//module code list
                      $get = Request::create('/api/crm/leadStatus/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
-                    if($response->success=='true'){
+                    //  dump($response);
+                    if($response->success??''=='true'){
                         return response()->json(['success'=>'Record is successfully added']);
                     }else{
                         return response()->json(['Error'=>'Record is Error']);

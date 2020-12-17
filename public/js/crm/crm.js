@@ -123,7 +123,7 @@ function CrmSettingView(url, table) {
         success: function(data) {
             $('#CrmTabManageSetting').html(data);
             $('#' + table + '').dataTable({
-                'responsive': true,
+                // 'responsive': true,
                 scrollX: true,
                 "autoWidth": false,
                 "serverSide": false,
