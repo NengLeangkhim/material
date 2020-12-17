@@ -153,6 +153,24 @@ class CrmReportApiController extends Controller
         $message = 'lead report by status';
         return $this->sendResponse($result, $message);
     }
+    /**
+     * Get schdeule by activities of schedule.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    public function getscheduleactivities(Request $request){
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        // $statusId = $request->status_id;
+        try{
+            $result = $this->crmReport->getscheduleactivities($fromDate, $toDate);
+        }catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        $message = 'Schedule by sctivities';
+        return $this->sendResponse($result, $message);
+    }
 
     /**
      * Get Quote by Status.
@@ -301,6 +319,18 @@ class CrmReportApiController extends Controller
         $type = $request->input('type');
         try {
             $result = $this->crmReport->getContactChartReport($fromDate, $toDate, $type != null ? $type : 'month');
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result,'');
+    }
+    // get total schedule in today
+    public function getscheduleChartReport(Request $request){
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $type = $request->input('type');
+        try {
+            $result = $this->crmReport->getscheduleChartReport($fromDate, $toDate, $type != null ? $type : 'month');
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }

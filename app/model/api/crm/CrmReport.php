@@ -151,6 +151,33 @@ class CrmReport extends Model
         }
         return $result;
     }
+    /**
+     * Return Get  Report schedule activities
+     *
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getscheduleactivities($fromDate = null, $toDate = null){
+        try {
+            $condition =
+                (($fromDate == null || $toDate == null) ? ' ' : ' WHERE  is_result_type=FALSE and is_stage_2=FALSE and is_quote_type=FALSE  and cls.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
+                
+            $result = DB::select('with schedule_type as ( SELECT clst.id,clst.name_en,clst.name_kh ,count(*) AS total_schdeule 
+            FROM  crm_lead_schedule_type  clst
+            JOIN  crm_lead_schedule cls on cls.crm_lead_schedule_type_id = clst."id" '.$condition.
+            ' GROUP BY clst.name_en,clst.name_kh,clst.id) SELECT clst.id,clst.name_en,clst.name_kh ,clst.color,
+            COALESCE(sr.total_schdeule, null, 0, total_schdeule) total_schdeule 
+            from crm_lead_schedule_type clst
+            LEFT JOIN schedule_type sr on clst.id=sr.id
+            where is_result_type=FALSE and is_stage_2=FALSE and is_quote_type=FALSE ORDER BY clst.id');
+            // dd($result);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
 
     /**
      * Return Get Lead Branches By Status Query Result
@@ -415,7 +442,7 @@ class CrmReport extends Model
     public function getTotalSurvey($fromDate = null, $toDate = null){
         try {
             $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
-            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\' OR status = \'t\''.$dateCondition;
+            $condition = 'WHERE is_deleted = \'f\' AND is_deleted = \'f\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_survey FROM crm_survey '.$condition);
         } catch(QueryException $e){
             throw $e;
@@ -485,6 +512,25 @@ class CrmReport extends Model
                     DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
                     COUNT(id) AS total
                 FROM crm_lead_contact
+                WHERE
+                    is_deleted = false
+                    AND status = true '.
+                    (($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
+                .' GROUP BY DATE_TRUNC(\''.$type.'\',create_date) ORDER BY create_date;
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+    // moduel get schedule in totay
+    public function getscheduleChartReport($fromDate = null, $toDate = null, $type = 'day'){
+        try {
+            $result = DB::select('
+                SELECT
+                    DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
+                    COUNT(id) AS total
+                FROM crm_lead_schedule
                 WHERE
                     is_deleted = false
                     AND status = true '.

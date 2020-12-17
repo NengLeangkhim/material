@@ -169,6 +169,23 @@
             <!-- /.row -->
             <div class="row g-chart">
                 <div class="col-xl-6">
+                    <!-- LINE CHART -->
+                    <div class="card card-info">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Schedule</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="ScheduleChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col (RIGHT) -->
+            {{-- </div> --}}
+                <div class="col-xl-6">
                     <!-- AREA CHART -->
                     <div class="card card-primary">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
@@ -176,7 +193,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <div id="ContactChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                                <div id="Schedule_activitied_Chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -184,7 +201,7 @@
                     <!-- /.card -->
                 </div>
             <!-- /.col (LEFT) -->
-            <div class="col-xl-6">
+            {{-- <div class="col-xl-6">
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
@@ -200,7 +217,7 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col (RIGHT) -->
-            </div>
+            </div> --}}
             <!-- /.row -->
         </div>
     </div>
@@ -332,6 +349,151 @@
                 }
             });
         }
+        //schedule
+        var Schedule_Chart = () =>{
+            function CrmContactDrawChart(get_date,get_total) {
+                var data = google.visualization.arrayToDataTable([
+                    ['', '', { role: 'style' }],
+                    [get_date, get_total, 'color:#25CCF7']
+                ]);
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1,
+                    {
+                        calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"
+                    },
+                    2
+                ]);
+                var options = {
+                    // title: 'Contact Performance',
+                    colors:[''],
+                    annotations: {
+                        textStyle: {
+                            fontName: 'Times-Roman',
+                            fontSize: 18,
+                            color: '#871b47',
+                            opacity: 0.8
+                        }
+                    },
+                    vAxis: {
+                        minValue: 0,
+                        maxValue: 100,
+                        direction: 1
+                    },
+                    hAxis: {
+                        textStyle: {
+                            fontSize: 14,
+                        }
+                    },
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('ScheduleChart'))
+                chart.draw(view, options)
+            }
+            $.ajax({
+                url: '/api/crm/report/getscheduleChartReport', //get link route
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    'type' : 'day',
+                    'from_date' : currentDateString,
+                    'to_date' : currentDateString
+                },
+                //data: $('#FrmChartContactReport').serialize(),
+                success: function (response) {
+                    var data = response.data;
+                    var create_date, total;
+                    if(data.length < 1) {
+                        // $('#ContactChart').empty()
+                        //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                        //     return
+
+                        // show chart when data
+                        create_date = currentDateString;
+                        total = 0;
+                        CrmContactDrawChart(create_date,total);
+                    }
+                    create_date = data[0].create_date;
+                    total = data[0].total;
+                    CrmContactDrawChart(create_date,total);
+                }
+            });
+        }
+        // schedule activities
+        var schedule_activities_Chart = () => {
+            function CrmScheduleActivitiesDrawChart(data) {
+                var result = [
+                    ["Branch", "", {
+                        role: 'style'
+                    }]
+                ]
+                $.each(data, function (index, value) {
+                    if(value.id != null){
+                        result.push([value.name_en, value.total_schdeule, value['color']])
+                    }
+                });
+                // console.log(result);
+                var data_chart = google.visualization.arrayToDataTable(result);
+                var view = new google.visualization.DataView(data_chart);
+                view.setColumns([0, 1,
+                    {
+                        calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"
+                    },
+                    2
+                ]);
+                var options = {
+                    // title: 'Branch Performance',
+                    width: '100%',
+                    legend: 'none',
+                    pieSliceText:'value',
+                    vAxis: {
+                        minValue: 0,
+                        maxValue: 100
+                    }
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('Schedule_activitied_Chart'))
+                chart.draw(view, options)
+            }
+            // console.log(currentDateString);
+            $.ajax({
+                url: '/api/crm/report/getscheduleactivities', //get link route
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    'from_date' : currentDateString,
+                    'to_date' : currentDateString
+                },
+                //data: $('#FrmChartReport').serialize(),
+                success: function (response) {
+                    // console.log(data);
+                    if (response.success == true) {
+                        var data = response.data;
+                        // console.log(data);
+                        if(data.length < 1) {
+                          $('#Schedule_activitied_Chart').empty()
+                            $('#Schedule_activitied_Chart').append(`<h1 style="text-align:center">No Data</h1>`)
+                            return
+                            // CrmLeadDrawChart(data);
+                            // console.log('Data 0');
+                        }
+                        google.charts.load('current',{
+                            packages: ['corechart']
+                        }).then(CrmScheduleActivitiesDrawChart(data));
+                        //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                        CrmScheduleActivitiesDrawChart(data);
+                        // console.log("Data 1");
+                    }
+                }
+            });
+        }
         // Quote Chart
         var Quote_Chart = () =>{
             function CrmQuoteDrawChart(data) {
@@ -442,79 +604,152 @@
                 }
             });
         }
-        // Contact Chart
-        var Contact_Chart = () =>{
-            function CrmContactDrawChart(get_date,get_total) {
-                var data = google.visualization.arrayToDataTable([
-                    ['', '', { role: 'style' }],
-                    [get_date, get_total, 'color:#25CCF7']
-                ]);
-                var view = new google.visualization.DataView(data);
-                view.setColumns([0, 1,
-                    {
-                        calc: "stringify",
-                        sourceColumn: 1,
-                        type: "string",
-                        role: "annotation"
-                    },
-                    2
-                ]);
-                var options = {
-                    // title: 'Contact Performance',
-                    colors:[''],
-                    annotations: {
-                        textStyle: {
-                            fontName: 'Times-Roman',
-                            fontSize: 18,
-                            color: '#871b47',
-                            opacity: 0.8
-                        }
-                    },
-                    vAxis: {
-                        minValue: 0,
-                        maxValue: 100,
-                        direction: 1
-                    },
-                    hAxis: {
-                        textStyle: {
-                            fontSize: 14,
-                        }
-                    },
-                };
-                var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
-                chart.draw(view, options)
-            }
-            $.ajax({
-                url: '/api/crm/report/getContactChartReport', //get link route
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    'type' : 'day',
-                    'from_date' : currentDateString,
-                    'to_date' : currentDateString
-                },
-                //data: $('#FrmChartContactReport').serialize(),
-                success: function (response) {
-                    var data = response.data;
-                    var create_date, total;
-                    if(data.length < 1) {
-                        // $('#ContactChart').empty()
-                        //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                        //     return
+        //schedule
+        // var Contact_Chart = () =>{
+        //     function CrmContactDrawChart(get_date,get_total) {
+        //         var data = google.visualization.arrayToDataTable([
+        //             ['', '', { role: 'style' }],
+        //             [get_date, get_total, 'color:#25CCF7']
+        //         ]);
+        //         var view = new google.visualization.DataView(data);
+        //         view.setColumns([0, 1,
+        //             {
+        //                 calc: "stringify",
+        //                 sourceColumn: 1,
+        //                 type: "string",
+        //                 role: "annotation"
+        //             },
+        //             2
+        //         ]);
+        //         var options = {
+        //             // title: 'Contact Performance',
+        //             colors:[''],
+        //             annotations: {
+        //                 textStyle: {
+        //                     fontName: 'Times-Roman',
+        //                     fontSize: 18,
+        //                     color: '#871b47',
+        //                     opacity: 0.8
+        //                 }
+        //             },
+        //             vAxis: {
+        //                 minValue: 0,
+        //                 maxValue: 100,
+        //                 direction: 1
+        //             },
+        //             hAxis: {
+        //                 textStyle: {
+        //                     fontSize: 14,
+        //                 }
+        //             },
+        //         };
+        //         var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
+        //         chart.draw(view, options)
+        //     }
+        //     $.ajax({
+        //         url: '/api/crm/report/getContactChartReport', //get link route
+        //         type: 'GET',
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: {
+        //             'type' : 'day',
+        //             'from_date' : currentDateString,
+        //             'to_date' : currentDateString
+        //         },
+        //         //data: $('#FrmChartContactReport').serialize(),
+        //         success: function (response) {
+        //             var data = response.data;
+        //             var create_date, total;
+        //             if(data.length < 1) {
+        //                 // $('#ContactChart').empty()
+        //                 //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+        //                 //     return
 
-                        // show chart when data
-                        create_date = currentDateString;
-                        total = 0;
-                        CrmContactDrawChart(create_date,total);
-                    }
-                    create_date = data[0].create_date;
-                    total = data[0].total;
-                    CrmContactDrawChart(create_date,total);
-                }
-            });
-        }
+        //                 // show chart when data
+        //                 create_date = currentDateString;
+        //                 total = 0;
+        //                 CrmContactDrawChart(create_date,total);
+        //             }
+        //             create_date = data[0].create_date;
+        //             total = data[0].total;
+        //             CrmContactDrawChart(create_date,total);
+        //         }
+        //     });
+        // }
+        // Contact Chart
+        // var Contact_Chart = () =>{
+        //     function CrmContactDrawChart(get_date,get_total) {
+        //         var data = google.visualization.arrayToDataTable([
+        //             ['', '', { role: 'style' }],
+        //             [get_date, get_total, 'color:#25CCF7']
+        //         ]);
+        //         var view = new google.visualization.DataView(data);
+        //         view.setColumns([0, 1,
+        //             {
+        //                 calc: "stringify",
+        //                 sourceColumn: 1,
+        //                 type: "string",
+        //                 role: "annotation"
+        //             },
+        //             2
+        //         ]);
+        //         var options = {
+        //             // title: 'Contact Performance',
+        //             colors:[''],
+        //             annotations: {
+        //                 textStyle: {
+        //                     fontName: 'Times-Roman',
+        //                     fontSize: 18,
+        //                     color: '#871b47',
+        //                     opacity: 0.8
+        //                 }
+        //             },
+        //             vAxis: {
+        //                 minValue: 0,
+        //                 maxValue: 100,
+        //                 direction: 1
+        //             },
+        //             hAxis: {
+        //                 textStyle: {
+        //                     fontSize: 14,
+        //                 }
+        //             },
+        //         };
+        //         var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
+        //         chart.draw(view, options)
+        //     }
+        //     $.ajax({
+        //         url: '/api/crm/report/getContactChartReport', //get link route
+        //         type: 'GET',
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: {
+        //             'type' : 'day',
+        //             'from_date' : currentDateString,
+        //             'to_date' : currentDateString
+        //         },
+        //         //data: $('#FrmChartContactReport').serialize(),
+        //         success: function (response) {
+        //             var data = response.data;
+        //             var create_date, total;
+        //             if(data.length < 1) {
+        //                 // $('#ContactChart').empty()
+        //                 //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+        //                 //     return
+
+        //                 // show chart when data
+        //                 create_date = currentDateString;
+        //                 total = 0;
+        //                 CrmContactDrawChart(create_date,total);
+        //             }
+        //             create_date = data[0].create_date;
+        //             total = data[0].total;
+        //             CrmContactDrawChart(create_date,total);
+        //         }
+        //     });
+        // }
         // Survey Chart
         var Survey_Chart = () => {
             function CrmSurveyChart(success,failure) {
@@ -571,81 +806,85 @@
             })
         }
         // Organization Chart
-        var Organization_Chart = () => {
-            $.ajax({
-                url: 'api/crm/report/getOrganizationChartReport', //get link route
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data : {
-                    'type' : 'day',
-                    'status_id' : 2,
-                    'from_date' : currentDateString,
-                    'to_date' : currentDateString
-                },
+        // var Organization_Chart = () => {
+        //     $.ajax({
+        //         url: 'api/crm/report/getOrganizationChartReport', //get link route
+        //         type: 'GET',
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data : {
+        //             'type' : 'day',
+        //             'status_id' : 2,
+        //             'from_date' : currentDateString,
+        //             'to_date' : currentDateString
+        //         },
 
-                //data: $('#FrmChartOrganizationReport').serialize(),
-                success: function (response) {
-                    if (response.success == true) {
-                        var data = response.data
-                        if(data.length < 1) {
-                            $('#OrgChart').empty()
-                            $('#OrgChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                            return
-                        }
-                        google.charts.load('current', {
-                            packages: ['corechart']
-                        }).then(CrmOrganizationDrawChart(data));
-                        //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
-                        function CrmOrganizationDrawChart(data) {
-                            var result = [
-                                ["Lead", "", {
-                                    role: 'style'
-                                }]
-                            ]
-                            var colors = [{
-                                    id: 0,
-                                    name_en: 'none',
-                                    code: 'color:#25CCF7'
-                                },
-                            ]
-                            $.each(data, function (index, value) {
-                                result.push([value.create_date, value.total, colors[0].code])
-                            })
-                            var data = google.visualization.arrayToDataTable(result);
-                            var view = new google.visualization.DataView(data);
-                            view.setColumns([0, 1,
-                                {
-                                    calc: "stringify",
-                                    sourceColumn: 1,
-                                    type: "string",
-                                    role: "annotation"
-                                },
-                                2
-                            ]);
-                            var options = {
-                                title: 'Organization Performance',
-                            };
+        //         //data: $('#FrmChartOrganizationReport').serialize(),
+        //         success: function (response) {
+        //             if (response.success == true) {
+        //                 var data = response.data
+        //                 if(data.length < 1) {
+        //                     $('#OrgChart').empty()
+        //                     $('#OrgChart').append(`<h1 style="text-align:center">No Data</h1>`)
+        //                     return
+        //                 }
+        //                 google.charts.load('current', {
+        //                     packages: ['corechart']
+        //                 }).then(CrmOrganizationDrawChart(data));
+        //                 //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+        //                 function CrmOrganizationDrawChart(data) {
+        //                     var result = [
+        //                         ["Lead", "", {
+        //                             role: 'style'
+        //                         }]
+        //                     ]
+        //                     var colors = [{
+        //                             id: 0,
+        //                             name_en: 'none',
+        //                             code: 'color:#25CCF7'
+        //                         },
+        //                     ]
+        //                     $.each(data, function (index, value) {
+        //                         result.push([value.create_date, value.total, colors[0].code])
+        //                     })
+        //                     var data = google.visualization.arrayToDataTable(result);
+        //                     var view = new google.visualization.DataView(data);
+        //                     view.setColumns([0, 1,
+        //                         {
+        //                             calc: "stringify",
+        //                             sourceColumn: 1,
+        //                             type: "string",
+        //                             role: "annotation"
+        //                         },
+        //                         2
+        //                     ]);
+        //                     var options = {
+        //                         title: 'Organization Performance',
+        //                     };
 
-                            var chart = new google.visualization.ColumnChart(document.getElementById('OrgChart'))
-                            chart.draw(view, options)
-                        }
-                    }
-                }
-            });
-        }
+        //                     var chart = new google.visualization.ColumnChart(document.getElementById('OrgChart'))
+        //                     chart.draw(view, options)
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
 
         Branch_Chart();
         Quote_Chart();
-        Contact_Chart();
+        // Contact_Chart();
         Survey_Chart();
+        schedule_activities_Chart();
+        Schedule_Chart();
         // Responsive chart
         window.onresize = () => {
             Branch_Chart();
             Quote_Chart();
-            Contact_Chart();
+            // Contact_Chart();
             Survey_Chart();
+            schedule_activities_Chart();
+            Schedule_Chart();
         };
     });
 </script>
