@@ -56,7 +56,7 @@ var reportLeadByStatus = () => {
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable(mydata);
                     var options = {
-                        title: 'Branch Lead Progress',
+                        // title: 'Branch Lead Progress',
                         pieHole: 0.4,
                         // colors: [''],
                         // legend: 'none',
@@ -207,7 +207,7 @@ var reportContact = () => {
                         2
                     ]);
                     var options = {
-                        title: "Contact Progress",
+                        // title: "Contact Progress",
                         legend: { position: "none" },
                         vAxis: {
                             minValue: 0,
@@ -329,7 +329,7 @@ var reportOrganization = () => {
                         2
                     ]);
                     var options = {
-                        title: "Organization Progress",
+                        // title: "Organization Progress",
                         legend: { position: "none" },
                         vAxis: {
                             minValue: 0,
@@ -410,7 +410,7 @@ var reportQuoteByStatus = () => {
                         2
                     ]);
                     var options = {
-                        title: "Quote Performance",
+                        // title: "Quote Performance",
                         bar: { groupWidth: "70%" },
                         legend: { position: "none" },
                         vAxis: {
@@ -418,6 +418,7 @@ var reportQuoteByStatus = () => {
                                 fontSize: 14
                             }
                         },
+                        dataOpacity: 0.3,
                         hAxis: {
                             minValue: 0,
                             maxValue: 100
@@ -582,7 +583,7 @@ var reportSurvey = () => {
                 ]);
 
                 var options = {
-                    title: 'Survey Performance',
+                    // title: 'Survey Performance',
                     legend: 'none',
                     annotations: {
                         textStyle: {
@@ -592,6 +593,7 @@ var reportSurvey = () => {
                             opacity: 0.8
                         }
                     },
+                    dataOpacity: 0.3,
                     style: {
                         opacity: 0.5
                     },
@@ -609,7 +611,118 @@ var reportSurvey = () => {
     });
 }
 
+// chart for Lead contact activities
+var reportLeadContactActivitis = () => {
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['', '', { 'role': 'style' }],
+            ['Jan', 27, '{fill-color: #3333ff;}'],
+            ['Feb', 6, '{fill-color: #36a2eb;}'],
+            ['Mar', 3, '{fill-color: #4bc0c0;}'],
+            ['Apr', 4, '{fill-color: #ffcd56;}'],
+            ['May', 4, '{fill-color: #ff3d67;}'],
+            ['Jun', 3, '{fill-color: #a52714;}'],
+            ['Jul', 9, '{fill-color: #7d9b10;}'],
+            ['Aug', 3, '{fill-color: #9966ff;}'],
+            ['Sep', 4, '{fill-color: #96f3ff;}'],
+            ['Oct', 13, '{fill-color: #3f33f3;}'],
+            ['Nov', 33, '{fill-color: #33f33f;}'],
+            ['Dec', 12, '{fill-color: #f3333f;}']
+        ]);
+
+        var options = {
+            legend: 'none',
+            vAxis: { minValue: 0, maxValue: 12 },
+            curveType: 'function',
+            pointSize: 13,
+            pointShape: 'point',
+            // dataOpacity: 0.3,
+            vAxis: {
+                minValue: 0,
+                maxValue: 100
+            },
+            hAxis: {
+                textStyle: {
+                    fontSize: 16
+                },
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('lead_contact_activities'));
+        chart.draw(data, options);
+    }
+
+    // $("#FrmChartQuoteReport input").removeClass("is-invalid")
+    // $.ajax({
+    //     url: '/crmreport/quote/chart',
+    //     type: 'GET',
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: $('#FrmChartQuoteReport').serialize(),
+    //     success: function(response) {
+    //         if (response.success == true) {
+    //             var data = response.data;
+    //         }
+    //     }
+    // });
+}
+
+var reportLeadContactResult = () => {
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['', '', { 'role': 'style' }],
+            ['Success', 10, '{fill-color: #36a2eb;}'],
+            ['Failure', 5, '{fill-color: #f3333f;}'],
+            ['Waiting', 11, '{fill-color: #ffcd56;}'],
+        ]);
+
+        var options = {
+            legend: 'none',
+            vAxis: { minValue: 0, maxValue: 12 },
+            curveType: 'function',
+            pointSize: 13,
+            pointShape: 'point',
+            // dataOpacity: 0.3,
+            vAxis: {
+                minValue: 0,
+                maxValue: 100
+            },
+
+            hAxis: {
+                textStyle: {
+                    fontSize: 16
+                },
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('lead_contact_result'));
+        chart.draw(data, options);
+    }
+
+    // $("#FrmChartQuoteReport input").removeClass("is-invalid")
+    // $.ajax({
+    //     url: '/crmreport/quote/chart',
+    //     type: 'GET',
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: $('#FrmChartQuoteReport').serialize(),
+    //     success: function(response) {
+    //         if (response.success == true) {
+    //             var data = response.data;
+    //         }
+    //     }
+    // });
+}
+
+// chart for Lead contact result
 
 
 //=========================================Export Report CRM=====================

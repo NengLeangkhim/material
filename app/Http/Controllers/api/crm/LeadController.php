@@ -493,6 +493,8 @@ class LeadController extends Controller
         }
         $userid = $_SESSION['userid'];
         $survey_id =$request->input('survey_id');
+        $pop_id =$request->input("pop_id")!=""?$request->input("pop_id"):null;
+        $pop_distant =$request->input('pop_distant')!=""?$request->input('pop_distant'):null;
         // $userid =$request->input('user_create');
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
@@ -506,10 +508,10 @@ class LeadController extends Controller
         {
             $possible='f';
         }
-        // dd($comment_branch,$lead_detail_id);
+        // dd($pop_id,$pop_distant);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
 
-        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch);
+        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch,$pop_id,$pop_distant);
     }
     // get schdule type
     public function getschduletype($id){
