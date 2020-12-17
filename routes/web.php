@@ -87,6 +87,10 @@ Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleres
 // start survey
 //get survey
 Route::get('/survey','crm\CrmSurveyController@index');
+// Table survey list
+Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
+// Table survey result
+Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 
 
 //get detail survey
