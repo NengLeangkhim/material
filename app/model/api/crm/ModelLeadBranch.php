@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\SSP;
+use Illuminate\Http\Request;
 use Exception;
 
 class ModelLeadBranch extends Model
@@ -120,4 +121,5 @@ class ModelLeadBranch extends Model
         );
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
     }
+
 }

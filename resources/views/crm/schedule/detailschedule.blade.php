@@ -1,6 +1,6 @@
 
 <div class="modal fade" id="crm_view_perform_schedule">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="card-header">
                 <h3 class="card-title hrm-title"><strong><i class="fas fa-calendar-week"></i></strong></h3>
@@ -13,7 +13,7 @@
             </div><!-- /.card-header -->
             <form id="frm_Crmbranchschdeule_result" method="POST">
                 @csrf
-                <?php   
+                <?php
                     for($i =0;$i<sizeof($schedule);$i++){
                         ?>
                         <div class="modal-body">
@@ -36,7 +36,7 @@
                                                     <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" id="name_en"  name="name_en"  value="{{$schedule[$i]["name_en"]}}" placeholder=""   >
-                                                <span class="invalid-feedback" role="alert" id="name_enError"> 
+                                                <span class="invalid-feedback" role="alert" id="name_enError">
                                                     <strong></strong>
                                                 </span>
                                             </div>
@@ -52,7 +52,7 @@
                                                     <strong></strong>
                                                 </span>
                                             </div>
-                                        </div>                                                
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -76,18 +76,18 @@
                                                     <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                                 </div>
                                                 <select class="form-control " name="priority" id="priority" >
-                                                    <option value=''>-- Select  Prioroty --</option>  
+                                                    <option value=''>-- Select  Prioroty --</option>
                                                     <option value="urgent"  {{$schedule[$i]['priority']=='urgent' ? 'selected="selected"':''}} >Urgent</option>
                                                     <option value="high"  {{$schedule[$i]['priority']=='high' ? 'selected="selected"':''}}>Hight</option>
                                                     <option value="medium"  {{$schedule[$i]['priority']=='medium' ? 'selected="selected"':''}}>Medium</option>
                                                     <option value="low"  {{$schedule[$i]['priority']=='low' ? 'selected="selected"':''}}>Low</option>
-                                                
+
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
                                             </div>
-                                        </div>                                                
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -98,19 +98,19 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                 </div>
-                                                
+
                                                 <select class="form-control" name="schedule_type_id" id="schedule_type_id" >
-                                                    <?php 
+                                                    <?php
                                                         for($i =0; $i<sizeof($schedule_type); $i++){
                                                             for($j =0; $j<sizeof($schedule); $j++){
-                                                        ?>                                                                
-                                                                <option value="{{$schedule_type[$i]["id"]}}" {{$schedule_type[$i]["id"]==$schedule[$j]["schedule_type_id"] ? 'selected="selected"':''}} > {{$schedule_type[$i]["name_en"]}} / {{$schedule_type[$i]["name_kh"]}}</option>  
+                                                        ?>
+                                                                <option value="{{$schedule_type[$i]["id"]}}" {{$schedule_type[$i]["id"]==$schedule[$j]["schedule_type_id"] ? 'selected="selected"':''}} > {{$schedule_type[$i]["name_en"]}} / {{$schedule_type[$i]["name_kh"]}}</option>
                                                                 <?php
                                                         }
                                                     }
-                                                       
+
                                                     ?>
-                                                    
+
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="schedule_type_idError"> {{--span for alert--}}
                                                     <strong></strong>
@@ -123,15 +123,15 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                 </div>
-                                                <?php 
+                                                <?php
                                                     for($i =0; $i<sizeof($schedule); $i++){
                                                         ?>
                                                     <select class="form-control " name="status" id="status" >
                                                         <option value="{{$schedule[$i]['status']}}"  {{$schedule[$i]['status']==true ? 'selected="selected"':''}}>Active</option>
-                                                        <option value="{{$schedule[$i]['status']}}"  {{$schedule[$i]['status']==false ? 'selected="selected"':''}}>Disable</option>  
+                                                        <option value="{{$schedule[$i]['status']}}"  {{$schedule[$i]['status']==false ? 'selected="selected"':''}}>Disable</option>
                                                     </select>
                                             </div>
-                                        </div>                                                
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="from-group">
@@ -142,24 +142,25 @@
                                                 <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="far fa-comments"></i></span>
                                             </div>
-                                                <input type="text" class="form-control" id="comment"  name="comment"  value="{{$schedule[$i]['comment']}}"   >        
-                                                        
+                                                {{-- <input type="text" class="form-control" id="comment"  name="comment"  value="{{$schedule[$i]['comment']}}"   > --}}
+                                                <textarea class="form-control" id="comment"  name="comment" rows="5">{{$schedule[$i]['comment']}}</textarea>
+
                                                 <span class="invalid-feedback" role="alert" id="commentError"> {{--span for alert--}}
                                                   <strong></strong>
-                                              </span> 
+                                              </span>
                                                 <?php
                                                     }
                                                 ?>
                                                 <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
-                                            </div>                       
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                         <?php
                     }
-                ?>                
+                ?>
                 <br>
                         <div class="from-group">
                             <div class="row">
@@ -172,24 +173,12 @@
                                             <input type="checkbox" name="check_result" value="1" id="check_result">
                                         </div>
                                     </div>
-                                    <hr style="border: 1px solid">                                    
+                                    <hr style="border: 1px solid">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group" id="detail"  hidden>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Comment</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="comment_result"  name="comment_result"   placeholder=""  >
-                                        <span class="invalid-feedback" role="alert" id="comment_resultError"> {{--span for alert--}}
-                                            <strong></strong>
-                                        </span>
-                                    </div>
-                                </div>
                                 <div class="col-md-6">
                                     <label for="exampleInputEmail1">Result_Type</label>
                                     <div class="input-group">
@@ -197,33 +186,46 @@
                                             <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                         </div>
                                         <select class="form-control " name="schedule_type_id_result" id="schedule_type_id_result" >
-                                            <option value=''>-- Select  schedule_type --</option>  
-                                            <?php 
+                                            <option value=''>-- Select  schedule_type --</option>
+                                            <?php
                                             for($i =0; $i<sizeof($result_type); $i++){
-                                            ?>                                                                
-                                                    <option value="{{$result_type[$i]["id"]}}" > {{$result_type[$i]["name_en"]}} / {{$result_type[$i]["name_kh"]}}</option>  
+                                            ?>
+                                                    <option value="{{$result_type[$i]["id"]}}" > {{$result_type[$i]["name_en"]}} / {{$result_type[$i]["name_kh"]}}</option>
                                                     <?php
                                             }
-                                           
+
                                         ?>
-                                          
+
                                         </select>
                                         <span class="invalid-feedback" role="alert" id="schedule_type_id_resultError"> {{--span for alert--}}
                                            <strong></strong>
                                        </span>
                                     </div>
-                                </div>                                                
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Comment</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        {{-- <input type="text" class="form-control" id="comment_result"  name="comment_result"   placeholder=""  > --}}
+                                        <textarea class="form-control" id="comment_result"  name="comment_result"  rows="5"></textarea>
+                                        <span class="invalid-feedback" role="alert" id="comment_resultError"> {{--span for alert--}}
+                                            <strong></strong>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                     
+
              </div>
                  <div class="modal-footer justify-content-between">
                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                  {{-- <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_Crmbranchschdeule','/insertschedule','/lead','Insert  Schedule Successfully')">Create</button> --}}
-                 <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule_result','save','/insertscheduleresult','POST','crm_view_perform_schedule','Insert  Schedule result Successfully','/schedule')">Create</button>
+                 <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule_result','save','/insertscheduleresult','POST','crm_view_perform_schedule','Insert  Schedule result Successfully','/crm/leadbranch/detail/{{$schedule[0]['branch_id']}}')">Create</button>
              </div>
             </form>
-            
+
         </div>
         <!-- /.modal-content -->
     </div>

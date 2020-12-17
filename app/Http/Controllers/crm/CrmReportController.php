@@ -272,8 +272,42 @@ class CrmReportController extends Controller
         }
     }
 
+    public function CrmReportContactActivitiesChart(Request $request) {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+        $fromDate = date("Y-m-01");
+        $toDate = date("Y-m-t");
+        // dump($request->all());
+        $contactActivities = Request::create('/api/crm/report/getscheduleactivities?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+        $contactActivities->headers->set('Accept', 'application/json');
+        $contactActivities->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($contactActivities);
+        $response = json_decode($res->getContent());
+        // dd($response);
+        if(isset($response->success) && ($response->success == true)){
+            return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+        }
+    }
 
-
-
+    // public function CrmReportContactResultChart(Request $request) {
+    //     if (session_status() == PHP_SESSION_NONE) {
+    //         session_start();
+    //     }
+    //     $token = $_SESSION['token'];
+    //     $fromDate = date("Y-m-01");
+    //     $toDate = date("Y-m-t");
+    //     // dump($request->all());
+    //     $contactResult = Request::create('/api/crm/report/getscheduleResult?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+    //     $contactResult->headers->set('Accept', 'application/json');
+    //     $contactResult->headers->set('Authorization', 'Bearer '.$token);
+    //     $res = app()->handle($contactResult);
+    //     $response = json_decode($res->getContent());
+    //     dd($response);
+    //     if(isset($response->success) && ($response->success == true)){
+    //         return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+    //     }
+    // }
 
 }
