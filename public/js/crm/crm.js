@@ -555,11 +555,11 @@ $('.save').click(function() {
         submit_form('/addlead', 'frm_lead', 'lead');
     })
     // select option lead in add lead, if have value go to list field add branch
-$("#lead_id").change(function() {
-    var lead_id = $(this).val();
-    //goto_Action('/addleadtype',lead_id);
-    CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
-})
+// $("#lead_id").change(function() {
+//     var lead_id = $(this).val();
+//     //goto_Action('/addleadtype',lead_id);
+//     CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
+// })
 
 
 
@@ -585,8 +585,11 @@ $("#lead_id").change(function() {
 
     // function to onclick change type of add lead
     function addLeadOption(route,btnId) {
+        if($('#'+btnId+'').hasClass('active')){
+            return 0;
+        }
         var option = $("input[name='optionAddLead']:checked").val();
-        console.log('this option val='+option);
+        // console.log('this option val='+option);
         if(typeof option != 'undefined' && (option == 1 || option == 2)){
                 $.ajax({
                     url:route,  //get URL to route
@@ -613,27 +616,21 @@ $("#lead_id").change(function() {
     //function to click to change type option add lead
     $(document).on('click',"input[name='optionAddLead']", function () {
         var option = $(this).val();
-        alert('radion button sleled tyep=='+option);
-        var xx = $("input[name='btnGroupAddLead']").hasClass("active");
-        console.log(xx);
-        // $("input[name='btnGroupAddLead']").each(function(i) {
-        // });
-            // if($(this).hasClass('active')){
-            //     console.log('this value===='+$(this).val());
-            //     return $(this).val();
-            // }
-
-        // console.log(valLink);
-        // $.ajax({
-        //     url:route,  //get URL to route
-        //     type:"get",
-        //     data:{
-        //         option_:option,
-        //     },
-        //     success:function(data){
-        //         $('#contentShowAddLeadType').html(data);
-        //     }
-        // });
+        $("[name='btnGroupAddLead[]']").each(function(i) {
+            if($(this).hasClass('active')){
+                var route = $(this).val();
+                $.ajax({
+                    url:route,  //get URL to route
+                    type:"get",
+                    data:{
+                        option_:option,
+                    },
+                    success:function(data){
+                        $('#contentShowAddLeadType').html(data);
+                    }
+                });
+            }
+        });
     })
 
 
@@ -913,7 +910,7 @@ function row_content(i, branId) {
         '<div class="form-group col-11">' +
         '<div class="input-group">' +
         '<div class="input-group-prepend">' +
-        '<span class="font-weight-bold input-group-text">Branch:</span>' +
+        '<span class="font-weight-bold input-group-text">Customer Branch Name:</span>' +
         '</div>' +
         '<input type="text" class="form-control" id="branch' + branId + '"  name="branch"   placeholder="" required readonly>' +
         '<input type="hidden" id="lead_branch' + branId + '"  name="lead_branch[]"  required readonly>' +
@@ -925,7 +922,7 @@ function row_content(i, branId) {
         '<div class="form-group col-11">' +
         '<div class="input-group">' +
         '<div class="input-group-prepend">' +
-        '<span class="font-weight-bold input-group-text">Address:</span>' +
+        '<span class="font-weight-bold input-group-text">Install Address:</span>' +
         '</div>' +
         '<input type="text" class="form-control" id="branchAddress' + branId + '"  name="branchAddress"   placeholder="" required readonly>' +
         '<input type="hidden" id="' + branId + '"  name=""  required readonly>' +
