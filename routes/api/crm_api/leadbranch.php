@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['middleware' => ['jwt.verify']], function() {
-    
-    Route::get('/leadbranch/{status}','api\crm\LeadBranchController@index');
 
+    Route::get('/leadbranch/{status}','api\crm\LeadBranchController@index');
+    Route::get('/leadbranch/survey/{branch_id}','api\crm\LeadBranchController@SurveyLeadBranch'); //INSERT SURVEY
     // Route::get('/organize/{id}','api\crm\OrganizeController@show');
 
     // Route::put('/organize','api\crm\OrganizeController@update');

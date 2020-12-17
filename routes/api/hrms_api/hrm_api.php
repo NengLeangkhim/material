@@ -15,3 +15,4 @@ Route::get('hrms_late_missed_scan','api\HRMS\missionController@late_missed_scan'
 Route::get('hrms_late_missed_scan/{id}', 'api\HRMS\missionController@late_missed_scan_one');
 Route::resource('hrms_approve_attendance', 'api\HRMS\ApprovedAttendanceController');
 Route::resource('hrms_work_on_side', 'api\HRMS\WorkOnSideController');
+Route::resource('hrms_attendance', 'api\HRMS\AttendanceController');
