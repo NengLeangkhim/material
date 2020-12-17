@@ -212,7 +212,6 @@
                                                                                     <td style="text-align-last: center">
                                                                                         <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                         <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                        <a title="Preview" target="_blank" href="bsc_preview_invoioce/{{ $invoice->id }}"   value="" id=""><i class="fa fa-file"></i></a>
                                                                                     </td>
                                                                                 </tr>
                                                                             @endif
@@ -270,7 +269,6 @@
                                                                                     <td style="text-align-last: center">
                                                                                         <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                         <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                        <a title="Preview" target="_blank" href="bsc_preview_invoioce/{{ $invoice->id }}"   value="" id=""><i class="fa fa-file"></i></a>
                                                                                     </td>
                                                                                 </tr>
                                                                             @endif
