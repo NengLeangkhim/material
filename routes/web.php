@@ -96,6 +96,9 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // end survey
 
+// Table survey list
+Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
+// Table survey result
 
 
 
