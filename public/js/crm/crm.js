@@ -12,6 +12,20 @@
 //         }
 //     });
 // }
+//function for notify alert
+function notify_alert(id, type, locat, message) {
+
+    $(id).notify(
+        "" + message + "", // show notify message
+        {
+            position: locat, // top, left, right...
+            className: type, // type error or success
+            autoHideDelay: 20000,
+
+        }
+    );
+}
+
 function CrmSelectChange(url, div, id) {
     $.ajax({
         url: url, //get URL to route
@@ -407,7 +421,7 @@ function CrmLeadBranchView(url,table){
             "paging": true,
             "searchDelay":500,
             "ajax": "/crm/leadbranch/datatable/"+$status,
-            "ordering": false,
+            "ordering": true,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowId==4){ //check status surveyed
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
@@ -416,59 +430,60 @@ function CrmLeadBranchView(url,table){
                 }
             },
             "columnDefs": [
-              {
-                "targets": 0,
-                "orderable": false
+                // {
+                //     "targets": 0,
+                //     "orderable": false
+                //     },
+                {
+                    "searchable": false,
+                    "targets": 4
+                    },
+                {
+                    // The `data` parameter refers to the data for the cell (defined by the
+                    // `data` option, which defaults to the column being worked with, in
+                    // this case `data: 0`.
+                    // "render": function ( data, type, row ) {
+                    //     if(data!=null){
+                    //     return '<label for="">Yes</label>';
+                    //     }else{
+                    //     return '<label for="">No</label>';
+                    //     }
+                    // },
+                    // "targets": 4
                 },
-              {
-                  "searchable": false,
-                  "targets": 4
-                  },
-              {
-                  // The `data` parameter refers to the data for the cell (defined by the
-                  // `data` option, which defaults to the column being worked with, in
-                  // this case `data: 0`.
-                  "render": function ( data, type, row ) {
-                    if(data!=null){
-                      return '<label for="">Yes</label>';
-                    }else{
-                      return '<label for="">No</label>';
-                    }
-                  },
-                  "targets": 4
-              },
-            {
-                // The `data` parameter refers to the data for the cell (defined by the
-                // `data` option, which defaults to the column being worked with, in
-                // this case `data: 0`.
-                "searchable": false,
-                "width": "100px",
-                "render": function ( data, type, row ) {
-                    var st='<div class="container-fluid datatable-action-col">';
-                    st+='<div class="row form-inline">'+
-                    '<div class="col-md-6">'+
-                        '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
-                            '<i class="far fa-eye"></i>'+
-                        '</a>'+
-                    '</div>';
-                    if(row[4]!=null){
-                    st+='<div class="col-md-6 ">'+
-                                '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
-                                    '<i class="fas fa-calendar-day"> </i>'+
-                                '</a>'+
-                            '</div>'+
-                        '</div>';
-                    }else{
-                    st+='<div class="col-md-6 ">'+
-                                '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
-                                    '<i class="fas fa-calendar-day"> </i>'+
-                                '</a>'+
-                            '</div>'+
-                        '</div>';
-                    }
+                {
+                    // The `data` parameter refers to the data for the cell (defined by the
+                    // `data` option, which defaults to the column being worked with, in
+                    // this case `data: 0`.
+                    "searchable": false,
+                    "width": "100px",
+                    "render": function ( data, type, row ) {
+                        var st='<div class="container-fluid datatable-action-col">';
+                        st+='<div class="row form-inline">'+
+                        '<div class="col-md-12">'+
+                            '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
+                                '<i class="far fa-eye"></i>'+
+                            '</a>'+
+                        '</div></div></div>';
+                        // if(row[4]!=null){
+                        // st+='<div class="col-md-6 ">'+
+                        //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
+                        //                 '<i class="fas fa-calendar-day"> </i>'+
+                        //             '</a>'+
+                        //         '</div>'+
+                        //     '</div>';
+                        // }else{
+                        // st+='<div class="col-md-6 ">'+
+                        //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
+                        //                 '<i class="fas fa-calendar-day"> </i>'+
+                        //             '</a>'+
+                        //         '</div>'+
+                        //     '</div>';
+                        // }
+                        return st;
+                    },
+                    "targets": 9
                 },
-                "targets": 7
-            },
             ],
             "initComplete": function()
             {
@@ -476,9 +491,12 @@ function CrmLeadBranchView(url,table){
                 .unbind() // Unbind previous default bindings
                 .bind("keyup", function(e) { // Bind our desired behavior
                     // If the length is 3 or more characters, or the user pressed ENTER, search
-                    if(this.value.length > 3 || e.keyCode == 13) {
+                    if(this.value.length >= 3 || e.keyCode == 13) {
                         // Call the API search function
                         dt.search(this.value).draw();
+                        notify_alert('.dataTables_filter input','success', 'bottom center', 'search success');
+                    }else{
+                        notify_alert('.dataTables_filter input','warn', 'bottom center', 'please input 3 characters or more');
                     }
                     // Ensure we clear the search if they backspace far enough
                     if(this.value == "") {
@@ -878,21 +896,6 @@ function alertText(title_, icon_) {
 // function myfun111(){
 //     alert('thiso is alert test');
 // }
-
-
-//function for notify alert
-function notify_alert(id, type, locat, message) {
-
-    $(id).notify(
-        "" + message + "", // show notify message
-        {
-            position: locat, // top, left, right...
-            className: type, // type error or success
-            autoHideDelay: 20000,
-
-        }
-    );
-}
 
 
 

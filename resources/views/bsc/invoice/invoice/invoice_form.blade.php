@@ -301,6 +301,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             let qty=quote_product.qty;
                             let price=quote_product.price;
                             let discount=quote_product.discount;
+                            let description = quote_product.description == null ? "" : quote_product.description;
                             amount = show_amounts(discount_type,qty,price,discount);
                             vats = vat(amount);
                             vat_per_item = vats / qty;
@@ -318,7 +319,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             tr="<tr>"+
                                     "<td class='customer_branch' data-customer_branch_id='"+quote_product.customer_branch_id+"'>"+quote_product.customer_branch_name+"</td>"+
                                     "<td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td>"+
-                                    "<td class='description'>"+quote_product.description+"</td>"+
+                                    "<td class='description'>"+description+"</td>"+
                                     "<td class='qty'>"+quote_product.qty+"</td>"+
                                     "<td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == null  ? price_show : price).toFixed(4)+"</td>"+
                                     "<td class='discount'>"+parseFloat(quote_product.discount).toFixed(4)+" "+percent+"</td>"+

@@ -77,15 +77,15 @@
     // Form step
     $(document).ready(function(){
         $('#smartwizard').smartWizard({
-            'selected': 0,
-            'theme': 'arrows',
-            'justified': true,
-            'autoAdjustHeight': true,
-            'enableURLhash': false,
-            'transition': {
-                'animation': 'slide-horizontal',
-                'speed': '400',
-                'easing':''
+            selected: 0,
+            theme: 'arrows',
+            justified: true,
+            autoAdjustHeight: true,
+            enableURLhash: false,
+            transition: {
+                animation: 'slide-horizontal',
+                speed: '400',
+                easing:''
             },
         });
     });

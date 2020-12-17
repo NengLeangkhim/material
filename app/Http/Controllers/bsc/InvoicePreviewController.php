@@ -10,7 +10,7 @@ use Mpdf\Mpdf;
 class InvoicePreviewController extends Controller
 {
     public function invoice_preview($invoiceId){
-        
+
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
 
@@ -35,20 +35,21 @@ class InvoicePreviewController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
-       
+
         $invoice_head = $data->data->preview_invoice;
         $invoice_detail = $data->data->preview_invoice_detail;
         $invoice_cur = $data->data->preview_currency_rate;
+        $invoice_payments = $data->data->invoice_payments;
         $invoices=DB::select("SELECT * FROM public.get_gazetteers_address('".$invoice_head->address_name."') as address");
         $address = $invoices[0]->address;
 
-        $mylogo=$this->logosource($invoice_head,$invoice_detail,$address,$invoice_cur);
+        $mylogo=$this->logosource($invoice_head,$invoice_detail,$address,$invoice_cur,$invoice_payments);
         $mpdf->WriteHTML($mylogo);
         $mpdf->Output();
 
-       
+
     }
-    public function logosource($invoice_head,$invoice_detail,$address,$invoice_cur){
+    public function logosource($invoice_head,$invoice_detail,$address,$invoice_cur,$invoice_payments){
         $logo = '<table style="border:none;pedding:0;margin:0;width:100%">
         <tr>
             <td>
@@ -81,11 +82,11 @@ class InvoicePreviewController extends Controller
         </table>
         '.$this->head().'
         '.$this->getCustomer($invoice_head,$address).'
-        '.$this->getTotal($invoice_detail,$invoice_head,$invoice_cur).'
+        '.$this->getTotal($invoice_detail,$invoice_head,$invoice_cur,$invoice_payments).'
         '.$this->getNote().'
         '.$this->getSignature().'
-        '.$this->getBottom().'
-        
+
+
     ';
         return $logo;
     }
@@ -116,7 +117,7 @@ class InvoicePreviewController extends Controller
                     <tbody>
                         <tr bgcolor="#1fa8e1">
                             <td align="left" colspan="3" style="font-weight: bold; border-right: 1px dotted #000;padding: 5px;" valign="top">
-                                <span style="color: white;font-size: 16px;font-weight: bold;"><b>អតិថិជន​ / CUSTOMER</b></span>          
+                                <span style="color: white;font-size: 16px;font-weight: bold;"><b>អតិថិជន​ / CUSTOMER</b></span>
                             </td>
                         </tr>
                         <tr>
@@ -162,7 +163,7 @@ class InvoicePreviewController extends Controller
                     <tbody>
                         <tr bgcolor="#1fa8e1">
                             <td align="left" colspan="3" style="font-weight: bold;padding: 5px;" valign="top">
-                                <span style="color: white;font-family: khmeros;font-size: 16px;"><b>BILL INFORMATION</b></span>          
+                                <span style="color: white;font-family: khmeros;font-size: 16px;"><b>BILL INFORMATION</b></span>
                             </td>
                         </tr>
                         <tr>
@@ -198,7 +199,7 @@ class InvoicePreviewController extends Controller
         return $customer;
     }
 
-    public function getTotal($invoice_detail,$invoice_head,$invoice_cur){
+    public function getTotal($invoice_detail,$invoice_head,$invoice_cur,$invoice_payments){
         $vat_number = $invoice_head->vat_number;
         $vat_type = $invoice_head->vat_type;
         $rate = 0;
@@ -234,7 +235,7 @@ class InvoicePreviewController extends Controller
                     $total_riel = $new_amount * $rate;
                     $display = "";
                 }
-               
+
                 $description = $detail->description;
                 if($description == "null"){
                     $description = "";
@@ -254,6 +255,21 @@ class InvoicePreviewController extends Controller
             }
         }
 
+        $span_h = '';
+        $span_b = '';
+        $due_amount = 0;
+        $mydisplay = 'display:none';
+        if(!empty($invoice_payments)){
+            foreach($invoice_payments as $invoice_payment){
+                $mydisplay = '';
+                $due_amount = $invoice_payment->due_amount;
+                $span_h .='<span style="text-align:center;font-size: 10px;font-weight: bold;"><span​>Payment</span​> <br>
+                            <span style="font-size: 10px;"><strong>Date</strong> </span><br/>';
+                $span_b .='<span style="font-size: 11px;"> <strong>$ '.$invoice_payment->amount_paid.'</strong></span><br/>
+                            <span style="font-size: 11px;"> <strong>'.date('d-m-Y', strtotime($invoice_payment->date_paid)).'</strong></span><br/>';
+            }
+        }
+
         $description = '
                 <table rules="all" border="1" style="width:100%;border: 1px solid black;border-collapse: collapse;">
                     <thead>
@@ -261,9 +277,9 @@ class InvoicePreviewController extends Controller
                             <th width="5%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ល.រ​ <br> No</span></th>
                             <th width="18%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">សាខាអតិថិជន <br> Customer Branch</span></th>
                             <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">​ផលិតផល <br>Item</span></th>
-                            <th width="25%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិយាយសេវាកម្ម​ <br> Description</span></th>
+                            <th width="22%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិយាយសេវាកម្ម​ <br> Description</span></th>
                             <th width="10%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិមាណ <br> Quantity</span></th>
-                            <th width="12%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃ​ឯកតា <br> Unit Price</span></th>
+                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃ​ឯកតា <br> Unit Price</span></th>
                             <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃសេវា <br> Amount</span></th>
                         </tr>
                     </thead>
@@ -289,26 +305,40 @@ class InvoicePreviewController extends Controller
                             <td style="text-align: right;font-size: 11px;padding:10px;">
                                 <span style="'.$display.'"><strong> $ '.number_format($amount,4,".",",").'</strong></span> <br>
                                 <span style="'.$display.'"><strong> $ '.number_format($vat,4,".",",").'</strong></span> <br>
-                                <span><strong> $ '.number_format($new_amount,4,".",",").'</strong></span> 
+                                <span><strong> $ '.number_format($new_amount,4,".",",").'</strong></span>
                             </td>
-                           
-                            
+
+
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: right;padding:5px;">
-                                
+
                                 <span style="text-align:center;font-size: 10px;font-weight: bold;"><span​>សរុបជាប្រាក់រៀល (បូករួមទំាងអាករ)</span​> <br>
                                 <span style="font-size: 10px;"><strong>Total Riel (VAT '.$vat_type.')</strong> </span>
                             </td>
                             <td style="text-align: right;padding:10px;"><span style="font-size: 11px;"> <strong>៛ '.number_format($total_riel,0,"",",").'</strong></span></td>
                         </tr>
+
+                        <div style="'.$mydisplay.'">
+                            <tr>
+                                <td colspan="2" style="text-align: right;padding:5px;">
+                                    '.$span_h.'
+                                    <span style="font-size: 10px;"><strong>Due Amount</strong> </span>
+                                </td>
+                                <td style="text-align: right;padding:10px;">
+                                    '.$span_b.'
+                                    <span style="font-size: 11px;"> <strong>$ '.$due_amount.'</strong></span>
+                                </td>
+                            </tr>
+                        </div>
+
                     </tbody>
-                
+
             </table>
 
         ';
         return $description;
-    
+
     }
 
     public function getNote(){
@@ -326,25 +356,34 @@ class InvoicePreviewController extends Controller
     public function getSignature(){
 
         $signature ='
-        <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
-            <tbody>
-                <tr>
-                    <td><br/><br/><br/><br/><br/><br/></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;"><span style="font-size:11px;">-------------------------------------------------</span></td>
-                    <td style="text-align: center;"><span style="font-size:11px;">-------------------------------------------------</span></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;"><span style="font-size:11px;font-family: khmeros;">ហត្ថលេខា និងឈ្មោះអតិថិជន</span></td>
-                    <td style="text-align: center;"><span style="font-size:11px;font-family: khmeros;">ហត្ថលេខា និងឈ្មោះអ្នកលក់</span></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;"><span style="font-size:11px;">Customer\'s Signature & Name</span></td>
-                    <td style="text-align: center;"><span style="font-size:11px;">Seller\'s Signature & Name</span></td>
-                </tr>
-            </tbody>
-        </table><br>';
+        <div style="position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        ">
+            <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td><br/><br/><br/><br/><br/><br/></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><span style="font-size:11px;">-------------------------------------------------</span></td>
+                        <td style="text-align: center;"><span style="font-size:11px;">-------------------------------------------------</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><span style="font-size:11px;font-family: khmeros;">ហត្ថលេខា និងឈ្មោះអតិថិជន</span></td>
+                        <td style="text-align: center;"><span style="font-size:11px;font-family: khmeros;">ហត្ថលេខា និងឈ្មោះអ្នកលក់</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><span style="font-size:11px;">Customer\'s Signature & Name</span></td>
+                        <td style="text-align: center;"><span style="font-size:11px;">Seller\'s Signature & Name</span></td>
+                    </tr>
+                </tbody>
+            </table><br>
+            '.$this->getBottom().'
+        </div>';
         return $signature;
     }
 

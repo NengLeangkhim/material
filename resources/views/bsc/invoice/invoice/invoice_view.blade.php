@@ -487,6 +487,9 @@ $('.detail').click(function(e)
                 let qty=invoice_detail.qty;
                 let price=invoice_detail.unit_price;
                 let discount=invoice_detail.discount;
+                let description = invoice_detail.description == "null" ? "" : invoice_detail.description;
+
+
                 amount = show_amounts(discount_type,qty,price,discount);
                 vats = vat(amount);
                 vat_per_item = vats / qty;
@@ -503,7 +506,7 @@ $('.detail').click(function(e)
                 tr += '<tr>'+
                             '<td>'+invoice_detail.customer_branch_name+'</td>'+
                             '<td>'+invoice_detail.product_name+'</td>'+
-                            '<td>'+invoice_detail.description+'</td>'+
+                            '<td>'+description+'</td>'+
                             '<td>'+invoice_detail.qty+' <span>'+invoice_detail.measurement_name+'</span></td>'+
                             '<td data-old_price="'+price+'">'+parseFloat(vat_number == ""  ? price_show : price).toFixed(4)+'</td>'+
                             '<td>'+invoice_detail.discount+''+percent+'</td>'+
