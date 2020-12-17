@@ -265,6 +265,7 @@ $(document).on('click', '.CrmEditLeadIndustry', function() {
             $.each(response.data, function(i, e) { //read array json for show to textbox
                 $('#name_kh').val(response.data.name_kh);
                 $('#name_en').val(response.data.name_en);
+                $("input[name=industry_type][value=" + response.data.type + "]").prop('checked', true);
                 if (response.data.status == true) {
                     $('#status').val(1);
                 } else {

@@ -178,10 +178,13 @@ class CrmSettingController extends Controller
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
                                         ],
+                'industry_type' => [ 'required'
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
+                'industry_type.required' => 'Please Choose one option !!',   //massage validator
                 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
                 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
                 ]

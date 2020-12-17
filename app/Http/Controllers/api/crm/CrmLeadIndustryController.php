@@ -23,7 +23,8 @@ class CrmLeadIndustryController extends Controller
             $nameEn = $request->input('name_en');
             $nameKh = $request->input('name_kh');
             $status = $request->input('status');
-            $result = $this->industry->saveData($id, $userId, $nameEn, $nameKh, $status);
+            $type = $request->input('industry_type');
+            $result = $this->industry->saveData($id, $userId, $nameEn, $nameKh, $status,$type);
         } catch(QueryException $e){
             $this->sendError($e);
         }
