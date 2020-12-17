@@ -89,7 +89,17 @@ class QuoteController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020604')){
-            return view('crm/quote/addQuote');
+            $userId = $_SESSION['userid'];
+            $userName = '';
+            $emData = ModelCrmQuote::getEmployee2();
+            if(count($emData) >= 1){
+                foreach($emData as $val){
+                    if($val->id == $userId){
+                        $userName = $val->name_en;
+                    }
+                }
+            }
+            return view('crm/quote/addQuote',compact('userName'));
         }else{
             return view('no_perms');
         }
@@ -269,7 +279,7 @@ class QuoteController extends Controller
                     'lead_name' =>  [ 'required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
-                    'comment' =>  ['required'],
+                    // 'comment' =>  ['required'],
                     'product_name.*' =>  ['required'],
                     'qty.*' =>  ['required'],
                     'price.*' =>  ['required'],

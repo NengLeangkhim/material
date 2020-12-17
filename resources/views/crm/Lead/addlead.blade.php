@@ -651,6 +651,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         @else
                             <!-- Select contact -->
                             <div class="card card-primary">
@@ -1297,6 +1298,8 @@
             clearMarkers();
             markers = [];
         }
+
+
         $(function(){
             //Initialize Select2 Elements
             $('#service').select2();
