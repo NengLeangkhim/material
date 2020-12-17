@@ -59,6 +59,8 @@
 
                     <div class="col-md-6">
                         <label for="lead_source">Lead Source <b style="color:red">*</b></label>
+                       <input type="hidden" name="assig_to" id="assig_to" value="{{$userid = $_SESSION['userid']}}">
+                       <input type="hidden" name="branch" id="branch" value="16">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-tty"></i></span>
@@ -67,7 +69,7 @@
                                 <option value=''>-- Select Lead Source --</option>
                                 @if(is_array($lead_source))
                                     @foreach($lead_source as $row)
-                                        <option value="{{$row->id}} ??">{{$row->lead_source ??""}}</option>
+                                        <option value='{{$row->id ?? ""}}'>{{$row->lead_source ?? ""}}</option>
                                     @endforeach
                                 @endisset
 
