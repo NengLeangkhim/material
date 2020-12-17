@@ -195,3 +195,6 @@ $(window).on('shown.bs.modal', function() {
 
 {{-- Smart Wizard --}}
 <script src="plugins/SmartWizard/js/jquery.smartWizard.min.js"></script>
+
+{{-- validation --}}
+<script src="stJS/validation.js"></script>
