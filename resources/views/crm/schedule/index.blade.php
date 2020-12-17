@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Calendar</h1>
+            <h1>Schedule</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Calendar</li>
+              <li class="breadcrumb-item active">Schedule</li>
             </ol>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="col-lg-12">
                 <div class="pt-3 pb-3" style="width: 17%; height: auto;">
                     <button href="javascript:void(0);" class="btn btn-block btn-success btn-sm newschedule"  id="newSchedule" data-toggle="modal" data-target="#modal-default" value="createNewSchedule">
-                        <i class="fas fa-plus"></i> Create New Schedule
+                        <i class="fas fa-plus"></i> Create Schedule
                     </button>
                 </div>
           </div>
