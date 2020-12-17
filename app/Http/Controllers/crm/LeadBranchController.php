@@ -20,7 +20,7 @@ class LeadBranchController extends Controller
     // get lead branch by APi
     public function index(Request $request){
         if(perms::check_perm_module('CRM_0214')){//module codes
-            $status = Request::create('/api/crm/leadStatus', 'GET');
+            $status = Request::create('/api/crm/leadActiveStatus', 'GET');
             $status = json_decode(Route::dispatch($status)->getContent());
             $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
             $schedule_type =json_decode($schedule_type,true);

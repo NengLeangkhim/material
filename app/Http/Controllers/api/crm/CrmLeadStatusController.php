@@ -49,7 +49,14 @@ class CrmLeadStatusController extends Controller
         }
         return $this->sendResponse($result, '');
     }
-
+    function getActiveData(){
+        try{
+            $result = $this->leadStatus->getActiveData();
+        } catch(QueryException $e){
+            $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
     function deleteData(Request $request){
         $id = $request->input('id');
         $userId = $request->input('user_id');
