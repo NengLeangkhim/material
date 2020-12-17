@@ -31,11 +31,12 @@ class ModelCrmQuote extends Model
     }
 
 
-        //function to get all info employee & position type 2
+        //function to get employee id, full_en_name only
         public static function getEmployee2(){
             try {
+                $space = "' '";
                 $r = DB::table('ma_user')
-                        ->select('id', DB::raw('CONCAT(first_name_en, last_name_en) AS name_en'))
+                        ->select('id', DB::raw('CONCAT(first_name_en,'.$space.',last_name_en) AS name_en'))
                         ->where('is_deleted','=','f')
                         ->where('status','=','t')
                         ->orderBy('id','ASC')
@@ -49,6 +50,8 @@ class ModelCrmQuote extends Model
                 exit;
             }
         }
+
+
 
 
 

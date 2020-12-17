@@ -23,16 +23,110 @@ class LeadController extends Controller
             // $lead=ModelCrmLead::CrmGetLead();
             // $result =json_decode($lead,true);
             // if($result!=null){
-                return view('crm.Lead.index',['lead'=>$result["data"]??'']);//pass param in case if error happend
+                // return view('crm.Lead.index',['lead'=>$result["data"]??'']);//pass param in case if error happend
             // }
             // else{
             //     return view('no_perms');
             // }
 
+
+            return view('crm.Lead.lead');
+
         }else{
             return view('no_perms');
         }
     }
+
+
+    // function to show add lead home
+    public static function addleadhome(){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            if(isset($_GET['option_'])){
+                $lead_source=ModelCrmLead::CrmGetLeadSource();
+                $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+                $province=ModelCrmLead::CrmGetLeadProvice();
+                $optionAddLead = $_GET['option_'];
+                if($optionAddLead == 1){ // this type add lead home short
+                    return view('crm.lead.addleadhomeshort',compact('lead_source','lead_industry'));
+                }
+                if($optionAddLead == 2){ // this type add lead home fullss
+                    return view('crm.lead.addleadhomefull',compact('lead_source','lead_industry','province'));
+                }
+
+            }else{
+                return view('no_perms');
+            }
+        }
+    }
+
+
+
+     // function to show add lead business
+     public static function addleadbusiness(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(isset($_GET['option_'])){
+            $optionAddLead = $_GET['option_'];
+            $token = $_SESSION['token'];
+            $userid = $_SESSION['userid'];
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            $emInfo=ModelCrmLead::getEmInfo();
+            if($optionAddLead == 1){ // this type add lead business short
+                return view('crm.lead.addleadbusinessshort',compact('lead_source','lead_industry'));
+            }
+            if($optionAddLead == 2){ // this type add lead business fullss
+                return view('crm.lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+            }
+
+        }else{
+            return view('no_perms');
+        }
+    }
+
+
+     // function to show add lead enterprise
+     public static function addleadenterprise(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(isset($_GET['option_'])){
+            $optionAddLead = $_GET['option_'];
+            $token = $_SESSION['token'];
+            $userid = $_SESSION['userid'];
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            $emInfo=ModelCrmLead::getEmInfo();
+            if($optionAddLead == 1){ // this type add lead enterprise short
+                return view('crm.lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
+            }
+            if($optionAddLead == 2){ // this type add lead enterprise full
+                return view('crm.lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+            }
+
+        }else{
+            return view('no_perms');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //get lead to support for datatable request
     public function getleadDatatable(Request $request){
         $request=str_replace($request->Url(),'',$request->fullUrl());

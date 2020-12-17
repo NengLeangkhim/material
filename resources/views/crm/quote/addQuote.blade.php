@@ -52,14 +52,14 @@
                         ?>
                         <div class="card card-primary">
                                 <div class="card-header" style="background:#1fa8e0">
-                                    <h3 class="card-title">Quote Detail</h3>
+                                    <h3 class="card-title">Basic Information</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
 
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Subject Name<b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Subject<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
@@ -71,7 +71,7 @@
 
 
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Name<b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Customer Name<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
@@ -108,12 +108,12 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name="assign_toName" id="assign_toName" placeholder="Assign To" readonly>
+                                                    <input type="text" class="form-control"  name="assign_toName" id="assign_toName" value="{{ $userName ?? ""}}" placeholder="Assign To" readonly>
                                                     <input type="text" class="form-control"  value="4" name="crm_quote_status_type_id" id="crm_quote_status_type_id" placeholder="Assign To" hidden>
                                                     <div class="input-group-prepend" align="right">
                                                         <a href="javascript:void(0);" class="btn btn-info" id="" onclick="getShowPopup('/quote/add/listAssignTo',1,'modal-list-quote','listAssignTo','tblAssignTo','getSelectRow','em_name_en','assign_to','assign_toName');" ><i class="glyphicon glyphicon-plus"></i></a>
                                                     </div>
-                                                    <input type="hidden" id="assign_to" name="assign_to" >
+                                                    <input type="hidden" id="assign_to" name="assign_to" value="{{ $_SESSION['userid'] ?? "" }}">
                                                     <span id="assign_toNameError" ><strong></strong></span>
 
                                                 </div>
@@ -121,16 +121,43 @@
 
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Billing Address </label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"> <i class="fas fa-map-marked"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Billing Address" disabled>
+                                                    {{-- <span id="commentError" ><strong></strong></span> --}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Main Address </label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-map-marked"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Main Address" disabled>
+                                                    {{-- <span id="commentError" ><strong></strong></span> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Comment </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" name="comment" id="comment" placeholder="Comment here..." required>
-                                                    <span id="commentError" ><strong></strong></span>
+                                                    {{-- <span id="commentError" ><strong></strong></span> --}}
 
                                                 </div>
                                             </div>
@@ -267,7 +294,7 @@
 
                         <div class="card card-primary" >
                             <div class="card-header" style="background:#1fa8e0">
-                                <h3 class="card-title">Item Detail</h3>
+                                <h3 class="card-title">Items</h3>
                             </div>
                             <div class="card-body ">
                                 <div class="table-responsive">
@@ -277,7 +304,7 @@
                                             <div class="col-12">
                                                 <div class="row-12 pb-3">
                                                         <div class="input-group-prepend">
-                                                            <a href="javascript:void(0);" class="btn btn-primary font-weight-bold" id="clickGetBranch" ><i class="fas fa-plus"></i> Add Lead Branch</a>
+                                                            <a href="javascript:void(0);" class="btn btn-primary font-weight-bold" id="clickGetBranch" ><i class="fas fa-plus"></i> Select Customer Branch</a>
                                                         </div>
                                                 </div>
 

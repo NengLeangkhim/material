@@ -38,130 +38,135 @@
                 </div>
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
                    <div class="row">
-                            <?php $num = count($listQuoteDetail->data->quote_stage??''); ?>
-                            @if( $num > 0)
-                                    {{-- when qoute have qoute stage  new --}}
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 4)
-                                        <div class="col-sm-3 col-3">
-                                            <button type="button" id="sale"  value="9" class="btn-block btn-primary btn-sm btn font-weight-bold">Accept</button>
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button type="button" id="sale"  value="1" class="btn-block btn-danger  btn-sm btn font-weight-bold">Pending</button>
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
+                        <div class="col-md-3 pl-2 pr-3">
+                            <div class="row">
+                                <button type="button" id="btnGoToEditQuoteFromViewDetail" class="btn-block back-color-blue btn-sm btn font-weight-bold" onclick="goto_Action('/quote/leadBranch', '{{$listQuoteDetail->data->id ??''}}');">Edit Customer Info</button>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <?php $num = count($listQuoteDetail->data->quote_stage??''); ?>
+                                @if( $num > 0)
+                                        {{-- when qoute have qoute stage  new --}}
+                                        @if($listQuoteDetail->data->quote_stage[$num-1]->id == 4)
+                                            <div class="col-sm-3 col-3">
+                                                <button type="button" id="sale"  value="9" class="btn-block btn-primary btn-sm btn font-weight-bold">Accept</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button type="button" id="sale"  value="1" class="btn-block btn-danger  btn-sm btn font-weight-bold">Pending</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
 
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
-                                    {{-- when qoute have qoute stage  pending --}} {{-- when qoute have qoute stage Lost meaning suctomer not accept --}}
-                                    @if(($listQuoteDetail->data->quote_stage[$num-1]->id == 1) || $listQuoteDetail->data->quote_stage[$num-1]->id == 17)
-                                        <div class="col-sm-4 col-4">
-                                            <button type="button" id="sale" value="4" class="btn-block btn-primary btn-sm btn font-weight-bold">New</button>
-                                        </div>
-                                        <div class="col-sm-4 col-4">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
+                                        {{-- when qoute have qoute stage  pending --}} {{-- when qoute have qoute stage Lost meaning suctomer not accept --}}
+                                        @if(($listQuoteDetail->data->quote_stage[$num-1]->id == 1) || $listQuoteDetail->data->quote_stage[$num-1]->id == 17)
+                                            <div class="col-sm-4 col-4">
+                                                <button type="button" id="sale" value="4" class="btn-block btn-primary btn-sm btn font-weight-bold">New</button>
+                                            </div>
+                                            <div class="col-sm-4 col-4">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
 
-                                        </div>
-                                        <div class="col-sm-4 col-4">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
-                                    {{-- when qoute have qoute stage  accepted --}}
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 9)
-                                        <div class="col-sm-3 col-3">
-                                            <button type="button" id="sale" value="2"  class="btn-block btn-primary btn-sm btn font-weight-bold">Approved</button>
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button type="button" id="sale"  value="12"class="btn-block btn-danger  btn-sm btn font-weight-bold">Disapproved</button>
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
+                                            </div>
+                                            <div class="col-sm-4 col-4">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
+                                        {{-- when qoute have qoute stage  accepted --}}
+                                        @if($listQuoteDetail->data->quote_stage[$num-1]->id == 9)
+                                            <div class="col-sm-3 col-3">
+                                                <button type="button" id="sale" value="2"  class="btn-block btn-primary btn-sm btn font-weight-bold">Approved</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button type="button" id="sale"  value="12"class="btn-block btn-danger  btn-sm btn font-weight-bold">Disapproved</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
 
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
-                                    {{-- when qoute have qoute stage  disapproved --}}
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 12)
-                                        <div class="col-sm-4 col-4">
-                                            <button type="button" id="sale" value="2" class="btn-block btn-primary btn-sm btn font-weight-bold">Approved</button>
-                                        </div>
-                                        <div class="col-sm-4 col-4">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
-                                        </div>
-                                        <div class="col-sm-4 col-4">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
-                                    {{-- when qoute have qoute stage  approved --}}
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
-                                        <div class="col-sm-4 col-4">
-                                            <button type="button" id="sale" value="3" class="btn-block btn-primary btn-sm btn font-weight-bold">Negogiate</button>
-                                        </div>
-                                        <div class="col-sm-4 col-4">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
-                                        </div>
-                                        <div class="col-sm-4 col-4">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
-                                    {{-- when qoute have qoute stage  negogiate --}}
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 3)
-                                        <div class="col-sm-3 col-3">
-                                            <button type="button" id="sale" value="16" class="btn-block btn-primary btn-sm btn font-weight-bold">Win</button>
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button type="button" id="sale" value="17" class="btn-block btn-danger btn-sm btn font-weight-bold">Lost</button>
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
+                                        {{-- when qoute have qoute stage  disapproved --}}
+                                        @if($listQuoteDetail->data->quote_stage[$num-1]->id == 12)
+                                            <div class="col-sm-4 col-4">
+                                                <button type="button" id="sale" value="2" class="btn-block btn-primary btn-sm btn font-weight-bold">Approved</button>
+                                            </div>
+                                            <div class="col-sm-4 col-4">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
+                                            </div>
+                                            <div class="col-sm-4 col-4">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
+                                        {{-- when qoute have qoute stage  approved --}}
+                                        @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
+                                            <div class="col-sm-4 col-4">
+                                                <button type="button" id="sale" value="3" class="btn-block btn-primary btn-sm btn font-weight-bold">Negogiate</button>
+                                            </div>
+                                            <div class="col-sm-4 col-4">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
+                                            </div>
+                                            <div class="col-sm-4 col-4">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
+                                        {{-- when qoute have qoute stage  negogiate --}}
+                                        @if($listQuoteDetail->data->quote_stage[$num-1]->id == 3)
+                                            <div class="col-sm-3 col-3">
+                                                <button type="button" id="sale" value="16" class="btn-block btn-primary btn-sm btn font-weight-bold">Win</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button type="button" id="sale" value="17" class="btn-block btn-danger btn-sm btn font-weight-bold">Lost</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
 
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 16)
-                                        <div class="col-sm-3 col-3">
-                                            {{-- <button type="button" id="sale" value="16" class="btn-block btn-primary btn-sm btn font-weight-bold">Win</button> --}}
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            {{-- <button type="button" id="sale" value="17" class="btn-block btn-danger btn-sm btn font-weight-bold">Lost</button> --}}
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                                Preview</button>
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
+                                        @if($listQuoteDetail->data->quote_stage[$num-1]->id == 16)
+                                            <div class="col-sm-3 col-3">
+                                                {{-- <button type="button" id="sale" value="16" class="btn-block btn-primary btn-sm btn font-weight-bold">Win</button> --}}
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                {{-- <button type="button" id="sale" value="17" class="btn-block btn-danger btn-sm btn font-weight-bold">Lost</button> --}}
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                    Preview</button>
 
-                                        </div>
-                                        <div class="col-sm-3 col-3">
-                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                                PDF</button>
-                                        </div>
-                                    @endif
+                                            </div>
+                                            <div class="col-sm-3 col-3">
+                                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                    PDF</button>
+                                            </div>
+                                        @endif
 
-                            @endif
-
-
-
-
-
+                                @endif
+                            </div>
+                        </div>
                    </div>
+
 
                 </div>
               </div>

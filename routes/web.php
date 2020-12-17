@@ -40,7 +40,6 @@ Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
 Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
 
-
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch
@@ -53,15 +52,21 @@ Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
 Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
 });
-
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lead and lead branch
+
+
+Route::get('/addlead/home','crm\LeadController@addleadhome'); // get return view add lead home
+Route::get('/addlead/business','crm\LeadController@addleadbusiness'); // get return view add lead home
+Route::get('/addlead/enterprise','crm\LeadController@addleadenterprise'); // get return view add lead home
+
+
 //end lead
 // index
-// Route::get('/leadbranch','crm\LeadBranchController@index');
-Route::get('/leadbranch', function() {
-    return view('crm.LeadBranch.FormStepByStep');
-});
+Route::get('/leadbranch','crm\LeadBranchController@index');
+// Route::get('/leadbranch', function() {
+//     return view('crm.LeadBranch.FormStepByStep');
+// });
 // All
 Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
@@ -82,14 +87,13 @@ Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleres
 // start survey
 //get survey
 Route::get('/survey','crm\CrmSurveyController@index');
+
+
 //get detail survey
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
-// Table survey list
-Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
-// Table survey result
-Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
+
 // end survey
 
 
@@ -1210,7 +1214,6 @@ Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment
 Route::get('hrm_recruitment_login',function(){
     return view('hrms.recruitment_user.login_user');
 });
-
 
 
 

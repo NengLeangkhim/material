@@ -56,13 +56,13 @@ class CrmSurveyController extends Controller
             session_start();
             }
             $validator = \Validator::make($request->all(), [
-                'commentsurvey' =>  [  'required'
-                                        ],
+                // 'commentsurvey' =>  [  'required'
+                //                         ],
                 'possible'=>['required']
 
                 ],
             [
-                'commentsurvey.required' => 'This Field is require !!',   //massage validator
+                // 'commentsurvey.required' => 'This Field is require !!',   //massage validator
                 'possible.required'=>'Please Check Yes or No !!',
 
                 ]
@@ -80,6 +80,7 @@ class CrmSurveyController extends Controller
                 $create_contact->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
+                // dd($response);
                 if($response->insert==='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }

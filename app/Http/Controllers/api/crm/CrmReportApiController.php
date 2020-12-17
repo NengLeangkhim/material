@@ -153,6 +153,24 @@ class CrmReportApiController extends Controller
         $message = 'lead report by status';
         return $this->sendResponse($result, $message);
     }
+    /**
+     * Get schdeule by activities of schedule.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    public function getscheduleactivities(Request $request){
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        // $statusId = $request->status_id;
+        try{
+            $result = $this->crmReport->getscheduleactivities($fromDate, $toDate);
+        }catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        $message = 'Schedule by sctivities';
+        return $this->sendResponse($result, $message);
+    }
 
     /**
      * Get Quote by Status.
@@ -276,6 +294,8 @@ class CrmReportApiController extends Controller
             $totalQuote = $this->crmReport->getTotalQuote($fromDate, $toDate);
             $totalContact = $this->crmReport->getTotalContact($fromDate, $toDate);
             $totalSurvey = $this->crmReport->getTotalSurvey($fromDate, $toDate);
+            $totalschedule=$this->crmReport->getTotalschedule($fromDate, $toDate);
+            $totalleadqualified=$this->crmReport->getTotalleadqualified($fromDate, $toDate);
             $result = [
                 'total_lead' => $totalLeadLeadBranch[0]->total_lead
                 ,'total_branch' => $totalLeadLeadBranch[0]->total_branch
@@ -283,6 +303,8 @@ class CrmReportApiController extends Controller
                 ,'total_quote' => $totalQuote->total_quote
                 ,'total_contact' => $totalContact->total_contact
                 ,'total_survey' => $totalSurvey->total_survey
+                ,'total_schedule' => $totalschedule->total_schedule
+                ,'totalleadqualified' => $totalleadqualified->total_lead_qualified
             ];
         } catch(QueryException $e){
             // dd($e);
@@ -297,6 +319,18 @@ class CrmReportApiController extends Controller
         $type = $request->input('type');
         try {
             $result = $this->crmReport->getContactChartReport($fromDate, $toDate, $type != null ? $type : 'month');
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result,'');
+    }
+    // get total schedule in today
+    public function getscheduleChartReport(Request $request){
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $type = $request->input('type');
+        try {
+            $result = $this->crmReport->getscheduleChartReport($fromDate, $toDate, $type != null ? $type : 'month');
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }
