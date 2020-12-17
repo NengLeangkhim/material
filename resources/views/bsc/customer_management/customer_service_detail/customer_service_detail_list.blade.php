@@ -33,14 +33,14 @@
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                             <thead>
-                                <tr>
-                                    <th>Customer Name</th>
-                                    <th>Customer Branch</th>
-                                    <th>Service</th>
-                                    <th>Effectvice Date</th>
-                                    <th>End Period Date</th>
-                                    <th>Service Status</th>
-                                    <th>Action</th>
+                                <tr class="background_color_tr">
+                                    <th class="background_color_td">Customer Name</th>
+                                    <th class="background_color_td">Customer Branch</th>
+                                    <th class="background_color_td">Service</th>
+                                    <th class="background_color_td">Effectvice Date</th>
+                                    <th class="background_color_td">End Period Date</th>
+                                    <th class="background_color_td">Service Status</th>
+                                    <th class="background_color_td">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

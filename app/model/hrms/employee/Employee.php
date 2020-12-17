@@ -323,6 +323,25 @@ class Employee extends Model
         }
     }
 
+
+    // Employee has permission to approved attendance
+    public static function employee_approve_attendance(){
+        try {
+            $approve_attendance=DB::table('ma_user')
+            ->where([
+                ['status','=','t'],
+                ['is_deleted','=','f'],
+                ['is_employee','=','t'],
+                ['id',[229,190]]
+            ])
+            ->get();
+            dd($approve_attendance);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+    // end Employee has permission to approved attendance
+
     
 
 

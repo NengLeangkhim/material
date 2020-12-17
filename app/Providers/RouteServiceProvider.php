@@ -75,6 +75,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('','web',$bsc.'report_balancesheet.php');
         $this->registerRoute('','web',$bsc.'report_income_statement.php');
         $this->registerRoute('','web',$bsc.'dashboard.php');
+        $this->registerRoute('','web',$bsc.'customer_connection.php');
+        $this->registerRoute('','web',$bsc.'customer_account.php');
     }
 
     /**
@@ -119,6 +121,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('api','api',$bsc.'customer_management.php');
         $this->registerRoute('api','api',$bsc.'chart_account.php');
         $this->registerRoute('api','api',$bsc.'dashboard.php');
+
+        // 4.---HRMS
+        $bsc = 'routes/api/hrms_api/';
+        $this->registerRoute('api','api',$bsc.'hrm_api.php');
     }
 
     protected function registerRoute($prefix, $middleware, $path){

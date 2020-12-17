@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\TryCatch;
 |
 */
 
-Route::get('pdf-create','PdfController@create');
+Route::get('pdf-create','PdfController@request');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -59,6 +59,9 @@ Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lea
 //end lead
 // index
 Route::get('/leadbranch','crm\LeadBranchController@index');
+// Route::get('/leadbranch', function() {
+//     return view('crm.LeadBranch.FormStepByStep');
+// });
 // All
 Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
@@ -79,13 +82,14 @@ Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleres
 // start survey
 //get survey
 Route::get('/survey','crm\CrmSurveyController@index');
-
-
 //get detail survey
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
-
+// Table survey list
+Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
+// Table survey result
+Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 // end survey
 
 
@@ -298,29 +302,53 @@ Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_vi
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
 //======================PDF======================
-Route::get('request','PdfController@request');
-Route::get('warrantyLetter','warrantyLetter@warrantyletter');
-Route::get('stopworkLetter','stopworkLetter@stopworkLetter');
-Route::get('inviteLetter','inviteLetter@inviteLetter');
-Route::get('inviteeetingLetter','inviteMeetingLetter@inviteMeetingLetter');
-Route::get('notice','notice@notice');
-Route::get('requestForm','requestForm@requestForm');
-Route::get('Introduction','Introduction@Introduction');
-Route::get('Decision','Decision@Decision');
-Route::get('requestPaymentForm','requestPaymentForm@requestPaymentForm');
-Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWorkLetter');
-Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
-Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
-//============reportPDF===========
-Route::get('certificate','Certificate@certificatePDF'); //certificate
-Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
-Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
-Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
-Route::get('commission','report_calculate_price_commission@commissionPDF'); //Commission
-Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
-Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
+Route::get('Request_form','e_request\form_pdf\Request_form@Request_form');//
+Route::get('warrantyLetter','e_request\form_pdf\warrantyLetter@warrantyletter');//
+Route::get('stopworkLetter','e_request\form_pdf\stopworkLetter@stopworkLetter');//
+Route::get('inviteLetter','e_request\form_pdf\inviteLetter@inviteLetter');//
+Route::get('inviteMeetingLetter','e_request\form_pdf\inviteMeetingLetter@inviteMeetingLetter');//
+Route::get('news','e_request\form_pdf\news@news');//footer not yet
+Route::get('requestForm','e_request\form_pdf\requestForm@requestForm');//footer not yet
+Route::get('Introduction','e_request\form_pdf\Introduction@Introduction');//footer not yet
+Route::get('Decision','e_request\form_pdf\decision@Decision');//footer not yet
+Route::get('requestPaymentForm','e_request\form_pdf\requestPaymentForm@requestPaymentForm');//footer not yet
+Route::get('FinishContractWorkLetter','e_request\form_pdf\FinishContractWorkLetter@FinishContractWorkLetter');//footer not yet
+Route::get('IntroductionCEO','e_request\form_pdf\IntroductionCEO@IntroductionCEO');//
+Route::get('StopWorkStaff','e_request\form_pdf\StopWorkStaff@StopWorkStaff');//footer not yet
+Route::get('ProtestLetter','e_request\form_pdf\ProtestLetter@ProtestLetter');//
+Route::get('Training','e_request\form_pdf\Training@Training');//
+Route::get('TrainingPreAndPostTest','e_request\form_pdf\TrainingPreAndPostTest@TrainingPreAndPostTest');//
+Route::get('TrainingEvaluationForm','e_request\form_pdf\TrainingEvaluationForm@TrainingEvaluationForm');//
+Route::get('TrainingInvitationLetter','e_request\form_pdf\TrainingInvitationLetter@TrainingInvitationLetter');//
+Route::get('ReceiveWorkLetter','e_request\form_pdf\ReceiveWorkLetter@ReceiveWorkLetter');//
+Route::get('RequestLetter','e_request\form_pdf\RequestLetter@RequestLetter');//
+Route::get('requestBuy','e_request\form_pdf\requestBuy@requestBuy');//
+Route::get('ExternalTrainingReportForm','e_request\form_pdf\ExternalTrainingReportForm@ExternalTrainingReportForm');//
 
-Route::get('annual_training_calendar','annual_training_calendar@annual_training_calendarPDF'); //training_request_proposal
+//============reportPDF===========
+Route::get('certificate','e_request\pdf\Certificate@certificatePDF'); //certificate
+Route::get('expried_intership','e_request\pdf\Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('mistake','e_request\pdf\mistake_form@mistakePDF'); //Mistake_form
+Route::get('spend_eating','e_request\pdf\spend_eating_form@spend_eatingPDF'); //Mistake_form
+Route::get('commission','e_request\pdf\calculate_price_commission@commissionPDF'); //Commission
+Route::get('training_checking_list','e_request\pdf\training_checking_list@report_trainingPDF'); //training_check_list
+Route::get('training_request_proposal','e_request\pdf\training_request_proposal@training_requestPDF'); //training_request_proposal
+Route::get('customer_primary_report','e_request\pdf\customer_primary_report@customer_reportPDF'); //customer_primary_report
+Route::get('staff_complaint','e_request\pdf\staff_complaint_report@staff_complaintPDF'); //staff_complaint_report
+Route::get('warning_employee','e_request\pdf\warning_employee@warning_employeePDF'); //staff_complaint_report
+Route::get('change_history','e_request\pdf\change_history@change_historyPDF'); //change_history
+Route::get('meeting_note','e_request\pdf\meeting_note@meeting_notePDF'); //meeting_note
+Route::get('staff_note','e_request\pdf\staff_note@staff_notePDF'); //staff_note
+Route::get('training_staff_note','e_request\pdf\training_staff_note@training_staff_notePDF'); //training_staff_note
+Route::get('survey_staff_exit','e_request\pdf\survey_staff_exit@survey_staff_exitPDF'); //survey_staff_exit
+Route::get('training_need_analysis','e_request\pdf\training_need_analysis@training_need_analysisPDF'); //training_need_analysis
+Route::get('new_staff','e_request\pdf\new_staff@new_staffPDF'); //new_staff
+Route::get('personal_file_check_list','e_request\pdf\personal_file_check_list@personal_file_check_listPDF'); //personal_file_check_list
+Route::get('font_standard','e_request\pdf\font_standard@font_standardPDF'); //font_standard
+Route::get('WorkingPerformanceAppraisalForm','e_request\pdf\WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');//WorkingPerformanceAppraisalForm
+Route::get('working_performance_appraisal_form','e_request\pdf\working_performance_appraisal_form@working_performance_appraisal_form'); //working_performance_appraisal_form
+
+Route::get('annual_training_calendar','e_request\pdf\annual_training_calendar@annual_training_calendarPDF'); //annual_training_calendar
 
 //=======================E-request==========================
 
@@ -997,6 +1025,12 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_my_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission');
         Route::get('hrm_search_mission','hrms\Employee\MissionAndOutsideController@hrm_search_mission');
         Route::get('hrm_my_search_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission_search');
+        Route::get('hrm_modal_late_missed_scan', 'hrms\Employee\MissionAndOutsideController@modal_late_missed_scan');
+        Route::post('hrm_insert_update_late_missed_scan', 'hrms\Employee\MissionAndOutsideController@insert_update_late_missed_scan');
+        Route::get('hrm_modal_permission', 'hrms\Employee\MissionAndOutsideController@modal_permission');
+        Route::get('hrm_modal_work_on_side', 'hrms\Employee\MissionAndOutsideController@modal_work_on_side');
+        Route::post('hrms_insert_permission', 'hrms\Employee\MissionAndOutsideController@insert_permission_employee');
+        Route::post('hrms_insert_work_on_side', 'hrms\Employee\MissionAndOutsideController@insert_work_on_side');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -1168,9 +1202,9 @@ Route::post('hrm_recruitment_user_submit_answer','hrms\recruitment_user\recruitm
 Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment_userController@candidate_logout');
 
 // view user entry info to register
-Route::get('hrm_index_user_register',function(){
-    return view('hrms.recruitment_user.index_recruitment_register');
-});
+// Route::get('hrm_index_user_register',function(){
+//     return view('hrms.recruitment_user.index_recruitment_register');
+// });
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){

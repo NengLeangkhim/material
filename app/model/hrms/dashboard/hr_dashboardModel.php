@@ -2,6 +2,7 @@
 
 namespace App\model\hrms\dashboard;
 
+use App\model\hrms\employee\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 class hr_dashboardModel extends Model
@@ -103,8 +104,10 @@ class hr_dashboardModel extends Model
 
     // function to get all position available in staff
     public static function available_position(){
-        $sql = " SELECT count(id) AS count_id FROM ma_user WHERE status='t' AND is_deleted ='f'
-                    GROUP BY ma_position_id ";
+        $sql = "SELECT count(*) FROM ma_user mu
+INNER JOIN ma_position mp on mu.ma_position_id=mp.id
+WHERE mu.status='t' AND mu.is_deleted ='f' and mu.is_employee='t' and mp.status='t' and mp.is_deleted='f'
+                    GROUP BY mu.ma_position_id";
         try {
             $r = DB::select($sql);
             return $r;
@@ -121,12 +124,12 @@ class hr_dashboardModel extends Model
 
     // function to get number of staff go outside or mission today
     public static function staff_mission($curret_date){
-        $sql= " SELECT count(mis.id) FROM hr_mission mis 
-                JOIN hr_mission_detail mis_de ON mis.id = mis_de.hr_mission_id 
-                WHERE '$curret_date' >= mis.date_from  AND '$curret_date' <= mis.date_to  
-                AND mis.status='t' AND mis.is_deleted = 'f'";
+        $sql= " SELECT count(DISTINCT(hmd.ma_user_id)) FROM hr_mission  hm 
+        INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id
+        WHERE hm.status='t' and hm.is_deleted='f' and '$curret_date'::date BETWEEN hm.date_from::date and hm.date_to::date and lower(hm.type)='mission' ";
         try {
             $r = DB::select($sql);
+            dd($r);
             return $r;
         }catch(\Illuminate\Database\QueryException $ex){
             dump($ex->getMessage());
@@ -149,6 +152,24 @@ class hr_dashboardModel extends Model
             echo '<br><a href="/">go back</a><br>';
             echo 'exited';
             exit;
+        }
+    }
+
+
+
+
+    // new employee for this month
+    public static function new_employee_for_this_month(){
+        try {
+            $end_month=date('Y-m-d');
+            $end=date("Y-m-t", strtotime($end_month));
+            $start=date('Y-m-01', strtotime($end_month));
+            $sql="SELECT count(*) FROM ma_user WHERE status='t' and is_deleted='f' and is_employee='t' and join_date::date BETWEEN '$start' and '$end'";
+            $entrance=DB::select($sql);
+            $new_entrance=$entrance[0]->count;
+            return $new_entrance;
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 

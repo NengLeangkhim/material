@@ -1,4 +1,4 @@
-/* PDFController Request_Form */
+/* Request_Form */
 .namecompany{
     color:#1fa8e0;
 }
@@ -63,7 +63,7 @@
 
 .footer p{
     margin-left:20px;
-    margin-top:51px;
+    margin-top:57px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -299,7 +299,7 @@
 }
 .footer6{
     margin-top: 200px;
-    font-size: 11pt;
+    font-size: 14px;
     margin-left: 20px;
 }
 /* Request form Letter */
@@ -343,7 +343,7 @@
 }
 
 .footer7{
-    margin-top: 18px;
+    margin-top: 70px;
     font-size: 10pt;
     margin-left: 20px;
 }
@@ -434,7 +434,7 @@
     margin-top:-40px;
     list-style: none;
     margin-left:20px;
-    font-size:11pt;    
+    font-size:11pt;
 }
 
 .lastrow_9{
@@ -466,7 +466,7 @@
 }
 .row5_10{
     font-size: 11pt;
-    margin-right: 20px;
+
 }
 .row6_10 ul{
     margin-top:-20px;
@@ -478,6 +478,7 @@
     margin-top:-29px;
     margin-left: 150px;
     font-size: 11pt;
+
 }
 .row8_10{
     font-size: 11pt;
@@ -552,7 +553,7 @@
 .footer2_11 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:50px;
+    margin-top:80px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -613,7 +614,7 @@
 .footer2_12 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:50px;
+    margin-top:75px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -623,7 +624,7 @@
     margin-left: 20px;
 }
 
-/* Stop Work Employee CEO*/
+/* Stop Work Employee */
 .namecompany{
     color:#1fa8e0;
 }
@@ -641,6 +642,8 @@
     margin-top:-35px;
 }
 .row2_13 ul{
+    margin-left:30px;
+    margin-top:-5px;
     font-style: italic;
     list-style: none;
 }
@@ -665,8 +668,8 @@
 .row6_13{
     margin-right: 20px;
     font-size: 11pt;
-    margin-top:-25px;
-    margin-left: 80px;
+    margin-top:-30px;
+    margin-left: 65px;
 }
 .lastrow13{
     margin-right: 20px;
@@ -678,7 +681,7 @@
 .footer2_13 p{
     margin-right: 20px;
     margin-left:20px;
-    margin-top:50px;
+    margin-top:160px;
     border-top:solid 2px #1fa8e0;
     font-size: 9pt;
 }
@@ -686,4 +689,265 @@
     margin-top: 50px;
     font-size: 9pt;
     margin-left: 20px;
+}
+
+
+/* Protest Letter*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title14 h3{
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+
+.title14{
+    margin-top:-35px;
+}
+.row1_14{
+    margin-top: -30px;
+    font-size: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.footer14 p{
+
+    margin-top:290px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+/* Training*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title15 h3{
+    font-size: 16px;
+    font-family:Khmer OS Muol Light;
+}
+
+.title15{
+    text-align: center;
+    margin-top:-35px;
+}
+.table{
+    text-align: center;
+}
+table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 11pt;
+}
+.lastrow15{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-10px;
+    text-align:right;
+}
+.lastrow15 h3{
+    margin-right: 60px;
+    font-size: 11pt;
+    margin-top:-35px;
+    text-align:right;
+}
+.footer15 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:100px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+
+/* Training Pre and Post Test*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title16 h3{
+    font-size: 16px;
+    font-family:Khmer OS Muol Light;
+}
+.row1_16{
+    font-size: 11pt;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top: -50px;
+}
+.row2_16{
+    text-align: center;
+    margin-top: -50px;
+}
+.title16{
+    text-align: center;
+    margin-top:-35px;
+}
+.table16{
+    text-align: center;
+}
+.table16 table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 11pt;
+}
+.lastrow16{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-10px;
+    text-align:right;
+}
+.lastrow16 h3{
+    margin-right: 90px;
+    font-size: 11pt;
+    margin-top:-35px;
+    text-align:right;
+}
+.footer16 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:110px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+/* Training Evaluation Form*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title17 h3{
+    margin-top:-40px;
+    text-align: center;
+    font-size: 16px;
+    font-family:Khmer OS Muol Light;
+}
+.row1_17{
+    margin-top: -50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size:14px;
+}
+.row2_17{
+    margin-top:-10px;
+}
+.footer17 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:-3px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+
+/* TrainingInvitationLetter*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title18 h3{
+    margin-top:-40px;
+    text-align: center;
+    font-size: 16px;
+    font-family:Khmer OS Muol Light;
+}
+.row1_18{
+    margin-top: -50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size:14px;
+}
+.row2_18{
+    margin-top:-10px;
+}
+.row3_18{
+    text-align: center;
+}
+table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 15px;
+}
+.lastrow18{
+    margin-right: 20px;
+    font-size: 15px;
+    margin-top:-50px;
+    text-align:right;
+}
+.lastrow18 h3{
+    margin-right:45px;
+    font-size: 11pt;
+    margin-top:-35px;
+    text-align:right;
+}
+.footer18 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:88px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+/* Receive work Letter*/
+.namecompany{
+    color:#1fa8e0;
+}
+
+table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 15px;
+}
+
+.footer19 p{
+    margin-right: 10px;
+    margin-left:20px;
+    margin-top:120px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+/* Request Letter*/
+.namecompany{
+    color:#1fa8e0;
+}
+
+table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 15px;
+}
+
+.footer20 p{
+    margin-right: 10px;
+    margin-left:20px;
+    margin-top:85px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+
+/* External Training Report Form*/
+.namecompany{
+    color:#1fa8e0;
+}
+
+table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 15px;
+}
+
+.footer22 p{
+    margin-right: 10px;
+    margin-top:240px;
+    border-top:solid 2px #1fa8e0;
+    font-size:8pt;
+}
+/* WorkingPerformanceAppraisalForm*/
+.namecompany{
+    color:#1fa8e0;
+}
+
+table ,th ,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    font-size: 15px;
+}
+
+.footer22 p{
+    margin-right: 10px;
+    margin-top:240px;
+    border-top:solid 2px #1fa8e0;
+    font-size:8pt;
 }

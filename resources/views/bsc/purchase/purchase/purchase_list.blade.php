@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><strong style="font-size: 25px; margin-top:5px;"><i class="fas fa-list"></i>  List </strong></h1>
+                <h1><strong style="font-size: 25px; margin-top:5px;"><i class="fas fa-list"></i> Purchase List </strong></h1>
             </div>
         </div>
     </div><!-- /.container-fluid -->

@@ -243,7 +243,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">City/Province <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select class="form-control select2 city"  id="icity" name="icity" onchange="getbranch(this,'idistrict','s','/district')" required>
+                                    <select class="form-control select2 city"  id="icity" name="icity" onchange="getbranch(this,'idistrict','s','/district')" @php if(!isset($current_address)){echo 'required';} @endphp>
                                         <option value="" hidden></option>
                                         @php
                                             foreach ($data[2] as $province) {
@@ -265,7 +265,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Khan/District <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select class="form-control dynamic" name="idistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required >
+                                    <select class="form-control dynamic" name="idistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" @php if(!isset($current_address)){echo 'required';} @endphp>
                                         <option value="" hidden></option>
                                         @php
                                             if(isset($current_address)){
@@ -285,7 +285,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Sengkat/Commune <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select class="form-control dynamic" name="icommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" required>
+                                    <select class="form-control dynamic" name="icommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" @php if(!isset($current_address)){echo 'required';} @endphp>
                                         <option value="" hidden></option>
                                         @php
                                             if(isset($current_address)){
@@ -305,7 +305,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Village <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select class="form-control " name="ivillage" id="ivillage" dats-dependent="village" required>
+                                    <select class="form-control " name="ivillage" id="ivillage" dats-dependent="village" @php if(!isset($current_address)){echo 'required';} @endphp>
                                         <option value="" hidden></option>
                                         @php
                                             if(isset($current_address)){
@@ -351,19 +351,19 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">City/Province <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="permanent_province" id="permanent_province" class="form-control" onchange="getbranch(this,'permenent_idistrict','s','/district')" required>
+                                <select name="permanent_province" id="permanent_province" class="form-control" onchange="getbranch(this,'permenent_idistrict','s','/district')" @php if(!isset($permanent_address)){ echo 'required';} @endphp>
                                     <option value="" hidden></option>
                                     @php
                                           foreach ($data[2] as $province) {
-                                          if(isset($permanent_address)){
-                                              if($province->code==$permanent_address['province_code']){
-                                                  echo '<option selected value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
-                                              }else {
-                                                  echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
-                                              }
-                                          }else {
-                                              echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
-                                          }
+                                            if(isset($permanent_address)){
+                                                if($province->code==$permanent_address['province_code']){
+                                                    echo '<option selected value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                                                }else {
+                                                    echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                                                }
+                                            }else {
+                                                echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                                            }
                                           }
                                       @endphp
                                 </select>
@@ -373,7 +373,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Khan/District <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select class="form-control dynamic" name="permenent_idistrict" id="permenent_idistrict" onchange="getbranch(this,'permenent_commune','s','/commune')" required>
+                                <select class="form-control dynamic" name="permenent_idistrict" id="permenent_idistrict" onchange="getbranch(this,'permenent_commune','s','/commune')" @php if(!isset($permanent_address)){echo 'required';} @endphp>
                                     <option value="" hidden></option>
                                     @php
                                         if(isset($permanent_address)){
@@ -393,7 +393,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Sengkat/Commune <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="permenent_commune" id="permenent_commune" class="form-control" onchange="getbranch(this,'permenent_village','s','/village')" required>
+                                <select name="permenent_commune" id="permenent_commune" class="form-control" onchange="getbranch(this,'permenent_village','s','/village')" @php if(!isset($permanent_address)){echo 'required';} @endphp>
                                     <option value="" hidden></option>
                                     @php
                                         if(isset($permanent_address)){
@@ -413,7 +413,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Village <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="permenent_village" id="permenent_village" class="form-control" required>
+                                <select name="permenent_village" id="permenent_village" class="form-control" @php if(!isset($permanent_address)){echo 'required';}@endphp>
                                     <option value="" hidden></option>
                                      @php
                                         if(isset($permanent_address)){
@@ -448,7 +448,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Type of Identification <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="type_of_dentification" id="type_of_dentification" class="form-control" required>
+                                <select name="type_of_dentification" id="type_of_dentification" class="form-control" @php if(!isset($contact)){echo 'required';} @endphp>
                                     <option value="" hidden></option>
                                     @foreach ($data[5] as $identity_type)
                                         @if (isset($contact))
@@ -469,7 +469,7 @@
                         <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label"># of Identification <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="number_of_dentification" id="number_of_dentification" value="@php if(isset($contact)){echo $contact['ma_identification_number'];} @endphp" required>
+                                    <input type="text" class="form-control" name="number_of_dentification" id="number_of_dentification" value="@php if(isset($contact)){echo $contact['ma_identification_number'];} @endphp" @php if(!isset($contact)){echo 'required';}@endphp>
                                 </div>
                             </div>
 
@@ -518,7 +518,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Religion <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select name="religion" id="religion" class="form-control" required>
+                                    <select name="religion" id="religion" class="form-control" @php if(!isset($contact)){echo 'required';}@endphp>
                                         <option value="" hidden></option>
                                         @foreach ($data[6] as $religion)
                                             @if (isset($contact))
@@ -621,28 +621,28 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Father Name <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($relative)){echo $relative['father_name'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($relative)){echo $relative['father_name'];} @endphp" @php if(!isset($relative)){echo 'required';} @endphp>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mother Name <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mother_name" id="parent_mother_name" value="@php if(isset($relative)){echo $relative['mother_name'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_mother_name" id="parent_mother_name" value="@php if(isset($relative)){echo $relative['mother_name'];} @endphp" @php if(!isset($relative)){echo 'required';} @endphp>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Father Occupation <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_father_occupation" id="parent_father_occupation" value="@php if(isset($relative)){echo $relative['father_occupation'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_father_occupation" id="parent_father_occupation" value="@php if(isset($relative)){echo $relative['father_occupation'];} @endphp" @php if(!isset($relative)){echo 'required';}@endphp>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mother Occupation <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mother_occupation" id="parent_mother_occupation" value="@php if(isset($relative)){echo $relative['mother_occupation'];} @endphp">
+                                <input type="text" class="form-control" name="parent_mother_occupation" id="parent_mother_occupation" value="@php if(isset($relative)){echo $relative['mother_occupation'];} @endphp" @php if(!isset($relative)){echo 'required';}@endphp>
                             </div>
                         </div>
 
@@ -670,7 +670,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">City/Province <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="parent_province" id="parent_province" class="form-control" onchange="getbranch(this,'parent_idistrict','s','/district')" required>
+                                <select name="parent_province" id="parent_province" class="form-control" onchange="getbranch(this,'parent_idistrict','s','/district')" @php if(!isset($relative)){echo 'required';}@endphp>
                                     <option value="" hidden></option>
                                     @php
                                           foreach ($data[2] as $province) {
@@ -692,7 +692,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Khan/District <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select class="form-control dynamic" name="parent_idistrict" id="parent_idistrict" onchange="getbranch(this,'parent_commune','s','/commune')" required>
+                                <select class="form-control dynamic" name="parent_idistrict" id="parent_idistrict" onchange="getbranch(this,'parent_commune','s','/commune')" @php if(!isset($relative)){echo 'required';}@endphp>
                                     <option value="" hidden></option>
                                     @php
                                         if(isset($relative)){
@@ -712,7 +712,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Sengkat/Commune <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="parent_commune" id="parent_commune" class="form-control" onchange="getbranch(this,'parent_village','s','/village')" required>
+                                <select name="parent_commune" id="parent_commune" class="form-control" onchange="getbranch(this,'parent_village','s','/village')" @php if(!isset($relative)){echo 'required';}@endphp>
                                     <option value="" hidden></option>
                                      @php
                                         if(isset($relative)){
@@ -732,7 +732,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Village <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="parent_village" id="parent_village" class="form-control" required>
+                                <select name="parent_village" id="parent_village" class="form-control" @php if(!isset($relative)){echo 'required';}@endphp>
                                     <option value="" hidden></option>
                                     @php
                                         if(isset($relative)){
@@ -752,7 +752,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mobile Phone <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mobile_phone" id="parent_mobile_phone" value="@php if(isset($relative)){echo $relative['phone_number'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_mobile_phone" id="parent_mobile_phone" value="@php if(isset($relative)){echo $relative['phone_number'];} @endphp" @php if(!isset($relative)){echo 'required';}@endphp>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -813,7 +813,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Education Status</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="em_education_status" id="parent_father_name" value="@php if(isset($education)){echo $education[0]['education_status'];} @endphp" required>
+                                    <input type="text" class="form-control" name="em_education_status" id="parent_father_name" value="@php if(isset($education)){echo $education[0]['education_status'];} @endphp">
                                 </div>
                             </div>
 
@@ -860,7 +860,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Company's Name</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="company_name" id="parent_father_name" value="@php if(isset($experience)){echo $experience[0]['company_name'];} @endphp" required>
+                                    <input type="text" class="form-control" name="company_name" id="parent_father_name" value="@php if(isset($experience)){echo $experience[0]['company_name'];} @endphp">
                                 </div>
                             </div>
 

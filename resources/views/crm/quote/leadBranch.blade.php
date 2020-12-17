@@ -48,15 +48,15 @@
                                                     @foreach ($dataQuoteLead as $key=>$val)
                                                                 <tr>
                                                                     <td>{{ $key+1 }}</td>
-                                                                    <td>{{ $val['branch_name'] }}</td>
-                                                                    <td>{{ $val['lead_name'] }}</td>
-                                                                    <td>{{ $val['quote_number'] }}</td>
-                                                                    <td>{{ $val['quote_create_by'] }}</td>
+                                                                    <td>{{ $val['branch_name'] ?? ""}}</td>
+                                                                    <td>{{ $val['lead_name'] ?? ""}}</td>
+                                                                    <td>{{ $val['quote_number'] ?? ""}}</td>
+                                                                    <td>{{ $val['quote_create_by'] ?? ""}}</td>
                                                                     {{-- <td>{{ $val['quote_stage']->name_en }}</td> --}}
                                                                     <td style="text-align: center">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <button type="button" class="btn  btn-block btn-sm btn-success btnClickEditBranch"  onclick="goto_Action('/quote/edit/branch','{{ $val['quote_id'] }}', '{{ $val['quote_branch_id'] }}');">
+                                                                                <button type="button" class="btn  btn-block btn-sm btn-success btnClickEditBranch"  onclick="goto_Action('/quote/edit/branch','{{ $val['quote_id'] ?? ''}}', '{{ $val['quote_branch_id'] ?? ''}}');">
                                                                                     <i class="fas fa-wrench"></i>
                                                                                 </button>
                                                                             </div>

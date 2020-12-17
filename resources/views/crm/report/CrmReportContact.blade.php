@@ -16,6 +16,15 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    <style>
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
     <div class="container-fluid">
       <div class="row">
           <div class="col-12">
@@ -46,7 +55,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailContactFrom"  name='DetailContactFrom'  required>
+                                        <input type="text" class="form-control" id="DetailContactFrom" value="<?php echo date('Y-m')?>"  name='DetailContactFrom'  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -55,7 +64,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailContactTo" name='DetailContactTo'  required>
+                                        <input type="text" class="form-control" id="DetailContactTo" value="<?php echo date('Y-m')?>" name='DetailContactTo'  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center">
@@ -100,14 +109,14 @@
 
 
     $('#DetailContactFrom').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
       $('#DetailContactTo').datetimepicker({
-        format: 'YYYY-MM',
+        format: 'YYYY-MM-DD',
         sideBySide: true,
       });
-
+    $(window).off("resize")
     $(document).ready(function(){
         var url = '/api/crm/report/contactReportDetail'
 
@@ -147,6 +156,12 @@
                         })
                         $('#OrganizationTbl2').DataTable({
                             'ordering': false,
+                            "scrollX":true,
+                            "autoWidth": false,
+                            "serverSide": false,
+                            "scrollY": "400px",
+                            "scrollCollapse": false,
+                            "paging": true
                         });
                     }
                 },

@@ -8,15 +8,16 @@
         <table id="Lead_Branch_Tbl" class="table table-bordered table-striped nowrap">
             <thead>
                 <tr style="background: #1fa8e0">
-                    {{-- <th style="color: #FFFFFF">Lead No</th> --}}
-                    <th style="color: #FFFFFF">Company Name</th>
+                    <th style="color: #FFFFFF">Lead No</th>
+                    <th style="color: #FFFFFF">Customer Name</th>
                     {{-- <th style="color: #FFFFFF">Lead Branch Number</th> --}}
-                    <th style="color: #FFFFFF">Company Branch Name</th>
+                    <th style="color: #FFFFFF">Customer Branch Name</th>
                     <th style="color: #FFFFFF">Email</th>
                     <th style="color: #FFFFFF">Phone</th>
-                    <th style="color: #FFFFFF">Schedule Activity</th>
+                    <th style="color: #FFFFFF">Customer Type</th>
                     <th style="color: #FFFFFF">Lead Status</th>
                     <th style="color: #FFFFFF">Assign To</th>
+                    <th style="color: #FFFFFF">Create By</th>
                     <th style="color: #FFFFFF">Action</th>
                     {{-- <th>Detail</th> --}}
                 </tr>

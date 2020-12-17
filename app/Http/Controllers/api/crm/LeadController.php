@@ -116,10 +116,13 @@ class LeadController extends Controller
     //  insert lead
     public  static function  insertLead(Request $request){
         //Lead
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        $userid = $_SESSION['userid'];
+        // if (session_status() == PHP_SESSION_NONE) {
+        //     session_start();
+        // }
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
         $lead_id=$request->input('lead_id')!=""? $request->input('lead_id'):"null";
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
@@ -490,6 +493,8 @@ class LeadController extends Controller
         }
         $userid = $_SESSION['userid'];
         $survey_id =$request->input('survey_id');
+        $pop_id =$request->input("pop_id")!=""?$request->input("pop_id"):null;
+        $pop_distant =$request->input('pop_distant')!=""?$request->input('pop_distant'):null;
         // $userid =$request->input('user_create');
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
@@ -503,10 +508,10 @@ class LeadController extends Controller
         {
             $possible='f';
         }
-        // dd($comment_branch,$lead_detail_id);
+        // dd($pop_id,$pop_distant);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
 
-        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch);
+        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch,$pop_id,$pop_distant);
     }
     // get schdule type
     public function getschduletype($id){

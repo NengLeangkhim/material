@@ -126,7 +126,7 @@ class HrmListCandidateController extends Controller
                     'major'=>['required'],
                     'cv' => ['required','mimes:pdf','max:10240'
                                             ],
-                    'cover_letter' => [ 'required','mimes:pdf','max:10240'
+                    'cover_letter' => ['mimes:pdf','max:10240'
                                             ],
                 ],
                 [
@@ -169,9 +169,16 @@ class HrmListCandidateController extends Controller
                         $zip_file = $file_cv->getClientOriginalName(); // GET File name
                         $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
                         $file_cv->move($destinationPath,$zip_file); // move file to directory
+                        $cover=$_FILES['cover_letter'];
                         $file_cover_letter = $request->file('cover_letter');// GET File
-                        $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
-                        $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
+                        if($file_cover_letter!=''){
+                            $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
+                            $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
+                        }else{
+                            $cover_letter='';
+                        }
+                            
+                        
                         $insert_candidate = ModelHrmListCandidate::insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$p,$position_id,$cover_letter,$interest,$education_level,$major); //insert data
                         DB::commit();
                         return response()->json(['success'=>'Record is successfully added']);

@@ -175,7 +175,7 @@ $(window).on('shown.bs.modal', function() {
 <!-- jQuery UI -->
 <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+{{-- <script src="../dist/js/adminlte.min.js"></script> --}}
 <!-- fullCalendar 2.2.5 -->
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/fullcalendar/main.min.js"></script>
@@ -191,3 +191,6 @@ $(window).on('shown.bs.modal', function() {
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+{{-- Smart Wizard --}}
+<script src="plugins/SmartWizard/js/jquery.smartWizard.min.js"></script>
