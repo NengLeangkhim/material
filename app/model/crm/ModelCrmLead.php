@@ -2,6 +2,7 @@
 
 namespace App\model\crm;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -170,7 +171,7 @@ class ModelCrmLead extends Model
         // dd($res);
         return $res->getContent();
     }
-    // Seach Lead 
+    // Seach Lead
     public static function SearchLead($search)
     {
         $token = $_SESSION['token'];
@@ -191,4 +192,29 @@ class ModelCrmLead extends Model
             ->get();
         return $r;
     }
+
+
+
+    //function to get employee info by id
+    public static function getEmInfo()
+    {
+        try{
+            $r = DB::table('ma_user')
+                ->where([
+                    ['is_deleted','=','false'],
+                    ['status','=','true']
+                ])->get();
+            return $r;
+
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        }
+
+    }
+
+
+
 }
