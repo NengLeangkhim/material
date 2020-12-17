@@ -1,6 +1,6 @@
 
 <section class="content">
-    <div class="">
+    <div class="p-2">
         {{-- <div class="p-2 pl-4">
             <h5><span><i class="fas fa-user-plus"></i></span> Add Lead Home</h5>
         </div> --}}
