@@ -72,6 +72,7 @@ Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByS
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
 Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch
+Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  edit branch
 // end lead branch
 
 //end lead branch

@@ -81,6 +81,8 @@ class GetLeadBranch extends JsonResource
             "schedule_id"=>$this->schedule_id,
             "schedule_status"=>$this->schedule_status,
             "create_by"=>$user,
+            "pop_name"=>$this->pop_name,
+            "distant_from_pop"=>$this->distant_from_pop,
         ];
     }
 }
