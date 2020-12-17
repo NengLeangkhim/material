@@ -1,9 +1,9 @@
 
 <section class="content">
-    <div class="">
-        <div class="p-2 pl-4">
+    <div class="p-2">
+        {{-- <div class="p-2 pl-4">
             <h5><span><i class="fas fa-user-plus"></i></span> Add Lead Home</h5>
-        </div>
+        </div> --}}
         <div class="card-body">
             <form id="frm_Crmlead" method="POST">
                 @csrf
@@ -20,6 +20,9 @@
                             <select name="lead_id" id="lead_id" class="form-control">
                                 <option value='0'>-- Select Lead To Add Branch --</option>
                             </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -72,7 +75,6 @@
                                         <option value='{{$row->id ?? ""}}'>{{$row->lead_source ?? ""}}</option>
                                     @endforeach
                                 @endisset
-
                             </select>
 
                             <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
@@ -206,7 +208,9 @@
 
 
         $(document).ready(function(){
-            $('.select2').select2();
+            $('.select2').select2({
+                placeholder: 'Select an option'
+            });
             $('#lead_id').select2({
                 ajax: {
                     url: '/lead/search',

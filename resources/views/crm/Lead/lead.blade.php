@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-tasks"></i> Add Lead </h1>
+                <h1><i class="fas fa-user-plus"></i> Add Lead </h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -38,7 +38,7 @@
                     <div class="card-body">
                         <div class="row pb-4">
                             <div class="col-12">
-                                <div class="input-group pt-4 pl-2">
+                                <div class="input-group pt-4 pl-4" style="margin-left:3px;">
                                     <div class="input-group-prepend pr-4">
                                         <span class="label label-success font-weight-bold">Type</span>
                                     </div>
