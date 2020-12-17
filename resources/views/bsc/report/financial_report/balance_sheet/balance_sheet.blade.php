@@ -15,6 +15,16 @@
     }
 </style>
 
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><strong style="font-size: 25px;">Balance Sheet</strong></h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -24,7 +34,6 @@
                         {{-- <div class="row"> --}}
                             {{-- <div class="col-12"> --}}
                                 <div class="card-body">
-                                    <h2 id="something">Balance Sheet</h2>
                                     <div class="is-menu row justify-content-between">
                                         <div class="is-menu-left col-9 row justify-content-start">
                                             <div class="input-group col-6">
@@ -51,11 +60,9 @@
                         {{-- </div> --}}
                         <div class="is-report">
                             <div class="is-report-header">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Balance Sheet">
-                                  </div>
-                                  <p class="card-text">Turbotech</p>
-                                  <p class="card-text">For the year ended (DATE)</p>
+                                <h1><strong style="font-size: 25px;">Balance Sheet</strong></h1>
+                                <p class="card-text">Turbotech</p>
+                                {{-- <p class="card-text">For the year ended (DATE)</p> --}}
                             </div>
                             <hr>
                             <div id="is-report-sub-header" class="row"></div>
@@ -97,7 +104,6 @@
                         $(bodyId).empty();
                         setReportHeader(headerId,data.header, col);
                         setDataList(bodyId, 'Asset', data.body.asset_list, col, data.header);
-                        
                         setDataList(bodyId, 'Liability', data.body.liability_list, col, data.header);
                         setDataList(bodyId, 'Equity', data.body.equity_list, col, data.header);
                     }
@@ -188,7 +194,7 @@
             });
         }
         row_account = '<div class="row" style="font-weight: bold;">'+
-                            '<div class="col-'+col+'" style="padding: 0;">Total '+name+'</div>'+
+                            '<div class="col-'+col+'">Total '+name+'</div>'+
                             row_total_account+
                         '</div>';
         $(id).append(`

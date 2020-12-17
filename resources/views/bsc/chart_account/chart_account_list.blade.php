@@ -54,11 +54,11 @@
                                         <div class="card-body">
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Code</th>
-                                                        <th>Name</th>
-                                                        <th>Type</th>
-                                                        <th>Action</th>
+                                                    <tr class="background_color_tr">
+                                                        <th class="background_color_td">Code</th>
+                                                        <th class="background_color_td">Name</th>
+                                                        <th class="background_color_td">Type</th>
+                                                        <th class="background_color_td">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -94,11 +94,11 @@
                                                     <div class="card-body">
                                                         <table id="example2" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Type</th>
-                                                                    <th>Action</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Code</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                    <th class="background_color_td">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -139,11 +139,11 @@
                                                     <div class="card-body">
                                                         <table id="example3" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Type</th>
-                                                                    <th>Action</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Code</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                    <th class="background_color_td">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -184,11 +184,11 @@
                                                     <div class="card-body">
                                                         <table id="example4" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Type</th>
-                                                                    <th>Action</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Code</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                    <th class="background_color_td">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -229,11 +229,11 @@
                                                     <div class="card-body">
                                                         <table id="example5" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Type</th>
-                                                                    <th>Action</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Code</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                    <th class="background_color_td">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -274,11 +274,11 @@
                                                     <div class="card-body">
                                                         <table id="example6" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Type</th>
-                                                                    <th>Action</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Code</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                    <th class="background_color_td">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -319,11 +319,11 @@
                                                     <div class="card-body">
                                                         <table id="example7" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Type</th>
-                                                                    <th>Action</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Code</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                    <th class="background_color_td">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

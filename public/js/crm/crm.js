@@ -430,10 +430,10 @@ function CrmLeadBranchView(url,table){
                 }
             },
             "columnDefs": [
-                {
-                    "targets": 0,
-                    "orderable": false
-                    },
+                // {
+                //     "targets": 0,
+                //     "orderable": false
+                //     },
                 {
                     "searchable": false,
                     "targets": 4
@@ -442,14 +442,14 @@ function CrmLeadBranchView(url,table){
                     // The `data` parameter refers to the data for the cell (defined by the
                     // `data` option, which defaults to the column being worked with, in
                     // this case `data: 0`.
-                    "render": function ( data, type, row ) {
-                        if(data!=null){
-                        return '<label for="">Yes</label>';
-                        }else{
-                        return '<label for="">No</label>';
-                        }
-                    },
-                    "targets": 4
+                    // "render": function ( data, type, row ) {
+                    //     if(data!=null){
+                    //     return '<label for="">Yes</label>';
+                    //     }else{
+                    //     return '<label for="">No</label>';
+                    //     }
+                    // },
+                    // "targets": 4
                 },
                 {
                     // The `data` parameter refers to the data for the cell (defined by the
@@ -460,29 +460,29 @@ function CrmLeadBranchView(url,table){
                     "render": function ( data, type, row ) {
                         var st='<div class="container-fluid datatable-action-col">';
                         st+='<div class="row form-inline">'+
-                        '<div class="col-md-6">'+
+                        '<div class="col-md-12">'+
                             '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
                                 '<i class="far fa-eye"></i>'+
                             '</a>'+
-                        '</div>';
-                        if(row[4]!=null){
-                        st+='<div class="col-md-6 ">'+
-                                    '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
-                                        '<i class="fas fa-calendar-day"> </i>'+
-                                    '</a>'+
-                                '</div>'+
-                            '</div>';
-                        }else{
-                        st+='<div class="col-md-6 ">'+
-                                    '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
-                                        '<i class="fas fa-calendar-day"> </i>'+
-                                    '</a>'+
-                                '</div>'+
-                            '</div>';
-                        }
+                        '</div></div></div>';
+                        // if(row[4]!=null){
+                        // st+='<div class="col-md-6 ">'+
+                        //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
+                        //                 '<i class="fas fa-calendar-day"> </i>'+
+                        //             '</a>'+
+                        //         '</div>'+
+                        //     '</div>';
+                        // }else{
+                        // st+='<div class="col-md-6 ">'+
+                        //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
+                        //                 '<i class="fas fa-calendar-day"> </i>'+
+                        //             '</a>'+
+                        //         '</div>'+
+                        //     '</div>';
+                        // }
                         return st;
                     },
-                    "targets": 7
+                    "targets": 9
                 },
             ],
             "initComplete": function()
@@ -573,11 +573,11 @@ $('.save').click(function() {
         submit_form('/addlead', 'frm_lead', 'lead');
     })
     // select option lead in add lead, if have value go to list field add branch
-$("#lead_id").change(function() {
-    var lead_id = $(this).val();
-    //goto_Action('/addleadtype',lead_id);
-    CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
-})
+// $("#lead_id").change(function() {
+//     var lead_id = $(this).val();
+//     //goto_Action('/addleadtype',lead_id);
+//     CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
+// })
 
 
 
@@ -599,6 +599,60 @@ $("#lead_id").change(function() {
 // $('#lead_status').change(function(){
 
 // });
+
+
+    // function to onclick change type of add lead
+    function addLeadOption(route,btnId) {
+        if($('#'+btnId+'').hasClass('active')){
+            return 0;
+        }
+        var option = $("input[name='optionAddLead']:checked").val();
+        // console.log('this option val='+option);
+        if(typeof option != 'undefined' && (option == 1 || option == 2)){
+                $.ajax({
+                    url:route,  //get URL to route
+                    type:"get",
+                    data:{
+                        option_:option,
+                    },
+                    success:function(data){
+                        $('#contentShowAddLeadType').html(data);
+                    }
+                });
+        }else{
+            $("#" + btnId + "").notify(
+                "No type selected !",
+                "info", {
+                    position: "bottom",
+                }
+            );
+        }
+
+    }
+
+
+    //function to click to change type option add lead
+    $(document).on('click',"input[name='optionAddLead']", function () {
+        var option = $(this).val();
+        $("[name='btnGroupAddLead[]']").each(function(i) {
+            if($(this).hasClass('active')){
+                var route = $(this).val();
+                $.ajax({
+                    url:route,  //get URL to route
+                    type:"get",
+                    data:{
+                        option_:option,
+                    },
+                    success:function(data){
+                        $('#contentShowAddLeadType').html(data);
+                    }
+                });
+            }
+        });
+    })
+
+
+
 
 
 //========================>> Start-Quote-CRM JS <<=========================================================
@@ -859,7 +913,7 @@ function row_content(i, branId) {
         '<div class="form-group col-11">' +
         '<div class="input-group">' +
         '<div class="input-group-prepend">' +
-        '<span class="font-weight-bold input-group-text">Branch:</span>' +
+        '<span class="font-weight-bold input-group-text">Customer Branch Name:</span>' +
         '</div>' +
         '<input type="text" class="form-control" id="branch' + branId + '"  name="branch"   placeholder="" required readonly>' +
         '<input type="hidden" id="lead_branch' + branId + '"  name="lead_branch[]"  required readonly>' +
@@ -871,7 +925,7 @@ function row_content(i, branId) {
         '<div class="form-group col-11">' +
         '<div class="input-group">' +
         '<div class="input-group-prepend">' +
-        '<span class="font-weight-bold input-group-text">Address:</span>' +
+        '<span class="font-weight-bold input-group-text">Install Address:</span>' +
         '</div>' +
         '<input type="text" class="form-control" id="branchAddress' + branId + '"  name="branchAddress"   placeholder="" required readonly>' +
         '<input type="hidden" id="' + branId + '"  name=""  required readonly>' +

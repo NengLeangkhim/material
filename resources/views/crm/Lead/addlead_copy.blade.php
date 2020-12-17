@@ -540,27 +540,31 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="name_en">Full Name English </label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <div class="mt-4">
+                                                    <label for="name_en">Full Name English </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="name_en" id="name_en" placeholder="Last Name" >
+                                                        <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="name_en" id="name_en" placeholder="Last Name" >
-                                                    <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="name_kh">Full Name Khmer</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <div class="mt-4">
+                                                    <label for="name_kh">Full Name Khmer</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
+                                                        <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
-                                                    <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -651,7 +655,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         @else
                             <!-- Select contact -->
                             <div class="card card-primary">
@@ -1298,8 +1301,6 @@
             clearMarkers();
             markers = [];
         }
-
-
         $(function(){
             //Initialize Select2 Elements
             $('#service').select2();
