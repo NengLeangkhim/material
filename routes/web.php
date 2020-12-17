@@ -96,12 +96,6 @@ Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
-
-// Table survey list
-Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
-
-// Table survey result
-Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 // end survey
 
 // start contact
