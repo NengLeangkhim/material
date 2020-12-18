@@ -279,4 +279,18 @@ class ContactController extends Controller
             return view('no_perms');
         }
     }
+
+    //get contact by id 
+    public function getcontactbyid($id){
+        // return $id;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+        $requests = Request::create('/api/contact/'.$id, 'get');
+        $requests->headers->set('Accept', 'application/json');
+        $requests->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($requests);
+        return $res;
+    }
 }

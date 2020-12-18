@@ -92,6 +92,8 @@ Route::get('/survey','crm\CrmSurveyController@index');
 Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
 // Table survey result
 Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
+
+
 //get detail survey
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
@@ -100,6 +102,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+
 Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/search','crm\ContactController@CrmLeadContactSearch'); //Search
@@ -110,6 +113,7 @@ Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update co
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
+Route::get('/contact/{id}','crm\ContactController@getcontactbyid'); //get contact by id
 // end contact
 
 // Start Organization

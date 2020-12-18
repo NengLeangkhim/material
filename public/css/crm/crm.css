@@ -2,8 +2,11 @@
 
     /* style delcare for use in google map */
     #map {
-        border: 1px solid rgb(36, 42, 43);
-        border-radius: 10px;
+        border: solid 3px transparent;
+        background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(180deg,  #d42931 ,#1fa8e0);
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        border-radius: 20px;
         margin-top: 1em;
         height: 400px;
         width: 100%;

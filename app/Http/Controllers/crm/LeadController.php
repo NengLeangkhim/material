@@ -424,14 +424,14 @@ class LeadController extends Controller
                     //                     ->where(function ($query) use ($request) {
                     //                     return $query->where('is_deleted', 'f');})
                                             // ],
-                    'branch' =>  [  'required'
-                                            ],
+                    // 'branch' =>  [  'required'
+                    //                         ],
                     'lead_source' =>  [  'required'
                                             ],
                     'lead_industry' =>  [  'required'
                                             ],
-                    'assig_to' =>  [  'required'
-                                            ],
+                    // 'assig_to' =>  [  'required'
+                    //                         ],
                     // 'service' =>  [  'required'
                     //                         ],
                     // 'website' =>  [  'required'
