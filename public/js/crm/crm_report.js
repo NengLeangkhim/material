@@ -724,7 +724,7 @@ var reportLeadContactResult = () => {
 
     // $("#FrmChartQuoteReport input").removeClass("is-invalid")
     // $.ajax({
-    //     url: '/crmreport/quote/chart',
+    //     url: '/crmreport/contact/resule/chart',
     //     type: 'GET',
     //     headers: {
     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
