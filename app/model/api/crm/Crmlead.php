@@ -243,7 +243,9 @@ class Crmlead extends Model
                         $lead_id=$result[0]->insert_crm_lead;
 
                         //insert Into crm_lead_address
-                        $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
+                        Crmlead::insertaddress ($lead_id,'main',$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
+                        Crmlead::insertaddress ($lead_id,'billing',$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
+                        $address=Crmlead::insertaddress ($lead_id,'install',$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                         $address_id=$address[0]->insert_crm_lead_address;
 
 
@@ -341,7 +343,7 @@ class Crmlead extends Model
             DB::beginTransaction();
                 try {
                      //insert Into crm_lead_address
-                     $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
+                     $address=Crmlead::insertaddress ($lead_id,"install",$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                      $address_id=$address[0]->insert_crm_lead_address;
                     //  dd($address);
 

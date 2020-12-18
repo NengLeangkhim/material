@@ -64,7 +64,7 @@
                                 <option value=''>-- Select Lead Source --</option>
                                 @if(is_array($lead_source))
                                     @foreach($lead_source as $row)
-                                        <option value="{{$row->id}} ??">{{$row->lead_source ??""}}</option>
+                                        <option value='{{$row->id ?? ""}}'>{{$row->lead_source ?? ""}}</option>
                                     @endforeach
                                 @endisset
                             </select>

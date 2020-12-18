@@ -495,33 +495,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <label for="home_kh"> Home(KH)</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control"  name='home_kh' id="home_kh" placeholder="Number of home khmer" onkeypress="return validKHTxt(event)">
-                                            <span class="invalid-feedback" role="alert" id="home_khError"> {{--span for alert--}}
-                                                <strong></strong>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="street_kh"> Street(KH) </label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control"  name='street_kh' id="street_kh" placeholder="Number of street english" onkeypress="return validKHTxt(event)">
-                                            <span class="invalid-feedback" role="alert" id="street_khError"> {{--span for alert--}}
-                                                <strong></strong>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                               
 
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -605,7 +579,7 @@
 
                                 <div class="row mt-3">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="latlong"> Lead Map <b style="color:red">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -616,23 +590,6 @@
                                                 <strong></strong>
                                             </span>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group pt-4 pl-2">
-                                            <div class="input-group-prepend pr-4">
-                                                <span class="font-weight-bold">Survey</span>
-                                            </div>
-                                            <div class="custom-control custom-radio ml-2">
-                                                <input type="radio" id="customRadio2" value="yes" name="checksurvey" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio2">Yes</label>
-                                            </div>
-                                            <div class="custom-control custom-radio ml-4">
-                                                <input type="radio" id="customRadio1" value="no" name="checksurvey" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio1">No</label>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
 
@@ -850,5 +807,73 @@
             },
         });
     });
+    $( "#contact_id" ).on('select2:select', function (e){
+        
+        
+        $("#name_en").val(''); //set option null before change
+        $("#name_kh").val('');
+        $("#email").val('');
+        $("#phone").val('');
+        $("#national_id").val('');
+        $("#position").val('');
+        $("#ma_honorifics_id").val('');
+        var to = $(this).children("option:selected"). val();
+        
+        var myvar= $( "#getcontact" ).val();
+        if(to=='Not'){
+          $("#name_en").val('');
+          $("#name_kh").val('');
+          $("#email").val('');
+          $("#phone").val('');
+          $("#national_id").val('');
+          $("#position").val('');
+          $("#ma_honorifics_id").val('');
+          $('#name_en').prop('readonly', false);
+          $('#name_kh').prop('readonly', false);
+          $('#email').prop('readonly', false);
+          $('#phone').prop('readonly', false);
+          $('#national_id').prop('readonly', false);
+          $('#position').prop('readonly', false);
+          $('#ma_honorifics_id').attr('disabled', false);
+        }else{
+          $.ajax({
+            url:'/contact/'+to,
+            type:'get',
+            dataType:'json',
+            success:function(response){
+              console.log(response);
+
+                        var name_en = response.data.name_en;
+                        var name_kh = response.data.name_kh;
+                        var email = response.data.email;
+                        var phone = response.data.phone;
+                        var national_id = response.data.national_id;
+                        var position = response.data.position;
+                        if(response.data.honorifics == null){
+                           var honorifics_id ='';
+                        }else{
+                          var honorifics_id = response['data'].honorifics.id;
+                        }
+                        $("#name_en").val(name_en);
+                        $("#name_kh").val(name_kh);
+                        $("#email").val(email);
+                        $("#phone").val(phone);
+                        $("#national_id").val(national_id);
+                        $("#position").val(position);
+                        $("#ma_honorifics_id").val(honorifics_id);
+
+                        $('#name_en').prop('readonly', true);
+                        $('#name_kh').prop('readonly', true);
+                        $('#email').prop('readonly', true);
+                        $('#phone').prop('readonly', true);
+                        $('#national_id').prop('readonly', true);
+                        $('#position').prop('readonly', true);
+                        $('#ma_honorifics_id').attr('disabled', true);
+
+
+            }
+          })
+        }
+      });
 </script>
 

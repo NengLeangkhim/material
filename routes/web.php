@@ -92,6 +92,8 @@ Route::get('/survey','crm\CrmSurveyController@index');
 Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
 // Table survey result
 Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
+
+
 //get detail survey
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
@@ -100,6 +102,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+
 Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/search','crm\ContactController@CrmLeadContactSearch'); //Search
@@ -110,6 +113,7 @@ Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update co
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
+Route::get('/contact/{id}','crm\ContactController@getcontactbyid'); //get contact by id
 // end contact
 
 // Start Organization
@@ -158,6 +162,13 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 // end quote
 
+// Customer Service
+Route::get('/crmreport/customerservice','crm\CrmReportController@getCustomerService');
+Route::get('/crmreport/getCustomerService', 'crm\CrmReportController@getCustomerServiceData');
+
+// End
+
+
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
 Route::get('/crmreport/lead/chart','crm\CrmReportController@GetLeadChart'); // Get Lead Chart
@@ -171,9 +182,7 @@ Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteRepor
 Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
 Route::get('/crmreport/listAssignTo','crm\QuoteController@getStaffAssignForReportQuote'); // list staff get assign for report search quote
 Route::get('/crmreport/contact/activities/chart','crm\CrmReportController@CrmReportContactActivitiesChart'); // Get Lead Contact Activities Chart
-// Route::get('/crmreport/contact/result/chart','crm\CrmReportController@CrmReportContactResultChart'); // Get Lead Contact Result Chart
-Route::get('/crmreport/customerservice','crm\CrmReportController@getCustomerService'); // Customer Service
-Route::get('/crmreport/getCustomerService', 'crm\CrmReportController@getCustomerServiceData'); // Get Customer Service
+// Route::get('/crmreport/contact/activities/chart','crm\CrmReportController@CrmReportContactResultChart'); // Get Lead Contact Result Chart
 // End Report
 
 // Dashboard CRM
