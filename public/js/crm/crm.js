@@ -857,8 +857,30 @@ function getDataTableSelectRow(tblId, btnId, getName, fieldID, fieldName, modal_
 //function action when user click row on table then click this select button
 function btnActionAfterClickRowTbl(tbl, btnId, getName, fieldID, fieldName, modal_form) {
     $('#' + btnId + '').click(function() {
+
         if ($('tbody tr').hasClass('selected') == true) {
             var lead_id = $('.selected').attr("id");
+
+            if(lead_id != ""){
+                $.ajax({
+                    type: 'GET',
+                    url: '/quote/getlead/getleadAddress',
+                    data: {
+                        lead_id: lead_id,
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        if(response.success){
+                            var data = response.success;
+                            $("#billing_address").val(data.hom_en+', '+data.street_en+', '+data.full_address);
+                            $("#main_address").val(data.hom_en+', '+data.street_en+', '+data.full_address);
+                        }else{
+                            alertText('Internal Error !','warning');
+                        }
+                    }
+                });
+            }
+
             var lead_name = $.trim($('#' + getName + '_' + lead_id + '').text());
             $('#' + fieldID + '').val(lead_id);
             $('#' + fieldName + '').val(lead_name);
@@ -1006,11 +1028,10 @@ $(document).on('click', '#clickGetBranch', function() {
                 });
 
                 $('#getSelectRow').click(function() {
+
                     if ($('tbody tr').hasClass('selected') == true) {
                         var branch_id = $('.selected').attr("id");
 
-
-                        // console.log('branchid='+branch_id);
                         if (typeof(branch_id) == 'undefined') {
                             $("#getSelectRow").notify(
                                 "No data available in table!",
@@ -1032,6 +1053,10 @@ $(document).on('click', '#clickGetBranch', function() {
                             );
                             return 0;
                         }
+
+
+
+
 
                         if (branch_id != '') {
                             $('#crm_lead_branch_id').val(branch_id);

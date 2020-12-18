@@ -39,7 +39,7 @@ class LeadController extends Controller
 
     // function to show add lead home
     public static function addleadhome(){
-        if(perms::check_perm_module('CRM_020504')){//module codes
+        if(perms::check_perm_module('CRM_02050401')){//module codes
             if(isset($_GET['option_'])){
                 $lead_source=ModelCrmLead::CrmGetLeadSource();
                 $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
@@ -51,10 +51,11 @@ class LeadController extends Controller
                 if($optionAddLead == 2){ // this type add lead home fullss
                     return view('crm.Lead.addleadhomefull',compact('lead_source','lead_industry','province'));
                 }
-
             }else{
                 return view('no_perms');
             }
+        }else{
+            return view('no_perms');
         }
     }
 
@@ -65,21 +66,25 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(isset($_GET['option_'])){
-            $optionAddLead = $_GET['option_'];
-            $token = $_SESSION['token'];
-            $userid = $_SESSION['userid'];
-            $lead_source=ModelCrmLead::CrmGetLeadSource();
-            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
-            $province=ModelCrmLead::CrmGetLeadProvice();
-            $emInfo=ModelCrmLead::getEmInfo();
-            if($optionAddLead == 1){ // this type add lead business short
-                return view('crm.Lead.addleadbusinessshort',compact('lead_source','lead_industry'));
-            }
-            if($optionAddLead == 2){ // this type add lead business fullss
-                return view('crm.Lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
-            }
+        if(perms::check_perm_module('CRM_02050402')){//module codes
+            if(isset($_GET['option_'])){
+                $optionAddLead = $_GET['option_'];
+                $token = $_SESSION['token'];
+                $userid = $_SESSION['userid'];
+                $lead_source=ModelCrmLead::CrmGetLeadSource();
+                $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+                $province=ModelCrmLead::CrmGetLeadProvice();
+                $emInfo=ModelCrmLead::getEmInfo();
+                if($optionAddLead == 1){ // this type add lead business short
+                    return view('crm.Lead.addleadbusinessshort',compact('lead_source','lead_industry'));
+                }
+                if($optionAddLead == 2){ // this type add lead business fullss
+                    return view('crm.Lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+                }
 
+            }else{
+                return view('no_perms');
+            }
         }else{
             return view('no_perms');
         }
@@ -91,21 +96,25 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(isset($_GET['option_'])){
-            $optionAddLead = $_GET['option_'];
-            $token = $_SESSION['token'];
-            $userid = $_SESSION['userid'];
-            $lead_source=ModelCrmLead::CrmGetLeadSource();
-            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
-            $province=ModelCrmLead::CrmGetLeadProvice();
-            $emInfo=ModelCrmLead::getEmInfo();
-            if($optionAddLead == 1){ // this type add lead enterprise short
-                return view('crm.Lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
-            }
-            if($optionAddLead == 2){ // this type add lead enterprise full
-                return view('crm.Lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
-            }
+        if(perms::check_perm_module('CRM_02050403')){//module codes
+            if(isset($_GET['option_'])){
+                $optionAddLead = $_GET['option_'];
+                $token = $_SESSION['token'];
+                $userid = $_SESSION['userid'];
+                $lead_source=ModelCrmLead::CrmGetLeadSource();
+                $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+                $province=ModelCrmLead::CrmGetLeadProvice();
+                $emInfo=ModelCrmLead::getEmInfo();
+                if($optionAddLead == 1){ // this type add lead enterprise short
+                    return view('crm.Lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
+                }
+                if($optionAddLead == 2){ // this type add lead enterprise full
+                    return view('crm.Lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+                }
 
+            }else{
+                return view('no_perms');
+            }
         }else{
             return view('no_perms');
         }

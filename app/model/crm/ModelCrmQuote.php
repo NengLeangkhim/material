@@ -144,6 +144,26 @@ class ModelCrmQuote extends Model
 
 
 
+    //function to get lead address show in add quote
+    public static function getLeadAddress($id){
+        try{
+            $r = DB::table('crm_lead_address')
+                    ->select('hom_en','street_en','gazetteer_code')
+                    ->where([
+                        ['status','=','t'],
+                        ['is_deleted','=','f'],
+                        ['crm_lead_id','=',$id],
+                    ])
+                    ->get();
+            return $r;
+        }catch(\Illuminate\Database\QueryException $ex){
+            throw $ex;
+        }
+    }
+
+
+
+
 
 
 }

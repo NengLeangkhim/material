@@ -36,7 +36,7 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn btn-success " id="getSelectRow"  value="Select">
+                            <input type="button" class="btn btn-success " id="getSelectRow" data-code="btnAddLead"  value="Select">
                         </div>
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
