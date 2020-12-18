@@ -165,10 +165,15 @@
                     </div>
                     {{-- map --}}
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12" id="currentaddress">Current Lead address: {{$detailbranch[0]["address_en"]??''}}</div>
-                            <div class="col-md-12" id="address"></div>
-                            <div class="col-md-12" id="closest_pop_name"></div>
+                        <div class="row" style="border: 1px solid #cccccc; border-radius: 10px">
+                            <dt class="col-sm-4 dt pt-2">Current Lead address: </dt>
+                            <dd class="col-sm-8 dd pt-2">{{$detailbranch[0]["address_en"]??''}}</dd>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8">
+                                <div id="address"></div>
+                                <div id="closest_pop_name"></div>
+                            </div>
+                            
                         </div>
                         <input type="hidden" name="pop_location" value="{{ $pop??'' }}">
                         
@@ -185,7 +190,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="address_type"></label>
+                                                <label for="address_type">Survey Result</label>
                                                 <div class="input-group">
                                                 </div>
                                                 {{-- <input type="text"  id="closest_pop_name" name="pop_id" > --}}
@@ -460,21 +465,22 @@
             // document.getElementById('latlong').value = '11.620803, 104.892215';
 
             // This event listener will call addMarker() when the map is clicked.
-            map.addListener('click', function(event) {
-                if (markers.length >= 1) {
-                    deleteMarkers();
-                }
+            // map.addListener('click', function(event) {
+            //     if (markers.length >= 1) {
+            //         deleteMarkers();
+            //     }
 
-                // addMarker(event.latLng);
-                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
-                mapCenter=event.latLng;
-                // find_closest_marker(event.latLng);
-                pinB.setMap(null);
-                pinB.setPosition(mapCenter);
-                calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
-                geocodePosition(mapCenter);
-                document.getElementById('latlong').value = get_latlng;
-            });
+            //     addMarker(event.latLng);
+            //     get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
+            //     mapCenter=event.latLng;
+                
+            //     find_closest_marker(event.latLng);
+            //     pinB.setMap(null);
+            //     pinB.setPosition(mapCenter);
+            //     calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
+            //     geocodePosition(mapCenter);
+            //     document.getElementById('latlong').value = get_latlng;
+            // });
             putPop();
             find_closest_marker(mapCenter);
             calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));

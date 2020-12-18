@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <!-- ./col -->
                 <div class="boxs">
                     <!-- small box -->
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
             <!-- /.row -->
             <div class="row">
@@ -168,7 +168,7 @@
             <!-- /.row -->
             <!-- /.row -->
             <div class="row g-chart">
-                <div class="col-xl-6">
+                {{-- <div class="col-xl-6">
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
@@ -182,10 +182,10 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                </div>
+                </div> --}}
                 <!-- /.col (RIGHT) -->
             {{-- </div> --}}
-                <div class="col-xl-6">
+                <div class="col-xl-12">
                     <!-- AREA CHART -->
                     <div class="card card-primary">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
@@ -193,7 +193,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <div id="Schedule_activitied_Chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                                <div id="Schedule_activitied_Chart" style="width: auto; height: 400px; max-height: 400px; max-width: 100%;"></div>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -240,9 +240,7 @@
         var Branch_Chart = () => {
             function CrmLeadDrawChart(data) {
                 var result = [
-                    ["Branch", "", {
-                        role: 'style'
-                    }]
+                    ["Branch", "", {role: 'style'}]
                 ]
                 // var colors = [{
                 //         id: 0,
@@ -287,7 +285,7 @@
                 // ]
                 $.each(data, function (index, value) {
                     if(value.crm_lead_status_id != null){
-                        result.push([value.status_en, value.total_lead, value['color']])
+                        result.push([value.status_en, value.total_lead, 'color:' + value['color']  + ''])
                     }
                 });
                 // console.log(result);
@@ -307,6 +305,7 @@
                     width: '100%',
                     legend: 'none',
                     pieSliceText:'value',
+                    dataOpacity: 0.3,
                     vAxis: {
                         minValue: 0,
                         maxValue: 100
@@ -377,6 +376,7 @@
                             opacity: 0.8
                         }
                     },
+                    dataOpacity: 0.3,
                     vAxis: {
                         minValue: 0,
                         maxValue: 100,
@@ -426,16 +426,14 @@
         var schedule_activities_Chart = () => {
             function CrmScheduleActivitiesDrawChart(data) {
                 var result = [
-                    ["Branch", "", {
-                        role: 'style'
-                    }]
+                    ["Branch", "", {role: 'style'}]
                 ]
                 $.each(data, function (index, value) {
                     if(value.id != null){
-                        result.push([value.name_en, value.total_schdeule, value['color']])
+                        result.push([value.name_en, value.total_schdeule, 'color:' + value['color'] + ''])
                     }
                 });
-                // console.log(result);
+                console.log(result);
                 var data_chart = google.visualization.arrayToDataTable(result);
                 var view = new google.visualization.DataView(data_chart);
                 view.setColumns([0, 1,
@@ -452,6 +450,7 @@
                     width: '100%',
                     legend: 'none',
                     pieSliceText:'value',
+                    dataOpacity: 0.3,
                     vAxis: {
                         minValue: 0,
                         maxValue: 100
@@ -477,11 +476,13 @@
                     // console.log(data);
                     if (response.success == true) {
                         var data = response.data;
+                        console.log(data);
                         // console.log(data);
                         if(data.length < 1) {
-                          $('#Schedule_activitied_Chart').empty()
-                            $('#Schedule_activitied_Chart').append(`<h1 style="text-align:center">No Data</h1>`)
-                            return
+                        //   $('#Schedule_activitied_Chart').empty()
+                        //     $('#Schedule_activitied_Chart').append(`<h1 style="text-align:center">No Data</h1>`)
+                            data.push(['No Data', 0, '#25CCF7']);
+                            CrmScheduleActivitiesDrawChart(data);
                             // CrmLeadDrawChart(data);
                             // console.log('Data 0');
                         }
@@ -499,9 +500,7 @@
         var Quote_Chart = () =>{
             function CrmQuoteDrawChart(data) {
                 var result = [
-                    ["Quote", "", {
-                        role: 'style'
-                    }]
+                    ["Quote", "", {role: 'style'}]
                 ]
                 // var colors = [{
                 //         id: 0,
@@ -552,7 +551,7 @@
                 $.each(data, function (index, value) {
                     if(value.crm_quote_status_type_id != null) {
                         // var color = colors[index + 1].code;
-                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, value.crm_quote_status_type_color])
+                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, 'color:' + value.crm_quote_status_type_color + ''])
                     }
                 })
                 var data = google.visualization.arrayToDataTable(result)
@@ -568,7 +567,9 @@
                 ]);
                 var options = {
                     // title: 'Quote Performance',
-                    colors: [''],
+                    legend: 'none',
+                    dataOpacity: 0.3,
+
                     hAxis: {
                         minValue: 0,
                         maxValue: 100,
@@ -595,9 +596,7 @@
                         var data = response.data
                         console.log(data);
                         if(data.length < 1) {
-                            // $('#QuoteChart').empty()
-                            // $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                            // return
+                            data.push(['No Data', 0, '#25CCF7']);
                             CrmQuoteDrawChart(data);
                         }
                         CrmQuoteDrawChart(data);
@@ -753,6 +752,8 @@
         // }
         // Survey Chart
         var Survey_Chart = () => {
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
             function CrmSurveyChart(success,failure) {
                 var data = google.visualization.arrayToDataTable([
                     ['','',{role: 'style'}],
@@ -800,6 +801,12 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
+                    // console.log(response);
+                    if(response.true < 1 && response.false < 1) {
+                        var success = 0;
+                        var failure = 0;
+                        CrmSurveyChart(success,failure);
+                    }
                     var success = response.true;
                     var failure = response.false;
                     CrmSurveyChart(success,failure);

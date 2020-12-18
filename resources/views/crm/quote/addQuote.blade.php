@@ -130,7 +130,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"> <i class="fas fa-map-marked"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Billing Address" disabled>
+                                                    <input type="text" class="form-control" id="billing_address"  placeholder="Billing Address" readonly>
                                                     {{-- <span id="commentError" ><strong></strong></span> --}}
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-marked"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Main Address" disabled>
+                                                    <input type="text" class="form-control" id="main_address" placeholder="Main Address" readonly>
                                                     {{-- <span id="commentError" ><strong></strong></span> --}}
                                                 </div>
                                             </div>

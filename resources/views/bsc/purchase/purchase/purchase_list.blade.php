@@ -40,15 +40,15 @@
                                         <div class="card-body">
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Purchase #</th>
-                                                        <th>Supplier</th>
-                                                        <th>Date</th>
-                                                        <th>Due Date</th>
-                                                        <th>Paid</th>
-                                                        <th>Due</th>
-                                                        <th>Status</th>
-                                                        <th>Detail</th>
+                                                    <tr class="background_color_tr">
+                                                        <th class="background_color_td">Purchase #</th>
+                                                        <th class="background_color_td">Supplier</th>
+                                                        <th class="background_color_td">Date</th>
+                                                        <th class="background_color_td">Due Date</th>
+                                                        <th class="background_color_td">Paid</th>
+                                                        <th class="background_color_td">Due</th>
+                                                        <th class="background_color_td">Status</th>
+                                                        <th class="background_color_td">Detail</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -116,14 +116,14 @@
                                                     <div class="card-body">
                                                         <table id="example2" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Purchase #</th>
-                                                                    <th>Supplier</th>
-                                                                    <th>Date</th>
-                                                                    <th>Due Date</th>
-                                                                    <th>Paid</th>
-                                                                    <th>Due</th>
-                                                                    <th>Detail</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Purchase #</th>
+                                                                    <th class="background_color_td">Supplier</th>
+                                                                    <th class="background_color_td">Date</th>
+                                                                    <th class="background_color_td">Due Date</th>
+                                                                    <th class="background_color_td">Paid</th>
+                                                                    <th class="background_color_td">Due</th>
+                                                                    <th class="background_color_td">Detail</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -183,14 +183,14 @@
                                                     <div class="card-body">
                                                         <table id="example3" class="table table-bordered table-striped">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Purchase #</th>
-                                                                    <th>Supplier</th>
-                                                                    <th>Date</th>
-                                                                    <th>Due Date</th>
-                                                                    <th>Paid</th>
-                                                                    <th>Due</th>
-                                                                    <th>Detail</th>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td">Purchase #</th>
+                                                                    <th class="background_color_td">Supplier</th>
+                                                                    <th class="background_color_td">Date</th>
+                                                                    <th class="background_color_td">Due Date</th>
+                                                                    <th class="background_color_td">Paid</th>
+                                                                    <th class="background_color_td">Due</th>
+                                                                    <th class="background_color_td">Detail</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

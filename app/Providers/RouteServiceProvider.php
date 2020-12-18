@@ -77,6 +77,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('','web',$bsc.'dashboard.php');
         $this->registerRoute('','web',$bsc.'customer_connection.php');
         $this->registerRoute('','web',$bsc.'customer_account.php');
+        $this->registerRoute('','web',$bsc.'customer_deposit.php');
+        $this->registerRoute('','web',$bsc.'customer_balance.php');
     }
 
     /**

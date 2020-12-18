@@ -100,14 +100,11 @@ Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
-
 // end survey
-
-
-
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+
 Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/search','crm\ContactController@CrmLeadContactSearch'); //Search
@@ -118,6 +115,7 @@ Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update co
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
+Route::get('/contact/{id}','crm\ContactController@getcontactbyid'); //get contact by id
 // end contact
 
 // Start Organization
@@ -151,7 +149,7 @@ Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // g
 Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
-
+Route::get('/quote/getlead/getleadAddress','crm\QuoteController@getleadAddress'); // function to get lead address show in add quote
 
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
@@ -168,7 +166,6 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 // Customer Service
 Route::get('/crmreport/customerservice','crm\CrmReportController@getCustomerService');
-
 Route::get('/crmreport/getCustomerService', 'crm\CrmReportController@getCustomerServiceData');
 
 // End
@@ -186,7 +183,8 @@ Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); //
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
 Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
 Route::get('/crmreport/listAssignTo','crm\QuoteController@getStaffAssignForReportQuote'); // list staff get assign for report search quote
-
+Route::get('/crmreport/contact/activities/chart','crm\CrmReportController@CrmReportContactActivitiesChart'); // Get Lead Contact Activities Chart
+// Route::get('/crmreport/contact/activities/chart','crm\CrmReportController@CrmReportContactResultChart'); // Get Lead Contact Result Chart
 // End Report
 
 // Dashboard CRM
@@ -221,6 +219,12 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
     Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
 // END Setting CRM
+
+// Convert To Customer
+    Route::get('/crm_convert_to_customer','crm\CrmConvertToCustomerController@index');
+    Route::get('/crm_convert_to_customer/before_convert','crm\CrmConvertToCustomerController@beforeConvert');
+    Route::get('/crm_convert_to_customer/after_convert','crm\CrmConvertToCustomerController@afterConvert');
+// END Convert To Customer
 
 //===========================END CRM=================================
 

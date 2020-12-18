@@ -2,8 +2,8 @@
 
     /* style delcare for use in google map */
     #map {
-        border: 1px solid rgb(36, 42, 43);
-        border-radius: 10px;
+        box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+        border-radius: 0.25rem;
         margin-top: 1em;
         height: 400px;
         width: 100%;
@@ -51,6 +51,7 @@
         border: 3px solid #cccccc;
         border-radius: 5px;
     }
+
     .dt{
         border-bottom: 1px solid #cccccc;
         margin-bottom: .5rem

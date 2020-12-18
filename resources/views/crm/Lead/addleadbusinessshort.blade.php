@@ -9,7 +9,6 @@
                 @csrf
             <div class="form-group">
                 <div class="row">
-
                     <div class="col-md-6">
                         <label for="lead">Lead</label>
                         <div class="input-group">
@@ -17,40 +16,35 @@
                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                             </div>
                             {{-- <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead"> --}}
-                            <select name="lead_id" id="lead_id" class="form-control">
+                            <select name="lead_id" id="lead_id" class="form-control select2">
                                 <option value='0'>-- Select Lead To Add Branch --</option>
                             </select>
                         </div>
                     </div>
-
-
                     <div class="col-md-6">
                         <label for="company_en">Name <b style="color:red">*</b></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en"  required>
+                            <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en" onkeypress="return validENName(event)" required>
                             <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
                                 <strong></strong>
                             </span>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="row">
-
                     <div class="col-md-6">
                         <label for="primary_phone">Phone <b style="color:red">*</b></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return onlyNumberKey(event)" >
+                            <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return validENNumber(event)" >
                             <span class="invalid-feedback" role="alert" id="primary_phoneError">
                                 <strong></strong>
                             </span>
@@ -59,8 +53,6 @@
 
                     <div class="col-md-6">
                         <label for="lead_source">Lead Source <b style="color:red">*</b></label>
-                        <input type="hidden" name="assig_to" id="assig_to" value="{{$userid = $_SESSION['userid']}}">
-                       <input type="hidden" name="branch" id="branch" value="16">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-tty"></i></span>

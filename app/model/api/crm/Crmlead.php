@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SSP;
+use App\Http\Controllers\path_config;
 use Exception;
 
 class Crmlead extends Model
@@ -165,7 +166,7 @@ class Crmlead extends Model
     public static function insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey)
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file)
     {
 
 
@@ -175,7 +176,7 @@ class Crmlead extends Model
                 return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
                  $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
                  $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file);
 
 
             }
@@ -185,16 +186,32 @@ class Crmlead extends Model
                 return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file);
 
             }
 
+    }
+    private static function addLeadFile($file,$lead_branch_id,$user_create){
+        if(isset($file)&&$file->isValid()){
+            $path='/media/file/crm/lead/';
+            $FilePath = path_config::InsertUploadedFile($file,$path,$user_create);// query insert file returns id of inserted file
+            if($FilePath){
+                DB::beginTransaction();
+                try {
+                    DB::selectOne("SELECT public.insert_crm_lead_branch_ma_uploaded_file_rel(?, ?, ?)",[$lead_branch_id,$FilePath,$user_create]);
+                } catch(Exception $e){
+                    DB::rollback();
+                    throw $e;
+                }
+            }
+
+        }
     }
     // add lead
     public static function addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file){
 
         if(isset($company_en)){
             DB::beginTransaction();
@@ -235,7 +252,8 @@ class Crmlead extends Model
                         //insert into crm_lead_branch
                         $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$user_create,$prioroty);
                         $branch_id=$branch[0]->insert_crm_lead_branch;
-
+                        //insert file if exist
+                        self::addLeadFile($file,$branch_id,$user_create);
 
                         //insert into crm_lead_assign
                         CrmLead::insertassign ($branch_id,$assig_to,$user_create);
@@ -317,7 +335,7 @@ class Crmlead extends Model
     public static function addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file){
 
 
         // return "df";
@@ -332,7 +350,8 @@ class Crmlead extends Model
                      //insert into crm_lead_branch
                      $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$user_create,$prioroty);
                      $branch_id=$branch[0]->insert_crm_lead_branch;
-
+                    //insert file if exist
+                    self::addLeadFile($file,$branch_id,$user_create);
                      //insert into crm_lead_assign
                      CrmLead::insertassign ($branch_id,$assig_to,$user_create);
 

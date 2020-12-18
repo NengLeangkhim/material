@@ -30,15 +30,15 @@
                                     <div class="card-body">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
-                                                <tr>
-                                                    <th>Supplier</th>
-                                                    <th>Purchase#</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Payment Date</th>
-                                                    <th>Reference</th>
-                                                    <th>Total</th>
-                                                    <th>Payment Amount</th>
+                                                <tr class="background_color_tr">
+                                                    <th class="background_color_td">Supplier</th>
+                                                    <th class="background_color_td">Purchase#</th>
+                                                    <th class="background_color_td">Date</th>
+                                                    <th class="background_color_td">Due Date</th>
+                                                    <th class="background_color_td">Payment Date</th>
+                                                    <th class="background_color_td">Reference</th>
+                                                    <th class="background_color_td">Total</th>
+                                                    <th class="background_color_td">Payment Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

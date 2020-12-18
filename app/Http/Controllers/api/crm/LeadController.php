@@ -21,6 +21,7 @@ use App\Http\Resources\api\crm\lead\GetSurvey;
 use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use App\model\api\crm\Crmlead;
+use App\Http\Controllers\path_config;
 use Illuminate\Database\QueryException;
 Use Exception;
 
@@ -137,11 +138,11 @@ class LeadController extends Controller
         $website=$request->input('website') !="" ? $request->input('website'):null;
         $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
         $vat_number=$request->input('vat_number')!="" ?$request->input('vat_number'):null;
-        $company_branch=$request->input('branch')!="" ?$request->input('branch'):null;
+        $company_branch=$request->input('branch')!="" ?$request->input('branch'):16;
         $lead_source=$request->input('lead_source')!="" ?$request->input('lead_source'):null;
         $lead_status=1;
         $lead_industry=$request->input('lead_industry')!="" ?$request->input('lead_industry'):null;
-        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):null;
+        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):$_SESSION['userid'];
         $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp') !="" ?$request->input('current_speed_isp'):null;
         $current_speed=$request->input('current_speed') !="" ?$request->input('current_speed'):null;;
@@ -167,6 +168,12 @@ class LeadController extends Controller
         // $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
         $address_type='main';
         $addresscode=$request->input('village')!=''? $request->input('village'):null;
+        //upload file if exist
+        if($request->hasfile('file')&&$request->file('file')->isValid()){
+            $file= $request->file('file');
+        }else{
+            $file=null;
+        }
 
         // return $lead_id;
         // dd($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
@@ -178,7 +185,7 @@ class LeadController extends Controller
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file);
     }
     // update lead
     public static function updatebranch(Request $request){

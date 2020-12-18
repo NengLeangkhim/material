@@ -31,10 +31,13 @@
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true">All</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Waiting Payment</a>
+                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Unpaid_invoice" role="tab" aria-controls="profile" aria-selected="false">Unpaid Invoice</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#paid" role="tab" aria-controls="profile" aria-selected="false">Paid</a>
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#close_invoice" role="tab" aria-controls="profile" aria-selected="false">Close Invoice</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#void_invoice" role="tab" aria-controls="profile" aria-selected="false">Void Invoice</a>
                                 </li>
 
                             </ul><br/>
@@ -42,7 +45,6 @@
                                 <div class="tab-content" id="myTabContent">
                                     {{-- ============================ Start Tab all ======================= --}}
                                     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="card-body">
                                             <div class="table-responsive">
                                                 <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                                     <thead>
@@ -55,7 +57,7 @@
                                                             <th class="background_color_td">Paid</th>
                                                             <th class="background_color_td">Due</th>
                                                             <th class="background_color_td">Status</th>
-                                                            <th class="background_color_td">Detail</th>
+                                                            <th class="background_color_td">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -69,15 +71,15 @@
                                                                         if($invoice->amount_paid == null && $invoice->due_amount == null){
                                                                             $amount_paid = 0;
                                                                             $due_amount = $invoice->grand_total;
-                                                                            $status = 'Waiting Payment';
+                                                                            $status = 'Unpaid Invoice';
                                                                         }else if ($invoice->due_amount == 0) {
                                                                             $amount_paid = $invoice->amount_paid;
                                                                             $due_amount = $invoice->due_amount;
-                                                                            $status = 'Paid';
+                                                                            $status = 'Close Invoice';
                                                                         }else{
                                                                             $amount_paid = $invoice->amount_paid;
                                                                             $due_amount = $invoice->due_amount;
-                                                                            $status = 'Waiting Payment';
+                                                                            $status = 'Unpaid Invoice';
                                                                         }
                                                                     @endphp
                                                                 <tr>
@@ -91,7 +93,8 @@
                                                                     <td>{{ $status }}</td>
                                                                     <td style="text-align-last: center">
                                                                         <a title="View" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        <a title="Preview" target="_blank" href="bsc_preview_invoioce/{{ $invoice->id }}"   value="" id=""><i class="fa fa-file"></i></a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -99,16 +102,14 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
                                     </div>
                                     {{-- ============================ End Tab all ======================= --}}
 
-                                    {{-- ============================ Start Tabl awaiting ======================= --}}
-                                    <div class="tab-pane fade" id="awaiting" role="tabpanel" aria-labelledby="profile-tab">
+                                    {{-- ============================ Start Tabl Unpaid_invoice ======================= --}}
+                                    <div class="tab-pane fade" id="Unpaid_invoice" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
-                                                    <div class="card-body">
                                                         <div class="table-responsive">
                                                             <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                                                 <thead>
@@ -120,7 +121,7 @@
                                                                         <th class="background_color_td">Due Date</th>
                                                                         <th class="background_color_td">Paid</th>
                                                                         <th class="background_color_td">Due</th>
-                                                                        <th class="background_color_td">Detail</th>
+                                                                        <th class="background_color_td">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -149,7 +150,8 @@
                                                                                         <td>{{ number_format($due_amount,4,".",",") }}</td>
                                                                                         <td style="text-align-last: center">
                                                                                             <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                            {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                            <a title="Preview" target="_blank" href="bsc_preview_invoioce/{{ $invoice->id }}"   value="" id=""><i class="fa fa-file"></i></a>
                                                                                         </td>
                                                                                     </tr>
                                                                             @endif
@@ -158,19 +160,17 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- ============================ End Tabl awaiting ======================= --}}
+                                    {{-- ============================ End Tabl Unpaid Invoice ======================= --}}
 
-                                    {{-- ============================ Start Tabl paid ======================= --}}
-                                    <div class="tab-pane fade" id="paid" role="tabpanel" aria-labelledby="profile-tab">
+                                    {{-- ============================ Start Tabl Close ======================= --}}
+                                    <div class="tab-pane fade" id="close_invoice" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
-                                                    <div class="card-body">
                                                         <div class="table-responsive">
                                                             <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
                                                                 <thead>
@@ -182,7 +182,7 @@
                                                                         <th class="background_color_td">Due Date</th>
                                                                         <th class="background_color_td">Paid</th>
                                                                         <th class="background_color_td">Due</th>
-                                                                        <th class="background_color_td">Detail</th>
+                                                                        <th class="background_color_td">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -206,7 +206,7 @@
                                                                                     <td>{{ number_format($due_amount,4,".",",") }}</td>
                                                                                     <td style="text-align-last: center">
                                                                                         <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                        {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                     </td>
                                                                                 </tr>
                                                                             @endif
@@ -215,12 +215,66 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- ============================ End Tabl paid ======================= --}}
+                                    {{-- ============================ End Tabl Close Invoice ======================= --}}
+
+                                    {{-- ============================ Start Tabl Void Invoice ======================= --}}
+                                    <div class="tab-pane fade" id="void_invoice" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
+                                                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
+                                                        <div class="table-responsive">
+                                                            <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                                <thead>
+                                                                    <tr class="background_color_tr">
+                                                                        <th class="background_color_td">Invoice Number</th>
+                                                                        <th class="background_color_td">Reference</th>
+                                                                        <th class="background_color_td">Customer</th>
+                                                                        <th class="background_color_td">Date</th>
+                                                                        <th class="background_color_td">Due Date</th>
+                                                                        <th class="background_color_td">Paid</th>
+                                                                        <th class="background_color_td">Due</th>
+                                                                        <th class="background_color_td">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @if (count($invoices) >0)
+                                                                        @foreach ($invoices as $invoice)
+                                                                            @if($invoice->due_amount == 0 && $invoice->due_amount != null)
+                                                                            @php
+                                                                                $paid = $invoice->amount_paid;
+                                                                                $amount_paid = number_format($paid, 4, '.', '');
+
+                                                                                $due = $invoice->due_amount;
+                                                                                $due_amount = number_format($due, 4, '.', '');
+                                                                            @endphp
+                                                                                <tr>
+                                                                                    <td>{{ $invoice->invoice_number }}</td>
+                                                                                    <td>{{ $invoice->reference }}</td>
+                                                                                    <td>{{ $invoice->customer_name }}</td>
+                                                                                    <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                                    <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                                    <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                                    <td>{{ number_format($due_amount,4,".",",") }}</td>
+                                                                                    <td style="text-align-last: center">
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- ============================ End Tabl Void Invoice ======================= --}}
                                 </div>
                         </div>
                     </div>
@@ -238,12 +292,16 @@
         "autoWidth": false,
         });
         $("#example2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+            "responsive": true,
+            "autoWidth": false,
         });
         $("#example3").DataTable({
         "responsive": true,
         "autoWidth": false,
+        });
+        $("#example4").DataTable({
+            "responsive": true,
+            "autoWidth": false,
         });
 
         // $('#example2').DataTable({
