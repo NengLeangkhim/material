@@ -431,8 +431,6 @@
                                             </span>
                                         </div>
                                     </div>
-
-
                                 </div>
 
                                 <div class="row mt-3">
@@ -495,7 +493,7 @@
                                     </div>
                                 </div>
 
-                               
+
 
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -808,8 +806,8 @@
         });
     });
     $( "#contact_id" ).on('select2:select', function (e){
-        
-        
+
+
         $("#name_en").val(''); //set option null before change
         $("#name_kh").val('');
         $("#email").val('');
@@ -818,7 +816,7 @@
         $("#position").val('');
         $("#ma_honorifics_id").val('');
         var to = $(this).children("option:selected"). val();
-        
+
         var myvar= $( "#getcontact" ).val();
         if(to=='Not'){
           $("#name_en").val('');
