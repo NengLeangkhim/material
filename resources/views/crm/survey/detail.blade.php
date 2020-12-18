@@ -465,21 +465,22 @@
             // document.getElementById('latlong').value = '11.620803, 104.892215';
 
             // This event listener will call addMarker() when the map is clicked.
-            map.addListener('click', function(event) {
-                if (markers.length >= 1) {
-                    deleteMarkers();
-                }
+            // map.addListener('click', function(event) {
+            //     if (markers.length >= 1) {
+            //         deleteMarkers();
+            //     }
 
-                // addMarker(event.latLng);
-                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
-                mapCenter=event.latLng;
-                // find_closest_marker(event.latLng);
-                pinB.setMap(null);
-                pinB.setPosition(mapCenter);
-                calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
-                geocodePosition(mapCenter);
-                document.getElementById('latlong').value = get_latlng;
-            });
+            //     addMarker(event.latLng);
+            //     get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
+            //     mapCenter=event.latLng;
+                
+            //     find_closest_marker(event.latLng);
+            //     pinB.setMap(null);
+            //     pinB.setPosition(mapCenter);
+            //     calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
+            //     geocodePosition(mapCenter);
+            //     document.getElementById('latlong').value = get_latlng;
+            // });
             putPop();
             find_closest_marker(mapCenter);
             calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
