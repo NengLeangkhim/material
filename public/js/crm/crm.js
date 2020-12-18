@@ -19,7 +19,7 @@ function notify_alert(id, type, locat, message) {
         {
             position: locat, // top, left, right, bottom of the element
             className: type, // type ,error,info,warning,success
-            autoHideDelay: 20000,  // delay time to hide it 20 seconds
+            autoHideDelay: 20000, // delay time to hide it 20 seconds
 
         }
     );
@@ -402,108 +402,107 @@ $(document).on('click', '.CrmEditQuoteStatus', function() {
 });
 // -----------Setting CRM ---------- //
 //--------------Lead Branch -------------//
-function CrmLeadBranchView(url,table){
-  $status = /[^/]*$/.exec(url)[0];
-  $.ajax({
-      url:url,  //get URL to route
-      type:"get",
-      data:{},
-      success:function(data){
-        $('#CrmTabManageSetting').html(data);
-        dt= $('#'+table+'').DataTable({
-            scrollX:true,
-            "serverSide": true,
-            "autoWidth": false,
-            "scrollY": "400px",
-            "scrollCollapse": false,
-            "paging": true,
-            "searchDelay":500,
-            "ajax": "/crm/leadbranch/datatable/"+$status,
-            "ordering": true,
-            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                if(aData.DT_RowId==4){ //check status surveyed
-                  $(nRow).css({'color':'#d42931','font-weight':'bold'});
-                }else{
-                  $(nRow).css({'color':'black'});
+function CrmLeadBranchView(url, table) {
+    $status = /[^/]*$/.exec(url)[0];
+    $.ajax({
+        url: url, //get URL to route
+        type: "get",
+        data: {},
+        success: function(data) {
+            $('#CrmTabManageSetting').html(data);
+            dt = $('#' + table + '').DataTable({
+                scrollX: true,
+                "serverSide": true,
+                "autoWidth": false,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true,
+                "searchDelay": 500,
+                "ajax": "/crm/leadbranch/datatable/" + $status,
+                "ordering": true,
+                "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.DT_RowId == 4) { //check status surveyed
+                        $(nRow).css({ 'color': '#d42931', 'font-weight': 'bold' });
+                    } else {
+                        $(nRow).css({ 'color': 'black' });
+                    }
+                },
+                "columnDefs": [
+                    // {
+                    //     "targets": 0,
+                    //     "orderable": false
+                    //     },
+                    {
+                        "searchable": false,
+                        "targets": 4
+                    },
+                    {
+                        // The `data` parameter refers to the data for the cell (defined by the
+                        // `data` option, which defaults to the column being worked with, in
+                        // this case `data: 0`.
+                        // "render": function ( data, type, row ) {
+                        //     if(data!=null){
+                        //     return '<label for="">Yes</label>';
+                        //     }else{
+                        //     return '<label for="">No</label>';
+                        //     }
+                        // },
+                        // "targets": 4
+                    },
+                    {
+                        // The `data` parameter refers to the data for the cell (defined by the
+                        // `data` option, which defaults to the column being worked with, in
+                        // this case `data: 0`.
+                        "searchable": false,
+                        "width": "100px",
+                        "render": function(data, type, row) {
+                            var st = '<div class="container-fluid datatable-action-col">';
+                            st += '<div class="row form-inline">' +
+                                '<div class="col-md-12">' +
+                                '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/' + data + '"  onclick="go_to(\'/crm/leadbranch/detail/' + data + '\')" title="Detail Branch">' +
+                                '<i class="far fa-eye"></i>' +
+                                '</a>' +
+                                '</div></div></div>';
+                            // if(row[4]!=null){
+                            // st+='<div class="col-md-6 ">'+
+                            //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
+                            //                 '<i class="fas fa-calendar-day"> </i>'+
+                            //             '</a>'+
+                            //         '</div>'+
+                            //     '</div>';
+                            // }else{
+                            // st+='<div class="col-md-6 ">'+
+                            //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
+                            //                 '<i class="fas fa-calendar-day"> </i>'+
+                            //             '</a>'+
+                            //         '</div>'+
+                            //     '</div>';
+                            // }
+                            return st;
+                        },
+                        "targets": 9
+                    },
+                ],
+                "initComplete": function() {
+                    $(".dataTables_filter input")
+                        .unbind() // Unbind previous default bindings
+                        .bind("keyup", function(e) { // Bind our desired behavior
+                            // If the length is 3 or more characters, or the user pressed ENTER, search
+                            if (this.value.length >= 3 || e.keyCode == 13) {
+                                // Call the API search function
+                                dt.search(this.value).draw();
+                                notify_alert('.dataTables_filter input', 'success', 'bottom center', 'search success');
+                            } else {
+                                notify_alert('.dataTables_filter input', 'warn', 'bottom center', 'please input 3 characters or more');
+                            }
+                            // Ensure we clear the search if they backspace far enough
+                            if (this.value == "") {
+                                dt.search("").draw();
+                            }
+                            return;
+                        });
                 }
-            },
-            "columnDefs": [
-                // {
-                //     "targets": 0,
-                //     "orderable": false
-                //     },
-                {
-                    "searchable": false,
-                    "targets": 4
-                    },
-                {
-                    // The `data` parameter refers to the data for the cell (defined by the
-                    // `data` option, which defaults to the column being worked with, in
-                    // this case `data: 0`.
-                    // "render": function ( data, type, row ) {
-                    //     if(data!=null){
-                    //     return '<label for="">Yes</label>';
-                    //     }else{
-                    //     return '<label for="">No</label>';
-                    //     }
-                    // },
-                    // "targets": 4
-                },
-                {
-                    // The `data` parameter refers to the data for the cell (defined by the
-                    // `data` option, which defaults to the column being worked with, in
-                    // this case `data: 0`.
-                    "searchable": false,
-                    "width": "100px",
-                    "render": function ( data, type, row ) {
-                        var st='<div class="container-fluid datatable-action-col">';
-                        st+='<div class="row form-inline">'+
-                        '<div class="col-md-12">'+
-                            '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
-                                '<i class="far fa-eye"></i>'+
-                            '</a>'+
-                        '</div></div></div>';
-                        // if(row[4]!=null){
-                        // st+='<div class="col-md-6 ">'+
-                        //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
-                        //                 '<i class="fas fa-calendar-day"> </i>'+
-                        //             '</a>'+
-                        //         '</div>'+
-                        //     '</div>';
-                        // }else{
-                        // st+='<div class="col-md-6 ">'+
-                        //             '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
-                        //                 '<i class="fas fa-calendar-day"> </i>'+
-                        //             '</a>'+
-                        //         '</div>'+
-                        //     '</div>';
-                        // }
-                        return st;
-                    },
-                    "targets": 9
-                },
-            ],
-            "initComplete": function()
-            {
-                $(".dataTables_filter input")
-                .unbind() // Unbind previous default bindings
-                .bind("keyup", function(e) { // Bind our desired behavior
-                    // If the length is 3 or more characters, or the user pressed ENTER, search
-                    if(this.value.length >= 3 || e.keyCode == 13) {
-                        // Call the API search function
-                        dt.search(this.value).draw();
-                        notify_alert('.dataTables_filter input','success', 'bottom center', 'search success');
-                    }else{
-                        notify_alert('.dataTables_filter input','warn', 'bottom center', 'please input 3 characters or more');
-                    }
-                    // Ensure we clear the search if they backspace far enough
-                    if(this.value == "") {
-                        dt.search("").draw();
-                    }
-                    return;
-                });
-            }
-        }); //Set table to datatable
+            }); //Set table to datatable
 
         }
     });
@@ -571,11 +570,11 @@ $('.save').click(function() {
         submit_form('/addlead', 'frm_lead', 'lead');
     })
     // select option lead in add lead, if have value go to list field add branch
-// $("#lead_id").change(function() {
-//     var lead_id = $(this).val();
-//     //goto_Action('/addleadtype',lead_id);
-//     CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
-// })
+    // $("#lead_id").change(function() {
+    //     var lead_id = $(this).val();
+    //     //goto_Action('/addleadtype',lead_id);
+    //     CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
+    // })
 
 
 
@@ -599,55 +598,55 @@ $('.save').click(function() {
 // });
 
 
-    // function to onclick change type of add lead
-    function addLeadOption(route,btnId) {
-        if($('#'+btnId+'').hasClass('active')){
-            return 0;
-        }
-        var option = $("input[name='optionAddLead']:checked").val();
-        // console.log('this option val='+option);
-        if(typeof option != 'undefined' && (option == 1 || option == 2)){
-                $.ajax({
-                    url:route,  //get URL to route
-                    type:"get",
-                    data:{
-                        option_:option,
-                    },
-                    success:function(data){
-                        $('#contentShowAddLeadType').html(data);
-                    }
-                });
-        }else{
-            $("#" + btnId + "").notify(
-                "No type selected !",
-                "info", {
-                    position: "bottom",
-                }
-            );
-        }
-
+// function to onclick change type of add lead
+function addLeadOption(route, btnId) {
+    if ($('#' + btnId + '').hasClass('active')) {
+        return 0;
     }
-
-
-    //function to click to change type option add lead
-    $(document).on('change','input[name="optionAddLead"]', function () {
-        var option = $(this).val();
-        $("[name='btnGroupAddLead[]']").each(function(i) {
-            if($(this).hasClass('active')){
-                var route = $(this).val();
-                $.ajax({
-                    url:route,  //get URL to route
-                    type:"get",
-                    data:{
-                        option_:option,
-                    },
-                    success:function(data){
-                        $('#contentShowAddLeadType').html(data);
-                    }
-                });
+    var option = $("input[name='optionAddLead']:checked").val();
+    // console.log('this option val='+option);
+    if (typeof option != 'undefined' && (option == 1 || option == 2)) {
+        $.ajax({
+            url: route, //get URL to route
+            type: "get",
+            data: {
+                option_: option,
+            },
+            success: function(data) {
+                $('#contentShowAddLeadType').html(data);
             }
         });
-    })
+    } else {
+        $("#" + btnId + "").notify(
+            "No type selected !",
+            "info", {
+                position: "bottom",
+            }
+        );
+    }
+
+}
+
+
+//function to click to change type option add lead
+$(document).on('change', 'input[name="optionAddLead"]', function() {
+    var option = $(this).val();
+    $("[name='btnGroupAddLead[]']").each(function(i) {
+        if ($(this).hasClass('active')) {
+            var route = $(this).val();
+            $.ajax({
+                url: route, //get URL to route
+                type: "get",
+                data: {
+                    option_: option,
+                },
+                success: function(data) {
+                    $('#contentShowAddLeadType').html(data);
+                }
+            });
+        }
+    });
+})
 
 
 
@@ -923,14 +922,14 @@ function alertText(title_, icon_) {
 
 
 
-    //function to use to call close modal pop up
-    function closeModalUp(modalId) {
-        $('#'+modalId+'').modal('hide');
-        if($("div").hasClass("modal-backdrop")){
-            // console.log('class modal up was close');
-            $("div").removeClass("modal-backdrop");
-        }
+//function to use to call close modal pop up
+function closeModalUp(modalId) {
+    $('#' + modalId + '').modal('hide');
+    if ($("div").hasClass("modal-backdrop")) {
+        // console.log('class modal up was close');
+        $("div").removeClass("modal-backdrop");
     }
+}
 
 
 
@@ -1371,17 +1370,39 @@ $(document).on('click', '#btnUpdateQuoteBranch', function() {
 
 
 // =================Survey============================
-function CrmSurveyView(url,table){
+function CrmSurveyView(url, table) {
     $.ajax({
-        url:url,  //get URL to route
-        type:"get",
-        data:{},
-        success:function(data){
+        url: url, //get URL to route
+        type: "get",
+        data: {},
+        success: function(data) {
             $('#CrmTabManageSurvey').html(data);
-            $('#'+table+'').DataTable({
+            $('#' + table + '').DataTable({
                 // 'responsive': true,
                 'ordering': false,
-                scrollX:true,
+                scrollX: true,
+                "autoWidth": false,
+                "serverSide": false,
+                "scrollY": "400px",
+                "scrollCollapse": false,
+                "paging": true
+            }); //Set table to datatable
+        }
+    });
+}
+
+// ------------------------------ View Convert To Customer ----------------------------
+function CrmConvertToCustomerView(url, table) {
+    $.ajax({
+        url: url, //get URL to route
+        type: "get",
+        data: {},
+        success: function(data) {
+            $('#CrmTabManageConvert').html(data);
+            $('#' + table + '').DataTable({
+                // 'responsive': true,
+                'ordering': false,
+                scrollX: true,
                 "autoWidth": false,
                 "serverSide": false,
                 "scrollY": "400px",
@@ -1396,67 +1417,67 @@ function CrmSurveyView(url,table){
 
 
 
-    function gg_map_marker(id){
-        var map;
-        var markers = [];
+function gg_map_marker(id) {
+    var map;
+    var markers = [];
 
-        function initMap() {
+    function initMap() {
 
-            var haightAshbury = {
-                lat: 11.620803,
-                lng: 104.892215
-            };
-            var get_latlng = 0;
-            map = new google.maps.Map(document.getElementById(''+id+''), {
-                zoom: 12, // Set the zoom level manually
-                center: haightAshbury,
-                mapTypeId: 'roadmap'
-            });
+        var haightAshbury = {
+            lat: 11.620803,
+            lng: 104.892215
+        };
+        var get_latlng = 0;
+        map = new google.maps.Map(document.getElementById('' + id + ''), {
+            zoom: 12, // Set the zoom level manually
+            center: haightAshbury,
+            mapTypeId: 'roadmap'
+        });
 
 
-            //declear default value for latlong on map
-            addMarker(haightAshbury);
-            document.getElementById('latlong').value = '11.620803, 104.892215';
+        //declear default value for latlong on map
+        addMarker(haightAshbury);
+        document.getElementById('latlong').value = '11.620803, 104.892215';
 
-            // This event listener will call addMarker() when the map is clicked.
-            map.addListener('click', function(event) {
-                if (markers.length >= 1) {
-                    deleteMarkers();
-                }
-
-                addMarker(event.latLng);
-                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
-                document.getElementById('latlong').value = get_latlng;
-            });
-        }
-
-        // Adds a marker to the map and push to the array.
-        function addMarker(location) {
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-            markers.push(marker);
-        }
-
-        // Sets the map on all markers in the array.
-        function setMapOnAll(map) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
+        // This event listener will call addMarker() when the map is clicked.
+        map.addListener('click', function(event) {
+            if (markers.length >= 1) {
+                deleteMarkers();
             }
-        }
 
-        // Removes the markers from the map, but keeps them in the array.
-        function clearMarkers() {
-            setMapOnAll(null);
-        }
+            addMarker(event.latLng);
+            get_latlng = event.latLng.lat().toFixed(6) + ', ' + event.latLng.lng().toFixed(6);
+            document.getElementById('latlong').value = get_latlng;
+        });
+    }
 
-        // Deletes all markers in the array by removing references to them.
-        function deleteMarkers() {
-            clearMarkers();
-            markers = [];
+    // Adds a marker to the map and push to the array.
+    function addMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
         }
     }
+
+    // Removes the markers from the map, but keeps them in the array.
+    function clearMarkers() {
+        setMapOnAll(null);
+    }
+
+    // Deletes all markers in the array by removing references to them.
+    function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+    }
+}
 
 
 

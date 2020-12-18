@@ -218,6 +218,12 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
 // END Setting CRM
 
+// Convert To Customer
+    Route::get('/crm_convert_to_customer','crm\CrmConvertToCustomerController@index');
+    Route::get('/crm_convert_to_customer/before_convert','crm\CrmConvertToCustomerController@beforeConvert');
+    Route::get('/crm_convert_to_customer/after_convert','crm\CrmConvertToCustomerController@afterConvert');
+// END Convert To Customer
+
 //===========================END CRM=================================
 
 
