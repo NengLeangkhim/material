@@ -1,6 +1,5 @@
 
 
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -38,7 +37,7 @@
           <!-- /.col -->
           <div class="col-lg-12">
                 <div class="pt-3 pb-3" style="width: 17%; height: auto;">
-                    <button href="javascript:void(0);" class="btn btn-block btn-success btn-sm newschedule"  id="newSchedule" data-toggle="modal" data-target="#modal-default" value="createNewSchedule">
+                    <button href="javascript:void(0);" class="btn btn-block btn-success btn-sm" onclick="CrmModalAction('frm_Crmbranchschdeule','modal-default', 'save', 'Create Schedule')">
                         <i class="fas fa-plus"></i> Create Schedule
                     </button>
                 </div>
@@ -73,7 +72,7 @@
             <form id="frm_Crmbranchschdeule" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <input type="text"  id="branchID" name="branch_id" hidden>
+                    {{-- <input type="text"  id="branchID" name="branch_id" hidden> --}}
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
@@ -83,9 +82,12 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                             </div>
-                                            <select name="lead" id="sl-lead" class="form-control">
-                                                <option value="0">Please Select</option>
+                                            <select name="branch_id" id="branch_id" class="form-control">
+                                                <option value="">---- Please Select -----</option>
                                             </select>
+                                            <span class="invalid-feedback" role="alert" id="branch_idError">
+                                                <strong></strong>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -158,20 +160,28 @@
                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                         </div>
                                         <select class="form-control" name="schedule_type_id" id="schedule_type_id" >
-                                            <option value="0">Please Select</option>
+                                            <option value="">Please Select</option>
+                                            <?php
+                                            for($i =0;$i<sizeof($schedule_type);$i++){
+                                                ?>
+                                                   <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} /  {{$schedule_type[$i]["name_kh"]}} </option>
+                                                <?php
+                                            }
+                                            ?>
                                         </select>
                                         <span class="invalid-feedback" role="alert" id="schedule_type_idError"> {{--span for alert--}}
                                             <strong></strong>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="exampleInputEmail1">Comment</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="far fa-comments"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >
+                                        {{-- <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required > --}}
+                                        <textarea class="form-control" id="comment"  name="comment" rows="5"></textarea>
                                         <span class="invalid-feedback" role="alert" id="commentError"> {{--span for alert--}}
                                             <strong></strong>
                                         </span>
@@ -350,9 +360,34 @@
     }
 })
 
-$('#newSchedule').click(function() {
-    var ld = $(this).attr("​value");
-    go_to(ld);
-})
+// $('#newSchedule').click(function() {
+//     var ld = $(this).attr("​value");
+//     go_to(ld);
+//     $('#branch_id').select2();
+// })
+$(document).ready(function(){
+    // function search lead
+
+    $('#branch_id').select2({
+        width: '90%',
+        ajax: {
+            url: '/crm/leadbranch/search',
+            dataType: 'json',
+            type:'get',
+            delay: 1200,
+            data: function (params) {
+                return {
+                    search: params.term // search term
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response.data
+                };
+            },
+            cache: true
+        }
+    });
+});
 </script>
 

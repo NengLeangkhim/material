@@ -8,7 +8,8 @@ use App\Http\Controllers\perms;
 use App\model\api\crm\ModelLeadBranch as LeadBranch;
 use App\model\api\crm\Crmlead;
 use Illuminate\Database\QueryException;
-use App\Http\Resources\api\crm\leadBranch\GetLeadBranch as LeadBranchResource;
+// use App\Http\Resources\api\crm\leadBranch\GetLeadBranch as LeadBranchResource;
+Use Exception;
 
 class LeadBranchController extends Controller
 {
@@ -57,6 +58,39 @@ class LeadBranchController extends Controller
         else
         {
             return view('no_perms');
+        }
+    }
+    // Search Lead branch
+    public function CrmLeadBranchSearch(Request $request){
+        if(is_null($request->search)){
+            $search = null;
+        }else{
+            $search=$request->search;
+        }
+        try{
+            $result = array(['id'=>'','text'=>'----- Please Select Lead -----']);
+            $res= LeadBranch::SearchLeadBranch($search);
+            foreach($res as $row){
+                array_push($result,['id'=>$row->id,"text"=>$row->text]);
+            }
+            return json_encode(["search"=>"success","data"=>$result]);
+        }catch(Exception $e){
+            return json_encode(["search"=>"fail","result"=> $e->getMessage()]);
+        }
+    }
+    //Lead branch Address
+    public function CrmLeadBranchAddress(Request $request){
+        $id = $request->branch_id;
+        try{
+            $result = array();
+            $result= LeadBranch::BranchAddress($id);
+            $address= LeadBranch::BranchAddressType($id);
+            if(!is_null($address)){
+                $result = array_merge($result,$address); // merge address 3 in 1 XD
+            }
+            return json_encode(["search"=>"success","data"=>$result]);
+        }catch(Exception $e){
+            return json_encode(["search"=>"fail","result"=> $e->getMessage()]);
         }
     }
 }

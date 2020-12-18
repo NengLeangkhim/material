@@ -68,11 +68,13 @@ Route::get('/leadbranch','crm\LeadBranchController@index');
 //     return view('crm.LeadBranch.FormStepByStep');
 // });
 // All
-Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/status/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
 Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch
-Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  edit branch
+Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  survey branch
+Route::get('/crm/leadbranch/address/{branch_id}','crm\LeadBranchController@ManageAddress');// address branch
+Route::get('/crm/leadbranch/search','crm\LeadBranchController@CrmLeadBranchSearch');//Search Lead brnach
 // end lead branch
 
 //end lead branch

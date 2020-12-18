@@ -137,9 +137,9 @@ function CrmSettingView(url, table) {
 }
 ////Funtion Modal Action Add///////
 function CrmModalAction(form, modal, button, title) {
-    $("#" + form + "").find('input:text, input:password, input:file,textarea').val(''); //remove text when show
+    $("#" + form + "").find('input:text, input:password, input:file,textarea,date').val(''); //remove text when show
     $("#" + form + "").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected'); //remove text when show
-    $("#" + form + "").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid"); //remove valid all input field
+    $("#" + form + "").find('input:text, input:password, input:file, select, textarea','input:date').removeClass("is-invalid"); //remove valid all input field
     $("#" + form + "").attr("method", "post"); //Set Form method
     $("#" + modal + "").modal('show'); //Set modal show
     $("#card_title").text(title); // Set title modal
