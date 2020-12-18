@@ -521,4 +521,23 @@ class InvoiceController extends Controller
             exit();
         }
     }
+    public function recycle_invoice(){
+        if(!perms::check_perm_module('BSC_030404')){
+            return view('no_perms');
+        }
+        try{
+            return view('bsc.invoice.recycle_invoice.recycle_invoice_list');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+    public function recycle_invoice_view(){
+        try{
+            return view('bsc.invoice.recycle_invoice.recycle_invoice_view');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
 }
