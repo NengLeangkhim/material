@@ -10,13 +10,13 @@
                     @csrf
                     <div id="smartwizard" style="border: none !important;">
                         <ul class="nav" style="background-color: #FFFFFF; border: none !important;">
-                            <li><a class="nav-link" href="#business-redister">Redister</a></li>
+                            <li><a class="nav-link" href="#business-register">Register</a></li>
                             <li><a class="nav-link" href="#business-address">Address</a></li>
-                            <li><a class="nav-link" href="#business-rapresentative">Rapresentative</a></li>
+                            <li><a class="nav-link" href="#business-representative">Representative</a></li>
                         </ul>
                         <div class="mt-4">
                             {{-- Form-1 Detail --}}
-                            <div id="business-redister">
+                            <div id="business-register">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label for="lead">Select Lead</label>
@@ -335,7 +335,7 @@
                             </div>
 
                             {{-- Form-2 Contact --}}
-                            <div id="business-rapresentative">
+                            <div id="business-representative">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="contact">Select Contact</label>

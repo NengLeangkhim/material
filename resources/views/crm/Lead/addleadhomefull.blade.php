@@ -10,16 +10,16 @@
                     @csrf
                     <div id="smartwizard" style="border: none !important;">
                         <ul class="nav" style="background-color: #FFFFFF; border: none !important;">
-                            <li><a class="nav-link" href="#home-redister">Redister</a></li>
+                            <li><a class="nav-link" href="#home-register">Register</a></li>
                             <li><a class="nav-link" href="#home-address">Address</a></li>
-                            <li><a class="nav-link" href="#home-rapresentative">Rapresentative</a></li>
+                            <li><a class="nav-link" href="#home-representative">Representative</a></li>
                            
                         </ul>
                         <div class="mt-4">
                                 {{-- Form-1 Detail --}}
-                                <div id="home-redister">
+                                <div id="home-register">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-6">
                                             <label for="lead">Select Lead</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -35,7 +35,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-6">
                                             <label for="branch">Company Branch <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -180,7 +180,7 @@
                                 </div>
 
                                 {{-- Form-2 Contact --}}
-                                <div id="home-rapresentative">
+                                <div id="home-representative">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="contact">Select Contact</label>
