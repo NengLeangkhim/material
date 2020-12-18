@@ -38,4 +38,5 @@ Route::post('/crm/leadStatus/save','api\crm\CrmLeadStatusController@saveData');
 Route::get('/crm/leadStatus/{id}','api\crm\CrmLeadStatusController@getOneData');
 Route::get('/crm/leadStatus','api\crm\CrmLeadStatusController@getAllData');
 Route::get('/crm/leadActiveStatus','api\crm\CrmLeadStatusController@getActiveData');
+Route::get('/crm/leadChildStatus/{id}','api\crm\CrmLeadStatusController@getChildData');
 Route::delete('/crm/leadStatus','api\crm\CrmLeadStatusController@deleteData');

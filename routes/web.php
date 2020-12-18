@@ -69,6 +69,7 @@ Route::get('/leadbranch','crm\LeadBranchController@index');
 // });
 // All
 Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/status/child/{status}','crm\LeadBranchController@getLeadStatusChild');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
 Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch

@@ -34,36 +34,23 @@
                         <div class="row">
                             <div class="col-12">
                                 <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" onclick="CrmLeadBrancStatusChild('/crm/leadbranch/status/child/all','#StatusChildTab')" data-toggle="tab">All</a></li>
+                                    @foreach ($status->data as $item)
+                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmLeadBrancStatusChild('/crm/leadbranch/status/child/{{$item->name_en}}','#StatusChildTab')" data-toggle="tab">{{$item->name_en}}</a></li>
+                                    @endforeach
+                                </ul>
+                                {{-- <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" onclick="CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl')" data-toggle="tab">All</a></li>
                                     @foreach ($status->data as $item)
                                         <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmLeadBranchView('/crm/leadbranch/{{$item->name_en}}','Lead_Branch_Tbl')" data-toggle="tab">{{$item->name_en}}</a></li>
                                     @endforeach
-                                    {{-- <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/all','All_type_Tbl')" data-toggle="tab">All</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/new','New_status_Tbl')" data-toggle="tab">New</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/surveying','Surveying_status_Tbl')" data-toggle="tab">Surveying</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/surveyed','Surveyed_status_Tbl')" data-toggle="tab">Surveyed</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/proposition','Proposition_status_Tbl')" data-toggle="tab">Proposition</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/qualified','Qualified_status_Tbl')" data-toggle="tab">Qualified</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/junk','Junk_Status_Tbl')" data-toggle="tab">Junk</a></li> --}}
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="nav-tab">
-                                    <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" id="myTab_plan" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="active_plan" data-toggle="tab" onclick="CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl')" href="javascript:void(0);">Plan</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" onclick="CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl')" href="javascript:void(0);">Plan Detail</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="row" id='StatusChildTab'>
+                            {{-- This will use the LeadStatusChildTabs.blade --}}
                         </div>
                         <div class="tab-content">
                             <!--show contact like table -->

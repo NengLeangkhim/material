@@ -49,9 +49,18 @@ class CrmLeadStatusController extends Controller
         }
         return $this->sendResponse($result, '');
     }
+
     function getActiveData(){
         try{
             $result = $this->leadStatus->getActiveData();
+        } catch(QueryException $e){
+            $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
+    function getChildData($id){
+        try{
+            $result = $this->leadStatus->getChildData($id);
         } catch(QueryException $e){
             $this->sendError($e);
         }
