@@ -26,7 +26,7 @@
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
                                             <input type="text" hidden value="{{$token}}" id="getlead">
-                                            <select name="lead_id" id="lead_id" class="form-control">
+                                            <select name="lead_id" id="lead_id" class="form-control select2">
                                                 <option value='0'>-- Select Lead To Add Branch --</option>
                                             </select>
                                             <div class="input-group-append">
@@ -34,7 +34,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="row mt-3">
@@ -325,7 +324,6 @@
                                             <input type="text" class="form-control" name="comment" id="comment" placeholder="comment" onkeypress="return validENTxt(event)">
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="row mt-3">

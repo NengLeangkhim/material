@@ -25,7 +25,7 @@
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
                                             <input type="text" hidden value="{{$token}}" id="getlead">
-                                            <select name="lead_id" id="lead_id" class="form-control">
+                                            <select name="lead_id" id="lead_id" class="form-control select2">
                                                 <option value='0'>-- Select Lead To Add Branch --</option>
                                             </select>
                                             <div class="input-group-append">
@@ -351,7 +351,6 @@
                                             <div class="input-group-append">
                                                 <span class="input-group-text" style="background-color: white; border: white;"></span>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -462,9 +461,7 @@
                                             </span>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
 
                             {{-- Form-3 Address --}}

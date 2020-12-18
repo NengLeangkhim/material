@@ -16,7 +16,7 @@
                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                             </div>
                             {{-- <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead"> --}}
-                            <select name="lead_id" id="lead_id" class="form-control">
+                            <select name="lead_id" id="lead_id" class="form-control select2">
                                 <option value='0'>-- Select Lead To Add Branch --</option>
                             </select>
                         </div>
@@ -74,10 +74,8 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
-
 
             <div class="form-group">
                 <div class="row">
