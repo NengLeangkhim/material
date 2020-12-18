@@ -44,7 +44,12 @@ class ModelCrmQuoteStatusType extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_quote_status_type where is_deleted = false order by sequence');
+            $result = DB::select("select crm_quote_status_type.*,
+            ma_user.first_name_en||' '||ma_user.last_name_en as create_by_name,
+            case when crm_quote_status_type.status=false then 'Inactive' else 'Active' end as status_text
+            from crm_quote_status_type
+            join ma_user on ma_user.id=crm_quote_status_type.create_by
+            where crm_quote_status_type.is_deleted = false order by crm_quote_status_type.sequence");
         } catch(QueryException $e){
             throw $e;
         }

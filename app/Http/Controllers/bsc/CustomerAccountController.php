@@ -11,7 +11,7 @@ class CustomerAccountController extends Controller
 {
     public function list_customer_account(){
 
-        if(!perms::check_perm_module('BSC_030701')){
+        if(!perms::check_perm_module('BSC_030201')){
             return view('no_perms');
         }
         try{
@@ -23,7 +23,7 @@ class CustomerAccountController extends Controller
     }
 
     public function list_customer_account_report(){
-        if(!perms::check_perm_module('BSC_030702')){
+        if(!perms::check_perm_module('BSC_030205')){
             return view('no_perms');
         }
 

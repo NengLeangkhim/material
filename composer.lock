@@ -7517,15 +7517,7 @@
                     "HighlightUtilities/functions.php"
                 ]
             },
-            "funding": [{
-                    "url": "https://phpunit.de/donate.html",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/sebastianbergmann",
-                    "type": "github"
-                }
-            ],
+
             "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
             "keywords": [
                 "code",
