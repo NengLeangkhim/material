@@ -61,10 +61,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label">Connection:</label>
-                                                <div class="col-md-9">
+                                                <label class="col-lg-5 col-form-label">Connection:</label>
+                                                <div class="col-md-7" style="padding-left: 0px">
                                                     <select class="form-control select2 input_required" name="new_connection" id="new_connection">
                                                         <option value="" selected hidden disabled>select item</option>
                                                         <option value="">TT-001</option>
@@ -73,6 +73,12 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-2">&nbsp;
+                                            <a title="Show More" href="#"   value="" id="new_show_">show</a>
+                                            <a style="display: none" title="Hide" href="#"   value="" id="new_hide_">Hide</a>
+                                            &nbsp;&nbsp;
+                                            <button type="button" class="btn btn-info" id="new_search" onclick="newSearch()">Search</button>
                                         </div>
                                     </div>
                                 </div>
@@ -215,15 +221,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <button type="button" class="btn btn-primary" id="new_search" onclick="newSearch()">Search</button>
-                                        </div>
                                     </div>
                                 </div>
-                                <div style="padding-bottom: 10px">
-                                    <button style="display: none" type="button" id="new_hide_" class="btn btn-info btn-sm">Hide</button>
-                                    <button type="button" id="new_show_" class="btn btn-info btn-sm">Show</button>
-                                </div>
+
 
                                 <div class="table-responsive">
                                     <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
@@ -277,10 +277,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label">Connection:</label>
-                                                    <div class="col-md-9">
+                                                    <label class="col-lg-5 col-form-label">Connection:</label>
+                                                    <div class="col-md-7" style="padding-left: 0px">
                                                         <select class="form-control select2 input_required" name="closed_connection" id="closed_connection">
                                                             <option value="" selected hidden disabled>select item</option>
                                                             <option value="">TT-001</option>
@@ -289,6 +289,12 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">&nbsp;
+                                                <a title="Show More" href="#"   value="" id="closed_show_">show</a>
+                                                <a style="display: none" title="Hide" href="#"   value="" id="closed_hide_">Hide</a>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-info" id="closed_search" onclick="closedSearch()">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -431,14 +437,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-primary" id="closed_search" onclick="closedSearch()">Search</button>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="padding-bottom: 10px">
-                                        <button style="display: none" type="button" id="closed_hide_" class="btn btn-info btn-sm">Hide</button>
-                                        <button type="button" id="closed_show_" class="btn btn-info btn-sm">Show</button>
                                     </div>
 
                                 <div class="table-responsive" style="padding-top: 20px">
@@ -493,10 +492,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label">Connection:</label>
-                                                    <div class="col-md-9">
+                                                    <label class="col-lg-5 col-form-label">Connection:</label>
+                                                    <div class="col-md-7" style="padding-left: 0px">
                                                         <select class="form-control select2 input_required" name="active_connection" id="active_connection">
                                                             <option value="" selected hidden disabled>select item</option>
                                                             <option value="">TT-001</option>
@@ -505,6 +504,12 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">&nbsp;
+                                                <a title="Show More" href="#"   value="" id="active_show_">show</a>
+                                                <a style="display: none" title="Hide" href="#"   value="" id="active_hide_">Hide</a>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-info" id="active_search" onclick="activeSearch()">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -647,14 +652,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-primary" id="active_search" onclick="activeSearch()">Search</button>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="padding-bottom: 10px">
-                                        <button style="display: none" type="button" id="active_hide_" class="btn btn-info btn-sm">Hide</button>
-                                        <button type="button" id="active_show_" class="btn btn-info btn-sm">Show</button>
                                     </div>
                                     <div class="table-responsive" style="padding-top: 20px">
                                         <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
@@ -708,10 +706,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label">Connection:</label>
-                                                    <div class="col-md-9">
+                                                    <label class="col-lg-5 col-form-label">Connection:</label>
+                                                    <div class="col-md-7" style="padding-left: 0px">
                                                         <select class="form-control select2 input_required" name="suspend_connection" id="suspend_connection">
                                                             <option value="" selected hidden disabled>select item</option>
                                                             <option value="">TT-001</option>
@@ -720,6 +718,12 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">&nbsp;
+                                                <a title="Show More" href="#"   value="" id="suspend_show_">show</a>
+                                                <a style="display: none" title="Hide" href="#"   value="" id="suspend_hide_">Hide</a>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-info" id="suspend_search" onclick="suspendSearch()">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -862,14 +866,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-primary" id="suspend_search" onclick="suspendSearch()">Search</button>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="padding-bottom: 10px">
-                                        <button style="display: none" type="button" id="suspend_hide_" class="btn btn-info btn-sm">Hide</button>
-                                        <button type="button" id="suspend_show_" class="btn btn-info btn-sm">Show</button>
                                     </div>
                                     <div class="table-responsive" style="padding-top: 20px">
                                         <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
@@ -921,10 +918,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label">Connection:</label>
-                                                    <div class="col-md-9">
+                                                    <label class="col-lg-5 col-form-label">Connection:</label>
+                                                    <div class="col-md-7" style="padding-left: 0px">
                                                         <select class="form-control select2 input_required" name="locked_connection" id="locked_connection">
                                                             <option value="" selected hidden disabled>select item</option>
                                                             <option value="">TT-001</option>
@@ -933,6 +930,12 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">&nbsp;
+                                                <a title="Show More" href="#"   value="" id="locked_show_">show</a>
+                                                <a style="display: none" title="Hide" href="#"   value="" id="locked_hide_">Hide</a>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-info" id="locked_search" onclick="lockedSearch()">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1075,14 +1078,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-primary" id="locked_search" onclick="lockedSearch()">Search</button>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="padding-bottom: 10px">
-                                        <button style="display: none" type="button" id="locked_hide_" class="btn btn-info btn-sm">Hide</button>
-                                        <button type="button" id="locked_show_" class="btn btn-info btn-sm">Show</button>
                                     </div>
                                     <div class="table-responsive" style="padding-top: 20px">
                                         <table id="example5" class="table table-bordered table-striped" style="white-space: nowrap">
@@ -1134,10 +1130,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label">Connection:</label>
-                                                    <div class="col-md-9">
+                                                    <label class="col-lg-5 col-form-label">Connection:</label>
+                                                    <div class="col-md-7" style="padding-left: 0px">
                                                         <select class="form-control select2 input_required" name="unpaid_connection" id="unpaid_connection">
                                                             <option value="" selected hidden disabled>select item</option>
                                                             <option value="">TT-001</option>
@@ -1146,6 +1142,12 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">&nbsp;
+                                                <a title="Show More" href="#"   value="" id="unpaid_show_">show</a>
+                                                <a style="display: none" title="Hide" href="#"   value="" id="unpaid_hide_">Hide</a>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-info" id="unpaid_search" onclick="unpaidSearch()">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1288,14 +1290,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-primary" id="unpaid_search" onclick="unpaidSearch()">Search</button>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="padding-bottom: 10px">
-                                        <button style="display: none" type="button" id="unpaid_hide_" class="btn btn-info btn-sm">Hide</button>
-                                        <button type="button" id="unpaid_show_" class="btn btn-info btn-sm">Show</button>
                                     </div>
                                     <div class="table-responsive" style="padding-top: 20px">
                                         <table id="example6" class="table table-bordered table-striped" style="white-space: nowrap">
