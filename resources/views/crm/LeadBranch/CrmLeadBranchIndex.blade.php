@@ -36,7 +36,7 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" onclick="CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl')" data-toggle="tab">All</a></li>
                                     @foreach ($status->data as $item)
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmLeadBranchView('/crm/leadbranch/{{$item->name_en}}','Lead_Branch_Tbl')" data-toggle="tab">{{$item->name_en}}</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmLeadBranchView('/crm/leadbranch/{{$item->name_en}}','Lead_Branch_Tbl')" data-toggle="tab">{{$item->name_en}}</a></li>
                                     @endforeach
                                     {{-- <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/all','All_type_Tbl')" data-toggle="tab">All</a></li>
                                     <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/leadbranch/new','New_status_Tbl')" data-toggle="tab">New</a></li>
@@ -50,6 +50,21 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="nav-tab">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" id="myTab_plan" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="active_plan" data-toggle="tab" onclick="CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl')" href="javascript:void(0);">Plan</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" onclick="CrmLeadBranchView('/crm/leadbranch/all','Lead_Branch_Tbl')" href="javascript:void(0);">Plan Detail</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                         <div class="tab-content">
                             <!--show contact like table -->
                             <div class="tab-Setting">
