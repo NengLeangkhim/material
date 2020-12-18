@@ -29,7 +29,6 @@ class LeadController extends Controller
             //     return view('no_perms');
             // }
 
-
             return view('crm.Lead.lead');
 
         }else{
@@ -47,10 +46,10 @@ class LeadController extends Controller
                 $province=ModelCrmLead::CrmGetLeadProvice();
                 $optionAddLead = $_GET['option_'];
                 if($optionAddLead == 1){ // this type add lead home short
-                    return view('crm.lead.addleadhomeshort',compact('lead_source','lead_industry'));
+                    return view('crm.Lead.addleadhomeshort',compact('lead_source','lead_industry'));
                 }
                 if($optionAddLead == 2){ // this type add lead home fullss
-                    return view('crm.lead.addleadhomefull',compact('lead_source','lead_industry','province'));
+                    return view('crm.Lead.addleadhomefull',compact('lead_source','lead_industry','province'));
                 }
 
             }else{
@@ -75,10 +74,10 @@ class LeadController extends Controller
             $province=ModelCrmLead::CrmGetLeadProvice();
             $emInfo=ModelCrmLead::getEmInfo();
             if($optionAddLead == 1){ // this type add lead business short
-                return view('crm.lead.addleadbusinessshort',compact('lead_source','lead_industry'));
+                return view('crm.Lead.addleadbusinessshort',compact('lead_source','lead_industry'));
             }
             if($optionAddLead == 2){ // this type add lead business fullss
-                return view('crm.lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+                return view('crm.Lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
             }
 
         }else{
@@ -101,10 +100,10 @@ class LeadController extends Controller
             $province=ModelCrmLead::CrmGetLeadProvice();
             $emInfo=ModelCrmLead::getEmInfo();
             if($optionAddLead == 1){ // this type add lead enterprise short
-                return view('crm.lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
+                return view('crm.Lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
             }
             if($optionAddLead == 2){ // this type add lead enterprise full
-                return view('crm.lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+                return view('crm.Lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
             }
 
         }else{

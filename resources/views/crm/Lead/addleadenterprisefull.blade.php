@@ -128,13 +128,13 @@
                                 <div class="row mt-3">
 
                                     <div class="col-md-6">
-                                        <label for="current_speed_isp">Current Speed ISP </label>
+                                        <label for="current_speed_isp">Current ISP </label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
                                             <select class="form-control select2" name="current_speed_isp" id="current_speed_isp">
-                                                <option value=''>-- Select Current Speed Isp --</option>
+                                                <option value=''>-- Select Current ISP --</option>
                                             </select>
                                             <div class="input-group-append">
                                                 <span class="input-group-text" style="background-color: white; border: white;"></span>
@@ -270,12 +270,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="current_speed">Current Speed</label>
+                                        <label for="current_speed">Current Speed ISP</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="current_speed" id="current_speed" placeholder="Current Speed">
+                                            <input type="text" class="form-control" name="current_speed" id="current_speed" placeholder="Current Speed ISP">
                                         </div>
                                     </div>
 
@@ -687,7 +687,6 @@
     var markers = [];
 
     function initMap() {
-
         var haightAshbury = {
             lat: 11.620803,
             lng: 104.892215

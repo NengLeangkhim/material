@@ -30,7 +30,7 @@
         <div class="modal-content">
                 <div class=" modal-header text-center">
                     <h4 class="modal-title" ><b>Select Customer Name</b></h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" onclick="closeModalUp('listQuoteLead')" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class=" modal-body">
 
