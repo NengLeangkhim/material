@@ -15,46 +15,42 @@
                             <li><a class="nav-link" href="#home-address">Address</a></li>
                         </ul>
                         <div class="mt-4">
-
                                 {{-- Form-1 Detail --}}
                                 <div id="home-detail">
-
                                     <div class="row">
-
-                                            <div class="col-md-6">
-                                                <label for="lead">Select Lead</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-user-check"></i></span>
-                                                    </div>
-                                                    <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
-                                                    <select name="lead_id" id="lead_id" class="form-control">
-                                                        <option value='0'>-- Select Lead To Add Branch --</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                    </div>
+                                        <div class="col-md-6">
+                                            <label for="lead">Select Lead</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                                </div>
+                                                <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
+                                                <select name="lead_id" id="lead_id" class="form-control">
+                                                    <option value='0'>-- Select Lead To Add Branch --</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
                                                 </div>
                                             </div>
+                                        </div>
 
-
-                                            <div class="col-md-6">
-                                                <label for="branch">Company Branch <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                    </div>
-                                                    <select class="form-control "  name="branch" id='branch' >
-                                                        <option value=''>-- Select Branch --</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                    </div>
-                                                    <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
+                                        <div class="col-md-6">
+                                            <label for="branch">Company Branch <b style="color:red">*</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
+                                                <select class="form-control "  name="branch" id='branch' >
+                                                    <option value=''>-- Select Branch --</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div>
+                                                <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
+                                        </div>
                                     </div>
 
                                     <div class="row mt-3">
@@ -64,7 +60,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en"  required>
+                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en" onkeypress="return validENName(event)" required>
                                                 <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -77,7 +73,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" >
+                                                <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" onkeypress="return validKHName(event)">
                                             </div>
                                         </div>
 
@@ -90,7 +86,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return onlyNumberKey(event)" >
+                                                <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return validENNumber(event)">
                                                 <span class="invalid-feedback" role="alert" id="primary_phoneError">
                                                     <strong></strong>
                                                 </span>
@@ -102,13 +98,12 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook">
+                                                <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook" onkeypress="return validENName(event)">
                                                 <span class="invalid-feedback" role="alert" id="company_facebookError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="row mt-3">
@@ -181,7 +176,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 {{-- Form-2 Contact --}}
@@ -193,7 +187,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="name_en" id="name_en" placeholder="English Name" >
+                                                <input type="text" class="form-control" name="name_en" id="name_en" placeholder="English Name" onkeypress="return validENName(event)">
                                                 <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -206,7 +200,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Khmer Name"  name='name_kh' id="name_kh" >
+                                                <input type="text" class="form-control" placeholder="Khmer Name"  name='name_kh' id="name_kh" onkeypress="return validKHName(event)">
                                                 <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -221,7 +215,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" >
+                                                <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" onkeypress="return validENNumber(event)">
                                                 <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -260,7 +254,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="position" id="position" placeholder="Position">
+                                                <input type="text" class="form-control" name="position" id="position" placeholder="Position" onkeypress="return validENTxt(event)">
                                                 <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -272,7 +266,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-address-card"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Card ">
+                                                <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Card " onkeypress="return validENNumber(event)">
                                                 <span class="invalid-feedback" role="alert" id="national_idError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -293,7 +287,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home"  >
+                                                <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home" onkeypress="return validENTxt(event)">
                                                 <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -305,7 +299,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street"  >
+                                                <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street" onkeypress="return validENTxt(event)">
                                                 <span class="invalid-feedback" role="alert" id="street_enError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>

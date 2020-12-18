@@ -285,7 +285,7 @@
                 // ]
                 $.each(data, function (index, value) {
                     if(value.crm_lead_status_id != null){
-                        result.push([value.status_en, value.total_lead, 'stroke-width: 1;stroke-color: red;color:' + value['color']  + ';}'])
+                        result.push([value.status_en, value.total_lead, 'color:' + value['color']  + ''])
                     }
                 });
                 // console.log(result);
@@ -305,7 +305,7 @@
                     width: '100%',
                     legend: 'none',
                     pieSliceText:'value',
-                    dataOpacity: 0.5,
+                    dataOpacity: 0.3,
                     vAxis: {
                         minValue: 0,
                         maxValue: 100
@@ -353,7 +353,7 @@
             function CrmContactDrawChart(get_date,get_total) {
                 var data = google.visualization.arrayToDataTable([
                     ['', '', { role: 'style' }],
-                    [get_date, get_total, 'stroke-width: 1;stroke-color: red;color:#25CCF7']
+                    [get_date, get_total, 'color:#25CCF7']
                 ]);
                 var view = new google.visualization.DataView(data);
                 view.setColumns([0, 1,
@@ -376,7 +376,7 @@
                             opacity: 0.8
                         }
                     },
-                    dataOpacity: 0.5,
+                    dataOpacity: 0.3,
                     vAxis: {
                         minValue: 0,
                         maxValue: 100,
@@ -430,7 +430,7 @@
                 ]
                 $.each(data, function (index, value) {
                     if(value.id != null){
-                        result.push([value.name_en, value.total_schdeule, 'stroke-width: 1;stroke-color: red;color:' + value['color'] + ';}'])
+                        result.push([value.name_en, value.total_schdeule, 'color:' + value['color'] + ''])
                     }
                 });
                 console.log(result);
@@ -550,7 +550,7 @@
                 $.each(data, function (index, value) {
                     if(value.crm_quote_status_type_id != null) {
                         // var color = colors[index + 1].code;
-                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, 'stroke-width: 1;stroke-color: red;color:' + value.crm_quote_status_type_color + ';}'])
+                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, 'color:' + value.crm_quote_status_type_color + ''])
                     }
                 })
                 var data = google.visualization.arrayToDataTable(result)
@@ -567,7 +567,7 @@
                 var options = {
                     // title: 'Quote Performance',
                     legend: 'none',
-                    dataOpacity: 0.5,
+                    dataOpacity: 0.3,
 
                     hAxis: {
                         minValue: 0,
