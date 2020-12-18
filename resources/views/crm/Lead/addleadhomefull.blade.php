@@ -25,7 +25,7 @@
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
                                                 <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
-                                                <select name="lead_id" id="lead_id" class="form-control">
+                                                <select name="lead_id" id="lead_id" class="form-control select2">
                                                     <option value='0'>-- Select Lead To Add Branch --</option>
                                                 </select>
                                                 <div class="input-group-append">
@@ -40,8 +40,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <select class="form-control "  name="branch" id='branch' >
-                                                    <option value=''>-- Select Branch --</option>
+                                                <select class="form-control select2"  name="branch" id='branch' >
+                                                    <option value='0'>-- Select Branch --</option>
                                                 </select>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" style="background-color: white; border: white;"></span>
