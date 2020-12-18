@@ -517,33 +517,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <label for="home_kh"> Home(KH)</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control"  name='home_kh' id="home_kh" placeholder="Number of home khmer" >
-                                            <span class="invalid-feedback" role="alert" id="home_khError"> {{--span for alert--}}
-                                                <strong></strong>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="street_kh"> Street(KH) </label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control"  name='street_kh' id="street_kh" placeholder="Number of street english"  >
-                                            <span class="invalid-feedback" role="alert" id="street_khError"> {{--span for alert--}}
-                                                <strong></strong>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                               
 
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -627,7 +601,7 @@
 
                                 <div class="row mt-3">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="latlong"> Lead Map <b style="color:red">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -638,23 +612,6 @@
                                                 <strong></strong>
                                             </span>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group pt-4 pl-2">
-                                            <div class="input-group-prepend pr-4">
-                                                <span class="font-weight-bold">Survey</span>
-                                            </div>
-                                            <div class="custom-control custom-radio ml-2">
-                                                <input type="radio" id="customRadio2" value="yes" name="checksurvey" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio2">Yes</label>
-                                            </div>
-                                            <div class="custom-control custom-radio ml-4">
-                                                <input type="radio" id="customRadio1" value="no" name="checksurvey" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio1">No</label>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
 

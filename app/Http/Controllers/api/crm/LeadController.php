@@ -138,11 +138,11 @@ class LeadController extends Controller
         $website=$request->input('website') !="" ? $request->input('website'):null;
         $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
         $vat_number=$request->input('vat_number')!="" ?$request->input('vat_number'):null;
-        $company_branch=$request->input('branch')!="" ?$request->input('branch'):null;
+        $company_branch=$request->input('branch')!="" ?$request->input('branch'):16;
         $lead_source=$request->input('lead_source')!="" ?$request->input('lead_source'):null;
         $lead_status=1;
         $lead_industry=$request->input('lead_industry')!="" ?$request->input('lead_industry'):null;
-        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):null;
+        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):$_SESSION['userid'];
         $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp') !="" ?$request->input('current_speed_isp'):null;
         $current_speed=$request->input('current_speed') !="" ?$request->input('current_speed'):null;;

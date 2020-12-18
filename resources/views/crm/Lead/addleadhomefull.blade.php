@@ -188,6 +188,23 @@
                                 <div id="home-contact">
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <label for="contact">Select Contact</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                                </div>
+                                                <input type="text" hidden value="{{$_SESSION['token']}}" id="getcontact">
+                                                <select class="form-control select2" name="contact_id" id="contact_id">
+                                                    {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
+                                                    <option value=''>-- Select Contact  --</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label for="name_en">Full Name English</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -199,7 +216,8 @@
                                                 </span>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label for="name_kh">Full Name Khmer</label>
                                             <div class="input-group">
@@ -212,9 +230,6 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label for="phone"> Phone </label>
                                             <div class="input-group">
@@ -228,6 +243,11 @@
                                             </div>
                                         </div>
 
+                                        
+
+                                    </div>
+
+                                    <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label for="honorifics">Honorifics</label>
                                             <div class="input-group">
@@ -250,10 +270,6 @@
                                                 </span>
                                             </div>
                                         </div>
-
-                                    </div>
-
-                                    <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label for="position">Position </label>
                                             <div class="input-group">
@@ -266,19 +282,6 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="national_id">National ID Card / Passport ID </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-address-card"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Card ">
-                                                <span class="invalid-feedback" role="alert" id="national_idError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-
                                     </div>
 
 
@@ -416,8 +419,8 @@
 
                                     <div class="row mt-3">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="">Save</button>
-                                            <button type="button" class="btn btn-danger" onclick="">Cencel</button>
+                                            <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_Crmlead','/lead/store','/lead','Insert Successfully')">Save</button>
+                                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -572,6 +575,25 @@
                     cache: true
                 }
             });
+            $('#contact_id').select2({
+                ajax: {
+                    url: '/contact/search',
+                    dataType: 'json',
+                    type:'get',
+                    delay: 1200,
+                    data: function (params) {
+                        return {
+                            search: params.term // search term
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
 
         $('#smartwizard').smartWizard({
             'selected': 0,
@@ -586,5 +608,75 @@
             },
         });
     });
+    $( "#contact_id" ).on('select2:select', function (e){
+        
+        
+          $("#name_en").val(''); //set option null before change
+          $("#name_kh").val('');
+          $("#email").val('');
+          $("#phone").val('');
+          $("#national_id").val('');
+          $("#position").val('');
+          $("#ma_honorifics_id").val('');
+          var to = $(this).children("option:selected"). val();
+          
+          var myvar= $( "#getcontact" ).val();
+          if(to=='Not'){
+            $("#name_en").val('');
+            $("#name_kh").val('');
+            $("#email").val('');
+            $("#phone").val('');
+            $("#national_id").val('');
+            $("#position").val('');
+            $("#ma_honorifics_id").val('');
+            $('#name_en').prop('readonly', false);
+            $('#name_kh').prop('readonly', false);
+            $('#email').prop('readonly', false);
+            $('#phone').prop('readonly', false);
+            $('#national_id').prop('readonly', false);
+            $('#position').prop('readonly', false);
+            $('#ma_honorifics_id').attr('disabled', false);
+          }else{
+            $.ajax({
+              url:'/api/contact/'+to,
+              type:'get',
+              dataType:'json',
+              headers: {
+                'Authorization': `Bearer ${myvar}`,
+              },
+              success:function(response){
+
+                          var name_en = response.data.name_en;
+                          var name_kh = response.data.name_kh;
+                          var email = response.data.email;
+                          var phone = response.data.phone;
+                          var national_id = response.data.national_id;
+                          var position = response.data.position;
+                          if(response.data.honorifics == null){
+                             var honorifics_id ='';
+                          }else{
+                            var honorifics_id = response['data'].honorifics.id;
+                          }
+                          $("#name_en").val(name_en);
+                          $("#name_kh").val(name_kh);
+                          $("#email").val(email);
+                          $("#phone").val(phone);
+                          $("#national_id").val(national_id);
+                          $("#position").val(position);
+                          $("#ma_honorifics_id").val(honorifics_id);
+
+                          $('#name_en').prop('readonly', true);
+                          $('#name_kh').prop('readonly', true);
+                          $('#email').prop('readonly', true);
+                          $('#phone').prop('readonly', true);
+                          $('#national_id').prop('readonly', true);
+                          $('#position').prop('readonly', true);
+                          $('#ma_honorifics_id').attr('disabled', true);
+
+
+              }
+            })
+          }
+        });
 </script>
 
