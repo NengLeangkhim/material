@@ -40,7 +40,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
 
     Route::get('/getbranchconvert/{id}','api\crm\LeadController@getbranchByIdconvert');
-    
+
     // Update lead
     Route::post('/updatebranch','api\crm\LeadController@updatebranch');
     //get survey
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
-   
+
 });
 
 

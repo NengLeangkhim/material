@@ -206,12 +206,56 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listLead = json_decode($res->getContent());
+
+            // $leadAddrShort = array();
+            // $leadAddrLong = array();
+            // if(count($listLead->data) >= 1){
+            //     foreach($listLead->data as $key=>$val){
+            //         // exit;
+            //         // echo $val->id;
+            //         $leadAddrShort[] = ModelCrmQuote::getLeadAddress($val->id);
+            //         // $listLead->data[$key]->home_en = $short[0]->hom_en;
+            //         // $listLead->data[$key]->street_en = $short[0]->street_en;
+            //         // if(count($short) > 0){
+            //         //     $long = ModelCrmQuote::getAddress($short[0]->gazetteer_code);
+            //         //     // $listLead->data[$key]->street_en = $long[0]->street_en;
+            //         // }
+            //         // dump($r);
+            //     }
+            // }
+
+            // dump($leadAddrShort[0]);
+            // $leadAddrShort[0]->dddd = 'kokoko';
+            // dump($leadAddrShort);
+            // dump($leadAddrLong);
             // dump($listLead);
+            // echo 'helloo';
             // exit;
             return view('crm/quote/listQuoteLead',compact($listLead));
 
         }
     }
+
+
+    public static function getleadAddress(){
+        if(isset($_GET['lead_id'])){
+            $leadDetail = [];
+            $lead_id = $_GET['lead_id'];
+            $short = ModelCrmQuote::getLeadAddress($lead_id);
+            $leadDetail = $short[0];
+            if(count($short) > 0){
+                $long = ModelCrmQuote::getAddress($short[0]->gazetteer_code);
+                $leadDetail->full_address = $long[0]->get_gazetteers_address_en;
+                // $listLead->data[$key]->street_en = $long[0]->street_en;
+            }
+            return response()->json(['success'=>$leadDetail]);
+        }
+    }
+
+
+
+
+
     public static function listQuoteLeadDatatable(Request $request){
 
         // if(isset($_GET['id'])){
@@ -253,6 +297,7 @@ class QuoteController extends Controller
             if(isset($listLead->data[0]->vat_number)){
                 $getVatNum = $listLead->data[0]->vat_number;
             }
+            // dump($listBranch);
 
             // exit;
             return view('crm/quote/listQuoteBranch', compact('listBranch','getVatNum'));

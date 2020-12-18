@@ -144,7 +144,7 @@ Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // g
 Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
-
+Route::get('/quote/getlead/getleadAddress','crm\QuoteController@getleadAddress'); // function to get lead address show in add quote
 
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
