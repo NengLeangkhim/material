@@ -512,15 +512,16 @@
                                     map = new google.maps.Map(document.getElementById('map'), {
                                         zoom: 12, // Set the zoom level manually
                                         center: haightAshbury,
-                                        mapTypeId: 'roadmap'
+                                        mapTypeId: 'roadmap'                                    
                                     });
 
-
+                                    
+                                    
                                     //declear default value for latlong on map
                                     addMarker(haightAshbury);
                                     document.getElementById('latlong').value = '11.620803, 104.892215';
 
-                                    // This event listener will call addMarker() when the map is clicked.
+                                    This event listener will call addMarker() when the map is clicked.
                                     map.addListener('click', function(event) {
                                         if (markers.length >= 1) {
                                             deleteMarkers();
@@ -531,7 +532,7 @@
                                         document.getElementById('latlong').value = get_latlng;
                                     });
                                 }
-
+                                    
                                 // Adds a marker to the map and push to the array.
                                 function addMarker(location) {
                                     var marker = new google.maps.Marker({
@@ -539,6 +540,8 @@
                                         map: map
                                     });
                                     markers.push(marker);
+                                    markers.setDraggable(false);
+                                    
                                 }
 
                                 // Sets the map on all markers in the array.
