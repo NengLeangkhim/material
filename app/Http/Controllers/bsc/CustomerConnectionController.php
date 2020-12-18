@@ -21,4 +21,8 @@ class CustomerConnectionController extends Controller
     public function customer_connection_view(){
         return view('bsc.customer_management.customer_connection.customer_connection_view');
     }
+
+    public function customer_account_view(){
+        return view('bsc.customer_management.customer_connection.customer_account_view');
+    }
 }

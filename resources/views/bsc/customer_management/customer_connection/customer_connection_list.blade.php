@@ -79,7 +79,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td style="text-align: center;">
                                                     <a href="javascript:;" onclick="go_to('bsc_customer_connection_view')"><i class="far fa-eye"></i></a>
                                                 </td>
                                                 <td>CIF-001</td>
@@ -283,33 +283,46 @@
 
 $(function () {
     $("#example1").DataTable({
-    // "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example2").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example3").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example4").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example5").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $('#example').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust()
+            .responsive.recalc();
     });
 });
 $('.customer').click(function(e)
