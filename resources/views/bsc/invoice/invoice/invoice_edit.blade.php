@@ -14,11 +14,13 @@ if (count($bsc_show_customer_branchs) >0) {
             <div class="col-sm-4">
                 <h1><span><i class="fas fa-file"></i></span> Update Invoice</h1>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
 
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_invoice_invoice_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Home</a></li>
                     <li class="breadcrumb-item active">New Invoice</li>
                 </ol>

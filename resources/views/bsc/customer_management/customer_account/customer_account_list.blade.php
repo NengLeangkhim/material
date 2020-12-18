@@ -45,55 +45,39 @@
                         {{-- ================ start tap new customer ============ --}}
                         <div class="tab-pane fade show active" id="new_cus" role="tabpanel" aria-labelledby="home-tab">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
-                                        <thead>
-                                            <tr class="background_color_tr">
-                                                <th class="background_color_td">CIF</th>
-                                                <th class="background_color_td">CID</th>
-                                                <th class="background_color_td">Customer</th>
-                                                <th class="background_color_td">Customer KH</th>
-                                                <th class="background_color_td">Account Name</th>
-                                                <th class="background_color_td">Create Date</th>
-                                                <th class="background_color_td">Finishdate</th>
-                                                <th class="background_color_td">Bill Date</th>
-                                                <th class="background_color_td">VAT Type</th>
-                                                <th class="background_color_td">VAT Number</th>
-                                                <th class="background_color_td">Branch</th>
-                                                <th class="background_color_td">Mobile Phone</th>
-                                                <th class="background_color_td">Email</th>
-                                                <th class="background_color_td">Startbilling Date</th>
-                                                <th class="background_color_td">Service Package</th>
-                                                <th class="background_color_td">Pay</th>
-                                                <th class="background_color_td">Free</th>
-                                                <th class="background_color_td">Monthly</th>
-                                                <th class="background_color_td">Discount</th>
-                                                <th class="background_color_td">Type</th>
-                                                <th class="background_color_td">Speed</th>
-                                                <th class="background_color_td">Seller</th>
-                                                <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
-                                                {{-- <th>Action</th> --}}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- @if (count($customers) >0)
-                                                @foreach ($customers as $item)
-                                                    <tr>
-                                                        <td>{{ $item->lead_number }}</td>
-                                                        <td>{{ $item->customer_name }}</td>
-                                                        <td>{{ $item->lead_email }}</td>
-                                                        <td>{{ $item->deposit }}</td>
-                                                        <td>{{ $item->balance }}</td>
-                                                        <td>{{ $item->invoice_balance }}</td>
-                                                        <td>{{ $item->vat_type }}</td>
-                                                        <td>{{ $item->vat_number }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif --}}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
+                                    <thead>
+                                        <tr class="background_color_tr">
+                                            <th class="background_color_td">CIF</th>
+                                            <th class="background_color_td">CID</th>
+                                            <th class="background_color_td">Customer</th>
+                                            <th class="background_color_td">Customer KH</th>
+                                            <th class="background_color_td">Account Name</th>
+                                            <th class="background_color_td">Create Date</th>
+                                            <th class="background_color_td">Finishdate</th>
+                                            <th class="background_color_td">Bill Date</th>
+                                            <th class="background_color_td">VAT Type</th>
+                                            <th class="background_color_td">VAT Number</th>
+                                            <th class="background_color_td">Branch</th>
+                                            <th class="background_color_td">Mobile Phone</th>
+                                            <th class="background_color_td">Email</th>
+                                            <th class="background_color_td">Startbilling Date</th>
+                                            <th class="background_color_td">Service Package</th>
+                                            <th class="background_color_td">Pay</th>
+                                            <th class="background_color_td">Free</th>
+                                            <th class="background_color_td">Monthly</th>
+                                            <th class="background_color_td">Discount</th>
+                                            <th class="background_color_td">Type</th>
+                                            <th class="background_color_td">Speed</th>
+                                            <th class="background_color_td">Seller</th>
+                                            <th class="background_color_td">Status</th>
+                                            <th class="background_color_td">Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         {{-- ================ end tap new customer ============ --}}
@@ -101,7 +85,7 @@
                         {{-- ================ start tap closed customer ======= --}}
                         <div class="tab-pane fade" id="closed_cus" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="tab-content" id="myTabContent">
-                                <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
+                                <div class="card-body">
                                     <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
@@ -133,20 +117,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @if (count($customers) >0)
-                                                @foreach ($customers as $item)
-                                                    <tr>
-                                                        <td>{{ $item->lead_number }}</td>
-                                                        <td>{{ $item->customer_name }}</td>
-                                                        <td>{{ $item->lead_email }}</td>
-                                                        <td>{{ $item->deposit }}</td>
-                                                        <td>{{ $item->balance }}</td>
-                                                        <td>{{ $item->invoice_balance }}</td>
-                                                        <td>{{ $item->vat_type }}</td>
-                                                        <td>{{ $item->vat_number }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -156,7 +127,7 @@
                         {{-- ================ start tap closed customer ======= --}}
                         <div class="tab-pane fade" id="suspend_cus" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="tab-content" id="myTabContent">
-                                <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
+                                <div class="card-body">
                                     <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
@@ -188,20 +159,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @if (count($customers) >0)
-                                                @foreach ($customers as $item)
-                                                    <tr>
-                                                        <td>{{ $item->lead_number }}</td>
-                                                        <td>{{ $item->customer_name }}</td>
-                                                        <td>{{ $item->lead_email }}</td>
-                                                        <td>{{ $item->deposit }}</td>
-                                                        <td>{{ $item->balance }}</td>
-                                                        <td>{{ $item->invoice_balance }}</td>
-                                                        <td>{{ $item->vat_type }}</td>
-                                                        <td>{{ $item->vat_number }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -211,7 +169,7 @@
                         {{-- ================ start tap closed customer ======= --}}
                         <div class="tab-pane fade" id="locked_cus" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="tab-content" id="myTabContent">
-                                <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
+                                <div class="card-body">
                                     <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
@@ -243,20 +201,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @if (count($customers) >0)
-                                                @foreach ($customers as $item)
-                                                    <tr>
-                                                        <td>{{ $item->lead_number }}</td>
-                                                        <td>{{ $item->customer_name }}</td>
-                                                        <td>{{ $item->lead_email }}</td>
-                                                        <td>{{ $item->deposit }}</td>
-                                                        <td>{{ $item->balance }}</td>
-                                                        <td>{{ $item->invoice_balance }}</td>
-                                                        <td>{{ $item->vat_type }}</td>
-                                                        <td>{{ $item->vat_number }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -275,29 +220,33 @@
 
 $(function () {
     $("#example1").DataTable({
-    // "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example2").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example3").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example4").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
-    $('#example').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust()
+            .responsive.recalc();
     });
 });
 $('.customer').click(function(e)

@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
-                                <a target="_blank" href="bsc_preview_invoioce/{{ $invoices->id }}" class="btn btn-success purchase_form"  value="" id="">Preview</a>
+                                <a target="_blank" href="bsc_preview_invoioce/{{ $invoices->id }}" class="btn btn-info purchase_form"  value="" id="">Preview</a>
                                 {{-- <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a> --}}
                                 {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
                             </div>
@@ -36,86 +36,172 @@
                     </div>
                     <div class="card-header">
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
-                                            <input type="hidden" id="bsc_account_charts_id" value="{{ $invoices->chart_account_id }}">
-                                            <input type="hidden" name="vat_number" id="vat_number" value="{{ $invoices->vat_number }}">
-                                            <div class="col-sm-12">
-                                                <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label>Customer ID</label>
+                                                <div style="padding-left: 10px">
+                                                    <label for="">: 000082</label>
+                                                </div>
                                             </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Customer Name : &nbsp;{{ $invoices->customer_name }}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label>Customer Name</label>
+                                                <div style="padding-left: 10px">
+                                                    <label for="">: Touch Rith</label>
+                                                </div>
                                             </div>
-
-                                            <div class="col-sm-12" style="display: none">
-                                                <p for="">Deposit : &nbsp;{{ $invoices->deposit_on_payment }}</p>
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Balance : &nbsp;{{ $invoices->customer_balance }}</p>
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Invoice Balance : &nbsp;{{ $invoices->customer_invoice_balance }}</p>
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Billing Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->billing_date)) }}</p>
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Address : &nbsp;{{ $invoices->address }}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label>ឈ្មោះអតិថិជន</label>
+                                                <div style="padding-left: 39px">
+                                                    <label for="">: ទូច រិទ្ធ</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <p for="">Invoice : &nbsp;{{ $invoices->invoice_number }}</p>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label>Deposit</label>
+                                                <div style="padding-left: 48px">
+                                                    <label for="">: $ 100.0000</label>
+                                                </div>
                                             </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Reference : &nbsp;{{ $invoices->reference }}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label>Balance</label>
+                                                <div style="padding-left: 74px">
+                                                    <label for="">: $ 30.0000</label>
+                                                </div>
                                             </div>
-
-                                            <div class="col-sm-5">
-                                                <p for="">Due Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->due_date)) }}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label>Invoice Balance</label>
+                                                <div style="padding-left: 10px">
+                                                    <label for="">: $ 34045.0500</label>
+                                                </div>
                                             </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">Effective Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->effective_date)) }}</p>
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <p for="">End Period Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->end_period_date)) }}</p>
-                                            </div>
-
-                                            {{-- <div class="col-sm-12">
-                                                <p for="">Address : &nbsp;{{ $invoices->address }}</p>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <body>
+                                        <div class="row">
+                                            <div class="col-md-6" style="float: left;width: 50%;">
+                                                <table>
+                                                    <tbody>
+                                                        <tr bgcolor="#1fa8e1">
+                                                            <td align="left" colspan="3" style="font-weight: bold; border-right: 1px dotted #000;padding: 5px;width: 456px" valign="top">
+                                                                <span style="color: white;font-family: khmeros;font-size: 16px;"><b>អតិថិជន​ / CUSTOMER</b></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top" width="25%"> <span style="font-size: 13px;">CID / ACCID</span></td>
+                                                            <td align="left" valign="top">:</td>
+                                                            <td width="73%" style="border-right: 1px dotted #000;"> <span style="font-size: 13px;">{{ $invoices->ma_customer_id }}</span> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ឈ្មោះក្រុមហ៊ុន</span></td>
+                                                            <td align="left" valign="top">:</td>
+                                                            <td style="border-right: 1px dotted #000;"> <span style="font-size: 12px;font-family: khmeros;">ទូច រិទ្ធ</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-size: 13px;">Company Name</span></td>
+                                                            <td align="left" valign="top">:</td>
+                                                            <td style="border-right: 1px dotted #000;"><span style="font-size: 13px;">Touch Rith</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">អាសយដ្ឋាន</span></td>
+                                                            <td align="left" valign="top">:</td>
+                                                            <td style="border-right: 1px dotted #000;"><span style="font-family: khmeros;font-size: 12px;">{{ $invoices->address }}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-size: 13px;">Address</span></td>
+                                                            <td align="left" valign="top">:</td>
+                                                            <td style="font-size: 13px;border-right: 1px dotted #000;"><span>{{ $invoices->address }}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ឈ្មោះ & ទូរស័ព្ទ​ <br> Contact</span></td>
+                                                            <td align="left">:</td>
+                                                            <td style="border-right: 1px dotted #000;"><span style="font-size: 13px;">Touch Rith / Tel: 096 9500 705</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">អុីមែល​ / Email</span></td>
+                                                            <td align="left" valign="top">:</td>
+                                                            <td style="border-right: 1px dotted #000;"><span style="font-size: 13px;">touchrith096@gmail.com</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-6" style="float: left;width: 50%;padding-left: 0px">
+                                                <table>
+                                                    <tbody>
+                                                        <tr bgcolor="#1fa8e1">
+                                                            <td align="left" colspan="3" style="font-weight: bold;padding: 5px;width: 457px" valign="top">
+                                                                <span style="color: white;font-family: khmeros;font-size: 16px;"><b>BILL INFORMATION</b></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top" width="41%"><span style="font-family: khmeros;font-size: 12px;">លេខរៀងវិក្កយបត្រ <br> Invoice No</span></td>
+                                                            <td align="left">:</td>
+                                                            <td width="56%"><span style="font-size: 13px;">{{ $invoices->invoice_number }}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ថ្ងៃចេញវិក្កយបត្រ <br> Billing Date</span></td>
+                                                            <td align="left">:</td>
+                                                            <td><span style="font-size: 13px;">{{ date('d-m-Y',strtotime($invoices->billing_date)) }}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ថ្ងៃផុតកំណត់បង់ប្រាក់​ <br> Due Date</span></td>
+                                                            <td align="left">:</td>
+                                                            <td><span style="font-size: 13px;">{{ date('d-m-Y',strtotime($invoices->due_date)) }}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">រយៈពេលប្រើប្រាស់ <br> Period</span></td>
+                                                            <td align="left">:</td>
+                                                            <td><span style="font-size: 13px;">{{ date('d-m-Y',strtotime($invoices->effective_date)) }} to {{ date('d-m-Y',strtotime($invoices->end_period_date)) }}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">យោង​ <br> Reference</span></td>
+                                                            <td align="left">:</td>
+                                                            <td><span style="font-size: 13px;">{{ $invoices->reference }}</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </body>
+                                    </html>
+                                </div>
+                            </div>
+                            <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
+                            <input type="hidden" id="bsc_account_charts_id" value="{{ $invoices->chart_account_id }}">
+                            <input type="hidden" name="vat_number" id="vat_number" value="{{ $invoices->vat_number }}">
                         </div>
                     </div>
                     <div class="card-body">
                         <table id="tbl_invoice_detail"  class="table table-bordered table-striped">
                             <thead>
-                                <tr>
-                                    <th>Customer Branch</th>
-                                    <th>Item</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Unit Price</th>
-                                    <th>Dsicount</th>
-                                    <th>Account</th>
-                                    <th>Tax</th>
-                                    <th>Amount</th>
+                                <tr bgcolor="#1fa8e1">
+                                    <th class="background_color_td">Customer Branch</th>
+                                    <th class="background_color_td">Item</th>
+                                    <th class="background_color_td">Description</th>
+                                    <th class="background_color_td">Quantity</th>
+                                    <th class="background_color_td">Unit Price</th>
+                                    <th class="background_color_td">Dsicount</th>
+                                    <th class="background_color_td">Account</th>
+                                    <th class="background_color_td">Tax</th>
+                                    <th class="background_color_td">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>

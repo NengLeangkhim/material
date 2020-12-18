@@ -1423,37 +1423,45 @@ $(function () {
     });
 
     $("#example1").DataTable({
-    // "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example2").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example3").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example4").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example5").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
     $("#example6").DataTable({
-    "responsive": true,
-    "autoWidth": false,
+        "scrollX":true,
+        "autoWidth": false,
+        "scrollY": "400px",
+        "scrollCollapse": false
     });
-    $('#example').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust()
+            .responsive.recalc();
     });
 });
 $('.customer').click(function(e)

@@ -98,61 +98,59 @@
                             </div>
                             <div class="row" style="margin-top: 5%;">
                                 <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table id="example1" class="table table-bordered table-striped2"​ style="white-space: nowrap">
-                                            <thead>
-                                                <tr class="background_color_tr">
-                                                    <th class="background_color_td">Invoice Number</th>
-                                                    <th class="background_color_td">Reference</th>
-                                                    <th class="background_color_td">Customer</th>
-                                                    <th class="background_color_td">Billing Date</th>
-                                                    <th class="background_color_td">Due Date</th>
-                                                    <th class="background_color_td">Effective Date</th>
-                                                    <th class="background_color_td">End Period Date</th>
-                                                    <th class="background_color_td">Paid</th>
-                                                    <th class="background_color_td">Due</th>
-                                                    <th class="background_color_td">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if (count($invoices) >0)
-                                                    @foreach ($invoices as $invoice)
-                                                        @php
-                                                            $amount_paid = 0;
-                                                            $due_amount = 0;
-                                                            $status = '';
+                                    <table id="example1" class="table table-bordered table-striped2"​ style="white-space: nowrap">
+                                        <thead>
+                                            <tr class="background_color_tr">
+                                                <th class="background_color_td">Invoice Number</th>
+                                                <th class="background_color_td">Reference</th>
+                                                <th class="background_color_td">Customer</th>
+                                                <th class="background_color_td">Billing Date</th>
+                                                <th class="background_color_td">Due Date</th>
+                                                <th class="background_color_td">Effective Date</th>
+                                                <th class="background_color_td">End Period Date</th>
+                                                <th class="background_color_td">Paid</th>
+                                                <th class="background_color_td">Due</th>
+                                                <th class="background_color_td">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (count($invoices) >0)
+                                                @foreach ($invoices as $invoice)
+                                                    @php
+                                                        $amount_paid = 0;
+                                                        $due_amount = 0;
+                                                        $status = '';
 
-                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
-                                                                $amount_paid = 0;
-                                                                $due_amount = $invoice->grand_total;
-                                                                $status = 'Unpaid Invoice';
-                                                            }else if ($invoice->due_amount == 0) {
-                                                                $amount_paid = $invoice->amount_paid;
-                                                                $due_amount = $invoice->due_amount;
-                                                                $status = 'Close Invoice';
-                                                            }else{
-                                                                $amount_paid = $invoice->amount_paid;
-                                                                $due_amount = $invoice->due_amount;
-                                                                $status = 'Close Invoice';
-                                                            }
-                                                        @endphp
-                                                        <tr>
-                                                            <td>{{ $invoice->invoice_number }}</td>
-                                                            <td>{{ $invoice->reference }}</td>
-                                                            <td>{{ $invoice->customer_name }}</td>
-                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                            <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
-                                                            <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                            <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
-                                                            <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
-                                                            <td>{{ $status }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                        if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                            $amount_paid = 0;
+                                                            $due_amount = $invoice->grand_total;
+                                                            $status = 'Unpaid Invoice';
+                                                        }else if ($invoice->due_amount == 0) {
+                                                            $amount_paid = $invoice->amount_paid;
+                                                            $due_amount = $invoice->due_amount;
+                                                            $status = 'Close Invoice';
+                                                        }else{
+                                                            $amount_paid = $invoice->amount_paid;
+                                                            $due_amount = $invoice->due_amount;
+                                                            $status = 'Close Invoice';
+                                                        }
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $invoice->invoice_number }}</td>
+                                                        <td>{{ $invoice->reference }}</td>
+                                                        <td>{{ $invoice->customer_name }}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
+                                                        <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                        <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
+                                                        <td>{{ $status }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -230,61 +228,59 @@
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
                                     <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table id="example1" class="table table-bordered table-striped2"​ style="white-space: nowrap">
-                                                <thead>
-                                                    <tr class="background_color_tr">
-                                                        <th class="background_color_td">Invoice Number</th>
-                                                        <th class="background_color_td">Reference</th>
-                                                        <th class="background_color_td">Customer</th>
-                                                        <th class="background_color_td">Billing Date</th>
-                                                        <th class="background_color_td">Due Date</th>
-                                                        <th class="background_color_td">Effective Date</th>
-                                                        <th class="background_color_td">End Period Date</th>
-                                                        <th class="background_color_td">Paid</th>
-                                                        <th class="background_color_td">Due</th>
-                                                        <th class="background_color_td">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @if (count($invoices) >0)
-                                                        @foreach ($invoices as $invoice)
-                                                            @php
-                                                                $amount_paid = 0;
-                                                                $due_amount = 0;
-                                                                $status = '';
+                                        <table id="example2" class="table table-bordered table-striped2"​ style="white-space: nowrap">
+                                            <thead>
+                                                <tr class="background_color_tr">
+                                                    <th class="background_color_td">Invoice Number</th>
+                                                    <th class="background_color_td">Reference</th>
+                                                    <th class="background_color_td">Customer</th>
+                                                    <th class="background_color_td">Billing Date</th>
+                                                    <th class="background_color_td">Due Date</th>
+                                                    <th class="background_color_td">Effective Date</th>
+                                                    <th class="background_color_td">End Period Date</th>
+                                                    <th class="background_color_td">Paid</th>
+                                                    <th class="background_color_td">Due</th>
+                                                    <th class="background_color_td">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (count($invoices) >0)
+                                                    @foreach ($invoices as $invoice)
+                                                        @php
+                                                            $amount_paid = 0;
+                                                            $due_amount = 0;
+                                                            $status = '';
 
-                                                                if($invoice->amount_paid == null && $invoice->due_amount == null){
-                                                                    $amount_paid = 0;
-                                                                    $due_amount = $invoice->grand_total;
-                                                                    $status = 'Unpaid Invoice';
-                                                                }else if ($invoice->due_amount == 0) {
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }else{
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{ $invoice->invoice_number }}</td>
-                                                                <td>{{ $invoice->reference }}</td>
-                                                                <td>{{ $invoice->customer_name }}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                                <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
-                                                                <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
-                                                                <td>{{ $status }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $invoice->grand_total;
+                                                                $status = 'Unpaid Invoice';
+                                                            }else if ($invoice->due_amount == 0) {
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }else{
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $invoice->invoice_number }}</td>
+                                                            <td>{{ $invoice->reference }}</td>
+                                                            <td>{{ $invoice->customer_name }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
+                                                            <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                            <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
+                                                            <td>{{ $status }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -362,61 +358,59 @@
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
                                     <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table id="example1" class="table table-bordered table-striped2"​ style="white-space: nowrap">
-                                                <thead>
-                                                    <tr class="background_color_tr">
-                                                        <th class="background_color_td">Invoice Number</th>
-                                                        <th class="background_color_td">Reference</th>
-                                                        <th class="background_color_td">Customer</th>
-                                                        <th class="background_color_td">Billing Date</th>
-                                                        <th class="background_color_td">Due Date</th>
-                                                        <th class="background_color_td">Effective Date</th>
-                                                        <th class="background_color_td">End Period Date</th>
-                                                        <th class="background_color_td">Paid</th>
-                                                        <th class="background_color_td">Due</th>
-                                                        <th class="background_color_td">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @if (count($invoices) >0)
-                                                        @foreach ($invoices as $invoice)
-                                                            @php
-                                                                $amount_paid = 0;
-                                                                $due_amount = 0;
-                                                                $status = '';
+                                        <table id="example3" class="table table-bordered table-striped2"​ style="white-space: nowrap">
+                                            <thead>
+                                                <tr class="background_color_tr">
+                                                    <th class="background_color_td">Invoice Number</th>
+                                                    <th class="background_color_td">Reference</th>
+                                                    <th class="background_color_td">Customer</th>
+                                                    <th class="background_color_td">Billing Date</th>
+                                                    <th class="background_color_td">Due Date</th>
+                                                    <th class="background_color_td">Effective Date</th>
+                                                    <th class="background_color_td">End Period Date</th>
+                                                    <th class="background_color_td">Paid</th>
+                                                    <th class="background_color_td">Due</th>
+                                                    <th class="background_color_td">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (count($invoices) >0)
+                                                    @foreach ($invoices as $invoice)
+                                                        @php
+                                                            $amount_paid = 0;
+                                                            $due_amount = 0;
+                                                            $status = '';
 
-                                                                if($invoice->amount_paid == null && $invoice->due_amount == null){
-                                                                    $amount_paid = 0;
-                                                                    $due_amount = $invoice->grand_total;
-                                                                    $status = 'Unpaid Invoice';
-                                                                }else if ($invoice->due_amount == 0) {
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }else{
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{ $invoice->invoice_number }}</td>
-                                                                <td>{{ $invoice->reference }}</td>
-                                                                <td>{{ $invoice->customer_name }}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                                <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
-                                                                <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
-                                                                <td>{{ $status }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $invoice->grand_total;
+                                                                $status = 'Unpaid Invoice';
+                                                            }else if ($invoice->due_amount == 0) {
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }else{
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $invoice->invoice_number }}</td>
+                                                            <td>{{ $invoice->reference }}</td>
+                                                            <td>{{ $invoice->customer_name }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
+                                                            <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                            <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
+                                                            <td>{{ $status }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -494,61 +488,59 @@
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
                                     <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table id="example1" class="table table-bordered table-striped2"​ style="white-space: nowrap">
-                                                <thead>
-                                                    <tr class="background_color_tr">
-                                                        <th class="background_color_td">Invoice Number</th>
-                                                        <th class="background_color_td">Reference</th>
-                                                        <th class="background_color_td">Customer</th>
-                                                        <th class="background_color_td">Billing Date</th>
-                                                        <th class="background_color_td">Due Date</th>
-                                                        <th class="background_color_td">Effective Date</th>
-                                                        <th class="background_color_td">End Period Date</th>
-                                                        <th class="background_color_td">Paid</th>
-                                                        <th class="background_color_td">Due</th>
-                                                        <th class="background_color_td">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @if (count($invoices) >0)
-                                                        @foreach ($invoices as $invoice)
-                                                            @php
-                                                                $amount_paid = 0;
-                                                                $due_amount = 0;
-                                                                $status = '';
+                                        <table id="example4" class="table table-bordered table-striped2"​ style="white-space: nowrap">
+                                            <thead>
+                                                <tr class="background_color_tr">
+                                                    <th class="background_color_td">Invoice Number</th>
+                                                    <th class="background_color_td">Reference</th>
+                                                    <th class="background_color_td">Customer</th>
+                                                    <th class="background_color_td">Billing Date</th>
+                                                    <th class="background_color_td">Due Date</th>
+                                                    <th class="background_color_td">Effective Date</th>
+                                                    <th class="background_color_td">End Period Date</th>
+                                                    <th class="background_color_td">Paid</th>
+                                                    <th class="background_color_td">Due</th>
+                                                    <th class="background_color_td">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (count($invoices) >0)
+                                                    @foreach ($invoices as $invoice)
+                                                        @php
+                                                            $amount_paid = 0;
+                                                            $due_amount = 0;
+                                                            $status = '';
 
-                                                                if($invoice->amount_paid == null && $invoice->due_amount == null){
-                                                                    $amount_paid = 0;
-                                                                    $due_amount = $invoice->grand_total;
-                                                                    $status = 'Unpaid Invoice';
-                                                                }else if ($invoice->due_amount == 0) {
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }else{
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{ $invoice->invoice_number }}</td>
-                                                                <td>{{ $invoice->reference }}</td>
-                                                                <td>{{ $invoice->customer_name }}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                                <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
-                                                                <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
-                                                                <td>{{ $status }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $invoice->grand_total;
+                                                                $status = 'Unpaid Invoice';
+                                                            }else if ($invoice->due_amount == 0) {
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }else{
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $invoice->invoice_number }}</td>
+                                                            <td>{{ $invoice->reference }}</td>
+                                                            <td>{{ $invoice->customer_name }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
+                                                            <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                            <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
+                                                            <td>{{ $status }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -626,61 +618,59 @@
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
                                     <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table id="example1" class="table table-bordered table-striped2"​ style="white-space: nowrap">
-                                                <thead>
-                                                    <tr class="background_color_tr">
-                                                        <th class="background_color_td">Invoice Number</th>
-                                                        <th class="background_color_td">Reference</th>
-                                                        <th class="background_color_td">Customer</th>
-                                                        <th class="background_color_td">Billing Date</th>
-                                                        <th class="background_color_td">Due Date</th>
-                                                        <th class="background_color_td">Effective Date</th>
-                                                        <th class="background_color_td">End Period Date</th>
-                                                        <th class="background_color_td">Paid</th>
-                                                        <th class="background_color_td">Due</th>
-                                                        <th class="background_color_td">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @if (count($invoices) >0)
-                                                        @foreach ($invoices as $invoice)
-                                                            @php
-                                                                $amount_paid = 0;
-                                                                $due_amount = 0;
-                                                                $status = '';
+                                        <table id="example5" class="table table-bordered table-striped2"​ style="white-space: nowrap">
+                                            <thead>
+                                                <tr class="background_color_tr">
+                                                    <th class="background_color_td">Invoice Number</th>
+                                                    <th class="background_color_td">Reference</th>
+                                                    <th class="background_color_td">Customer</th>
+                                                    <th class="background_color_td">Billing Date</th>
+                                                    <th class="background_color_td">Due Date</th>
+                                                    <th class="background_color_td">Effective Date</th>
+                                                    <th class="background_color_td">End Period Date</th>
+                                                    <th class="background_color_td">Paid</th>
+                                                    <th class="background_color_td">Due</th>
+                                                    <th class="background_color_td">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (count($invoices) >0)
+                                                    @foreach ($invoices as $invoice)
+                                                        @php
+                                                            $amount_paid = 0;
+                                                            $due_amount = 0;
+                                                            $status = '';
 
-                                                                if($invoice->amount_paid == null && $invoice->due_amount == null){
-                                                                    $amount_paid = 0;
-                                                                    $due_amount = $invoice->grand_total;
-                                                                    $status = 'Unpaid Invoice';
-                                                                }else if ($invoice->due_amount == 0) {
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }else{
-                                                                    $amount_paid = $invoice->amount_paid;
-                                                                    $due_amount = $invoice->due_amount;
-                                                                    $status = 'Close Invoice';
-                                                                }
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{ $invoice->invoice_number }}</td>
-                                                                <td>{{ $invoice->reference }}</td>
-                                                                <td>{{ $invoice->customer_name }}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                                <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
-                                                                <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
-                                                                <td>{{ $status }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $invoice->grand_total;
+                                                                $status = 'Unpaid Invoice';
+                                                            }else if ($invoice->due_amount == 0) {
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }else{
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Close Invoice';
+                                                            }
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $invoice->invoice_number }}</td>
+                                                            <td>{{ $invoice->reference }}</td>
+                                                            <td>{{ $invoice->customer_name }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
+                                                            <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                            <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
+                                                            <td>{{ $status }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -699,9 +689,41 @@
     $(document).ready(function(){
         // datatable
         $("#example1").DataTable({
-            // "responsive": true,
+            "scrollX":true,
             "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false
         });
+        $("#example2").DataTable({
+            "scrollX":true,
+            "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false
+        });
+        $("#example3").DataTable({
+            "scrollX":true,
+            "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false
+        });
+        $("#example4").DataTable({
+            "scrollX":true,
+            "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false
+        });
+        $("#example5").DataTable({
+            "scrollX":true,
+            "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false
+        });
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust()
+            .responsive.recalc();
+    });
     });
 
     function ReportInvoice(){

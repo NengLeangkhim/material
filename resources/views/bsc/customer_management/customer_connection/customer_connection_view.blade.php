@@ -23,64 +23,67 @@
                 <div class="card card-primary"​>
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td> Customer ID</td>
-                                                    <td> :</td>
-                                                    <td> 000503</td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Deposite</td>
-                                                    <td>:</td>
-                                                    <td> $ 3000</td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td> Customer ID</td>
+                                                        <td> :</td>
+                                                        <td> 000503</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> Deposite</td>
+                                                        <td>:</td>
+                                                        <td> $ 3000</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td> Customer Name</td>
-                                                    <td> :</td>
-                                                    <td> Sok Seng Industry</td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Balance</td>
-                                                    <td>:</td>
-                                                    <td> $ 3000</td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td> Customer Name</td>
+                                                        <td> :</td>
+                                                        <td> Sok Seng Industry</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> Balance</td>
+                                                        <td>:</td>
+                                                        <td> $ 3000</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td> ឈ្មោះអតិថិជន</td>
-                                                    <td> :</td>
-                                                    <td> សុខ​ សេង</td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Invoice Balance</td>
-                                                    <td>:</td>
-                                                    <td> $ 3000</td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
+                                    <div class="col-md-4">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td> ឈ្មោះអតិថិជន</td>
+                                                        <td> :</td>
+                                                        <td> សុខ​ សេង</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> Invoice Balance</td>
+                                                        <td>:</td>
+                                                        <td> $ 3000</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-md-12">
                                     {{-- <div class="card"> --}}
@@ -92,7 +95,7 @@
                                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Acc</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspend_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Invoices</a>
+                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspend_cus" role="tab" aria-controls="profile" aria-selected="false" onclick="go_to('bsc_invoice_invoice_form')">Customer Invoices</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Products</a>
@@ -104,77 +107,77 @@
                                     {{-- </div> --}}
                                         {{-- ======================= End Tab menu =================== --}}
                                         <div class="tab-content" id="myTabContent">
-                                            {{-- ================ start tap new customer ============ --}}
+                                            {{-- ================ start tap customer information ============ --}}
                                             <div class="tab-pane fade show active" id="new_cus" role="tabpanel" aria-labelledby="home-tab">
                                                 {{-- <div class="card-body"> --}}
                                                     {{-- <div class="table-responsive"> --}}
                                                         
-                                                        <h3 style="color: #1fa8e1;text-align: center;"> <strong>Customer Information</strong> </h3>
+                                                        <h4 style="color: #1fa8e1;text-align: center;"> <strong>Customer Information</strong> </h4>
                                                         <table class="table table-border" style="border: 2px solid #1fa8e1">
                                                             <tbody>
-                                                                <tr style="border: 2px solid #1fa8e1 !important">
-                                                                    <td width="10%"> Customer ID</td>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> Customer Name</td>
                                                                     <td> :</td>
-                                                                    <td width="40%"> 000503</td>
-                                                                    <td width="10%"> Customer ID</td>
+                                                                    <td width="40%"> Turbo tech</td>
+                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> Turbo Tech CO.,LTD</td>
+                                                                </tr>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> Sex</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> Male</td>
+                                                                    <td width="10%"> Date of Birth</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> 18/12/2020</td>
+                                                                </tr>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> Email</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> turbotech@gmail.com</td>
+                                                                    <td width="10%"> Mobile Phone</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> 023999910</td>
+                                                                </tr>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> Branch</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> Turbo Tech Branch</td>
+                                                                    <td width="10%"> Address</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%">  St 598 (St. Chea Sophara,) Sangkat Chrang Chamresh 2, Khan Reussey Keo. Phnom Penh, Kingdom of Cambodia.</td>
+                                                                </tr>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> អសយដ្ឋាន</td>
+                                                                    <td> :</td>
+                                                                    <td width="40%"> ផ្លូវ ៥៩៨(ផ្លូវ ​ជា សុផារ៉ា) សង្កាត់​ច្រាំងចំរេះ២ ខណ្ឌ​ឫស្សីកែវ​ រាជធានីភ្នំពេញ ព្រះរាជាណាចក្រកម្ពុជា</td>
+                                                                    <td width="10%"> VAT Type</td>
                                                                     <td> :</td>
                                                                     <td width="40%"> 000503</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> VAT Number</td>
                                                                     <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
+                                                                    <td width="40%"> TT-0001</td>
+                                                                    <td width="10%"> Nationality</td>
                                                                     <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
+                                                                    <td width="40%"> Cambodia</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td width="10%"> Customer ID</td>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> Passport ID</td>
                                                                     <td> :</td>
                                                                     <td width="40%"> 000503</td>
-                                                                    <td width="10%"> Customer ID</td>
+                                                                    <td width="10%"> National ID</td>
                                                                     <td> :</td>
-                                                                    <td width="40%"> 000503</td>
+                                                                    <td width="40%"> Cambodia</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
+                                                                <tr style="font-size: 14px;">
+                                                                    <td width="10%"> Register Date</td>
                                                                     <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
+                                                                    <td width="40%"> 10/10/2020</td>
+                                                                    <td width="10%"> Agency / Seller</td>
                                                                     <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td width="10%"> Customer ID</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> 000503</td>
-                                                                    <td width="10%"> Customer ID</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> 000503</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td width="10%"> Customer ID</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> 000503</td>
-                                                                    <td width="10%"> Customer ID</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> 000503</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
-                                                                    <td width="10%"> ឈ្មោះក្រុមហ៊ុន</td>
-                                                                    <td> :</td>
-                                                                    <td width="40%"> សុខ​​ សេង</td>
+                                                                    <td width="40%"> Sell turbo tech</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -182,13 +185,32 @@
                                                     {{-- </div> --}}
                                                 {{-- </div> --}}
                                             </div>
-                                            {{-- ================ end tap new customer ============ --}}
+                                            {{-- ================ end tap customer information ============ --}}
 
-                                            {{-- ================ start tap closed customer ======= --}}
+                                            {{-- ================ start tap customer account ============== --}}
                                             <div class="tab-pane fade" id="closed_cus" role="tabpanel" aria-labelledby="profile-tab">
                                                 <div class="tab-content" id="myTabContent">
                                                     <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
-                                                        <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                        
+                                                        <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist" style="float: right">
+                                                            <h6 style="margin-top: 12px;"> <strong>View Mode:</strong></h6>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">Inactive</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Active</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Locked</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Closed</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">All Status</a>
+                                                            </li>
+                                                        </ul><br>
+                                                        <table id="customer_acc" class="table table-bordered table-striped" style="white-space: nowrap">
                                                             <thead>
                                                                 <tr class="background_color_tr">
                                                                     <th class="background_color_td">ACCID</th>
@@ -201,46 +223,72 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                            
+                                                                <tr>
+                                                                    <td>001-090-000503-02</td>
+                                                                    <td> <a href="javascript:void(0);" onclick="go_to('bsc_customer_account_view')">Chroy Changva Branch</a> </td>
+                                                                    <td>DPLC Connection</td>
+                                                                    <td rowspan="2" style="vertical-align : middle;text-align:center;">1 Months</td>
+                                                                    <td rowspan="2" class="text-center bg-blue" style="vertical-align : middle;text-align:center;">Active</td>
+                                                                    <td>TT2020101702</td>
+                                                                    <td>TT20202101702@turbo</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2">Start Bill: 18/12/2020</td>
+                                                                    <td>Next Bill: 18/01/2021</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- ================ end tap closed customer ========= --}}
-                                            {{-- ================ start tap closed customer ======= --}}
+                                            {{-- ================ end tap customer account ========= --}}
+                                            {{-- ================ start tap customer invoices ======= --}}
                                             <div class="tab-pane fade" id="suspend_cus" role="tabpanel" aria-labelledby="profile-tab">
                                                 <div class="tab-content" id="myTabContent">
                                                     <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
-                                                        <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
-                                                            <thead>
-                                                               
-                                                            </thead>
-                                                            <tbody>
-                                                                
-                                                            </tbody>
-                                                        </table>
+                                                        <a href="" ></a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- ================ end tap closed customer ========= --}}
-                                            {{-- ================ start tap closed customer ======= --}}
+                                            {{-- ================ end tap customer invoices ========= --}}
+                                            {{-- ================ start tap customer products ======= --}}
                                             <div class="tab-pane fade" id="locked_cus" role="tabpanel" aria-labelledby="profile-tab">
                                                 <div class="tab-content" id="myTabContent">
                                                     <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
-                                                        <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                        <table id="customer_product" class="table table-home table-bordered table-condensed table-striped" style="white-space: nowrap">
                                                             <thead>
-                                                                
+                                                                <tr>
+                                                                    <th colspan="7" style="background: #ccc">
+                                                                        <a href="#" onclick="go_to('bsc_customer_account_view')">Sok San</a>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr class="background_color_tr">
+                                                                    <th class="background_color_td" width="50">Branch</th>
+                                                                    <th class="background_color_td">Name</th>
+                                                                    <th class="background_color_td">Unit Price</th>
+                                                                    <th class="background_color_td">Quantity</th>
+                                                                    <th class="background_color_td">Price</th>
+                                                                    <th class="background_color_td">Type</th>
+                                                                </tr>
                                                             </thead>
                                                             <tbody>
-                                                                
+                                                                <tr>
+                                                                    <td>P0024</td>
+                                                                    <td>Huwei HG8310 GPON ONU Bridged, 1 GE</td>
+                                                                    <td>Pcs</td>
+                                                                    <td>4</td>
+                                                                    <td>$ 20</td>
+                                                                    <td>borrow</td>
+                                                                </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- ================ end tap closed customer ========= --}}
-                                            {{-- ================ start tap closed customer ======= --}}
+                                            {{-- ================ end tap customer products ========= --}}
+                                            {{-- ================ start tap customer log ======= --}}
                                             <div class="tab-pane fade" id="ass" role="tabpanel" aria-labelledby="profile-tab">
                                                 <div class="tab-content" id="myTabContent">
                                                     <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
@@ -261,7 +309,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- ================ end tap closed customer ========= --}}
+                                            {{-- ================ end tap customer log ========= --}}
                                         </div>
                                 </div>
                             </div>
@@ -276,9 +324,19 @@
 <script>
     $(function () {
         $("#customer_log").DataTable({
-            "responsive": true,
+            "scrollX":true,
             "autoWidth": false,
+            "scrollY": "400px",
+            "scrollCollapse": false
         });
         
+        
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $($.fn.dataTable.tables(true)).DataTable()
+                .columns.adjust()
+                .responsive.recalc();
+        });
+
     });
 </script>
