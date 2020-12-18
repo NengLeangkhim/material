@@ -101,7 +101,7 @@ use App\Http\Controllers\en_de;
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="plan_detail_schedule">Education Level<span class="text-danger">*</span></label>
+                                    <label for="plan_detail_schedule">Education Level</label>
                                     <select name="education_level" id="education_level" class="form-control">
                                         <option value="" hidden></option>
                                         @foreach ($education as $educat)
@@ -120,7 +120,7 @@ use App\Http\Controllers\en_de;
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="plan_detail_schedule">Major<span class="text-danger">*</span></label>
+                                    <label for="plan_detail_schedule">Major</label>
                                     <input type="text" class="form-control" name="major" id="major" value="<?=$major?>">
                                     <span class="invalid-feedback" role="alert" id="majorError"> {{--span for alert--}}
                                         <strong></strong>

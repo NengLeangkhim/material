@@ -40,15 +40,15 @@ var reportLeadByStatus = () => {
                 ];
                 var numCount = 0;
                 $.each(data, function(k, val) {
-                    colors[k] = { color: val['color'] }
-                    if (data[k]['total_lead'] == 0) {
-                        numCount += 1;
-                    }
-                    mydata.push([data[k]['status_en'], data[k]['total_lead']]);
-                    // mydata.push(['darasok'+k+'', k]);
-                })
-                console.log(colors);
-                // console.log('countNum='+numCount+'datelength='+data.length);
+                        colors[k] = { color: val['color'] }
+                        if (data[k]['total_lead'] == 0) {
+                            numCount += 1;
+                        }
+                        mydata.push([data[k]['status_en'], data[k]['total_lead']]);
+                        // mydata.push(['darasok'+k+'', k]);
+                    })
+                    // console.log(colors);
+                    // console.log('countNum='+numCount+'datelength='+data.length);
                 if (numCount == data.length) {
                     returnNoData('Branchchart');
                 }
@@ -56,7 +56,7 @@ var reportLeadByStatus = () => {
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable(mydata);
                     var options = {
-                        title: 'Branch Lead Progress',
+                        // title: 'Branch Lead Progress',
                         pieHole: 0.4,
                         // colors: [''],
                         // legend: 'none',
@@ -207,7 +207,7 @@ var reportContact = () => {
                         2
                     ]);
                     var options = {
-                        title: "Contact Progress",
+                        // title: "Contact Progress",
                         legend: { position: "none" },
                         vAxis: {
                             minValue: 0,
@@ -329,8 +329,9 @@ var reportOrganization = () => {
                         2
                     ]);
                     var options = {
-                        title: "Organization Progress",
+                        // title: "Organization Progress",
                         legend: { position: "none" },
+                        dataOpacity: 0.7,
                         vAxis: {
                             minValue: 0,
                             maxValue: 100
@@ -374,19 +375,21 @@ var reportQuoteByStatus = () => {
         success: function(response) {
             if (response.success == true) {
                 var data = response.data;
+                var mydata = [
+                    ['', ' ', { 'role': 'style' }]
+                ];
+                // console.log(data);
                 if (data.length < 1) {
-                    $('#QuoteChart').text("");
-                    $('#QuoteChart').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
-                    return 0;
+                    // $('#QuoteChart').text("");
+                    // $('#QuoteChart').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
+                    // return 0;
+                    mydata.push(['No Data', 0, '{stroke-width: 1; stroke-color: red; color:#12CBC4;}']);
                 }
                 google.charts.load("current", { packages: ["corechart"] });
                 google.charts.setOnLoadCallback(drawChart);
-                var mydata = [
-                    ['Year', ' ', { role: 'style' }]
-                ];
                 // var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
                 $.each(data, function(index, val) {
-                    mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, val.crm_quote_status_type_color]);
+                    mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, '{stroke-width: 1;stroke-color: red;color:' + val.crm_quote_status_type_color + ';}']);
                 });
                 // console.log(mydata);
                 function drawChart() {
@@ -410,7 +413,7 @@ var reportQuoteByStatus = () => {
                         2
                     ]);
                     var options = {
-                        title: "Quote Performance",
+                        // title: "Quote Performance",
                         bar: { groupWidth: "70%" },
                         legend: { position: "none" },
                         vAxis: {
@@ -418,6 +421,7 @@ var reportQuoteByStatus = () => {
                                 fontSize: 14
                             }
                         },
+                        dataOpacity: 0.3,
                         hAxis: {
                             minValue: 0,
                             maxValue: 100
@@ -557,7 +561,7 @@ var reportSurvey = () => {
                     mydata.push(['No data', 0, 'color:#25CCF7']);
                 } else {
                     $.each(data, function(k, val) {
-                        mydata.push([UpperCaseFirstLetter(data[k]['status_en']), data[k]['total_suveyed'], '' + chartColor[k] + '']);
+                        mydata.push([UpperCaseFirstLetter(data[k]['status_en']), data[k]['total_suveyed'], '{stroke-width: 1;stroke-color: red;' + chartColor[k] + '}']);
                     });
                 }
                 // console.log(mydata);
@@ -582,8 +586,9 @@ var reportSurvey = () => {
                 ]);
 
                 var options = {
-                    title: 'Survey Performance',
+                    // title: 'Survey Performance',
                     legend: 'none',
+                    strokeWidth: 1,
                     annotations: {
                         textStyle: {
                             fontName: 'Times-Roman',
@@ -592,6 +597,13 @@ var reportSurvey = () => {
                             opacity: 0.8
                         }
                     },
+                    // chartArea: {
+                    //     backgroundColor: {
+                    //         stroke: '#000',
+                    //         strokeWidth: 1
+                    //     }
+                    // },
+                    dataOpacity: 0.3,
                     style: {
                         opacity: 0.5
                     },
@@ -609,7 +621,168 @@ var reportSurvey = () => {
     });
 }
 
+// chart for Lead contact activities
+var reportLeadContactActivitis = () => {
 
+    $("#FrmChartLeadContactActivitiesReport input").removeClass("is-invalid");
+
+    $.ajax({
+        url: '/crmreport/contact/activities/chart',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        // data: $('#FrmChartQuoteReport').serialize(),
+        success: function(response) {
+            if (response.success == true) {
+                var data = response.data;
+                // console.log(data);
+
+                var mydata = [
+                    ['', '', { 'role': 'style' }]
+                ];
+
+                $('#lead_contact_activities').text("");
+                if (data.length < 1) {
+                    mydata.push(['No data', 0, '{fill-color:#25CCF7};']);
+                } else {
+                    $.each(data, function(index, val) {
+                        mydata.push([UpperCaseFirstLetter(val.name_en), val.total_schdeule, '{fill-color:' + val.color + ';}']);
+                    });
+                }
+
+                // console.log(mydata);
+
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(mydata);
+                    var options = {
+                        legend: 'none',
+                        curveType: 'function',
+                        pointSize: 13,
+                        pointShape: 'point',
+                        // dataOpacity: 0.3,
+                        vAxis: {
+                            minValue: 0,
+                            maxValue: 100,
+                            viewWindow: {
+                                min: 0
+                            }
+                        },
+                        hAxis: {
+                            textStyle: {
+                                fontSize: 16
+                            },
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('lead_contact_activities'));
+                    chart.draw(data, options);
+                }
+            }
+        }
+    });
+}
+
+var reportLeadContactResult = () => {
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['', '', { 'role': 'style' }],
+            ['Success', 10, '{fill-color: #36a2eb;}'],
+            ['Failure', 5, '{fill-color: #f3333f;}'],
+            ['Waiting', 11, '{fill-color: #ffcd56;}'],
+        ]);
+
+        var options = {
+            legend: 'none',
+            curveType: 'function',
+            pointSize: 13,
+            pointShape: 'point',
+            // dataOpacity: 0.3,
+            vAxis: {
+                minValue: 0,
+                maxValue: 100,
+                viewWindow: {
+                    min: 0
+                }
+            },
+            hAxis: {
+                textStyle: {
+                    fontSize: 16
+                },
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('lead_contact_result'));
+        chart.draw(data, options);
+    }
+
+    // $("#FrmChartQuoteReport input").removeClass("is-invalid")
+    // $.ajax({
+    //     url: '/crmreport/quote/chart',
+    //     type: 'GET',
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: $('#FrmChartQuoteReport').serialize(),
+    //     success: function(response) {
+    //         if (response.success == true) {
+    //             var data = response.data;
+
+    //             console.log(data);
+
+    //             var mydata = [
+    //                 ['', '', { 'role': 'style' }]
+    //             ];
+
+    //             $('#lead_contact_result').text("");
+    //             if (data.length < 1) {
+    //                 mydata.push(['No data', 0, '{fill-color:#25CCF7};']);
+    //             } else {
+    //                 $.each(data, function(index, val) {
+    //                     mydata.push([UpperCaseFirstLetter(val.name_en), val.total_schdeule, '{fill-color:' + val.color + ';}']);
+    //                 });
+    //             }
+
+    //             google.charts.load('current', { 'packages': ['corechart'] });
+    //             google.charts.setOnLoadCallback(drawChart);
+
+    //             function drawChart() {
+    //                 var data = google.visualization.arrayToDataTable(mydata);
+    //                 var options = {
+    //                     legend: 'none',
+    //                     curveType: 'function',
+    //                     pointSize: 13,
+    //                     pointShape: 'point',
+    //                     // dataOpacity: 0.3,
+    //                     vAxis: {
+    //                         minValue: 0,
+    //                         maxValue: 100,
+    //                         viewWindow: {
+    //                             min: 0
+    //                         }
+    //                     },
+    //                     hAxis: {
+    //                         textStyle: {
+    //                             fontSize: 16
+    //                         },
+    //                     }
+    //                 };
+
+    //                 var chart = new google.visualization.LineChart(document.getElementById('lead_contact_result'));
+    //                 chart.draw(data, options);
+    //             }
+    //         }
+    //     }
+    // });
+}
+
+// chart for Lead contact result
 
 
 //=========================================Export Report CRM=====================
@@ -649,10 +822,10 @@ $(document).on('click', '#btnCustomerServiceExcel', function() {
     var table = $('#CustomerServiceTbl').DataTable();
     if (!table.data().any()) { // condition true it mean table empty data
         sweetalert('warning', 'No data export !');
-        console.log('No Data');
+        // console.log('No Data');
     } else {
         exportTableToExcel('CustomerServiceReport');
-        console.log('Data');
+        // console.log('Data');
     }
 });
 // button to click export quote report to pdf file
@@ -660,10 +833,10 @@ $(document).on("click", "#btnCustomerServicePDF", function() {
     var table = $('#CustomerServiceTbl').DataTable();
     if (!table.data().any()) {
         sweetalert('warning', 'No data export !');
-        console.log('No Data');
+        // console.log('No Data');
     } else {
         exportTableToPDF('CustomerServiceTbl', 'CustomerServiceReport');
-        console.log('Data');
+        // console.log('Data');
     }
 });
 // END Customer Service

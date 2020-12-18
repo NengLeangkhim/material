@@ -161,6 +161,7 @@ $(window).on('shown.bs.modal', function() {
 
 
 <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
 <script src="js/notify.min.js"></script>
 
 
@@ -194,3 +195,6 @@ $(window).on('shown.bs.modal', function() {
 
 {{-- Smart Wizard --}}
 <script src="plugins/SmartWizard/js/jquery.smartWizard.min.js"></script>
+
+{{-- validation --}}
+<script src="stJS/validation.js"></script>

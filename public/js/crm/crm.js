@@ -86,7 +86,7 @@ function Crm_delete(id, route, goto, alert) {
                 data: { id: id },
                 type: "GET", //Using of Post method for send data
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     // if(data =='error'){
                     //      //sweetalert('success',alert);
                     //    //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
@@ -123,7 +123,7 @@ function CrmSettingView(url, table) {
         success: function(data) {
             $('#CrmTabManageSetting').html(data);
             $('#' + table + '').dataTable({
-                'responsive': true,
+                // 'responsive': true,
                 scrollX: true,
                 "autoWidth": false,
                 "serverSide": false,
@@ -265,6 +265,7 @@ $(document).on('click', '.CrmEditLeadIndustry', function() {
             $.each(response.data, function(i, e) { //read array json for show to textbox
                 $('#name_kh').val(response.data.name_kh);
                 $('#name_en').val(response.data.name_en);
+                $("input[name=industry_type][value=" + response.data.type + "]").prop('checked', true);
                 if (response.data.status == true) {
                     $('#status').val(1);
                 } else {
@@ -352,16 +353,14 @@ $(document).on('click', '.CrmEditScheduleType', function() {
             $.each(response.data, function(i, e) { //read array json for show to textbox
                 $('#name_kh').val(response.data.name_kh);
                 $('#name_en').val(response.data.name_en);
+                $('#color').val(response.data.color);
+                $('#comment').val(response.data.comment);
                 if (response.data.status == true) {
                     $('#status').val(1);
                 } else {
                     $('#status').val(0);
                 }
-                if (response.data.is_result_type == true) {
-                    $('#is_result_type').val("t");
-                } else {
-                    $('#is_result_type').val("f");
-                }
+                $("input[name=schedule_type][value=" + response.data.type + "]").prop('checked', true);
             });
         }
     });
@@ -573,11 +572,11 @@ $('.save').click(function() {
         submit_form('/addlead', 'frm_lead', 'lead');
     })
     // select option lead in add lead, if have value go to list field add branch
-$("#lead_id").change(function() {
-    var lead_id = $(this).val();
-    //goto_Action('/addleadtype',lead_id);
-    CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
-})
+// $("#lead_id").change(function() {
+//     var lead_id = $(this).val();
+//     //goto_Action('/addleadtype',lead_id);
+//     CrmSelectChange('/typeaddlead', 'CrmChangeSelectLead', lead_id)
+// })
 
 
 
@@ -599,6 +598,60 @@ $("#lead_id").change(function() {
 // $('#lead_status').change(function(){
 
 // });
+
+
+    // function to onclick change type of add lead
+    function addLeadOption(route,btnId) {
+        if($('#'+btnId+'').hasClass('active')){
+            return 0;
+        }
+        var option = $("input[name='optionAddLead']:checked").val();
+        // console.log('this option val='+option);
+        if(typeof option != 'undefined' && (option == 1 || option == 2)){
+                $.ajax({
+                    url:route,  //get URL to route
+                    type:"get",
+                    data:{
+                        option_:option,
+                    },
+                    success:function(data){
+                        $('#contentShowAddLeadType').html(data);
+                    }
+                });
+        }else{
+            $("#" + btnId + "").notify(
+                "No type selected !",
+                "info", {
+                    position: "bottom",
+                }
+            );
+        }
+
+    }
+
+
+    //function to click to change type option add lead
+    $(document).on('click',"input[name='optionAddLead']", function () {
+        var option = $(this).val();
+        $("[name='btnGroupAddLead[]']").each(function(i) {
+            if($(this).hasClass('active')){
+                var route = $(this).val();
+                $.ajax({
+                    url:route,  //get URL to route
+                    type:"get",
+                    data:{
+                        option_:option,
+                    },
+                    success:function(data){
+                        $('#contentShowAddLeadType').html(data);
+                    }
+                });
+            }
+        });
+    })
+
+
+
 
 
 //========================>> Start-Quote-CRM JS <<=========================================================
@@ -859,7 +912,7 @@ function row_content(i, branId) {
         '<div class="form-group col-11">' +
         '<div class="input-group">' +
         '<div class="input-group-prepend">' +
-        '<span class="font-weight-bold input-group-text">Branch:</span>' +
+        '<span class="font-weight-bold input-group-text">Customer Branch Name:</span>' +
         '</div>' +
         '<input type="text" class="form-control" id="branch' + branId + '"  name="branch"   placeholder="" required readonly>' +
         '<input type="hidden" id="lead_branch' + branId + '"  name="lead_branch[]"  required readonly>' +
@@ -871,7 +924,7 @@ function row_content(i, branId) {
         '<div class="form-group col-11">' +
         '<div class="input-group">' +
         '<div class="input-group-prepend">' +
-        '<span class="font-weight-bold input-group-text">Address:</span>' +
+        '<span class="font-weight-bold input-group-text">Install Address:</span>' +
         '</div>' +
         '<input type="text" class="form-control" id="branchAddress' + branId + '"  name="branchAddress"   placeholder="" required readonly>' +
         '<input type="hidden" id="' + branId + '"  name=""  required readonly>' +

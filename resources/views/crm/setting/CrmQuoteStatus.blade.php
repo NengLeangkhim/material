@@ -25,6 +25,8 @@
                     <th style="color: #FFFFFF">Name Khmer</th>
                     <th style="color: #FFFFFF">Sequence</th>
                     <th style="color: #FFFFFF">Color</th>
+                    <th style="color: #FFFFFF">Status</th>
+                    <th style="color: #FFFFFF">Create By</th>
                     <th style="color: #FFFFFF">Create Date</th>
                     <th style="color: #FFFFFF">Action</th>
                 </tr>
@@ -40,6 +42,8 @@
                     <td>{{$row->name_kh}}</td>
                     <td>{{$row->sequence}}</td>
                     <td class="text-center"><input style="border: none; background-color: white;" type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
+                    <td>{{$row->status_text??''}}</td>
+                    <td>{{$row->create_by_name??''}}</td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td>
                         <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditQuoteStatus"><i class="fas fa-wrench"></i></a>

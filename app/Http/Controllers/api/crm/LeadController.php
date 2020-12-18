@@ -21,6 +21,7 @@ use App\Http\Resources\api\crm\lead\GetSurvey;
 use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use App\model\api\crm\Crmlead;
+use App\Http\Controllers\path_config;
 use Illuminate\Database\QueryException;
 Use Exception;
 
@@ -167,6 +168,12 @@ class LeadController extends Controller
         // $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
         $address_type='main';
         $addresscode=$request->input('village')!=''? $request->input('village'):null;
+        //upload file if exist
+        if($request->hasfile('file')&&$request->file('file')->isValid()){
+            $file= $request->file('file');
+        }else{
+            $file=null;
+        }
 
         // return $lead_id;
         // dd($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
@@ -178,7 +185,7 @@ class LeadController extends Controller
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$file);
     }
     // update lead
     public static function updatebranch(Request $request){
@@ -328,6 +335,11 @@ class LeadController extends Controller
     public function getbranchById($id){
         $branch_id = Lead::getbranchById($id);
         return GetLeadBranch::Collection($branch_id);
+    }
+    // get lead status by lead branch id
+    public function getleadstatusbyleadid($id){
+        $lead_status = Lead::getleadstatusbyleadid($id);
+        return json_encode(["query"=>"success","data"=>$lead_status]);
     }
     //
     public function getbranchByIdconvert($id){
@@ -493,6 +505,8 @@ class LeadController extends Controller
         }
         $userid = $_SESSION['userid'];
         $survey_id =$request->input('survey_id');
+        $pop_id =$request->input("pop_id")!=""?$request->input("pop_id"):null;
+        $pop_distant =$request->input('pop_distant')!=""?$request->input('pop_distant'):null;
         // $userid =$request->input('user_create');
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
@@ -506,10 +520,10 @@ class LeadController extends Controller
         {
             $possible='f';
         }
-        // dd($comment_branch,$lead_detail_id);
+        // dd($pop_id,$pop_distant);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
 
-        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch);
+        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch,$pop_id,$pop_distant);
     }
     // get schdule type
     public function getschduletype($id){
@@ -569,6 +583,11 @@ class LeadController extends Controller
     public function getschedulebyid($id){
         $schedule = Lead::getschedulebyid($id); // all lead
             return GetLeadSchedule::Collection($schedule);
+    }
+    // get schedule by id
+    public function getschedulebyleadid($id){
+        $schedule = Lead::getschedulebyleadid($id); // all lead branch
+        return json_encode(["query"=>"success","data"=>$schedule]);
     }
     //insert schedule
     public function insertschedule(Request $request){
@@ -676,7 +695,7 @@ class LeadController extends Controller
             return [];
         }
     }
-    // Search Lead 
+    // Search Lead
     public function CrmLeadSearch(Request $request){
         if(is_null($request->search)){
             $search = null;

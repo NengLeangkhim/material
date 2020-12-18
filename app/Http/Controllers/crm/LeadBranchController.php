@@ -20,11 +20,9 @@ class LeadBranchController extends Controller
     // get lead branch by APi
     public function index(Request $request){
         if(perms::check_perm_module('CRM_0214')){//module codes
-            $status = Request::create('/api/crm/leadStatus', 'GET');
+            $status = Request::create('/api/crm/leadActiveStatus', 'GET');
             $status = json_decode(Route::dispatch($status)->getContent());
-            $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
-            $schedule_type =json_decode($schedule_type,true);
-            return view('/crm.LeadBranch.CrmLeadBranchIndex',['status'=>$status,'schedule_type'=>$schedule_type['data']]);
+            return view('/crm.LeadBranch.CrmLeadBranchIndex',['status'=>$status]);
             //  $lead=ModelLeadBranch::CrmGetLeadBranch();
             //  $result =json_decode($lead,true);
             //  dd($result);
@@ -67,8 +65,13 @@ class LeadBranchController extends Controller
         if(perms::check_perm_module('CRM_021001')){//module codes
             $detail_branch=ModelCrmLead::CrmGetDetailBranch($id);
             $result =json_decode($detail_branch,true);
-            // dd($result);
-            return view('crm.LeadBranch.CrmBranchDetail',['detailbranch'=>$result["data"]]);
+            $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
+            $schedule_type =json_decode($schedule_type,true);
+            $schedule=ModelCrmLead::CrmGetSchdeuleByLead($id);
+            $schedule=json_decode($schedule,true);
+            $lead_status=ModelLeadBranch::CrmGetLeadStatusByBranch($id);
+            $lead_status=json_decode($lead_status,true);
+            return view('crm.LeadBranch.CrmBranchDetail',['detailbranch'=>$result["data"],'schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data'],'lead_status'=>$lead_status['data']]);
         }else{
             return view('no_perms');
         }
@@ -103,5 +106,15 @@ class LeadBranchController extends Controller
             return view('no_perms');
         }
         return $id;
+    }
+    //Survey lead branch
+    public function SurveyLeadBranch(Request $request){
+        $id =$request->branch_id;
+        if(perms::check_perm_module('CRM_0214')){//module codes
+            ModelLeadBranch::CrmSurveyLeadBranch($id);
+            return 'success';
+        }else{
+            return view('no_perms');
+        }
     }
 }

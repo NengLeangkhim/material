@@ -23,6 +23,8 @@
                     <th style="color: #FFFFFF">#</th>
                     <th style="color: #FFFFFF">Name English</th>
                     <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Status</th>
+                    <th style="color: #FFFFFF">Create By</th>
                     <th style="color: #FFFFFF">Create Date</th>
                     <th style="color: #FFFFFF">Action</th>
                 </tr>
@@ -36,6 +38,8 @@
                     <td>{{$i++}}</td>
                     <td>{{$row->name_en}}</td>
                     <td>{{$row->name_kh}}</td>
+                    <td>{{$row->status_text??''}}</td>
+                    <td>{{$row->create_by_name??''}}</td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td>
                         <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditLeadISP"><i class="fas fa-wrench"></i></a>

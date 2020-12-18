@@ -38,6 +38,13 @@ $(document).ready(function() {
     var getSumTotal = 0;
 
 
+    $(document).on('click', '#btnGoToEditQuoteFromViewDetail', function() {
+        j = 0;
+        i = 0;
+        RowBranch = [];
+    });
+
+
     $(document).on('click', '#btnEditQuote', function() {
         j = 0;
         i = 0;
