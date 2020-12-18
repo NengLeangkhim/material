@@ -43,12 +43,12 @@
                                         <span class="label label-success font-weight-bold">Type</span>
                                     </div>
                                     <div class="custom-control custom-radio ml-2">
-                                        <input  type="radio" id="customRadio1" value="1" name="optionAddLead" class="custom-control-input" checked="checked">
-                                        <label class="custom-control-label" for="customRadio1">Short</label>
+                                        <input  type="radio" id="addLeadShort" value="1" name="optionAddLead" class="custom-control-input" checked="checked">
+                                        <label class="custom-control-label" for="addLeadShort">Short</label>
                                     </div>
                                     <div class="custom-control custom-radio ml-4">
-                                        <input  type="radio" id="customRadio2" value="2" name="optionAddLead" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio2">Full</label>
+                                        <input  type="radio" id="addLeadFull" value="2" name="optionAddLead" class="custom-control-input">
+                                        <label class="custom-control-label" for="addLeadFull">Full</label>
                                     </div>
                                 </div>
                             </div>

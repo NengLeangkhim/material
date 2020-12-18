@@ -14,13 +14,12 @@
 // }
 //function for notify alert
 function notify_alert(id, type, locat, message) {
-
     $(id).notify(
         "" + message + "", // show notify message
         {
-            position: locat, // top, left, right...
-            className: type, // type error or success
-            autoHideDelay: 20000,
+            position: locat, // top, left, right, bottom of the element
+            className: type, // type ,error,info,warning,success
+            autoHideDelay: 20000,  // delay time to hide it 20 seconds
 
         }
     );
@@ -631,7 +630,7 @@ $('.save').click(function() {
 
 
     //function to click to change type option add lead
-    $(document).on('click',"input[name='optionAddLead']", function () {
+    $(document).on('change','input[name="optionAddLead"]', function () {
         var option = $(this).val();
         $("[name='btnGroupAddLead[]']").each(function(i) {
             if($(this).hasClass('active')){
@@ -738,6 +737,11 @@ function getDeleteQuoteLead(route, id) {
 
 
 
+
+
+
+
+
 // function to ajax with http respon
 function getHttpRespon(route, id) {
     var id_ = "id=" + id;
@@ -768,10 +772,13 @@ function getShowPopup(route, id, modal_mainform, modal_form, tblId, btnId, getNa
     x.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText.length > 0) {
+                $('#' + modal_mainform + '').text("");
+                $('#' + modal_form + '').modal('hide');
                 document.getElementById(modal_mainform).innerHTML = this.responseText;
+                // setTimeout(function(){
                 $('#' + modal_form + '').modal('show');
                 getDataTableSelectRow(tblId, btnId, getName, fieldID, fieldName, modal_form);
-                // setTimeout(function(){ i = 0; }, 5000);
+                // }, 2000);
             }
 
         }
@@ -860,7 +867,8 @@ function btnActionAfterClickRowTbl(tbl, btnId, getName, fieldID, fieldName, moda
                 $('#crm_address_id').val(leadAddressId);
             }
             // console.log('when selected tr table addrssid='+leadAddressId);
-            $('#' + modal_form + '').modal('hide');
+            closeModalUp(modal_form);
+            // $('#' + modal_form + '').modal('hide');
         } else {
             $("#" + btnId + "").notify(
                 "No record seleted !",
@@ -892,9 +900,15 @@ function alertText(title_, icon_) {
 }
 
 
-// function myfun111(){
-//     alert('thiso is alert test');
-// }
+
+    //function to use to call close modal pop up
+    function closeModalUp(modalId) {
+        $('#'+modalId+'').modal('hide');
+        if($("div").hasClass("modal-backdrop")){
+            // console.log('class modal up was close');
+            $("div").removeClass("modal-backdrop");
+        }
+    }
 
 
 
@@ -1047,7 +1061,8 @@ $(document).on('click', '#clickGetBranch', function() {
                             $('#vatNumber' + branch_id + '').val(vatNumber);
 
                             //close modal
-                            $('#listQuoteBranch').modal('hide');
+                            // $('#listQuoteBranch').modal('hide');
+                            closeModalUp('listQuoteBranch');
                         }
                     } else {
                         $("#getSelectRow").notify(
@@ -1351,6 +1366,78 @@ function CrmSurveyView(url,table){
         }
     });
 }
+
+
+
+
+
+    function gg_map_marker(id){
+        var map;
+        var markers = [];
+
+        function initMap() {
+
+            var haightAshbury = {
+                lat: 11.620803,
+                lng: 104.892215
+            };
+            var get_latlng = 0;
+            map = new google.maps.Map(document.getElementById(''+id+''), {
+                zoom: 12, // Set the zoom level manually
+                center: haightAshbury,
+                mapTypeId: 'roadmap'
+            });
+
+
+            //declear default value for latlong on map
+            addMarker(haightAshbury);
+            document.getElementById('latlong').value = '11.620803, 104.892215';
+
+            // This event listener will call addMarker() when the map is clicked.
+            map.addListener('click', function(event) {
+                if (markers.length >= 1) {
+                    deleteMarkers();
+                }
+
+                addMarker(event.latLng);
+                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
+                document.getElementById('latlong').value = get_latlng;
+            });
+        }
+
+        // Adds a marker to the map and push to the array.
+        function addMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+            markers.push(marker);
+        }
+
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+
+        // Deletes all markers in the array by removing references to them.
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+        }
+    }
+
+
+
+
+
+
 
 
 

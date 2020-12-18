@@ -6,14 +6,14 @@
         <div class="modal-content">
                 <div class=" modal-header text-center">
                     <h4 class="modal-title" id="exampleModalLabel"><b> Add Product </b></h4>
-                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <button type="button" onclick="closeModalUp('listQuoteItem')" class="close" data-dismiss="modal">x</button>
 
                 </div>
                 <div class=" modal-body ">
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  data-id="{{ $branId }}"  value="Select">
+                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  data-id="{{ $branId }}"   value="Select">
                         </div>
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">

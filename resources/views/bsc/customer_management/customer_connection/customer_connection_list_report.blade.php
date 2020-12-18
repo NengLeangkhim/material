@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> Customer</h1>
+                <h1><i class="fas fa-user"></i> Customer Connection Report</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,18 +26,27 @@
                 </div><br/>
                 <div class="card">
                     {{-- ======================= Start Tab menu =================== --}}
-                    <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist" style="font-size: 14px">
                         <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new_cus" role="tab" aria-controls="home" aria-selected="true">New Customer</a>
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new_cus" role="tab" aria-controls="home" aria-selected="true">All Connection</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Closed Customer</a>
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">New Connection</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspend_cus" role="tab" aria-controls="profile" aria-selected="false">Suspend Customer</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspend_cus" role="tab" aria-controls="profile" aria-selected="false">Connection Active</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Locked Customer</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Connection Closed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Connection Suspend</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Connection Locked</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#locked_cus" role="tab" aria-controls="profile" aria-selected="false">Unpaid Connection</a>
                         </li>
                     </ul><br/>
                     {{-- ======================= End Tab menu =================== --}}
@@ -49,30 +58,34 @@
                                     <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
-                                                <th class="background_color_td">CIF</th>
+                                                <th class="background_color_td">No</th>
                                                 <th class="background_color_td">CID</th>
-                                                <th class="background_color_td">Customer</th>
-                                                <th class="background_color_td">Customer KH</th>
-                                                <th class="background_color_td">Account Name</th>
-                                                <th class="background_color_td">Create Date</th>
-                                                <th class="background_color_td">Finishdate</th>
-                                                <th class="background_color_td">Bill Date</th>
-                                                <th class="background_color_td">VAT Type</th>
-                                                <th class="background_color_td">VAT Number</th>
-                                                <th class="background_color_td">Branch</th>
-                                                <th class="background_color_td">Mobile Phone</th>
+                                                <th class="background_color_td">ACCID</th>
+                                                <th class="background_color_td">Customer(EN)</th>
+                                                <th class="background_color_td">Customer(KH)</th>
+                                                <th class="background_color_td">Village</th>
+                                                <th class="background_color_td">Commune</th>
+                                                <th class="background_color_td">District</th>
+                                                <th class="background_color_td">City/Province</th>
+                                                <th class="background_color_td">Phone Number</th>
                                                 <th class="background_color_td">Email</th>
-                                                <th class="background_color_td">Startbilling Date</th>
-                                                <th class="background_color_td">Service Package</th>
-                                                <th class="background_color_td">Pay</th>
-                                                <th class="background_color_td">Free</th>
-                                                <th class="background_color_td">Monthly</th>
-                                                <th class="background_color_td">Discount</th>
-                                                <th class="background_color_td">Type</th>
+                                                <th class="background_color_td">Create Date</th>
+                                                <th class="background_color_td">Finish Date</th>
+                                                <th class="background_color_td">Billing Date</th>
+                                                <th class="background_color_td">Next Billing Date</th>
+                                                <th class="background_color_td">Product Type</th>
+                                                <th class="background_color_td">Package</th>
+                                                <th class="background_color_td">Customer Type</th>
+                                                <th class="background_color_td">Business Sector</th>
                                                 <th class="background_color_td">Speed</th>
+                                                <th class="background_color_td">Payment Term</th>
+                                                <th class="background_color_td">Monthly Price</th>
+                                                <th class="background_color_td">Discount Price</th>
+                                                <th class="background_color_td">Total Price</th>
+                                                <th class="background_color_td">Tax</th>
+                                                <th class="background_color_td">Grand Total</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
@@ -105,30 +118,34 @@
                                     <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
-                                                <th class="background_color_td">CIF</th>
+                                                <th class="background_color_td">No</th>
                                                 <th class="background_color_td">CID</th>
-                                                <th class="background_color_td">Customer</th>
-                                                <th class="background_color_td">Customer KH</th>
-                                                <th class="background_color_td">Account Name</th>
-                                                <th class="background_color_td">Create Date</th>
-                                                <th class="background_color_td">Finishdate</th>
-                                                <th class="background_color_td">Bill Date</th>
-                                                <th class="background_color_td">VAT Type</th>
-                                                <th class="background_color_td">VAT Number</th>
-                                                <th class="background_color_td">Branch</th>
-                                                <th class="background_color_td">Mobile Phone</th>
+                                                <th class="background_color_td">ACCID</th>
+                                                <th class="background_color_td">Customer(EN)</th>
+                                                <th class="background_color_td">Customer(KH)</th>
+                                                <th class="background_color_td">Village</th>
+                                                <th class="background_color_td">Commune</th>
+                                                <th class="background_color_td">District</th>
+                                                <th class="background_color_td">City/Province</th>
+                                                <th class="background_color_td">Phone Number</th>
                                                 <th class="background_color_td">Email</th>
-                                                <th class="background_color_td">Startbilling Date</th>
-                                                <th class="background_color_td">Service Package</th>
-                                                <th class="background_color_td">Pay</th>
-                                                <th class="background_color_td">Free</th>
-                                                <th class="background_color_td">Monthly</th>
-                                                <th class="background_color_td">Discount</th>
-                                                <th class="background_color_td">Type</th>
+                                                <th class="background_color_td">Create Date</th>
+                                                <th class="background_color_td">Finish Date</th>
+                                                <th class="background_color_td">Billing Date</th>
+                                                <th class="background_color_td">Next Billing Date</th>
+                                                <th class="background_color_td">Product Type</th>
+                                                <th class="background_color_td">Package</th>
+                                                <th class="background_color_td">Customer Type</th>
+                                                <th class="background_color_td">Business Sector</th>
                                                 <th class="background_color_td">Speed</th>
+                                                <th class="background_color_td">Payment Term</th>
+                                                <th class="background_color_td">Monthly Price</th>
+                                                <th class="background_color_td">Discount Price</th>
+                                                <th class="background_color_td">Total Price</th>
+                                                <th class="background_color_td">Tax</th>
+                                                <th class="background_color_td">Grand Total</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
@@ -160,30 +177,34 @@
                                     <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
-                                                <th class="background_color_td">CIF</th>
+                                                <th class="background_color_td">No</th>
                                                 <th class="background_color_td">CID</th>
-                                                <th class="background_color_td">Customer</th>
-                                                <th class="background_color_td">Customer KH</th>
-                                                <th class="background_color_td">Account Name</th>
-                                                <th class="background_color_td">Create Date</th>
-                                                <th class="background_color_td">Finishdate</th>
-                                                <th class="background_color_td">Bill Date</th>
-                                                <th class="background_color_td">VAT Type</th>
-                                                <th class="background_color_td">VAT Number</th>
-                                                <th class="background_color_td">Branch</th>
-                                                <th class="background_color_td">Mobile Phone</th>
+                                                <th class="background_color_td">ACCID</th>
+                                                <th class="background_color_td">Customer(EN)</th>
+                                                <th class="background_color_td">Customer(KH)</th>
+                                                <th class="background_color_td">Village</th>
+                                                <th class="background_color_td">Commune</th>
+                                                <th class="background_color_td">District</th>
+                                                <th class="background_color_td">City/Province</th>
+                                                <th class="background_color_td">Phone Number</th>
                                                 <th class="background_color_td">Email</th>
-                                                <th class="background_color_td">Startbilling Date</th>
-                                                <th class="background_color_td">Service Package</th>
-                                                <th class="background_color_td">Pay</th>
-                                                <th class="background_color_td">Free</th>
-                                                <th class="background_color_td">Monthly</th>
-                                                <th class="background_color_td">Discount</th>
-                                                <th class="background_color_td">Type</th>
+                                                <th class="background_color_td">Create Date</th>
+                                                <th class="background_color_td">Finish Date</th>
+                                                <th class="background_color_td">Billing Date</th>
+                                                <th class="background_color_td">Next Billing Date</th>
+                                                <th class="background_color_td">Product Type</th>
+                                                <th class="background_color_td">Package</th>
+                                                <th class="background_color_td">Customer Type</th>
+                                                <th class="background_color_td">Business Sector</th>
                                                 <th class="background_color_td">Speed</th>
+                                                <th class="background_color_td">Payment Term</th>
+                                                <th class="background_color_td">Monthly Price</th>
+                                                <th class="background_color_td">Discount Price</th>
+                                                <th class="background_color_td">Total Price</th>
+                                                <th class="background_color_td">Tax</th>
+                                                <th class="background_color_td">Grand Total</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
@@ -215,30 +236,34 @@
                                     <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
-                                                <th class="background_color_td">CIF</th>
+                                                <th class="background_color_td">No</th>
                                                 <th class="background_color_td">CID</th>
-                                                <th class="background_color_td">Customer</th>
-                                                <th class="background_color_td">Customer KH</th>
-                                                <th class="background_color_td">Account Name</th>
-                                                <th class="background_color_td">Create Date</th>
-                                                <th class="background_color_td">Finishdate</th>
-                                                <th class="background_color_td">Bill Date</th>
-                                                <th class="background_color_td">VAT Type</th>
-                                                <th class="background_color_td">VAT Number</th>
-                                                <th class="background_color_td">Branch</th>
-                                                <th class="background_color_td">Mobile Phone</th>
+                                                <th class="background_color_td">ACCID</th>
+                                                <th class="background_color_td">Customer(EN)</th>
+                                                <th class="background_color_td">Customer(KH)</th>
+                                                <th class="background_color_td">Village</th>
+                                                <th class="background_color_td">Commune</th>
+                                                <th class="background_color_td">District</th>
+                                                <th class="background_color_td">City/Province</th>
+                                                <th class="background_color_td">Phone Number</th>
                                                 <th class="background_color_td">Email</th>
-                                                <th class="background_color_td">Startbilling Date</th>
-                                                <th class="background_color_td">Service Package</th>
-                                                <th class="background_color_td">Pay</th>
-                                                <th class="background_color_td">Free</th>
-                                                <th class="background_color_td">Monthly</th>
-                                                <th class="background_color_td">Discount</th>
-                                                <th class="background_color_td">Type</th>
+                                                <th class="background_color_td">Create Date</th>
+                                                <th class="background_color_td">Finish Date</th>
+                                                <th class="background_color_td">Billing Date</th>
+                                                <th class="background_color_td">Next Billing Date</th>
+                                                <th class="background_color_td">Product Type</th>
+                                                <th class="background_color_td">Package</th>
+                                                <th class="background_color_td">Customer Type</th>
+                                                <th class="background_color_td">Business Sector</th>
                                                 <th class="background_color_td">Speed</th>
+                                                <th class="background_color_td">Payment Term</th>
+                                                <th class="background_color_td">Monthly Price</th>
+                                                <th class="background_color_td">Discount Price</th>
+                                                <th class="background_color_td">Total Price</th>
+                                                <th class="background_color_td">Tax</th>
+                                                <th class="background_color_td">Grand Total</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>

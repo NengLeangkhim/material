@@ -426,8 +426,16 @@ class InvoiceController extends Controller
             $invoice_by_ids= $invoice_by_id->data;
             $invoices=$invoice_by_ids->invoice;
             $invoice_details=$invoice_by_ids->invoice_detail;
-            // dd($invoice_by_ids);exit;
-            return view('bsc.invoice.invoice.invoice_edit',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs','invoices','invoice_details'));
+
+            //get vat chart account
+            $request = Request::create('/api/bsc_show_vat_chart_account', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $vat_chart_account = json_decode($res->getContent()); // convert to json object
+            $vat_chart_accounts=$vat_chart_account->data;
+            // dd($vat_chart_accounts);exit;
+            return view('bsc.invoice.invoice.invoice_edit',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs','invoices','invoice_details','vat_chart_accounts'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;

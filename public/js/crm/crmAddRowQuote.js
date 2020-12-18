@@ -45,6 +45,13 @@ $(document).ready(function() {
     });
 
 
+    $(document).on('click', '#clickGetBranch', function() {
+        j = 0;
+        i = 0;
+        RowBranch = [];
+    });
+
+
     $(document).on('click', '#btnEditQuote', function() {
         j = 0;
         i = 0;
@@ -604,12 +611,11 @@ $(document).ready(function() {
                 num += 1;
                 $(".row-quote-item").keyup();
             });
-
-        } else {
-            console.log("No items chosen!");
+            closeModalUp('listQuoteItem');
+        }else {
+            // console.log("No items chosen!");
+            notify_alert('.getStockItem', 'info', 'bottom', 'No record selected !');
         }
-
-        $('#listQuoteItem').modal('hide');
     });
 
 

@@ -34,6 +34,75 @@ if (count($bsc_show_customer_branchs) >0) {
                 {{-- <form id="frm_chart_account" action=""> --}}
                     @csrf
                     <!-- general form elements -->
+                    {{-- customer detail --}}
+                    <div class="card card-primary"​>
+                        <div class="card-body" style="padding-bottom: 0px">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label>Customer ID <b class="color_label">*</b></label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control custom-select select2 input_required" name="customer_id" id="customer_id">
+                                                    <option value="" selected hidden disabled>select item</option>
+                                                    <option value="">TT-001</option>
+                                                    <option value="">TT-002</option>
+                                                    <option value="">TT-003</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label>Customer Name</label>
+                                            <div style="padding-left: 10px">
+                                                <label for="">: Touch Rith</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label>ឈ្មោះអតិថិជន</label>
+                                            <div style="padding-left: 40px">
+                                                <label for="">: ទូច រិទ្ធ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label>Deposit</label>
+                                            <div style="padding-left: 30px">
+                                                <label for="">: 1000</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label>Balance</label>
+                                            <div style="padding-left: 70px">
+                                                <label for="">: 1000</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label>Invoice Balance</label>
+                                            <div style="padding-left: 10px">
+                                                <label for="">: 1000</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- invoice detail --}}
                     <div class="card card-primary">
                         <div class="card-header" style="background:#1fa8e0">
                             <h3 class="card-title">Invoice Detail</h3>
@@ -85,8 +154,23 @@ if (count($bsc_show_customer_branchs) >0) {
                                         <input type="hidden" id="crm_quote_id" name="crm_quote_id">
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="form-group">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Select Account / Connection<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <select class="form-control input_required select2" name="account_connection" id="account_connection">
+                                                <option value="" selected hidden disabled>select item</option>
+                                                <option value="">TT-001</option>
+                                                <option value="">TT-002</option>
+                                                <option value="">TT-003</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
                                         <div class="input-group">
@@ -105,7 +189,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         <input type="hidden" id="crm_quote_id" name="crm_quote_id">
                                     </div>
                                     <input type="hidden" id="billing_address" name="billing_address">
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -113,7 +197,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                             </div>
                                             <input type="text" class="form-control input_required" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
@@ -135,6 +219,34 @@ if (count($bsc_show_customer_branchs) >0) {
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
                                             <input type="date" class="form-control input_required" name="due_date" id="due_date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Address<b class="color_label">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control input_required"   name="Address" id="Address" placeholder="Address">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Invoice Type<b class="color_label">*</b></label>
+                                        <div class="input-group" style="width: 100%">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <select class="form-control input_required select2" name="invoice_type" id="invoice_type">
+                                                <option value="" selected hidden disabled>select item</option>
+                                                <option value="">TT-001</option>
+                                                <option value="">TT-002</option>
+                                                <option value="">TT-003</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +311,8 @@ if (count($bsc_show_customer_branchs) >0) {
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <button type="button" name="add" id="invoice_form" class="btn btn-success btn-xs"><i class="fas fa-plus"></i> New Record</button> --}}
+                                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#listProduct"><i class="fas fa-plus"></i>Add Product</button>&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#listService"><i class="fas fa-plus"></i>Add Service</button>
                             </div><br/>
                             {{-- ============= detail payment ================= --}}
                             <div class="form-group" id="vat_number_is_not_null">
@@ -250,11 +363,272 @@ if (count($bsc_show_customer_branchs) >0) {
             </div>
         </div>
     </div>
+
+    {{-- ===================  start modal select product ================ --}}
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listProduct">
+        <div class="modal-dialog modal-lg" id="confirm_box1">
+            <div class="modal-content">
+                    <div class=" modal-header text-center">
+                        <h4 class="modal-title" id="exampleModalLabel"><b> Add Product </b></h4>
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+
+                    </div>
+                    <div class=" modal-body ">
+
+                        <div class="row pb-3">
+                            <div class="col-md-2 col-sm-2 col-4">
+                                {{-- <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  data-id="{{ $branId }}"  value="Select"> --}}
+                                <input type="button" class="btn-success getStockItem"  value="Select">
+                            </div>
+                        </div>
+                        <div class="row-12 pt-2 table-responsive">
+                            <table id="example1" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
+                                <thead>
+                                    <tr >
+                                        <th>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" id="checkAllItem" class="custom-control-input checkAllItem" name="checkAllItem" >
+                                                <label class="custom-control-label" for="checkAllItem"></label>
+                                            </div>
+                                        </th>
+                                        <th>Product Name</th>
+                                        <th>Unit Price</th>
+                                        <th>Available In Stock</th>
+                                        <th>Measurement</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="border">
+                                            <input type="hidden" id="showItemType_" value="Product">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" id="checkbox_"  class="custom-control-input"   name="seleteItem">
+                                                <label class="custom-control-label" for="checkbox_"></label>
+                                            </div>
+                                        </td>
+                                        <td>Internet</td>
+                                        <td>100$</td>
+                                        <td>10</td>
+                                        <td>Internet</td>
+                                        <td>Buy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border">
+                                            <input type="hidden" id="showItemType_" value="Product">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" id="checkbox_"  class="custom-control-input"   name="seleteItem">
+                                                <label class="custom-control-label" for="checkbox_"></label>
+                                            </div>
+                                        </td>
+                                        <td>Internet</td>
+                                        <td>100$</td>
+                                        <td>10</td>
+                                        <td>Internet</td>
+                                        <td>Buy</td>
+                                    </tr>
+                                    {{-- foreach variable --}}
+                                    {{-- @foreach ($listProduct as $key=>$val)
+                                        @foreach ($val as $key2=>$val2)
+                                                <tr>
+
+                                                    <td class="border">
+                                                        <input type="hidden" id="showItemType_{{$row_id}}" value="Product">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input"  value="{{$val2->id ?? ""}}" name="seleteItem">
+                                                            <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id ?? ""}}" >
+                                                            {{$val2->name ?? ""}}
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="border">
+                                                        <div>
+                                                            @if($val2->product_price == "")
+                                                                @php $prdPrice = 0; @endphp
+                                                            @else
+                                                                @php $prdPrice = $val2->product_price; @endphp
+                                                            @endif
+                                                            {{ $prdPrice }}
+                                                            <input type="hidden" class="itemPrice_{{$val2->id ?? ""}}" value="{{$prdPrice ?? ""}}" readonly>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="border">
+                                                        <div class="stockItem_{{$val2->id ?? ""}}">
+                                                            @if($val2->stock_qty == "")
+                                                                0
+                                                            @else
+                                                                {{$val2->stock_qty ?? ""}}
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="itemMeasurement_{{$val2->id ?? ""}}">
+                                                            {{$val2->measurement ?? ""}}
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="border">
+                                                        <div class="itemDescription_{{$val2->id ?? ""}}">
+                                                            {{$val2->description ?? ""}}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        @endforeach
+                                    @endforeach --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    {{-- ===================  end modal select product ================== --}}
+    {{-- ===================  start modal select Service ================ --}}
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listService">
+        <div class="modal-dialog modal-lg" id="confirm_box1">
+            <div class="modal-content">
+                    <div class=" modal-header text-center">
+                        <h4 class="modal-title" id="exampleModalLabel"><b> Add Service </b></h4>
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+
+                    </div>
+                    <div class=" modal-body ">
+
+                        <div class="row pb-3">
+                            <div class="col-md-2 col-sm-2 col-4">
+                                {{-- <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  data-id="{{ $branId }}"  value="Select"> --}}
+                                <input type="button" class="btn-success getStockItem"  value="Select">
+                            </div>
+                        </div>
+                        <div class="row-12 pt-2 table-responsive">
+                            <table id="example2" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
+                                <thead>
+                                    <tr >
+                                        <th>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" id="checkAllItem" class="custom-control-input checkAllItem" name="checkAllItem" >
+                                                <label class="custom-control-label" for="checkAllItem"></label>
+                                            </div>
+                                        </th>
+                                        <th>Product Name</th>
+                                        <th>Unit Price</th>
+                                        <th>Available In Stock</th>
+                                        <th>Measurement</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="border">
+                                            <input type="hidden" id="showItemType_" value="Product">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" id="checkbox_"  class="custom-control-input"   name="seleteItem">
+                                                <label class="custom-control-label" for="checkbox_"></label>
+                                            </div>
+                                        </td>
+                                        <td>Internet</td>
+                                        <td>100$</td>
+                                        <td>10</td>
+                                        <td>Internet</td>
+                                        <td>Buy</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border">
+                                            <input type="hidden" id="showItemType_" value="Product">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" id="checkbox_"  class="custom-control-input"   name="seleteItem">
+                                                <label class="custom-control-label" for="checkbox_"></label>
+                                            </div>
+                                        </td>
+                                        <td>Internet</td>
+                                        <td>100$</td>
+                                        <td>10</td>
+                                        <td>Internet</td>
+                                        <td>Buy</td>
+                                    </tr>
+                                    {{-- foreach variable --}}
+                                    {{-- @foreach ($listProduct as $key=>$val)
+                                        @foreach ($val as $key2=>$val2)
+                                                <tr>
+
+                                                    <td class="border">
+                                                        <input type="hidden" id="showItemType_{{$row_id}}" value="Product">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input"  value="{{$val2->id ?? ""}}" name="seleteItem">
+                                                            <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id ?? ""}}" >
+                                                            {{$val2->name ?? ""}}
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="border">
+                                                        <div>
+                                                            @if($val2->product_price == "")
+                                                                @php $prdPrice = 0; @endphp
+                                                            @else
+                                                                @php $prdPrice = $val2->product_price; @endphp
+                                                            @endif
+                                                            {{ $prdPrice }}
+                                                            <input type="hidden" class="itemPrice_{{$val2->id ?? ""}}" value="{{$prdPrice ?? ""}}" readonly>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="border">
+                                                        <div class="stockItem_{{$val2->id ?? ""}}">
+                                                            @if($val2->stock_qty == "")
+                                                                0
+                                                            @else
+                                                                {{$val2->stock_qty ?? ""}}
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="itemMeasurement_{{$val2->id ?? ""}}">
+                                                            {{$val2->measurement ?? ""}}
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="border">
+                                                        <div class="itemDescription_{{$val2->id ?? ""}}">
+                                                            {{$val2->description ?? ""}}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        @endforeach
+                                    @endforeach --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    {{-- ===================  end modal select Service ================== --}}
 </section>
 </form>
+
 <script src="js/bsc/invoice.js"></script>
 {{-- ========== submit chart account =========== --}}
 <script>
+    $("#example1").DataTable({
+    // "responsive": true,
+    "autoWidth": false,
+    });
+    $("#example2").DataTable({
+    // "responsive": true,
+    "autoWidth": false,
+    });
     function myFunction(id)
     {
         let crm_quote_id=$('.reference option:selected').attr('data-crm_quote_id');
