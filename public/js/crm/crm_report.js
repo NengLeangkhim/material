@@ -383,13 +383,13 @@ var reportQuoteByStatus = () => {
                     // $('#QuoteChart').text("");
                     // $('#QuoteChart').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
                     // return 0;
-                    mydata.push(['No Data', 0, '{stroke-width: 1; stroke-color: red; color:#12CBC4;}']);
+                    mydata.push(['No Data', 0, 'color:#12CBC4']);
                 }
                 google.charts.load("current", { packages: ["corechart"] });
                 google.charts.setOnLoadCallback(drawChart);
                 // var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
                 $.each(data, function(index, val) {
-                    mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, '{stroke-width: 1;stroke-color: red;color:' + val.crm_quote_status_type_color + ';}']);
+                    mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, '' + val.crm_quote_status_type_color + '']);
                 });
                 // console.log(mydata);
                 function drawChart() {
@@ -561,7 +561,7 @@ var reportSurvey = () => {
                     mydata.push(['No data', 0, 'color:#25CCF7']);
                 } else {
                     $.each(data, function(k, val) {
-                        mydata.push([UpperCaseFirstLetter(data[k]['status_en']), data[k]['total_suveyed'], '{stroke-width: 1;stroke-color: red;' + chartColor[k] + '}']);
+                        mydata.push([UpperCaseFirstLetter(data[k]['status_en']), data[k]['total_suveyed'], '' + chartColor[k] + '']);
                     });
                 }
                 // console.log(mydata);
@@ -724,7 +724,7 @@ var reportLeadContactResult = () => {
 
     // $("#FrmChartQuoteReport input").removeClass("is-invalid")
     // $.ajax({
-    //     url: '/crmreport/quote/chart',
+    //     url: '/crmreport/contact/resule/chart',
     //     type: 'GET',
     //     headers: {
     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -65,7 +65,7 @@ function validENTxt(evt) {
 function validENName(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 32 && charCode > 35 && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode> 90) && (charCode < 97 || charCode > 122)) {
+    if (charCode > 32 && charCode > 35 && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
         return false;
     }
     return true;

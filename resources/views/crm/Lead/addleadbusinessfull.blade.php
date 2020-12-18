@@ -15,12 +15,9 @@
                             <li><a class="nav-link" href="#business-address">Address</a></li>
                         </ul>
                         <div class="mt-4">
-
                             {{-- Form-1 Detail --}}
                             <div id="business-detail">
-
                                 <div class="row">
-
                                     <div class="col-md-12">
                                         <label for="lead">Select Lead</label>
                                         <div class="input-group">
@@ -36,7 +33,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="row mt-3">
@@ -46,7 +42,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en"  required>
+                                            <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en" onkeypress="return validENName(event)" required>
                                             <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -59,7 +55,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" >
+                                            <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" onkeypress="return validKHName(event)">
                                             {{-- <span class="invalid-feedback" role="alert" id="company_khError"> span for alert
                                                 <strong></strong>
                                             </span> --}}
@@ -74,7 +70,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-at"></i></span>
                                             </div>
-                                            <input type="email" class="form-control"  name="primary_email" id="primary_email" placeholder="Primary Email">
+                                            <input type="email" class="form-control"  name="primary_email" id="primary_email" placeholder="Primary Email" onkeypress="return validENTxt(event)">
                                             <span class="invalid-feedback" role="alert" id="primary_emailError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -87,7 +83,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return onlyNumberKey(event)" >
+                                            <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return validENNumber(event)">
                                             <span class="invalid-feedback" role="alert" id="primary_phoneError">
                                                 <strong></strong>
                                             </span>
@@ -96,14 +92,13 @@
                                 </div>
 
                                 <div class="row mt-3">
-
                                     <div class="col-md-6">
                                         <label for="company_facebook">Facebook</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook">
+                                            <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook" onkeypress="return validENName(event)">
                                             <span class="invalid-feedback" role="alert" id="company_facebookError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -116,7 +111,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="website" id="website" placeholder="Website">
+                                            <input type="text" class="form-control" name="website" id="website" placeholder="Website" onkeypress="return validENTxt(event)">
                                             <span class="invalid-feedback" role="alert" id="websiteError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -220,7 +215,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="vat_number" id="vat_number" placeholder="Vat Number">
+                                            <input type="text" class="form-control" name="vat_number" id="vat_number" placeholder="Vat Number" onkeypress="return validENNumber(event)">
                                             <span class="invalid-feedback" role="alert" id="vat_numberError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -276,10 +271,9 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="current_speed" id="current_speed" placeholder="Current Speed ISP">
+                                            <input type="text" class="form-control" name="current_speed" id="current_speed" placeholder="Current Speed ISP" onkeypress="return validENNumber(event)">
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="row mt-3">
@@ -289,10 +283,9 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="current_price" id="current_price" placeholder="Current Price">
+                                            <input type="text" class="form-control" name="current_price" id="current_price" placeholder="Current Price" onkeypress="return validENNumber(event)">
                                         </div>
                                     </div>
-
 
                                     <div class="col-md-6">
                                         <label for="honorifics">Prioroty</label>
@@ -321,7 +314,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="employee_count" id="employee_count" placeholder="employee count">
+                                            <input type="text" class="form-control" name="employee_count" id="employee_count" placeholder="employee count" onkeypress="return validENNumber(event)">
                                         </div>
                                     </div>
 
@@ -331,7 +324,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-comments"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="comment" id="comment" placeholder="comment">
+                                            <input type="text" class="form-control" name="comment" id="comment" placeholder="comment" onkeypress="return validENTxt(event)">
                                         </div>
                                     </div>
 
@@ -340,13 +333,27 @@
                                 <div class="row mt-3">
 
                                 </div>
-
                             </div>
 
                             {{-- Form-2 Contact --}}
                             <div id="business-contact">
                                 <div class="row">
-                                    
+                                    <div class="col-md-6">
+                                        <label for="contact">Select Contact</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="contact_id" id="contact_id">
+                                                {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
+                                                <option value=''>-- Select Contact  --</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-6">
                                         <label for="name_en">Full Name English</label>
@@ -354,16 +361,12 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="name_en" id="name_en" placeholder="English Name" >
+                                            <input type="text" class="form-control" name="name_en" id="name_en" placeholder="English Name" onkeypress="return validENName(event)">
                                             <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
 
                                 <div class="row mt-3">
@@ -373,7 +376,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Khmer Name"  name='name_kh' id="name_kh" >
+                                            <input type="text" class="form-control" placeholder="Khmer Name"  name='name_kh' id="name_kh" onkeypress="return validKHName(event)">
                                             <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -386,14 +389,12 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-at"></i></span>
                                             </div>
-                                            <input type="email" class="form-control"  name="email" id="email" placeholder="Email">
+                                            <input type="email" class="form-control"  name="email" id="email" placeholder="Email" onkeypress="return validENTxt(event)">
                                             <span class="invalid-feedback" role="alert" id="emailError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
                                         </div>
                                     </div>
-
-
 
                                 </div>
 
@@ -404,7 +405,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" >
+                                            <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" onkeypress="return validENNumber(event)">
                                             <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -433,19 +434,16 @@
                                             </span>
                                         </div>
                                     </div>
-
-
                                 </div>
 
                                 <div class="row mt-3">
-
                                     <div class="col-md-6">
                                         <label for="position">Position </label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="position" id="position" placeholder="Position">
+                                            <input type="text" class="form-control" name="position" id="position" placeholder="Position" onkeypress="return validENTxt(event)">
                                             <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -458,7 +456,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-address-card"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Card ">
+                                            <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Card" onkeypress="return validENNumber(event)">
                                             <span class="invalid-feedback" role="alert" id="national_idError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -466,9 +464,6 @@
                                     </div>
 
                                 </div>
-
-
-
 
                             </div>
 
@@ -481,7 +476,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-home"></i></span>
                                             </div>
-                                            <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home english"  >
+                                            <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home english" onkeypress="return validENTxt(event)">
                                             <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -494,7 +489,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-road"></i></span>
                                             </div>
-                                            <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street english"  >
+                                            <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street english" onkeypress="return validENTxt(event)">
                                             <span class="invalid-feedback" role="alert" id="street_enError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -819,5 +814,73 @@
             },
         });
     });
+    $( "#contact_id" ).on('select2:select', function (e){
+        
+        
+        $("#name_en").val(''); //set option null before change
+        $("#name_kh").val('');
+        $("#email").val('');
+        $("#phone").val('');
+        $("#national_id").val('');
+        $("#position").val('');
+        $("#ma_honorifics_id").val('');
+        var to = $(this).children("option:selected"). val();
+        
+        var myvar= $( "#getcontact" ).val();
+        if(to=='Not'){
+          $("#name_en").val('');
+          $("#name_kh").val('');
+          $("#email").val('');
+          $("#phone").val('');
+          $("#national_id").val('');
+          $("#position").val('');
+          $("#ma_honorifics_id").val('');
+          $('#name_en').prop('readonly', false);
+          $('#name_kh').prop('readonly', false);
+          $('#email').prop('readonly', false);
+          $('#phone').prop('readonly', false);
+          $('#national_id').prop('readonly', false);
+          $('#position').prop('readonly', false);
+          $('#ma_honorifics_id').attr('disabled', false);
+        }else{
+          $.ajax({
+            url:'/contact/'+to,
+            type:'get',
+            dataType:'json',
+            success:function(response){
+              console.log(response);
+
+                        var name_en = response.data.name_en;
+                        var name_kh = response.data.name_kh;
+                        var email = response.data.email;
+                        var phone = response.data.phone;
+                        var national_id = response.data.national_id;
+                        var position = response.data.position;
+                        if(response.data.honorifics == null){
+                           var honorifics_id ='';
+                        }else{
+                          var honorifics_id = response['data'].honorifics.id;
+                        }
+                        $("#name_en").val(name_en);
+                        $("#name_kh").val(name_kh);
+                        $("#email").val(email);
+                        $("#phone").val(phone);
+                        $("#national_id").val(national_id);
+                        $("#position").val(position);
+                        $("#ma_honorifics_id").val(honorifics_id);
+
+                        $('#name_en').prop('readonly', true);
+                        $('#name_kh').prop('readonly', true);
+                        $('#email').prop('readonly', true);
+                        $('#phone').prop('readonly', true);
+                        $('#national_id').prop('readonly', true);
+                        $('#position').prop('readonly', true);
+                        $('#ma_honorifics_id').attr('disabled', true);
+
+
+            }
+          })
+        }
+      });
 </script>
 
