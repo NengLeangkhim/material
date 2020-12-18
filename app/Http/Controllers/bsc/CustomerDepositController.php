@@ -21,4 +21,24 @@ class CustomerDepositController extends Controller
             exit();
         }
     }
+    public function form(Request $request)
+    {
+        return view('bsc.customer_management.customer_deposit.customer_deposit_form');
+    }
+    public function view(Request $request)
+    {
+        return view('bsc.customer_management.customer_deposit.customer_deposit_view');
+    }
+    public function deposit_transfer_form(Request $request)
+    {
+        return view('bsc.customer_management.customer_deposit.customer_deposit_transfer_form');
+    }
+    public function edit(Request $request)
+    {
+        return view('bsc.customer_management.customer_deposit.customer_deposit_edit');
+    }
+    public function deposit_refund_form(Request $request)
+    {
+        return view('bsc.customer_management.customer_deposit.customer_deposit_refund_form');
+    }
 }

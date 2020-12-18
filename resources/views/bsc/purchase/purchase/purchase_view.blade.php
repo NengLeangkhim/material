@@ -247,7 +247,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                            <div class="form-group">
                             <div class="row" style="margin-top: 30px;">
                                 <a href="#" onclick="makePayment()" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>

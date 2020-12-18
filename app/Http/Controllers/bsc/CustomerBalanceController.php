@@ -21,4 +21,25 @@ class CustomerBalanceController extends Controller
             exit();
         }
     }
+    
+    public function form(Request $request)
+    {
+        return view('bsc.customer_management.customer_balance.customer_balance_form');
+    }
+    public function view(Request $request)
+    {
+        return view('bsc.customer_management.customer_balance.customer_balance_view');
+    }
+    public function balance_transfer_form(Request $request)
+    {
+        return view('bsc.customer_management.customer_balance.customer_balance_transfer_form');
+    }
+    public function edit(Request $request)
+    {
+        return view('bsc.customer_management.customer_balance.customer_balance_edit');
+    }
+    public function balance_refund_form(Request $request)
+    {
+        return view('bsc.customer_management.customer_balance.customer_balance_refund_form');
+    }
 }

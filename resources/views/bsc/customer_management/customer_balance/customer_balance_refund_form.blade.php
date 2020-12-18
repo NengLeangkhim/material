@@ -2,16 +2,16 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h1><span><i class="fas fa-dollar-sign"></i></span> Increase Deposit</h1>
+                <h1><span><i class="fas fa-dollar-sign"></i></span> Refund Balance</h1>
             </div>
             <div class="col-md-5">
 
             </div>
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_customer_deposit')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
-                    <li class="breadcrumb-item"><a href="" class="deposit" ​value="deposit">Home</a></li>
-                    <li class="breadcrumb-item active">Increase Deposit</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_customer_balance')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
+                    <li class="breadcrumb-item"><a href="" class="balance" ​value="balance">Home</a></li>
+                    <li class="breadcrumb-item active">Refund Balance</li>
                 </ol>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <form id="frm_increase_deposit" action="">
+                <form id="frm_refund_balance" action="">
                     @csrf
                     <div class="card card-primary"​>
                         <div class="card-body" style="padding-bottom: 0px">
@@ -91,45 +91,31 @@
                         </div>
                     </div>
 
-                    {{-- Increase Deposit --}}
+                    {{-- Refund Balance --}}
                     <div class="card card-primary">
                         <div class="card-header" style="background:#1fa8e0">
-                            <h3 class="card-title">Increase Deposit</h3>
+                            <h3 class="card-title">Refund Balance</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="current_deposit">Current Deposit<b class="color_label">*</b></label>
+                                        <label for="current_balance">Current Balance<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">USD</span>
                                             </div>
-                                            <input type="number" class="form-control input_required" name="current_deposit" id="current_deposit">
+                                            <input type="number" class="form-control input_required" name="current_balance" id="current_balance">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="amount">Amount<b class="color_label">*</b></label>
+                                        <label for="refund_amount">Refund Amount<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">USD</span>
                                             </div>
-                                            <input type="number" class="form-control input_required" name="amount" id="amount">
+                                            <input type="number" class="form-control input_required" name="refund_amount" id="refund_amount">
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="payment_method">Payment Method<b class="color_label">*</b></label>
-                                        <select name="payment_method" id="payment_method" class="form-control custom-select input_required">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="credit_card_code">Credit Card Code</label>
-                                        <input type="number" class="form-control" name="credit_card_code" id="credit_card_code">
                                     </div>
                                 </div>
                             </div>
@@ -142,8 +128,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_deposit" onclick="saveData()">Save</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_deposit')">Cancel</button>
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_refund_balance" onclick="saveData()">Save</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_balance')">Cancel</button>
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,6 @@
             </div>
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_customer_deposit')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="deposit" ​value="deposit">Home</a></li>
                     <li class="breadcrumb-item active">Increase Deposit</li>
                 </ol>
@@ -29,7 +28,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label>Customer ID <b class="color_label">*</b></label>
                                             <div class="col-sm-7">
                                                 <select class="form-control custom-select select2 input_required" name="customer_id" id="customer_id">
@@ -42,7 +41,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label>Customer Name</label>
                                             <div style="padding-left: 10px">
                                                 <label for="">: Touch Rith</label>
@@ -50,7 +49,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label>ឈ្មោះអតិថិជន</label>
                                             <div style="padding-left: 40px">
                                                 <label for="">: ទូច រិទ្ធ</label>
@@ -63,7 +62,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label>Deposit</label>
                                             <div style="padding-left: 30px">
                                                 <label for="">: 1000</label>
@@ -71,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label>Balance</label>
                                             <div style="padding-left: 70px">
                                                 <label for="">: 1000</label>
@@ -79,7 +78,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label>Invoice Balance</label>
                                             <div style="padding-left: 10px">
                                                 <label for="">: 1000</label>
