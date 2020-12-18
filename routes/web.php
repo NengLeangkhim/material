@@ -72,6 +72,7 @@ Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByS
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
 Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch
+Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  edit branch
 // end lead branch
 
 //end lead branch
@@ -97,11 +98,7 @@ Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
-
 // end survey
-
-
-
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
@@ -165,7 +162,6 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 // Customer Service
 Route::get('/crmreport/customerservice','crm\CrmReportController@getCustomerService');
-
 Route::get('/crmreport/getCustomerService', 'crm\CrmReportController@getCustomerServiceData');
 
 // End
@@ -183,7 +179,8 @@ Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); //
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
 Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
 Route::get('/crmreport/listAssignTo','crm\QuoteController@getStaffAssignForReportQuote'); // list staff get assign for report search quote
-
+Route::get('/crmreport/contact/activities/chart','crm\CrmReportController@CrmReportContactActivitiesChart'); // Get Lead Contact Activities Chart
+// Route::get('/crmreport/contact/activities/chart','crm\CrmReportController@CrmReportContactResultChart'); // Get Lead Contact Result Chart
 // End Report
 
 // Dashboard CRM

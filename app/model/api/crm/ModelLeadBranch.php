@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\SSP;
+use Illuminate\Http\Request;
 use Exception;
 
 class ModelLeadBranch extends Model
@@ -79,7 +80,7 @@ class ModelLeadBranch extends Model
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        where ld.status=true and ld.is_deleted=false $sql $user";
+        where ld.status=true and ld.is_deleted=false and lb.is_deleted=false $sql $user";
     }
     public static function getleadBranchDataTable($request,$status,$userid){
         if(is_null($userid)){
@@ -120,4 +121,5 @@ class ModelLeadBranch extends Model
         );
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
     }
+
 }

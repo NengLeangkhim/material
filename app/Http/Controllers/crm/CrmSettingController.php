@@ -79,7 +79,8 @@ class CrmSettingController extends Controller
                 if(perms::check_perm_module('CRM_02090101')){//module code list
                      $get = Request::create('/api/crm/leadStatus/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
-                    if($response->success=='true'){
+                    //  dump($response);
+                    if($response->success??''=='true'){
                         return response()->json(['success'=>'Record is successfully added']);
                     }else{
                         return response()->json(['Error'=>'Record is Error']);
@@ -177,10 +178,13 @@ class CrmSettingController extends Controller
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
                                         ],
+                'industry_type' => [ 'required'
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
+                'industry_type.required' => 'Please Choose one option !!',   //massage validator
                 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
                 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
                 ]
@@ -213,10 +217,13 @@ class CrmSettingController extends Controller
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
                                         ],
+                'industry_type' => [ 'required'
+                                    ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
+                'industry_type.required' => 'Please Choose one option !!',   //massage validator
                 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
                 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
                 ]
@@ -502,15 +509,15 @@ class CrmSettingController extends Controller
                                     ],
                 'name_kh' => [ 'required'
                                         ],
-                'is_result_type' => ['required',
-                                    ],
+                'schedule_type' => ['required',
+                ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
                 // 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
                 // 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
-                'is_result_type.required' => 'Please Select Type !!',   //massage validator
+                'schedule_type.required' => 'Please Choose One Option !!',   //massage validator
                 ]
             );
             if ($validator->fails()) //check validator for fail
@@ -537,7 +544,7 @@ class CrmSettingController extends Controller
                                     ],
                 'name_kh' => [ 'required'
                                         ],
-                'is_result_type' => ['required',
+                'schedule_type' => ['required',
                                     ],
             ],
             [
@@ -545,7 +552,7 @@ class CrmSettingController extends Controller
                 'name_kh.required' => 'This Field is require !!',   //massage validator
                 // 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
                 // 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
-                'is_result_type.required' => 'Please Select Type !!',   //massage validator
+                'schedule_type.required' => 'Please Choose One Option !!',
                 ]
             );
             if ($validator->fails()) //check validator for fail

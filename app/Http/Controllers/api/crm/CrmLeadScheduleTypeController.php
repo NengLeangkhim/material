@@ -23,8 +23,10 @@ class CrmLeadScheduleTypeController extends Controller
             $nameEn = $request->input('name_en');
             $nameKh = $request->input('name_kh');
             $status = $request->input('status');
-            $isResultType = $request->input('is_result_type');
-            $result = $this->scheduleType->saveData($id, $userId, $nameEn, $nameKh, $status, $isResultType);
+            $type = $request->input('schedule_type');
+            $color = $request->input('color');
+            $comment = $request->input('comment');
+            $result = $this->scheduleType->saveData($id, $userId, $nameEn, $nameKh, $status, $type,$comment,$color);
         } catch(QueryException $e){
             $this->sendError($e);
         }

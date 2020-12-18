@@ -26,4 +26,24 @@ class ModelLeadBranch extends Model
         $res = app()->handle($request);
          return $res->getContent();
     }
+    // Model get lead status
+    public static function CrmGetLeadStatusByBranch($id)
+    {
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getbranchstatus/' . $id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer ' . $token);
+        $res = app()->handle($request);
+        return $res->getContent();
+    }
+    // Survey lead branch
+    public static function CrmSurveyLeadBranch($id)
+    {
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/leadbranch/survey/' . $id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer ' . $token);
+        $res = app()->handle($request);
+        return $res->getContent();
+    }
 }

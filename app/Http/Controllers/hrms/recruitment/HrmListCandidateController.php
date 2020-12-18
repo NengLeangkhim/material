@@ -122,8 +122,8 @@ class HrmListCandidateController extends Controller
                                         ->where(function ($query) use ($request) {
                                         return $query->where('is_deleted', 'f');})
                                             ],
-                    'education_level'=>['required','integer'],
-                    'major'=>['required'],
+                    // 'education_level'=>['required','integer'],
+                    // 'major'=>['required'],
                     'cv' => ['required','mimes:pdf','max:10240'
                                             ],
                     'cover_letter' => ['mimes:pdf','max:10240'
@@ -202,8 +202,8 @@ class HrmListCandidateController extends Controller
                   'lname' => ['required'],
                   'name_kh' => ['required'],
                   'position' => ['required'],
-                  'education_level'=>['required','integer'],
-                  'major'=>['required'],
+                //   'education_level'=>['required','integer'],
+                //   'major'=>['required'],
                   'email' =>  [  'required',
                                       'max:255',
                                       Rule::unique('hr_recruitment_candidate','email')->ignore($request->candidate_id)
