@@ -10,13 +10,14 @@
                     @csrf
                     <div id="smartwizard" style="border: none !important;">
                         <ul class="nav" style="background-color: #FFFFFF; border: none !important;">
-                            <li><a class="nav-link" href="#home-detail">Detail</a></li>
-                            <li><a class="nav-link" href="#home-contact">Contact</a></li>
+                            <li><a class="nav-link" href="#home-redister">Redister</a></li>
                             <li><a class="nav-link" href="#home-address">Address</a></li>
+                            <li><a class="nav-link" href="#home-rapresentative">Rapresentative</a></li>
+                           
                         </ul>
                         <div class="mt-4">
                                 {{-- Form-1 Detail --}}
-                                <div id="home-detail">
+                                <div id="home-redister">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="lead">Select Lead</label>
@@ -179,7 +180,7 @@
                                 </div>
 
                                 {{-- Form-2 Contact --}}
-                                <div id="home-contact">
+                                <div id="home-rapresentative">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="contact">Select Contact</label>
@@ -277,6 +278,12 @@
                                         </div>
                                     </div>
 
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_Crmlead','/lead/store','/lead','Insert Successfully')">Save</button>
+                                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
+                                        </div>
+                                    </div>
 
                                 </div>
 
@@ -410,12 +417,6 @@
                                         <div id="map"></div>
                                     </div>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_Crmlead','/lead/store','/lead','Insert Successfully')">Save</button>
-                                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
-                                        </div>
-                                    </div>
                                 </div>
                         </div>
                     </div>
