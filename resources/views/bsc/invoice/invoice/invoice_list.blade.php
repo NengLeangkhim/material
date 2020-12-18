@@ -45,7 +45,6 @@
                                 <div class="tab-content" id="myTabContent">
                                     {{-- ============================ Start Tab all ======================= --}}
                                     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="card-body">
                                             <div class="table-responsive">
                                                 <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                                     <thead>
@@ -103,7 +102,6 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
                                     </div>
                                     {{-- ============================ End Tab all ======================= --}}
 
@@ -112,7 +110,6 @@
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
-                                                    <div class="card-body">
                                                         <div class="table-responsive">
                                                             <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                                                 <thead>
@@ -163,7 +160,6 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +171,6 @@
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
-                                                    <div class="card-body">
                                                         <div class="table-responsive">
                                                             <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
                                                                 <thead>
@@ -220,7 +215,6 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,9 +226,8 @@
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
-                                                    <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                            <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
                                                                 <thead>
                                                                     <tr class="background_color_tr">
                                                                         <th class="background_color_td">Invoice Number</th>
@@ -277,7 +270,6 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -300,12 +292,16 @@
         "autoWidth": false,
         });
         $("#example2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+            "responsive": true,
+            "autoWidth": false,
         });
         $("#example3").DataTable({
         "responsive": true,
         "autoWidth": false,
+        });
+        $("#example4").DataTable({
+            "responsive": true,
+            "autoWidth": false,
         });
 
         // $('#example2').DataTable({
