@@ -31,6 +31,8 @@ Route::delete('/crm/scheduleType','api\crm\CrmLeadScheduleTypeController@deleteD
 Route::post('/crm/quoteStatusType/save','api\crm\CrmQuoteStatusTypeController@saveData');
 Route::get('/crm/quoteStatusType/{id}','api\crm\CrmQuoteStatusTypeController@getOneData');
 Route::get('/crm/quoteStatusType','api\crm\CrmQuoteStatusTypeController@getAllData');
+Route::get('/crm/quoteActiveStatus','api\crm\CrmQuoteStatusTypeController@getActiveData');
+Route::get('/crm/quoteChildStatus/{id}','api\crm\CrmQuoteStatusTypeController@getChildData');
 Route::delete('/crm/quoteStatusType','api\crm\CrmQuoteStatusTypeController@deleteData');
 
 // CrmLeadStatusController

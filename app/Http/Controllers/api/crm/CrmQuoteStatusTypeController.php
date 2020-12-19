@@ -16,8 +16,9 @@ class CrmQuoteStatusTypeController extends Controller
         $this->quoteStatusType = new ModelCrmQuoteStatusType();
     }
 
-    function saveData(Request $request){
-        try{
+    function saveData(Request $request)
+    {
+        try {
             $id = $request->input('id');
             $userId = $request->input('user_id');
             $nameEn = $request->input('name_en');
@@ -26,36 +27,56 @@ class CrmQuoteStatusTypeController extends Controller
             $sequence = $request->input('sequence');
             $color = $request->input('color');
             $result = $this->quoteStatusType->saveData($id, $userId, $nameEn, $nameKh, $status, $sequence, $color);
-        } catch(QueryException $e){
+        } catch (QueryException $e) {
             $this->sendError($e);
         }
         return $this->sendResponse($result, '');
     }
 
-    function getOneData($id){
-        try{
+    function getOneData($id)
+    {
+        try {
             $result = $this->quoteStatusType->getOneData($id);
-        } catch(QueryException $e){
+        } catch (QueryException $e) {
             $this->sendError($e);
         }
         return $this->sendResponse($result, '');
     }
 
-    function getAllData(){
-        try{
+    function getAllData()
+    {
+        try {
             $result = $this->quoteStatusType->getAllData();
-        } catch(QueryException $e){
+        } catch (QueryException $e) {
             $this->sendError($e);
         }
         return $this->sendResponse($result, '');
     }
-
-    function deleteData(Request $request){
+    function getActiveData()
+    {
+        try {
+            $result = $this->quoteStatusType->getActiveData();
+        } catch (QueryException $e) {
+            $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
+    function getChildData($id)
+    {
+        try {
+            $result = $this->quoteStatusType->getChildData($id);
+        } catch (QueryException $e) {
+            $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
+    function deleteData(Request $request)
+    {
         $id = $request->input('id');
         $userId = $request->input('user_id');
-        try{
+        try {
             $result = $this->quoteStatusType->deleteData($id, $userId);
-        } catch(QueryException $e){
+        } catch (QueryException $e) {
             $this->sendError($e);
         }
         return $this->sendResponse([], $result != null ? 'deleted' : 'failed');

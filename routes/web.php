@@ -135,7 +135,7 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
-Route::get('/quote/datatable','crm\QuoteController@showQuoteListDatatable'); // get show quote
+Route::get('/quote/datatable/{status}','crm\QuoteController@showQuoteListDatatable'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
 
@@ -147,6 +147,7 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/status/child/{status}','crm\QuoteController@getQuoteStatusChild');
 Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote

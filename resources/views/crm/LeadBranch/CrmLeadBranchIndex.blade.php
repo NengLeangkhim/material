@@ -71,5 +71,6 @@
 </section><!-- end section Main content -->
 
 <script type="text/javascript">
-    CrmLeadBranchView('/crm/leadbranch/status/all','Lead_Branch_Tbl');
+    CrmLeadBrancStatusChild('/crm/leadbranch/status/child/all','#StatusChildTab')
+    // CrmLeadBranchView('/crm/leadbranch/status/all','Lead_Branch_Tbl');
 </script>
