@@ -25,7 +25,6 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                                                 <select name="lead_id" id="lead_id" class="form-control select2">
                                                     <option value='0'>-- Select Lead To Add Branch --</option>
                                                 </select>
@@ -188,8 +187,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control select2" name="contact_id" id="contact_id">
-                                                    {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
+                                                <select class="form-control select2" name="contact_id" id="contact_id">                                   --}}
                                                     <option value=''>-- Select Contact  --</option>
                                                 </select>
                                                 <div class="input-group-append">
@@ -496,15 +494,11 @@
 <script type="text/javascript">
 
     $('#branch').ready(function(){
-            var myvar= $("#getlead").val();
             $.ajax({
                 // url:'http://127.0.0.1:8000/api/branch',
-                url:'api/branch',
+                url:'companybranch',
                 type:'get',
                 dataType:'json',
-                headers: {
-                    'Authorization': `Bearer ${myvar}`,
-                },
                 success:function(response){
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].ma_company_branch_id;
