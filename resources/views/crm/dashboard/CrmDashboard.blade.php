@@ -168,7 +168,7 @@
             <!-- /.row -->
             <!-- /.row -->
             <div class="row g-chart">
-                <div class="col-xl-6">
+                {{-- <div class="col-xl-6">
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
@@ -182,10 +182,10 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                </div>
+                </div> --}}
                 <!-- /.col (RIGHT) -->
             {{-- </div> --}}
-                <div class="col-xl-6">
+                <div class="col-xl-12">
                     <!-- AREA CHART -->
                     <div class="card card-primary">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
@@ -193,7 +193,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <div id="Schedule_activitied_Chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                                <div id="Schedule_activitied_Chart" style="width: auto; height: 400px; max-height: 400px; max-width: 100%;"></div>
                             </div>
                         </div>
                         <!-- /.card-body -->

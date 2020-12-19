@@ -16,12 +16,12 @@
                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                             </div>
                             <input type="text" hidden value="{{$_SESSION['token'] ??""}}" id="getlead">
-                            <select name="lead_id" id="lead_id" class="form-control select2">
+                            <select class="form-control select2"  name="lead_id" id="lead_id" >
                                 <option value='0'>-- Select Lead To Add Branch --</option>
                             </select>
-                            <div class="input-group-append">
-                                <span class="input-group-text" style="background-color: white; border: white;"></span>
-                            </div>
+                            {{-- <div class="input-group-append">
+                                <span class="input-group-text" style="background-color: rgb(206, 20, 20); border: rgb(179, 26, 26);"></span>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-md-6">

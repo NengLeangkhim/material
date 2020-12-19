@@ -2,17 +2,19 @@
 
     /* style delcare for use in google map */
     #map {
-        border: solid 3px transparent;
-        background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(180deg,  #d42931 ,#1fa8e0);
-        background-origin: border-box;
-        background-clip: content-box, border-box;
-        border-radius: 20px;
+        box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+        border-radius: 0.25rem;
         margin-top: 1em;
         height: 400px;
         width: 100%;
     }
-
-
+    .css_map {
+        border: 1px solid rgb(36, 42, 43);
+        border-radius: 10px;
+        margin-top: 1em;
+        height: 400px;
+        width: 100%;
+    }
     #floating-panel {
         position: absolute;
         top: 10px;
