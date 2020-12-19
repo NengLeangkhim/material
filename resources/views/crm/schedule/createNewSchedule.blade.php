@@ -13,15 +13,18 @@
             <form id="frm_Crmbranchschdeule" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <input type="text"  id="branchID" name="branch_id" hidden>
+                    {{-- <input type="text"  id="branchID" name="branch_id" hidden> --}}
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Select Lead</label>
-                                        <select name="lead" id="sl-lead">
+                                        <select name="branch_id" id="branch_id">
                                             <option value="0">Please Select</option>
                                         </select>
+                                        <span class="invalid-feedback" role="alert" id="branch_idError">
+                                            <strong></strong>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -129,3 +132,28 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+$(document).ready(function(){
+    // function search lead
+
+    $('#branch_id').select2({
+        ajax: {
+            url: '/crm/leadbranch/search',
+            dataType: 'json',
+            type:'get',
+            delay: 1200,
+            data: function (params) {
+                return {
+                    search: params.term // search term
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response.data
+                };
+            },
+            cache: true
+        }
+    });
+});
+</script>

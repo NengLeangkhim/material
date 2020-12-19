@@ -46,4 +46,26 @@ class ModelLeadBranch extends Model
         $res = app()->handle($request);
         return $res->getContent();
     }
+    // Seach Lead
+    public static function SearchLeadBranch($search)
+    {
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/searchleadbranch?search='. $search, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer ' . $token);
+        $res = app()->handle($request);
+        //dd($res);
+        return $res->getContent();
+    }
+    // Seach Lead
+    public static function LeadBranchAddress($id)
+    {
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/leadbranch/address/'. $id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer ' . $token);
+        $res = app()->handle($request);
+        //dd($res);
+        return $res->getContent();
+    }
 }

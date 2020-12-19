@@ -63,7 +63,7 @@ class ModelLeadBranch extends Model
 			WHEN cli.is_home = 't' THEN 'Home'
 			WHEN cli.is_enterprise = 't' THEN 'Enterprise'
 			WHEN cli.is_business = 't' THEN 'Business'
-			ELSE 'Oppa'
+			ELSE 'Null'
 		END AS customer_type
         from  crm_lead_branch lb
 		JOIN crm_lead on crm_lead.id= lb.crm_lead_id
@@ -121,5 +121,45 @@ class ModelLeadBranch extends Model
         );
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
     }
-
+    // Search Lead Branch
+    public static function SearchLeadBranch($search){
+        if(is_null($search)){
+            $fetchData = "SELECT id,name_en as text from crm_lead_branch limit 5";
+        }else{
+            $fetchData ="SELECT id,name_en as text from crm_lead_branch where name_en like '%".$search."%'
+                                                   or name_kh like '%".$search."%'
+                                                   or email like '%".$search."%'
+                                                   or phone like '%".$search."%'
+                                                   limit 20";
+        }
+        return DB::select($fetchData);
+    }
+    // select address branch
+    public static function BranchAddress($id){
+        return DB::select("SELECT ladd.*,lb.id as branch_id,
+        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
+        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
+        from crm_lead_address ladd
+        JOIN crm_lead_branch lb on ladd.id = lb.crm_lead_address_id
+        where lb.id =$id
+        ");
+    }
+    // select address branch
+    public static function BranchAddressType($id){
+        return DB::select("SELECT ladd.*,
+        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
+        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
+        from crm_lead_address ladd
+        where ( ladd.crm_lead_id=(select crm_lead_id from crm_lead_branch where id=$id) and (ladd.address_type='main' or ladd.address_type='billing') )
+        ORDER BY address_type DESC
+        ");
+    }
 }

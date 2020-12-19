@@ -8,8 +8,13 @@
         height: 400px;
         width: 100%;
     }
-
-
+    .css_map {
+        border: 1px solid rgb(36, 42, 43);
+        border-radius: 10px;
+        margin-top: 1em;
+        height: 400px;
+        width: 100%;
+    }
     #floating-panel {
         position: absolute;
         top: 10px;
