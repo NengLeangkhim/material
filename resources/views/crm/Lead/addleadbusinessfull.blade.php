@@ -121,7 +121,6 @@
                                 </div>
 
                                 <div class="row mt-3">
-
                                     <div class="col-md-6">
                                         <label for="current_speed_isp">Current ISP </label>
                                         <div class="input-group">
@@ -131,9 +130,9 @@
                                             <select class="form-control select2" name="current_speed_isp" id="current_speed_isp">
                                                 <option value=''>-- Select Current ISP --</option>
                                             </select>
-                                            <div class="input-group-append">
+                                            <!-- <div class="input-group-append">
                                                 <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                            </div>
+                                            </div> -->
                                             <span class="invalid-feedback" role="alert" id="current_speed_ispError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
@@ -149,9 +148,9 @@
                                             <select class="form-control select2"  name="branch" id='branch' >
                                                 <option value=''>-- Select Branch --</option>
                                             </select>
-                                            <div class="input-group-append">
+                                            <!-- <div class="input-group-append">
                                                 <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                            </div>
+                                            </div> -->
                                             <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
                                                 <strong></strong>
                                             </span>
