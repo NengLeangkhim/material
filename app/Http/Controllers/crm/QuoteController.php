@@ -19,19 +19,27 @@ class QuoteController extends Controller
     // function to get all quote lead
     public static function showQuoteList(){
         if(perms::check_perm_module('CRM_0206')){//module codes
-            return view('crm/quote/quoteShow');
+            $status = Request::create('/api/crm/quoteActiveStatus', 'GET');
+            $status = json_decode(Route::dispatch($status)->getContent());
+            return view('crm/quote/quoteShow',['status'=>$status]);
         }else{
             return view('no_perms');
         }
     }
-    public static function showQuoteListDatatable(Request $request){
+    public function getQuoteStatusChild($id){
+        $status = Request::create('/api/crm/quoteChildStatus/'.$id, 'GET');
+
+        $status =json_decode(Route::dispatch($status)->getContent());
+        return view('/crm.quote.QuoteStatusChildTabs',['status'=>$status->data??[],'prev_status'=>$id]);
+    }
+    public static function showQuoteListDatatable($status,Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $token = $_SESSION['token'];
         // dump($token);
         $urlQuery=str_replace($request->Url(),'',$request->fullUrl());
-        $request = Request::create('/api/quotes/datatable'.$urlQuery, 'GET');
+        $request = Request::create('/api/quotes/datatable/'.$status.$urlQuery, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);

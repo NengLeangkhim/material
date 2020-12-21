@@ -65,7 +65,7 @@ class QuoteController extends Controller
             return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
         }
     }
-    public function getQuoteDatatable(Request $request)
+    public function getQuoteDatatable($status,Request $request)
     {
         $return=response()->json(auth()->user());
         $return=json_encode($return,true);
@@ -75,17 +75,17 @@ class QuoteController extends Controller
         DB::beginTransaction();
         try{
             if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-                $quote =Quote::getQuoteDataTable(-1,$request);//0 means get all data
+                $quote =Quote::getQuoteDataTable(-1,$request,$status);//0 means get all data
                     return $quote;
                 // dd(QuoteResource::Collection($quote));
             }
             else if (perms::check_perm_module_api('CRM_020607',$userid)) { // fro staff (Model and Leadlist by user)
-                $quote = Quote::getQuoteDataTable(0,$request);
+                $quote = Quote::getQuoteDataTable(0,$request,$status);
                 return $quote;
                 // dd("staff");
             }
             else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
-                $quote = Quote::getQuoteDataTable($userid,$request);
+                $quote = Quote::getQuoteDataTable($userid,$request,$status);
                 return $quote;
                 // dd("staff");
             }
