@@ -13,6 +13,7 @@
                             
                             <li><a class="nav-link" href="#enterprise-register">Register</a></li>
                             <li><a class="nav-link" href="#enterprise-address">Address</a></li>
+                            <li><a class="nav-link" href="#file-attachment">File Attachment</a></li>
                             <li><a class="nav-link" href="#enterprise-representative">Representative</a></li>
                         </ul>
                         <div class="mt-4">
@@ -600,6 +601,20 @@
                                 </div>
 
                                 
+                            </div>
+                            {{-- Form-4 file-attachment--}}
+                            <div id="file-attachment">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputFile">File </label>
+                                        <div class="input-group">                                                
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id=""><i class="far fa-folder-open"></i></span>
+                                            </div>
+                                                <input  type="file" name="file[]" multiple class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

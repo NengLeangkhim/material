@@ -316,16 +316,12 @@
                                 <div id="file-attachment">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputFile">File input</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    {{-- <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
-                                                    <label class="custom-file-label" for="exampleInputFile" name="file">Choose file</label> --}}
-                                                    <input  type="file" name="file[]" multiple>
-                                                </div>
+                                            <label for="exampleInputFile">File </label>
+                                            <div class="input-group">                                                
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text" id="">Upload</span>
+                                                    <span class="input-group-text" id=""><i class="far fa-folder-open"></i></span>
                                                 </div>
+                                                    <input  type="file" name="file[]" multiple class="form-control" >
                                             </div>
                                         </div>
                                     </div>
@@ -512,9 +508,7 @@
 
 
 <script type="text/javascript">
-$(document).ready(function () {
-  bsCustomFileInput.init();
-});
+
 
     $('#branch').ready(function(){
             $.ajax({
