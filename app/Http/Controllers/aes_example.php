@@ -10,6 +10,9 @@ class aes_example extends Controller
         if($request->has('view')){
             return view('welcome_lara');
         }
+        if($request->has('goto')){
+            return redirect($request->goto);
+        }
         $inputText = "My text to encrypt";
         $inputKey = "My text to encrypt";
         $enc = en_de::aes_en($inputText, $inputKey);

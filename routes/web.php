@@ -233,6 +233,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm_convert_to_customer','crm\CrmConvertToCustomerController@index');
     Route::get('/crm_convert_to_customer/before_convert','crm\CrmConvertToCustomerController@beforeConvert');
     Route::get('/crm_convert_to_customer/after_convert','crm\CrmConvertToCustomerController@afterConvert');
+    Route::get('/crm_convert_to_customer/status/child/{status}','crm\CrmConvertToCustomerController@getConvertToCustomerStatusChild');
 // END Convert To Customer
 
 //===========================END CRM=================================
