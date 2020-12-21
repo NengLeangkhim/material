@@ -78,6 +78,7 @@
                                                 <th style="color: #FFFFFF">Quote Status</th>
                                                 <th style="color: #FFFFFF">Assigned To </th>
                                                 <th style="color: #FFFFFF">Has Invoice</th>
+                                                <th style="color: #FFFFFF">Create By</th>
                                                 <th style="color: #FFFFFF">Due Date</th>
                                                 <th style="color: #FFFFFF">Create Date</th>
                                                 <th style="color: #FFFFFF;">Action</th>
@@ -138,11 +139,11 @@
                             '</div></div>';
                     },
                     "width": "100px",
-                    "targets": 9,
+                    "targets": 10,
                 },
                 {
                     "searchable": false,
-                    "targets": [7, 8],
+                    "targets": [8, 9],
                 },
             ],
             "initComplete": function() {

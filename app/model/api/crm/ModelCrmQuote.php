@@ -35,10 +35,12 @@ class ModelCrmQuote extends Model
         cl.customer_name_en ,cl.vat_number,
         cq.quote_number,cq.subject,cq.due_date::DATE,cq.create_date::DATE,
         ast.first_name_en||' '||ast.last_name_en as assign_to,
+        mu.first_name_en||' '||mu.last_name_en as create_by,
 				cqst.name_en as stage,
         (select case when count(*)=0 then 'No' ELSE 'Yes' END as invoice from bsc_invoice where crm_quote_id=cq.id)
         from crm_quote cq
         left join ma_user ast on ast.id=cq.assign_to
+        left join ma_user mu on mu.id=cq.create_by
         left join crm_lead cl on cl.id=cq.crm_lead_id
 				left join (select * from (
 					select cqs2.* from (select DISTINCT max(id) OVER (PARTITION BY crm_quote_id) as id from crm_quote_status) cqs1 join crm_quote_status cqs2 on cqs1.id=cqs2.id
@@ -66,9 +68,10 @@ class ModelCrmQuote extends Model
             array('db' => 'stage',     'dt' => 4),
             array('db' => 'assign_to',     'dt' => 5),
             array('db' => 'invoice',     'dt' => 6),
-            array('db' => 'due_date',     'dt' => 7),
-            array('db' => 'create_date',     'dt' => 8),
-            array('db' => 'id',     'dt' => 9),
+            array('db' => 'create_by',     'dt' => 7),
+            array('db' => 'due_date',     'dt' => 8),
+            array('db' => 'create_date',     'dt' => 9),
+            array('db' => 'id',     'dt' => 10),
         );
 
         return json_encode(SSP::simple($request, $table, $primaryKey, $columns));
