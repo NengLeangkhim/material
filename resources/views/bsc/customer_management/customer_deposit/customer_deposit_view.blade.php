@@ -1,13 +1,10 @@
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <h1><span><i class="fas fa-dollar-sign"></i></span> View Deposit</h1>
             </div>
-            <div class="col-md-5">
-
-            </div>
-            <div class="col-sm-3">
+            <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="javascript:" onclick="go_to('bsc_customer_deposit')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="deposit" ​value="deposit">Home</a></li>
