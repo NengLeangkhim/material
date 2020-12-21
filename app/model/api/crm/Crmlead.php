@@ -192,7 +192,7 @@ class Crmlead extends Model
 
     }
     private static function addLeadFile($file,$lead_branch_id,$user_create){
-        if(isset($file)&&$file->isValid()){
+        if(isset($file)){
             $path='/media/file/crm/lead/';
             $FilePath = path_config::InsertUploadedFile($file,$path,$user_create);// query insert file returns id of inserted file
             if($FilePath){

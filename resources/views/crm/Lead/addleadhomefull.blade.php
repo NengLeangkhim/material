@@ -6,12 +6,13 @@
                 <h5><span><i class="fas fa-user-plus"></i></span> Add Lead Home</h5>
             </div> --}}
             <div class="card-body">
-                <form id="frm_Crmlead" method="POST">
+                <form id="frm_Crmlead" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div id="smartwizard" style="border: none !important;">
                         <ul class="nav" style="background-color: #FFFFFF; border: none !important;">
                             <li><a class="nav-link" href="#home-register">Register</a></li>
                             <li><a class="nav-link" href="#home-address">Address</a></li>
+                            <li><a class="nav-link" href="#file-attachment">File Attachment</a></li>
                             <li><a class="nav-link" href="#home-representative">Representative</a></li>
                            
                         </ul>
@@ -178,112 +179,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Form-2 Contact --}}
-                                <div id="home-representative">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="contact">Select Contact</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user-check"></i></span>
-                                                </div>
-                                                <select class="form-control select2" name="contact_id" id="contact_id">                                   --}}
-                                                    <option value=''>-- Select Contact  --</option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name_en">Full Name English</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" name="name_en" id="name_en" placeholder="English Name" onkeypress="return validENName(event)">
-                                                <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="name_kh">Full Name Khmer</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" placeholder="Khmer Name"  name='name_kh' id="name_kh" onkeypress="return validKHName(event)">
-                                                <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="phone"> Phone </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" placeholder="Phone"  name='phone' id="phone" onkeypress="return validENNumber(event)">
-                                                <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        
-
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="honorifics">Honorifics</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-industry"></i></span>
-                                                </div>
-                                                <select class="form-control select2" name="ma_honorifics_id" id="ma_honorifics_id" >
-                                                    <option value=''>-- Select Contact Honorifics --</option>
-                                                    <option value='1'>Mr</option>
-                                                    <option value='2'>Ms</option>
-                                                    <option value='3'>Mrs.</option>
-                                                    <option value='4'>Dr.</option>
-                                                    <option value='5'>Prof.</option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
-                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError">
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="position">Position </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" name="position" id="position" placeholder="Position" onkeypress="return validENTxt(event)">
-                                                <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_Crmlead','/lead/store','/lead','Insert Successfully')">Save</button>
-                                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                
 
                                 {{-- Form-3 Address --}}
                                 <div id="home-address">
@@ -416,6 +312,130 @@
                                     </div>
 
                                 </div>
+                                {{-- Form-4 file-attachment--}}
+                                <div id="file-attachment">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputFile">File input</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    {{-- <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
+                                                    <label class="custom-file-label" for="exampleInputFile" name="file">Choose file</label> --}}
+                                                    <input  type="file" name="file[]" multiple>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Form-2 Contact --}}
+                                <div id="home-representative">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="contact">Select Contact</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                                </div>
+                                                <select class="form-control select2" name="contact_id" id="contact_id">                                   --}}
+                                                    <option value=''>-- Select Contact  --</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name_en">Full Name English</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="name_en" id="name_en" placeholder="English Name" onkeypress="return validENName(event)">
+                                                <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="name_kh">Full Name Khmer</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Khmer Name"  name='name_kh' id="name_kh" onkeypress="return validKHName(event)">
+                                                <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="phone"> Phone </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Phone"  name='phone' id="phone" onkeypress="return validENNumber(event)">
+                                                <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="honorifics">Honorifics</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                </div>
+                                                <select class="form-control select2" name="ma_honorifics_id" id="ma_honorifics_id" >
+                                                    <option value=''>-- Select Contact Honorifics --</option>
+                                                    <option value='1'>Mr</option>
+                                                    <option value='2'>Ms</option>
+                                                    <option value='3'>Mrs.</option>
+                                                    <option value='4'>Dr.</option>
+                                                    <option value='5'>Prof.</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div>
+                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError">
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="position">Position </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="position" id="position" placeholder="Position" onkeypress="return validENTxt(event)">
+                                                <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_Crmlead','/lead/store','/lead','Insert Successfully')">Save</button>
+                                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
+                                        </div>
+                                    </div>
+
+                                </div>
                         </div>
                     </div>
                 </form>
@@ -492,6 +512,9 @@
 
 
 <script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
 
     $('#branch').ready(function(){
             $.ajax({
@@ -665,4 +688,5 @@
           }
         });
 </script>
+
 
