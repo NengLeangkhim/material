@@ -507,6 +507,34 @@ function CrmLeadBranchView(url, table) {
         }
     });
 }
+    function CreateBranchAddress(type,lead_id,branch_id){
+        $.ajax({
+            url: '/crm/leadbranch/addresscreate', //get URL to route
+            type: "get",
+            data: {
+                type: type,
+                lead_id:lead_id,
+                branch_id:branch_id,
+            },
+            success: function(data) {
+                $('#view_address').html(data);
+                $('#crm_branch_address_modal').modal('show');
+            }
+        });
+    }
+    function UpdateBranchAddress(lead_address_id){
+        $.ajax({
+            url: '/crm/leadbranch/addressget', //get URL to route
+            type: "get",
+            data: {
+                lead_address_id:lead_address_id,
+            },
+            success: function(data) {
+                $('#view_address').html(data);
+                $('#crm_branch_address_modal').modal('show');
+            }
+        });
+    }
 //--------------End Lead Branch---------//
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
 // $(document).ready(function(){

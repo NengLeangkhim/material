@@ -1,4 +1,10 @@
- <!-- Content Header (Page header) -->
+@php
+    foreach($address as $item){
+        $branch_id = $item['branch_id'];
+        $lead_id = $item['crm_lead_id'];
+    }
+@endphp
+<!-- Content Header (Page header) -->
  <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -7,7 +13,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a onclick="go_to('/crm/leadbranch/detail/{{$address[0]['branch_id']}}')" href="javascript:void(0);">Customer Detail</a></li>
+                <li class="breadcrumb-item"><a onclick="go_to('/crm/leadbranch/detail/{{$branch_id}}')" href="javascript:void(0);">Customer Detail</a></li>
                 <li class="breadcrumb-item active">View address</li>
                 </ol>
             </div>
@@ -52,7 +58,7 @@
                                 $searchFor='install';
                                 $install_address =
                                 array_filter($address, function($element) use($searchFor){
-                                    return isset($element['address_type']) && $element['address_type'] == $searchFor;
+                                    return isset($element['address_type']) && $element['address_type'] == $searchFor && $element['id'];
                                 });
                                 if(count($install_address)>0){
                                     $install_address=array_shift($install_address);
@@ -62,9 +68,9 @@
                                // dump($install_address);
                             @endphp
                                 @if ($install_address['address_type']??''=='install')
-                                 <button type="button" class="btn btn-info"><i class="fas fa-pen-square"></i> Update</button>
+                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}})"><i class="fas fa-pen-square"></i> Update</button>
                                 @else
-                                     <button type="button" class="btn btn-info"><i class="fas fa-plus"></i> Create</button>
+                                 <button type="button" class="btn btn-info" onclick="CreateBranchAddress('install',{{$lead_id??''}},{{$branch_id??''}})"><i class="fas fa-plus"></i> Create</button>
                                 @endif
                             </div>
                         </div>
@@ -137,7 +143,7 @@
                                 $searchFor='main';
                                 $install_address =
                                 array_filter($address, function($element) use($searchFor){
-                                    return isset($element['address_type']) && $element['address_type'] == $searchFor;
+                                    return isset($element['address_type']) && $element['address_type'] == $searchFor && $element['id'];
                                 });
                                 if(count($install_address)>0){
                                     $install_address=array_shift($install_address);
@@ -147,9 +153,9 @@
                                // dump($install_address);
                             @endphp
                                 @if ($install_address['address_type']??''=='main')
-                                 <button type="button" class="btn btn-info"><i class="fas fa-pen-square"></i> Update</button>
+                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}})"><i class="fas fa-pen-square"></i> Update</button>
                                 @else
-                                     <button type="button" class="btn btn-info"><i class="fas fa-plus"></i> Create</button>
+                                     <button type="button" class="btn btn-info" onclick="CreateBranchAddress('main',{{$lead_id??''}},{{$branch_id??''}})"><i class="fas fa-plus"></i> Create</button>
                                 @endif
                             </div>
                         </div>
@@ -222,7 +228,7 @@
                                     $searchFor='billing';
                                     $install_address =
                                     array_filter($address, function($element) use($searchFor){
-                                        return isset($element['address_type']) && $element['address_type'] == $searchFor;
+                                        return isset($element['address_type']) && $element['address_type'] == $searchFor && $element['id'];
                                     });
                                     if(count($install_address)>0){
                                         $install_address=array_shift($install_address);
@@ -232,9 +238,9 @@
                                 // dump($install_address);
                                 @endphp
                                 @if ($install_address['address_type']??''=='billing')
-                                 <button type="button" class="btn btn-info"><i class="fas fa-pen-square"></i> Update</button>
+                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}})"><i class="fas fa-pen-square"></i> Update</button>
                                 @else
-                                     <button type="button" class="btn btn-info"><i class="fas fa-plus"></i> Create</button>
+                                     <button type="button" class="btn btn-info" onclick="CreateBranchAddress('billing',{{$lead_id??''}},{{$branch_id??''}})"><i class="fas fa-plus"></i> Create</button>
                                 @endif
                             </div>
                         </div>
@@ -297,7 +303,7 @@
             </div>
         </div>
     </div>
-     {{-- detail schedule --}}
+     {{-- view_address --}}
      <div id="view_address"></div>
 </section><!-- end section Main content -->
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMapInstall" async defer></script>
@@ -306,6 +312,7 @@
     var markers = [];
 function initMapInstall() {
     var latlong =$('#latlg_install').val();
+        if (typeof(latlong) !== "undefined"){
             latlong.replace('/[\(\)]//g','');
             var coords = latlong.split(',');
             var lat = parseFloat(coords[0]);
@@ -315,16 +322,18 @@ function initMapInstall() {
                 lat:lat,
                 lng:long
             };
-    var get_latlng = 0;
-    map = new google.maps.Map(document.getElementById('map_install'), {
-        zoom: 12, // Set the zoom level manually
-        center: haightAshbury,
-        mapTypeId: 'roadmap'
-    });
-    //declear default value for latlong on map
-    addMarker_install(haightAshbury);
+            var get_latlng = 0;
+            map = new google.maps.Map(document.getElementById('map_install'), {
+                zoom: 12, // Set the zoom level manually
+                center: haightAshbury,
+                mapTypeId: 'roadmap'
+            });
+            //declear default value for latlong on map
+            addMarker_install(haightAshbury);
+        }
     // Main address /////////////////////////////
     var latlong_main =$('#latlg_main').val();
+        if (typeof(latlong_main) !== "undefined"){
             latlong_main.replace('/[\(\)]//g','');
             var coords_main = latlong_main.split(',');
             var lat_main = parseFloat(coords_main[0]);
@@ -334,16 +343,18 @@ function initMapInstall() {
                 lat:lat_main,
                 lng:long_main
             };
-    var get_latlng_main = 0;
-    map_main = new google.maps.Map(document.getElementById('map_main'), {
-        zoom: 12, // Set the zoom level manually
-        center: haightAshbury_main,
-        mapTypeId: 'roadmap'
-    });
-    //declear default value for latlong on map
-    addMarker(haightAshbury_main);
+            var get_latlng_main = 0;
+            map_main = new google.maps.Map(document.getElementById('map_main'), {
+                zoom: 12, // Set the zoom level manually
+                center: haightAshbury_main,
+                mapTypeId: 'roadmap'
+            });
+            //declear default value for latlong on map
+            addMarker(haightAshbury_main);
+        }
     // Billing address ////////////////////////
     var latlong_billing =$('#latlg_billing').val();
+        if (typeof(latlong_billing) !== "undefined"){
             latlong_billing.replace('/[\(\)]//g','');
             var coords_billing = latlong_billing.split(',');
             var lat_billing = parseFloat(coords_billing[0]);
@@ -353,14 +364,15 @@ function initMapInstall() {
                 lat:lat_billing,
                 lng:long_billing
             };
-    var get_latlng_billing = 0;
-    map_billing = new google.maps.Map(document.getElementById('map_billing'), {
-        zoom: 12, // Set the zoom level manually
-        center: haightAshbury_billing,
-        mapTypeId: 'roadmap'
-    });
-    //declear default value for latlong on map
-    addMarker_billing(haightAshbury_billing);
+            var get_latlng_billing = 0;
+            map_billing = new google.maps.Map(document.getElementById('map_billing'), {
+                zoom: 12, // Set the zoom level manually
+                center: haightAshbury_billing,
+                mapTypeId: 'roadmap'
+            });
+            //declear default value for latlong on map
+            addMarker_billing(haightAshbury_billing);
+        }
 
 }
 // Adds a marker to the map and push to the array.

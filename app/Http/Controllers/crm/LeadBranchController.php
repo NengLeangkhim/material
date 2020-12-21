@@ -11,9 +11,7 @@ use App\model\crm\ModelLeadBranch;
 use Illuminate\Support\Facades\Route;
 use App\model\crm\ModelCrmLead;
 use App\model\api\crm\Crmlead as Lead;
-use App\Http\Resources\api\crm\lead\LeadBranch;
 use App\Http\Controllers\api\stock\StockController;
-use App\Http\Controllers\api\crm\ContactController;
 
 class LeadBranchController extends Controller
 {
@@ -128,6 +126,36 @@ class LeadBranchController extends Controller
             return view('no_perms');
         }
     }
+    //Create Manage Address
+    public function CreateManageAddress(Request $request){
+        $type =$request->type;
+        $lead_id = $request->lead_id;
+        $branch_id = $request->branch_id;
+        if($type=='billing'){
+            $type=='billing';
+        }elseif($type=='main'){
+            $type=='mian';
+        }else{
+            $type=='install';
+        }
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            return view('crm.LeadBranch.CreateAddressBranch',['province'=>$province,'type'=>$type,'lead_id'=>$lead_id,'branch_id'=>$branch_id]);
+        }else{
+            return view('no_perms');
+        }
+    }
+     //Update Manage Address
+     public function UpdateManageAddress(Request $request){
+        $id =$request->lead_address_id;
+        if(perms::check_perm_module('CRM_020505')){//module codes
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            $address = ModelLeadBranch::GetLeadAddressByID($id);
+            return view('crm.LeadBranch.UpdateAddressBranch',['province'=>$province,'address'=>$address]);
+        }else{
+            return view('no_perms');
+        }
+    }
     // function Lead Search
     public function CrmLeadBranchSearch(Request $request){
         if(perms::check_perm_module('CRM_020504')){//module codes
@@ -138,5 +166,63 @@ class LeadBranchController extends Controller
             return view('no_perms');
         }
 
+    }
+    // insert address
+    public function StoreBranchAddress(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $validator = \Validator::make($request->all(), [
+            // 'home_en' => [ 'required'
+            //                     ],
+            // 'street_en' => [ 'required'
+            //                     ],
+            // 'home_kh' => [ 'required'
+            //                     ],
+            // 'street_kh' => [ 'required'
+                                // ],
+            'addresscode' => [ 'required'
+                                ],
+            'district' => [ 'required'
+                                ],
+            'commune' => [ 'required'
+                                ],
+            'latlong' => [ 'required'
+                                ],
+            // 'address_type' => [ 'required'
+            //                     ],
+            'village' => [ 'required'
+                                ],
+        ],
+        [
+            'district.required' => 'This Field is require !!',   //massage validator
+            'addresscode.required' => 'This Field is require !!',   //massage validator
+            'commune.required' => 'This Field is require !!',   //massage validator
+            'latlong.required' => 'This Field is require !!',   //massage validator
+            'village.required' => 'This Field is require !!',   //massage validator
+            ]
+        );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray()
+            ));
+        }else{
+            if(perms::check_perm_module('CRM_020508')){//module code list
+                $token = $_SESSION['token'];
+                $request = Request::create('/api/leadbranch/address/insert', 'POST',$request->all());
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer ' . $token);
+                $res = app()->handle($request);
+                $response =json_decode($res->getContent());
+                if($response->insert=='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }else{
+                    return response()->json(['Fail'=>'Record is Fail added']);
+                }
+            }else{
+                return view('no_perms');
+            }
+        }
     }
 }
