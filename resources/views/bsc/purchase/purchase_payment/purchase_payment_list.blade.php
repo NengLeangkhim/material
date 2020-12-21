@@ -34,23 +34,23 @@
                                             <tbody>
                                                 @if (count($purchases) > 0)
                                                     @foreach($purchases as $purchase)
-                                                        @php 
+                                                        @php
                                                             $amount_paid = 0;
                                                             $due_amount = 0;
                                                             $status = '';
-                                                    
+
                                                             if($purchase->amount_paid == null && $purchase->due_amount == null){
                                                                 $amount_paid = 0;
                                                                 $due_amount = $purchase->grand_total;
-                                                                $status = 'Waiting Payment';
+                                                                $status = 'Unpaid';
                                                             }else if ($purchase->due_amount == 0) {
                                                                 $amount_paid = $purchase->amount_paid;
                                                                 $due_amount = $purchase->due_amount;
-                                                                $status = 'Paid'; 
+                                                                $status = 'Paid';
                                                             }else{
                                                                 $amount_paid = $purchase->amount_paid;
                                                                 $due_amount = $purchase->due_amount;
-                                                                $status = 'Waiting Payment'; 
+                                                                $status = 'Unpaid';
                                                             }
 
                                                             $paid = number_format($amount_paid, 4, '.', '');
@@ -92,5 +92,5 @@
         });
     });
 
-    
+
 </script>

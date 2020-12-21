@@ -572,7 +572,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row form-group-marginless">
-                                            <label class="col-lg-4 col-form-label">Due Date</label>
+                                            <label class="col-lg-4 col-form-label" style="text-align: right">Due Date</label>
                                             <div class="col-lg-8">
                                                 <div class="input-daterange input-group" id="k_datepicker_5">
                                                     <input type="date" class="form-control" name="start" id="due_date_from">
@@ -605,7 +605,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row form-group-marginless">
-                                            <label class="col-lg-4 col-form-label">End Period Date</label>
+                                            <label class="col-lg-4 col-form-label" style="text-align: right">End Period Date</label>
                                             <div class="col-lg-8">
                                                 <div class="input-daterange input-group" id="k_datepicker_5">
                                                     <input type="date" class="form-control" name="start" id="end_period_date_from">

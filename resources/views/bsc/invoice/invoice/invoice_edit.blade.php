@@ -311,8 +311,8 @@ if (count($bsc_show_customer_branchs) >0) {
                                 </div>
                             </div>
                             <div class="row">
-                                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#listProduct"><i class="fas fa-plus"></i>Add Product</button>&nbsp;&nbsp;&nbsp;
-                                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#listService"><i class="fas fa-plus"></i>Add Service</button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#listProduct"><i class="fas fa-plus"></i>Add Product</button>&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#listService"><i class="fas fa-plus"></i>Add Service</button>
                             </div><br/>
                             {{-- ============= detail payment ================= --}}
                             <div class="form-group" id="vat_number_is_not_null">

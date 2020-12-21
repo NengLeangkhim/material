@@ -25,7 +25,7 @@
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true">All</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Waiting Payment</a>
+                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Unpaid</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#paid" role="tab" aria-controls="profile" aria-selected="false">Paid</a>
@@ -54,23 +54,23 @@
                                                 <tbody>
                                                     @if (count($purchases) > 0)
                                                         @foreach($purchases as $purchase)
-                                                            @php 
+                                                            @php
                                                                 $amount_paid = 0;
                                                                 $due_amount = 0;
                                                                 $status = '';
-                                                        
+
                                                                 if($purchase->amount_paid == null && $purchase->due_amount == null){
                                                                     $amount_paid = 0;
                                                                     $due_amount = $purchase->grand_total;
-                                                                    $status = 'Waiting Payment';
+                                                                    $status = 'Unpaid';
                                                                 }else if ($purchase->due_amount == 0) {
                                                                     $amount_paid = $purchase->amount_paid;
                                                                     $due_amount = $purchase->due_amount;
-                                                                    $status = 'Paid'; 
+                                                                    $status = 'Paid';
                                                                 }else{
                                                                     $amount_paid = $purchase->amount_paid;
                                                                     $due_amount = $purchase->due_amount;
-                                                                    $status = 'Waiting Payment'; 
+                                                                    $status = 'Unpaid';
                                                                 }
 
                                                                 $paid = number_format($amount_paid, 4, '.', '');
@@ -80,7 +80,7 @@
                                                                 if ($due == 0) {
                                                                     $remove_btn = "display:none;";
                                                                 }
-                                                        @endphp
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                 <td>{{ $purchase->supplier_name }}</td>
@@ -99,7 +99,7 @@
                                                                     @endif
                                                                 </td>
                                                             </tr>
-                                                        @endforeach                                                     
+                                                        @endforeach
                                                     @endif
                                                 </tbody>
                                             </table>
@@ -130,10 +130,10 @@
                                                                 @if (count($purchases) > 0)
                                                                     @foreach($purchases as $purchase)
                                                                         @if($purchase->due_amount == null || $purchase->due_amount != 0)
-                                                                            @php 
+                                                                            @php
                                                                                 $amount_paid = 0;
                                                                                 $due_amount = 0;
-                                                                                
+
                                                                                 if($purchase->due_amount == null){
                                                                                     $amount_paid = 0;
                                                                                     $due_amount = $purchase->grand_total;
@@ -164,7 +164,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         @endif
-                                                                    @endforeach                                                                   
+                                                                    @endforeach
                                                                 @endif
                                                             </tbody>
                                                         </table>
@@ -257,7 +257,7 @@
         $("#example3").DataTable({
          "responsive": true,
             "autoWidth": false,
-        }); 
+        });
     });
 
     $('.purchase_form').click(function(e)
