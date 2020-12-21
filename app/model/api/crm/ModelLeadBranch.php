@@ -177,8 +177,11 @@ class ModelLeadBranch extends Model
                         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
                         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
                         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+                        (select code from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district_code,
                         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
-                        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
+                        (select code from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune_code,
+                        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
+                        (SELECT code from ma_gazetteers where code=ladd.gazetteer_code) as village_code
                         from crm_lead_address ladd
                         where ladd.id=$id");
     }
