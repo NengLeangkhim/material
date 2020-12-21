@@ -184,3 +184,9 @@ $(window).on('shown.bs.modal', function() {
 
 {{-- validation --}}
 <script src="stJS/validation.js"></script>
+
+<script  type="text/javascript">
+  $(document).ready(function () {
+  bsCustomFileInput.init();
+});
+  </script>

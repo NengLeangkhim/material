@@ -1,17 +1,28 @@
 
 <section class="content">
+    <style>
+        .input-group {
+            
+            flex-wrap: nowrap !important;    
+
+        }
+        .select2-container .select2-search--inline .select2-search__field{
+            margin-top: 0 !important;
+        }
+    </style>
     <div class="col-md-12">
         <div class="">
             {{-- <div class="p-2 pl-4">
                 <h5><span><i class="fas fa-user-plus"></i></span> Add Lead Home</h5>
             </div> --}}
             <div class="card-body">
-                <form id="frm_Crmlead" method="POST">
+                <form id="frm_Crmlead" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div id="smartwizard" style="border: none !important;">
                         <ul class="nav" style="background-color: #FFFFFF; border: none !important;">
                             <li><a class="nav-link" href="#home-register">Register</a></li>
                             <li><a class="nav-link" href="#home-address">Address</a></li>
+                            <li><a class="nav-link" href="#file-attachment">File Attachment</a></li>
                             <li><a class="nav-link" href="#home-representative">Representative</a></li>
                            
                         </ul>
@@ -25,13 +36,12 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                                                 <select name="lead_id" id="lead_id" class="form-control select2">
                                                     <option value='0'>-- Select Lead To Add Branch --</option>
                                                 </select>
-                                                <div class="input-group-append">
+                                                <!-- <div class="input-group-append">
                                                     <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
@@ -44,9 +54,9 @@
                                                 <select class="form-control select2"  name="branch" id='branch' >
                                                     <option value='0'>-- Select Branch --</option>
                                                 </select>
-                                                <div class="input-group-append">
+                                                <!-- <div class="input-group-append">
                                                     <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
+                                                </div> -->
                                                 <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -123,9 +133,9 @@
                                                         @endforeach
                                                     @endif
                                                 </select>
-                                                <div class="input-group-append">
+                                                <!-- <div class="input-group-append">
                                                     <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
+                                                </div> -->
 
 
 
@@ -149,9 +159,9 @@
                                                         @endforeach
                                                     @endif
                                                 </select>
-                                                <div class="input-group-append">
+                                                <!-- <div class="input-group-append">
                                                     <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
+                                                </div> -->
                                                 <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -171,14 +181,161 @@
                                                 <select class="form-control select2" multiple="multiple" name="service" id="service" placeholder='Choose service'>
                                                     <option value=''>-- Select Service --</option>
                                                 </select>
-                                                <div class="input-group-append">
+                                                <!-- <div class="input-group-append">
                                                     <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+                                
+
+                                {{-- Form-3 Address --}}
+                                <div id="home-address">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="home_en"> Home(EN)</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home" onkeypress="return validENTxt(event)">
+                                                <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="street_en"> Street(EN) </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street" onkeypress="return validENTxt(event)">
+                                                <span class="invalid-feedback" role="alert" id="street_enError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="addresscode">City/Province </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                                </div>
+                                                <select class="form-control select2 addresscode" id="addresscode" name="addresscode" onchange="getbranch(this,'district','s','/district')" >
+                                                    <option></option>
+                                                    @if(is_array($province))
+                                                        @foreach($province as $row )
+                                                        <option value="{{$row->code ?? ""}}">{{$row->name_latin ??""}}/{{$row->name_kh??""}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                <!-- <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div> -->
+                                                <span class="invalid-feedback" role="alert" id="addresscodeError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="district">Khan/District </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                                </div>
+                                                <select class="form-control select2 dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
+                                                    <option> </option>
+                                                </select>
+                                                <!-- <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div> -->
+                                                <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="commune">Sengkat/Commune </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-street-view"></i></span>
+                                                </div>
+                                                <select class="form-control select2 dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
+                                                    <option> </option>
+                                                </select>
+                                                <!-- <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div> -->
+                                                <span class="invalid-feedback" role="alert" id="communeError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="village">Village </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                </div>
+                                                <select class="form-control select2" name="village" id="village" dats-dependent="village" >
+                                                    <option value="">select Village</option>
+                                                </select>
+                                                <!-- <div class="input-group-append">
+                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
+                                                </div> -->
+                                                <span class="invalid-feedback" role="alert" id="villageError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label for="latlong"> Lead Map <b style="color:red">*</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-map"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example"  >
+                                                <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3 p-2">
+                                        <div id="map"></div>
+                                    </div>
+
+                                </div>
+                                {{-- Form-4 file-attachment--}}
+                                <div id="file-attachment">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputFile">File </label>
+                                            <div class="input-group">                                                
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id=""><i class="far fa-folder-open"></i></span>
+                                                </div>
+                                                    <input  type="file" name="file[]" multiple class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 {{-- Form-2 Contact --}}
                                 <div id="home-representative">
                                     <div class="row">
@@ -188,8 +345,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control select2" name="contact_id" id="contact_id">
-                                                    {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
+                                                <select class="form-control select2" name="contact_id" id="contact_id">                                   --}}
                                                     <option value=''>-- Select Contact  --</option>
                                                 </select>
                                                 <div class="input-group-append">
@@ -286,138 +442,6 @@
                                     </div>
 
                                 </div>
-
-                                {{-- Form-3 Address --}}
-                                <div id="home-address">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="home_en"> Home(EN)</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home" onkeypress="return validENTxt(event)">
-                                                <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="street_en"> Street(EN) </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street" onkeypress="return validENTxt(event)">
-                                                <span class="invalid-feedback" role="alert" id="street_enError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="addresscode">City/Province </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-city"></i></span>
-                                                </div>
-                                                <select class="form-control select2 addresscode" id="addresscode" name="addresscode" onchange="getbranch(this,'district','s','/district')" >
-                                                    <option></option>
-                                                    @if(is_array($province))
-                                                        @foreach($province as $row )
-                                                        <option value="{{$row->code ?? ""}}">{{$row->name_latin ??""}}/{{$row->name_kh??""}}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
-                                                <span class="invalid-feedback" role="alert" id="addresscodeError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="district">Khan/District </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
-                                                </div>
-                                                <select class="form-control select2 dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
-                                                    <option> </option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
-                                                <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="commune">Sengkat/Commune </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-street-view"></i></span>
-                                                </div>
-                                                <select class="form-control select2 dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
-                                                    <option> </option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
-                                                <span class="invalid-feedback" role="alert" id="communeError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="village">Village </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
-                                                </div>
-                                                <select class="form-control select2" name="village" id="village" dats-dependent="village" >
-                                                    <option value="">select Village</option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" style="background-color: white; border: white;"></span>
-                                                </div>
-                                                <span class="invalid-feedback" role="alert" id="villageError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <label for="latlong"> Lead Map <b style="color:red">*</b></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-map"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example"  >
-                                                <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3 p-2">
-                                        <div id="map"></div>
-                                    </div>
-
-                                </div>
                         </div>
                     </div>
                 </form>
@@ -495,16 +519,13 @@
 
 <script type="text/javascript">
 
+
     $('#branch').ready(function(){
-            var myvar= $("#getlead").val();
             $.ajax({
                 // url:'http://127.0.0.1:8000/api/branch',
-                url:'api/branch',
+                url:'companybranch',
                 type:'get',
                 dataType:'json',
-                headers: {
-                    'Authorization': `Bearer ${myvar}`,
-                },
                 success:function(response){
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].ma_company_branch_id;
@@ -671,4 +692,5 @@
           }
         });
 </script>
+
 

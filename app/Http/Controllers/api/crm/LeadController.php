@@ -116,6 +116,7 @@ class LeadController extends Controller
     }
     //  insert lead
     public  static function  insertLead(Request $request){
+        // dd($request);
         //Lead
         // if (session_status() == PHP_SESSION_NONE) {
         //     session_start();
@@ -166,11 +167,13 @@ class LeadController extends Controller
         $street_kh=$request->input('street_kh')!=''? $request->input('street_kh'):null;
         $latlong=$request->input('latlong')!=''? $request->input('latlong'):null;
         // $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
-        $address_type='main';
+        $address_type=null;
         $addresscode=$request->input('village')!=''? $request->input('village'):null;
-        //upload file if exist
-        if($request->hasfile('file')&&$request->file('file')->isValid()){
-            $file= $request->file('file');
+        //upload file if exist        
+
+        if($request->has('file')){
+            // $file= $request->input('file');
+            $file = $request->file;
         }else{
             $file=null;
         }
@@ -181,7 +184,8 @@ class LeadController extends Controller
         // $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         // $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
         // dd($con_id,$name_kh);
-        // dd($con_id);
+        // $file=$file[0]->getClientOriginalName();
+        // dd( $file);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,

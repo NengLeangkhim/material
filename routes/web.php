@@ -40,6 +40,8 @@ Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
 Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
 
+Route::get('/companybranch','crm\LeadController@getcompanybranch');// get  company branch 
+
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch
@@ -76,6 +78,11 @@ Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//
 Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  survey branch
 Route::get('/crm/leadbranch/address/{branch_id}','crm\LeadBranchController@ManageAddress');// address branch
 Route::get('/crm/leadbranch/search','crm\LeadBranchController@CrmLeadBranchSearch');//Search Lead brnach
+Route::get('/crm/leadbranch/addresscreate','crm\LeadBranchController@CreateManageAddress');//Search Lead brnach
+Route::post('/crm/leadbranch/addresscreate','crm\LeadBranchController@StoreBranchAddress');//Search Lead brnach
+Route::get('/crm/leadbranch/addressget','crm\LeadBranchController@UpdateManageAddress');//Search Lead brnach
+Route::post('/crm/leadbranch/addressupdate','crm\LeadBranchController@UpdateBranchAddress');//Search Lead brnach
+// end lead branch StoreBranchAddress
 // end lead branch
 
 //end lead branch

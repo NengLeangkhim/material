@@ -150,7 +150,8 @@ class ModelLeadBranch extends Model
     }
     // select address branch
     public static function BranchAddressType($id){
-        return DB::select("SELECT ladd.*,
+        return DB::select("SELECT ladd.*,$id as branch_id,
+        (SELECT name_en from crm_lead_branch where id=$id ) as customer_name,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
@@ -159,7 +160,26 @@ class ModelLeadBranch extends Model
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from crm_lead_address ladd
         where ( ladd.crm_lead_id=(select crm_lead_id from crm_lead_branch where id=$id) and (ladd.address_type='main' or ladd.address_type='billing') )
+			  or ladd.id=(select crm_lead_address_id from crm_lead_branch where id=$id)
         ORDER BY address_type DESC
         ");
+    }
+    // select address branch
+    public static function BranchAddressUpdate($id,$ladd_id){
+        return DB::select("UPDATE public.crm_lead_branch
+        SET crm_lead_address_id=$ladd_id
+        WHERE id=$id");
+    }
+    // get address by ID
+    public static function GetAddressByID($id){
+        return DB::select("SELECT ladd.*,
+                        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
+                        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
+                        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+                        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+                        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
+                        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
+                        from crm_lead_address ladd
+                        where ladd.id=$id");
     }
 }
