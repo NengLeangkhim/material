@@ -68,7 +68,7 @@ Route::get('/leadbranch','crm\LeadBranchController@index');
 //     return view('crm.LeadBranch.FormStepByStep');
 // });
 // All
-Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/status/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/status/child/{status}','crm\LeadBranchController@getLeadStatusChild');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
