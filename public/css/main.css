@@ -3841,18 +3841,23 @@ input[type="button"].btn-block {
 }
 
 .input-group {
+    
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
     width: 100%;
 }
-
+.input-group-prepend  
+.select2-container--default 
+.select2-selection {
+    border-top-right-radius: 2px;
+}
 .input-group>.form-control,
 .input-group>.custom-select,
 .input-group>.custom-file {
@@ -3862,6 +3867,7 @@ input[type="button"].btn-block {
     flex: 1 1 auto;
     width: 1%;
     margin-bottom: 0;
+
 }
 
 .input-group>.form-control:focus,

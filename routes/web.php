@@ -40,6 +40,8 @@ Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
 Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
 
+Route::get('/companybranch','crm\LeadController@getcompanybranch');// get  company branch 
+
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch

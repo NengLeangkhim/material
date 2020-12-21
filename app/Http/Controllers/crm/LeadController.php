@@ -763,7 +763,20 @@ class LeadController extends Controller
             return view('no_perms');
         }
     }
-
+    
+    // get company branch 
+    public function getcompanybranch(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+        $token = $_SESSION['token'];
+        $create_contact = Request::create('/api/branch','get');
+        $create_contact->headers->set('Accept', 'application/json');
+        $create_contact->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($create_contact);
+        $response = json_decode($res->getContent());
+        return  $res;
+    }
 
 
 }
