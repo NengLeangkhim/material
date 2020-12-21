@@ -129,7 +129,7 @@ class LeadController extends Controller
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
-        $company_en=ucwords($request->input('company_en'))!="" ? $request->input('company_en'):null;
+        $company_en=ucwords($request->input('company_en')!="" ? $request->input('company_en'):null);
         $company_kh=$request->input('company_kh')!="" ? $request->input('company_kh'):null;
         $primary_email=$request->input('primary_email')!="" ? $request->input('primary_email'):null;
         $primary_phone=$request->input('primary_phone')!="" ? $request->input('primary_phone'):null;
@@ -138,11 +138,11 @@ class LeadController extends Controller
         $website=$request->input('website') !="" ? $request->input('website'):null;
         $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
         $vat_number=$request->input('vat_number')!="" ?$request->input('vat_number'):null;
-        $company_branch=$request->input('branch')!="" ?$request->input('branch'):null;
+        $company_branch=$request->input('branch')!="" ?$request->input('branch'):16;
         $lead_source=$request->input('lead_source')!="" ?$request->input('lead_source'):null;
         $lead_status=1;
         $lead_industry=$request->input('lead_industry')!="" ?$request->input('lead_industry'):null;
-        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):null;
+        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):$_SESSION['userid'];
         $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp') !="" ?$request->input('current_speed_isp'):null;
         $current_speed=$request->input('current_speed') !="" ?$request->input('current_speed'):null;;
@@ -205,7 +205,7 @@ class LeadController extends Controller
             $lead_detail_id=$request->input('lead_detail_id')!=""?$request->input('lead_detail_id'):null;
             $lead_item_id=$request->input('lead_item_id')!=""?$request->input('lead_item_id'):null;
             $branch_id=$request->input('branch_id')!=""?$request->input('branch_id'):null;
-            $company_en=ucwords($request->input('company_en'))!=""?$request->input('company_en'):null;
+            $company_en=ucwords($request->input('company_en')!=""?$request->input('company_en'):null);
             $company_kh=$request->input('company_kh')!=""?$request->input('company_kh'):null;
             $primary_email=$request->input('primary_email')!=""?$request->input('primary_email'):null;
             $primary_phone=$request->input('primary_phone')!=""?$request->input('primary_phone'):null;

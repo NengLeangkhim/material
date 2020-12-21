@@ -54,19 +54,31 @@ class CrmLeadStatus extends Model
         return $result;
 
     }
+    //get data of status for opportunities
     function getActiveData(){
         try {
             $result = DB::select("select crm_lead_status.*,ma_user.first_name_en||' '||ma_user.last_name_en as create_by_name,
                                     case when crm_lead_status.status=false then 'Inactive' else 'Active' end as status_text
                                     from crm_lead_status join ma_user on ma_user.id=crm_lead_status.create_by
-                                    where crm_lead_status.status = true and crm_lead_status.is_deleted = false order by crm_lead_status.sequence");
+                                    where crm_lead_status.status = true and crm_lead_status.is_deleted = false and crm_lead_status.parent_id is null order by crm_lead_status.sequence");
         } catch(QueryException $e){
             throw $e;
         }
         return $result;
 
     }
+    function getChildData($id){
+        try {
+            $result = DB::select("select crm_lead_status.*,ma_user.first_name_en||' '||ma_user.last_name_en as create_by_name,
+                                    case when crm_lead_status.status=false then 'Inactive' else 'Active' end as status_text
+                                    from crm_lead_status join ma_user on ma_user.id=crm_lead_status.create_by
+                                    where crm_lead_status.status = true and crm_lead_status.is_deleted = false and crm_lead_status.parent_id=(select id from crm_lead_status where name_en='$id' ) order by crm_lead_status.sequence");
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
 
+    }
     function deleteData($id, $userId){
         try {
             $result = DB::selectOne('select delete_crm_lead_status('.$id.', '.$userId.') as id')->id;

@@ -69,10 +69,13 @@ Route::get('/leadbranch','crm\LeadBranchController@index');
 // });
 // All
 Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/status/child/{status}','crm\LeadBranchController@getLeadStatusChild');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
 Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch
-Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  edit branch
+Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  survey branch
+Route::get('/crm/leadbranch/address/{branch_id}','crm\LeadBranchController@ManageAddress');// address branch
+Route::get('/crm/leadbranch/search','crm\LeadBranchController@CrmLeadBranchSearch');//Search Lead brnach
 // end lead branch
 
 //end lead branch
@@ -92,6 +95,8 @@ Route::get('/survey','crm\CrmSurveyController@index');
 Route::get('/crm/survey/list','crm\CrmSurveyController@CrmSurveyList');
 // Table survey result
 Route::get('/crm/survey/result','crm\CrmSurveyController@CrmSurveyResult');
+
+
 //get detail survey
 Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
@@ -100,6 +105,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+
 Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/search','crm\ContactController@CrmLeadContactSearch'); //Search
@@ -110,6 +116,7 @@ Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update co
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
+Route::get('/contact/{id}','crm\ContactController@getcontactbyid'); //get contact by id
 // end contact
 
 // Start Organization
@@ -128,7 +135,7 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
-Route::get('/quote/datatable','crm\QuoteController@showQuoteListDatatable'); // get show quote
+Route::get('/quote/datatable/{status}','crm\QuoteController@showQuoteListDatatable'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
 
@@ -140,10 +147,11 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/status/child/{status}','crm\QuoteController@getQuoteStatusChild');
 Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
-
+Route::get('/quote/getlead/getleadAddress','crm\QuoteController@getleadAddress'); // function to get lead address show in add quote
 
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
@@ -213,6 +221,12 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
     Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
 // END Setting CRM
+
+// Convert To Customer
+    Route::get('/crm_convert_to_customer','crm\CrmConvertToCustomerController@index');
+    Route::get('/crm_convert_to_customer/before_convert','crm\CrmConvertToCustomerController@beforeConvert');
+    Route::get('/crm_convert_to_customer/after_convert','crm\CrmConvertToCustomerController@afterConvert');
+// END Convert To Customer
 
 //===========================END CRM=================================
 

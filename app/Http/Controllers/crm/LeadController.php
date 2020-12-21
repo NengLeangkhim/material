@@ -29,7 +29,6 @@ class LeadController extends Controller
             //     return view('no_perms');
             // }
 
-
             return view('crm.Lead.lead');
 
         }else{
@@ -40,22 +39,23 @@ class LeadController extends Controller
 
     // function to show add lead home
     public static function addleadhome(){
-        if(perms::check_perm_module('CRM_020504')){//module codes
+        if(perms::check_perm_module('CRM_02050401')){//module codes
             if(isset($_GET['option_'])){
                 $lead_source=ModelCrmLead::CrmGetLeadSource();
                 $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
                 $province=ModelCrmLead::CrmGetLeadProvice();
                 $optionAddLead = $_GET['option_'];
                 if($optionAddLead == 1){ // this type add lead home short
-                    return view('crm.lead.addleadhomeshort',compact('lead_source','lead_industry'));
+                    return view('crm.Lead.addleadhomeshort',compact('lead_source','lead_industry'));
                 }
                 if($optionAddLead == 2){ // this type add lead home fullss
-                    return view('crm.lead.addleadhomefull',compact('lead_source','lead_industry','province'));
+                    return view('crm.Lead.addleadhomefull',compact('lead_source','lead_industry','province'));
                 }
-
             }else{
                 return view('no_perms');
             }
+        }else{
+            return view('no_perms');
         }
     }
 
@@ -66,21 +66,25 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(isset($_GET['option_'])){
-            $optionAddLead = $_GET['option_'];
-            $token = $_SESSION['token'];
-            $userid = $_SESSION['userid'];
-            $lead_source=ModelCrmLead::CrmGetLeadSource();
-            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
-            $province=ModelCrmLead::CrmGetLeadProvice();
-            $emInfo=ModelCrmLead::getEmInfo();
-            if($optionAddLead == 1){ // this type add lead business short
-                return view('crm.lead.addleadbusinessshort',compact('lead_source','lead_industry'));
-            }
-            if($optionAddLead == 2){ // this type add lead business fullss
-                return view('crm.lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
-            }
+        if(perms::check_perm_module('CRM_02050402')){//module codes
+            if(isset($_GET['option_'])){
+                $optionAddLead = $_GET['option_'];
+                $token = $_SESSION['token'];
+                $userid = $_SESSION['userid'];
+                $lead_source=ModelCrmLead::CrmGetLeadSource();
+                $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+                $province=ModelCrmLead::CrmGetLeadProvice();
+                $emInfo=ModelCrmLead::getEmInfo();
+                if($optionAddLead == 1){ // this type add lead business short
+                    return view('crm.Lead.addleadbusinessshort',compact('lead_source','lead_industry'));
+                }
+                if($optionAddLead == 2){ // this type add lead business fullss
+                    return view('crm.Lead.addleadbusinessfull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+                }
 
+            }else{
+                return view('no_perms');
+            }
         }else{
             return view('no_perms');
         }
@@ -92,21 +96,25 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(isset($_GET['option_'])){
-            $optionAddLead = $_GET['option_'];
-            $token = $_SESSION['token'];
-            $userid = $_SESSION['userid'];
-            $lead_source=ModelCrmLead::CrmGetLeadSource();
-            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
-            $province=ModelCrmLead::CrmGetLeadProvice();
-            $emInfo=ModelCrmLead::getEmInfo();
-            if($optionAddLead == 1){ // this type add lead enterprise short
-                return view('crm.lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
-            }
-            if($optionAddLead == 2){ // this type add lead enterprise full
-                return view('crm.lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
-            }
+        if(perms::check_perm_module('CRM_02050403')){//module codes
+            if(isset($_GET['option_'])){
+                $optionAddLead = $_GET['option_'];
+                $token = $_SESSION['token'];
+                $userid = $_SESSION['userid'];
+                $lead_source=ModelCrmLead::CrmGetLeadSource();
+                $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+                $province=ModelCrmLead::CrmGetLeadProvice();
+                $emInfo=ModelCrmLead::getEmInfo();
+                if($optionAddLead == 1){ // this type add lead enterprise short
+                    return view('crm.Lead.addleadenterpriseshort',compact('lead_source','lead_industry'));
+                }
+                if($optionAddLead == 2){ // this type add lead enterprise full
+                    return view('crm.Lead.addleadenterprisefull',compact('lead_source','lead_industry','province','token','userid','emInfo'));
+                }
 
+            }else{
+                return view('no_perms');
+            }
         }else{
             return view('no_perms');
         }
@@ -416,14 +424,14 @@ class LeadController extends Controller
                     //                     ->where(function ($query) use ($request) {
                     //                     return $query->where('is_deleted', 'f');})
                                             // ],
-                    'branch' =>  [  'required'
-                                            ],
+                    // 'branch' =>  [  'required'
+                    //                         ],
                     'lead_source' =>  [  'required'
                                             ],
                     'lead_industry' =>  [  'required'
                                             ],
-                    'assig_to' =>  [  'required'
-                                            ],
+                    // 'assig_to' =>  [  'required'
+                    //                         ],
                     // 'service' =>  [  'required'
                     //                         ],
                     // 'website' =>  [  'required'

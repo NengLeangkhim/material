@@ -9,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span></span>Customer Detail</h1>
+                <h1><span><i class="fas fa-user-cog"></i></span> Customer Detail</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/leadbranch')">Lead Branch</a></li>
-                    <li class="breadcrumb-item active">Branch Detail</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/leadbranch')">Opportunities</a></li>
+                    <li class="breadcrumb-item active">Customer Detail</li>
                 </ol>
             </div>
         </div>
@@ -108,7 +108,7 @@
                                         <?php
                                     }
                                     ?>
-                                <button class="form-control schedule dropdown-item hrm_item" onclick="lead_branch_schedule({{$detailbranch[0]['branch_id']}})"  id="schedule{{$detailbranch[0]['branch_id']}}" value="{{$detailbranch[0]['branch_id']}}">
+                                <button class="form-control schedule dropdown-item hrm_item" onclick="go_to('/crm/leadbranch/address/{{$detailbranch[0]['branch_id']}}')">
                                     <i class="fas fa-map-marked-alt"></i> Manage Address
                                 </button>
                                 </div>
@@ -571,18 +571,18 @@
 
             //declear default value for latlong on map
             addMarker(haightAshbury);
-            // document.getElementById('latlong').value = '11.620803, 104.892215';
+            // // document.getElementById('latlong').value = '11.620803, 104.892215';
 
-            // This event listener will call addMarker() when the map is clicked.
-            map.addListener('click', function(event) {
-                if (markers.length >= 1) {
-                    deleteMarkers();
-                }
+            // // This event listener will call addMarker() when the map is clicked.
+            // map.addListener('click', function(event) {
+            //     if (markers.length >= 1) {
+            //         deleteMarkers();
+            //     }
 
-                addMarker(event.latLng);
-                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
-                document.getElementById('latlong').value = get_latlng;
-            });
+            //     addMarker(event.latLng);
+            //     get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
+            //     document.getElementById('latlong').value = get_latlng;
+            // });
         }
 
         // Adds a marker to the map and push to the array.
@@ -595,22 +595,22 @@
         }
 
         // Sets the map on all markers in the array.
-        function setMapOnAll(map) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
-            }
-        }
+        // function setMapOnAll(map) {
+        //     for (var i = 0; i < markers.length; i++) {
+        //         markers[i].setMap(map);
+        //     }
+        // }
 
         // Removes the markers from the map, but keeps them in the array.
-        function clearMarkers() {
-            setMapOnAll(null);
-        }
+        // function clearMarkers() {
+        //     setMapOnAll(null);
+        // }
 
         // Deletes all markers in the array by removing references to them.
-        function deleteMarkers() {
-            clearMarkers();
-            markers = [];
-        }
+        // function deleteMarkers() {
+        //     clearMarkers();
+        //     markers = [];
+        // }
         $('.CrmLeadEdit').click(function(e)
             {
                 var id = $(this).attr("​value");

@@ -37,6 +37,12 @@ class LeadBranchController extends Controller
             return view('no_perms');
         }
     }
+    public function getLeadStatusChild($id){
+        $status = Request::create('/api/crm/leadChildStatus/'.$id, 'GET');
+
+        $status =json_decode(Route::dispatch($status)->getContent());
+        return view('/crm.LeadBranch.LeadStatusChildTabs',['status'=>$status->data??[],'prev_status'=>$id]);
+    }
      // get lead branch by status
      public function GetLeadBranchByStatus(Request $request){
         if(perms::check_perm_module('CRM_0214')){//module codes
@@ -116,5 +122,27 @@ class LeadBranchController extends Controller
         }else{
             return view('no_perms');
         }
+    }
+    //Manage Address
+    public function ManageAddress(Request $request){
+        $id =$request->branch_id;
+        if(perms::check_perm_module('CRM_021001')){//module codes
+            $address=ModelLeadBranch::LeadBranchAddress($id);
+            $address=json_decode($address,true);
+            return view('crm.LeadBranch.ManageAddress',['address'=>$address['data']]);
+        }else{
+            return view('no_perms');
+        }
+    }
+    // function Lead Search
+    public function CrmLeadBranchSearch(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $search= $request->search;
+            $result=ModelLeadBranch::SearchLeadBranch($search);
+            return $result;
+        }else{
+            return view('no_perms');
+        }
+
     }
 }
