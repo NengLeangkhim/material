@@ -21,69 +21,69 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary"​>
-                    <div class="card-body">
+                    <div class="card-body" style="padding-bottom: 0px">
                         <div class="form-group">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td> Customer ID</td>
-                                                        <td> :</td>
-                                                        <td> 000503</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Deposite</td>
-                                                        <td>:</td>
-                                                        <td> $ 3000</td>
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <label>Customer ID</label>
+                                        <div style="padding-left: 10px">
+                                            <label for="">: 001</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td> Customer Name</td>
-                                                        <td> :</td>
-                                                        <td> Sok Seng Industry</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Balance</td>
-                                                        <td>:</td>
-                                                        <td> $ 3000</td>
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <label>Customer Name</label>
+                                        <div style="padding-left: 10px">
+                                            <label for="">: Touch Rith</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td> ឈ្មោះអតិថិជន</td>
-                                                        <td> :</td>
-                                                        <td> សុខ​ សេង</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Invoice Balance</td>
-                                                        <td>:</td>
-                                                        <td> $ 3000</td>
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <label>ឈ្មោះអតិថិជន</label>
+                                        <div style="padding-left: 40px">
+                                            <label for="">: ទូច រិទ្ធ</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <label>Deposit</label>
+                                        <div style="padding-left: 45px">
+                                            <label for="">: 1000</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <label>Balance</label>
+                                        <div style="padding-left: 70px">
+                                            <label for="">: 1000</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <label>Invoice Balance</label>
+                                        <div style="padding-left: 10px">
+                                            <label for="">: 1000</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-primary"​>
+                    <div class="card-body">
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
                                     {{-- <div class="card"> --}}

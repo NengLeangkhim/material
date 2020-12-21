@@ -9,7 +9,7 @@
             </div>
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_customer_balance')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:" onclick="go_to('bsc_customer_balance')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="Balance" ​value="Balance">Home</a></li>
                     <li class="breadcrumb-item active">View Balance</li>
                 </ol>
@@ -30,7 +30,7 @@
                                 <div class="col-md-4">
                                     <div class="row">
                                         <label>Customer ID</label>
-                                        <div style="padding-left: 10px">
+                                        <div style="padding-left: 40px">
                                             <label for="">: 001</label>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                 <div class="col-md-4">
                                     <div class="row">
                                         <label>Deposit</label>
-                                        <div style="padding-left: 30px">
+                                        <div style="padding-left: 45px">
                                             <label for="">: 1000</label>
                                         </div>
                                     </div>

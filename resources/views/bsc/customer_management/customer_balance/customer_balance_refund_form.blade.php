@@ -9,7 +9,7 @@
             </div>
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_customer_balance')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:" onclick="go_to('bsc_customer_balance')"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="balance" ​value="balance">Home</a></li>
                     <li class="breadcrumb-item active">Refund Balance</li>
                 </ol>
