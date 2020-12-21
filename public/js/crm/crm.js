@@ -507,6 +507,17 @@ function CrmLeadBranchView(url, table) {
         }
     });
 }
+function CrmLeadBrancStatusChild(url,div_id){
+    $.ajax({
+        url:url,  //get URL to route
+        type:"get",
+        data:{},
+        success:function(data){
+            $(div_id).html(data);
+            CrmLeadBranchView($('input[type="hidden"][name="StatusFirstChild"]').val(),'Lead_Branch_Tbl');
+        },
+    });
+}
 //--------------End Lead Branch---------//
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
 // $(document).ready(function(){

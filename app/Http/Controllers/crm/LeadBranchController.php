@@ -37,6 +37,12 @@ class LeadBranchController extends Controller
             return view('no_perms');
         }
     }
+    public function getLeadStatusChild($id){
+        $status = Request::create('/api/crm/leadChildStatus/'.$id, 'GET');
+
+        $status =json_decode(Route::dispatch($status)->getContent());
+        return view('/crm.LeadBranch.LeadStatusChildTabs',['status'=>$status->data??[],'prev_status'=>$id]);
+    }
      // get lead branch by status
      public function GetLeadBranchByStatus(Request $request){
         if(perms::check_perm_module('CRM_0214')){//module codes
