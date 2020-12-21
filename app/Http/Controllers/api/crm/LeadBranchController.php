@@ -126,7 +126,8 @@ class LeadBranchController extends Controller
     public function GetAddressByID(Request $request){
         $id = $request->lead_address_id;
         try{
-            return LeadBranch::GetAddressByID($id);
+            $result =LeadBranch::GetAddressByID($id);
+            return json_encode(["result"=>"success","data"=>$result]);
         }catch(Exception $e){
             return json_encode(["result"=>"fail","data"=> $e->getMessage()]);
         }
@@ -147,10 +148,10 @@ class LeadBranchController extends Controller
         $return=json_decode($return,true);
         $user_create=$return["original"]['id'];
         try{
-            $insert= Crmlead::updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode);
-            return json_encode(["insert"=>"success","data"=>$insert]);
+            $update= Crmlead::updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode);
+            return json_encode(["Update"=>"success","data"=>$update]);
         }catch(Exception $e){
-            return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
+            return json_encode(["Update"=>"fail","result"=> $e->getMessage()]);
         }
     }
 }

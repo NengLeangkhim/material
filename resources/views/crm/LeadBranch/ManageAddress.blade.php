@@ -37,7 +37,7 @@
         <div class="card card-default color-palette-box card-header">
             <div class="row">
                 <div class="col-md-12">
-                    <h5><b><i class="far fa-user"></i> Customer :</b> Oppa Bo</h5>
+                    <h5><b><i class="far fa-user"></i> Customer :</b> {{$address[0]['customer_name']}}</h5>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
                                // dump($install_address);
                             @endphp
                                 @if ($install_address['address_type']??''=='install')
-                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}})"><i class="fas fa-pen-square"></i> Update</button>
+                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}},{{$branch_id??''}})"><i class="fas fa-pen-square"></i> Update</button>
                                 @else
                                  <button type="button" class="btn btn-info" onclick="CreateBranchAddress('install',{{$lead_id??''}},{{$branch_id??''}})"><i class="fas fa-plus"></i> Create</button>
                                 @endif
@@ -89,7 +89,7 @@
                                                 <dt class="col-sm-4 dt" >Street EN</dt>
                                                 <dd class="col-sm-8 dd" >St {{$address[$i]["street_en"]??''}}</dd>
                                                 <dt class="col-sm-4 dt">Home number EN</dt>
-                                                <dd class="col-sm-8 dd" ># {{$address[$i]["home_en"]??''}}</dd>
+                                                <dd class="col-sm-8 dd" ># {{$address[$i]["hom_en"]??''}}</dd>
                                                 <dt class="col-sm-4 dt" >Street KH</dt>
                                                 <dd class="col-sm-8 dd" >ផ្លូវ {{$address[$i]["street_kh"]??''}}</dd>
                                                 <dt class="col-sm-4 dt">Home number KH</dt>
@@ -153,7 +153,7 @@
                                // dump($install_address);
                             @endphp
                                 @if ($install_address['address_type']??''=='main')
-                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}})"><i class="fas fa-pen-square"></i> Update</button>
+                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}},{{$branch_id??''}})"><i class="fas fa-pen-square"></i> Update</button>
                                 @else
                                      <button type="button" class="btn btn-info" onclick="CreateBranchAddress('main',{{$lead_id??''}},{{$branch_id??''}})"><i class="fas fa-plus"></i> Create</button>
                                 @endif
@@ -174,7 +174,7 @@
                                                 <dt class="col-sm-4 dt" >Street EN</dt>
                                                 <dd class="col-sm-8 dd" >St {{$address[$i]["street_en"]??''}}</dd>
                                                 <dt class="col-sm-4 dt">Home number EN</dt>
-                                                <dd class="col-sm-8 dd" ># {{$address[$i]["home_en"]??''}}</dd>
+                                                <dd class="col-sm-8 dd" ># {{$address[$i]["hom_en"]??''}}</dd>
                                                 <dt class="col-sm-4 dt" >Street KH</dt>
                                                 <dd class="col-sm-8 dd" >ផ្លូវ {{$address[$i]["street_kh"]??''}}</dd>
                                                 <dt class="col-sm-4 dt">Home number KH</dt>
@@ -238,7 +238,7 @@
                                 // dump($install_address);
                                 @endphp
                                 @if ($install_address['address_type']??''=='billing')
-                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}})"><i class="fas fa-pen-square"></i> Update</button>
+                                 <button type="button" class="btn btn-info" onclick="UpdateBranchAddress({{$install_address['id']??''}},{{$branch_id??''}})"><i class="fas fa-pen-square"></i> Update</button>
                                 @else
                                      <button type="button" class="btn btn-info" onclick="CreateBranchAddress('billing',{{$lead_id??''}},{{$branch_id??''}})"><i class="fas fa-plus"></i> Create</button>
                                 @endif
@@ -259,7 +259,7 @@
                                                 <dt class="col-sm-4 dt" >Street EN</dt>
                                                 <dd class="col-sm-8 dd" >St {{$address[$i]["street_en"]??''}}</dd>
                                                 <dt class="col-sm-4 dt">Home number EN</dt>
-                                                <dd class="col-sm-8 dd" ># {{$address[$i]["home_en"]??''}}</dd>
+                                                <dd class="col-sm-8 dd" ># {{$address[$i]["hom_en"]??''}}</dd>
                                                 <dt class="col-sm-4 dt" >Street KH</dt>
                                                 <dd class="col-sm-8 dd" >ផ្លូវ {{$address[$i]["street_kh"]??''}}</dd>
                                                 <dt class="col-sm-4 dt">Home number KH</dt>

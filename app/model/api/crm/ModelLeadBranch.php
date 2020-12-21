@@ -151,6 +151,7 @@ class ModelLeadBranch extends Model
     // select address branch
     public static function BranchAddressType($id){
         return DB::select("SELECT ladd.*,$id as branch_id,
+        (SELECT name_en from crm_lead_branch where id=$id ) as customer_name,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
@@ -158,7 +159,6 @@ class ModelLeadBranch extends Model
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from crm_lead_address ladd
-		LEFT JOIN crm_lead_branch lb on ladd.id = lb.crm_lead_address_id
         where ( ladd.crm_lead_id=(select crm_lead_id from crm_lead_branch where id=$id) and (ladd.address_type='main' or ladd.address_type='billing') )
 			  or ladd.id=(select crm_lead_address_id from crm_lead_branch where id=$id)
         ORDER BY address_type DESC

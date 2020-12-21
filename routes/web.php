@@ -77,6 +77,8 @@ Route::get('/crm/leadbranch/address/{branch_id}','crm\LeadBranchController@Manag
 Route::get('/crm/leadbranch/search','crm\LeadBranchController@CrmLeadBranchSearch');//Search Lead brnach
 Route::get('/crm/leadbranch/addresscreate','crm\LeadBranchController@CreateManageAddress');//Search Lead brnach
 Route::post('/crm/leadbranch/addresscreate','crm\LeadBranchController@StoreBranchAddress');//Search Lead brnach
+Route::get('/crm/leadbranch/addressget','crm\LeadBranchController@UpdateManageAddress');//Search Lead brnach
+Route::post('/crm/leadbranch/addressupdate','crm\LeadBranchController@UpdateBranchAddress');//Search Lead brnach
 // end lead branch StoreBranchAddress
 // end lead branch
 

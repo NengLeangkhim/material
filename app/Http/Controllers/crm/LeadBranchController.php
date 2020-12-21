@@ -148,10 +148,12 @@ class LeadBranchController extends Controller
      //Update Manage Address
      public function UpdateManageAddress(Request $request){
         $id =$request->lead_address_id;
+        $branch_id =$request->branch_id;
         if(perms::check_perm_module('CRM_020505')){//module codes
             $province=ModelCrmLead::CrmGetLeadProvice();
             $address = ModelLeadBranch::GetLeadAddressByID($id);
-            return view('crm.LeadBranch.UpdateAddressBranch',['province'=>$province,'address'=>$address]);
+            $address=json_decode($address,true);
+            return view('crm.LeadBranch.UpdateAddressBranch',['province'=>$province,'address'=>$address['data'],'branch_id'=>$branch_id]);
         }else{
             return view('no_perms');
         }
@@ -219,6 +221,64 @@ class LeadBranchController extends Controller
                     return response()->json(['success'=>'Record is successfully added']);
                 }else{
                     return response()->json(['Fail'=>'Record is Fail added']);
+                }
+            }else{
+                return view('no_perms');
+            }
+        }
+    }
+    // Update address
+    public function UpdateBranchAddress(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $validator = \Validator::make($request->all(), [
+            // 'home_en' => [ 'required'
+            //                     ],
+            // 'street_en' => [ 'required'
+            //                     ],
+            // 'home_kh' => [ 'required'
+            //                     ],
+            // 'street_kh' => [ 'required'
+                                // ],
+            'addresscode' => [ 'required'
+                                ],
+            'district' => [ 'required'
+                                ],
+            'commune' => [ 'required'
+                                ],
+            'latlong' => [ 'required'
+                                ],
+            // 'address_type' => [ 'required'
+            //                     ],
+            'village' => [ 'required'
+                                ],
+        ],
+        [
+            'district.required' => 'This Field is require !!',   //massage validator
+            'addresscode.required' => 'This Field is require !!',   //massage validator
+            'commune.required' => 'This Field is require !!',   //massage validator
+            'latlong.required' => 'This Field is require !!',   //massage validator
+            'village.required' => 'This Field is require !!',   //massage validator
+            ]
+        );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray()
+            ));
+        }else{
+            if(perms::check_perm_module('CRM_020505')){//module code list
+                $token = $_SESSION['token'];
+                $request = Request::create('/api/leadbranch/addressupdate', 'POST',$request->all());
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer ' . $token);
+                $res = app()->handle($request);
+                $response =json_decode($res->getContent());
+                if($response->Update=='success'){
+                    return response()->json(['success'=>'Record is successfully updated']);
+                }else{
+                    return response()->json(['Fail'=>'Record is Fail updated']);
                 }
             }else{
                 return view('no_perms');

@@ -522,12 +522,13 @@ function CrmLeadBranchView(url, table) {
             }
         });
     }
-    function UpdateBranchAddress(lead_address_id){
+    function UpdateBranchAddress(lead_address_id,branch_id){
         $.ajax({
             url: '/crm/leadbranch/addressget', //get URL to route
             type: "get",
             data: {
                 lead_address_id:lead_address_id,
+                branch_id:branch_id,
             },
             success: function(data) {
                 $('#view_address').html(data);
