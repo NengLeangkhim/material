@@ -191,20 +191,24 @@ class Crmlead extends Model
             }
 
     }
-    private static function addLeadFile($file,$lead_branch_id,$user_create){
-        if(isset($file)&&$file->isValid()){
-            $path='/media/file/crm/lead/';
-            $FilePath = path_config::InsertUploadedFile($file,$path,$user_create);// query insert file returns id of inserted file
-            if($FilePath){
-                DB::beginTransaction();
-                try {
-                    DB::selectOne("SELECT public.insert_crm_lead_branch_ma_uploaded_file_rel(?, ?, ?)",[$lead_branch_id,$FilePath,$user_create]);
-                } catch(Exception $e){
-                    DB::rollback();
-                    throw $e;
+    private static function addLeadFile($files,$lead_branch_id,$user_create){
+        if(isset($files)){
+            foreach($files as $file){
+                $path='/media/file/crm/lead/';
+                $FilePath = path_config::InsertUploadedFile($file,$path,$user_create);// query insert file returns id of inserted file
+                // dd($FilePath);
+                if($FilePath){
+                    DB::beginTransaction();
+                    try {
+                        DB::selectOne("SELECT public.insert_crm_lead_branch_ma_uploaded_file_rel(?, ?, ?)",[$lead_branch_id,$FilePath,$user_create]);
+                        DB::commit();
+                    } catch(Exception $e){
+                        DB::rollback();
+                        throw $e;
+                    }
                 }
-            }
 
+            }
         }
     }
     // add lead
