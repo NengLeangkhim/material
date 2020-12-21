@@ -42,7 +42,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="form-group row">
+                                        <div class="row">
                                             <label>Customer ID <b class="color_label">*</b></label>
                                             <div class="col-sm-7">
                                                 <select class="form-control custom-select select2 input_required" name="customer_id" id="customer_id">
@@ -55,7 +55,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group row">
+                                        <div class="row">
                                             <label>Customer Name</label>
                                             <div style="padding-left: 10px">
                                                 <label for="">: Touch Rith</label>
@@ -63,7 +63,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group row">
+                                        <div class="row">
                                             <label>ឈ្មោះអតិថិជន</label>
                                             <div style="padding-left: 40px">
                                                 <label for="">: ទូច រិទ្ធ</label>
@@ -76,7 +76,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="form-group row">
+                                        <div class="row">
                                             <label>Deposit</label>
                                             <div style="padding-left: 30px">
                                                 <label for="">: 1000</label>
@@ -84,7 +84,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group row">
+                                        <div class="row">
                                             <label>Balance</label>
                                             <div style="padding-left: 70px">
                                                 <label for="">: 1000</label>
@@ -92,7 +92,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group row">
+                                        <div class="row">
                                             <label>Invoice Balance</label>
                                             <div style="padding-left: 10px">
                                                 <label for="">: 1000</label>

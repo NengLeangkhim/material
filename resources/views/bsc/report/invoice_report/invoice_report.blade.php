@@ -31,8 +31,8 @@
                    {{-- =============== start tap all invoice =========== --}}
                     <div class="tab-pane fade show active" id="all_invoice" role="tabpanel" aria-labelledby="home-tab">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-5">
                                     <div class="form-group row form-group-marginless">
                                         <label class="col-lg-4 col-form-label">Billing Date</label>
                                         <div class="col-lg-8">
@@ -60,9 +60,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-1" style="text-align: right">
+                                    <button type="button" class="btn btn-info" onclick="ReportInvoice()">Search</button>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row form-group-marginless">
                                         <label class="col-lg-4 col-form-label">Effective Date</label>
                                         <div class="col-lg-8">
@@ -91,10 +94,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6" style="text-align: right">
-                                    <button type="button" class="btn btn-primary save" style="margin-top:31px;" onclick="ReportInvoice()">Search</button>
-                                </div>
+                            <div class="col-md-1">
+
                             </div>
                             <div class="row" style="margin-top: 5%;">
                                 <div class="col-md-12">
@@ -162,7 +163,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Billing Date</label>
                                             <div class="col-lg-8">
@@ -190,9 +191,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-1" style="text-align: right">
+                                        <button type="button" class="btn btn-info" onclick="ReportInvoice()">Search</button>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Effective Date</label>
                                             <div class="col-lg-8">
@@ -220,10 +224,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="text-align: right">
-                                        <button type="button" class="btn btn-primary save" style="margin-top:31px;" onclick="ReportInvoice()">Search</button>
+                                    <div class="col-md-1">
+
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
@@ -292,7 +294,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Billing Date</label>
                                             <div class="col-lg-8">
@@ -320,9 +322,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-1" style="text-align: right">
+                                        <button type="button" class="btn btn-info" onclick="ReportInvoice()">Search</button>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Effective Date</label>
                                             <div class="col-lg-8">
@@ -350,10 +355,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="text-align: right">
-                                        <button type="button" class="btn btn-primary save" style="margin-top:31px;" onclick="ReportInvoice()">Search</button>
+                                    <div class="col-md-1">
+
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
@@ -422,7 +425,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Billing Date</label>
                                             <div class="col-lg-8">
@@ -450,9 +453,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-1" style="text-align: right">
+                                        <button type="button" class="btn btn-info" onclick="ReportInvoice()">Search</button>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Effective Date</label>
                                             <div class="col-lg-8">
@@ -480,10 +486,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="text-align: right">
-                                        <button type="button" class="btn btn-primary save" style="margin-top:31px;" onclick="ReportInvoice()">Search</button>
+                                    <div class="col-md-1">
+
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 5%;">
@@ -552,7 +556,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Billing Date</label>
                                             <div class="col-lg-8">
@@ -580,9 +584,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-info" onclick="ReportInvoice()">Search</button>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group row form-group-marginless">
                                             <label class="col-lg-4 col-form-label">Effective Date</label>
                                             <div class="col-lg-8">
@@ -610,10 +617,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="text-align: right">
-                                        <button type="button" class="btn btn-primary save" style="margin-top:31px;" onclick="ReportInvoice()">Search</button>
+                                    <div class="col-md-1">
+
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 5%;">

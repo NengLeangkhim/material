@@ -94,94 +94,77 @@
                             </div>
                             <div class="card">
                                 <div class="card-body">
-                                    <body>
+                                    <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-6" style="float: left;width: 50%;">
-                                                <table>
-                                                    <tbody>
-                                                        <tr bgcolor="#1fa8e1">
-                                                            <td align="left" colspan="3" style="font-weight: bold; border-right: 1px dotted #000;padding: 5px;width: 456px" valign="top">
-                                                                <span style="color: white;font-family: khmeros;font-size: 16px;"><b>អតិថិជន​ / CUSTOMER</b></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" width="25%"> <span style="font-size: 13px;">CID / ACCID</span></td>
-                                                            <td align="left" valign="top">:</td>
-                                                            <td width="73%" style="border-right: 1px dotted #000;"> <span style="font-size: 13px;">{{ $invoices->ma_customer_id }}</span> </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ឈ្មោះក្រុមហ៊ុន</span></td>
-                                                            <td align="left" valign="top">:</td>
-                                                            <td style="border-right: 1px dotted #000;"> <span style="font-size: 12px;font-family: khmeros;">ទូច រិទ្ធ</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-size: 13px;">Company Name</span></td>
-                                                            <td align="left" valign="top">:</td>
-                                                            <td style="border-right: 1px dotted #000;"><span style="font-size: 13px;">Touch Rith</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">អាសយដ្ឋាន</span></td>
-                                                            <td align="left" valign="top">:</td>
-                                                            <td style="border-right: 1px dotted #000;"><span style="font-family: khmeros;font-size: 12px;">{{ $invoices->address }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-size: 13px;">Address</span></td>
-                                                            <td align="left" valign="top">:</td>
-                                                            <td style="font-size: 13px;border-right: 1px dotted #000;"><span>{{ $invoices->address }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ឈ្មោះ & ទូរស័ព្ទ​ <br> Contact</span></td>
-                                                            <td align="left">:</td>
-                                                            <td style="border-right: 1px dotted #000;"><span style="font-size: 13px;">Touch Rith / Tel: 096 9500 705</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">អុីមែល​ / Email</span></td>
-                                                            <td align="left" valign="top">:</td>
-                                                            <td style="border-right: 1px dotted #000;"><span style="font-size: 13px;">touchrith096@gmail.com</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="col-md-6" style="margin-left: 3%">
+                                                <div class="row">
+                                                    <div style="background-color: #1fa8e1;height: 34px;padding: 5px;color:white" class="col-sm-12">អតិថិជន​​ / CUSTOMER</div>
+
+                                                    <div class="col-sm-4">CID / ACCID</div>
+                                                    <div class="col-sm-8">
+                                                        <div>: 133</div>
+                                                    </div>
+                                                    <div class="col-sm-4">ឈ្មោះក្រុមហ៊ុន</div>
+                                                    <div class="col-sm-8">
+                                                        <div>: ទូច រិទ្ធ</div>
+                                                    </div>
+                                                    <div class="col-sm-4">Company Name</div>
+                                                    <div class="col-sm-8">
+                                                        <div>: Touch Rith</div>
+                                                    </div>
+                                                    <div class="col-sm-4">អាសយដ្ឋាន</div>
+                                                    <div class="col-sm-8">
+                                                        <div>: ផ្ទះលេខ ផ្លូវលេខ សង្កាត់ភ្នំពេញថ្មី ខណ្ឌសែនសុខ</div>
+                                                    </div>
+                                                    <div class="col-sm-4">Address</div>
+                                                    <div class="col-sm-8">
+                                                        <div>: Street Mongrithy, Sangkat Phnom Penh Thmei, khan Sensok, Phnom Penh</div>
+                                                    </div>
+                                                    <div class="col-sm-4">ឈ្មោះ & ទូរស័ព្ទ​<br/>Contact</div>
+                                                    <div class="col-sm-8">
+                                                        <div>: Touch Rith  Tel: 09654323123</div>
+                                                    </div>
+                                                    <div class="col-sm-4">អ៊ីមែល​ / Email</div>
+                                                    <div class="col-sm-8">
+                                                        <span>: touchrith@turbotech.com</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6" style="float: left;width: 50%;padding-left: 0px">
-                                                <table>
-                                                    <tbody>
-                                                        <tr bgcolor="#1fa8e1">
-                                                            <td align="left" colspan="3" style="font-weight: bold;padding: 5px;width: 457px" valign="top">
-                                                                <span style="color: white;font-family: khmeros;font-size: 16px;"><b>BILL INFORMATION</b></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" width="41%"><span style="font-family: khmeros;font-size: 12px;">លេខរៀងវិក្កយបត្រ <br> Invoice No</span></td>
-                                                            <td align="left">:</td>
-                                                            <td width="56%"><span style="font-size: 13px;">{{ $invoices->invoice_number }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ថ្ងៃចេញវិក្កយបត្រ <br> Billing Date</span></td>
-                                                            <td align="left">:</td>
-                                                            <td><span style="font-size: 13px;">{{ date('d-m-Y',strtotime($invoices->billing_date)) }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ថ្ងៃផុតកំណត់បង់ប្រាក់​ <br> Due Date</span></td>
-                                                            <td align="left">:</td>
-                                                            <td><span style="font-size: 13px;">{{ date('d-m-Y',strtotime($invoices->due_date)) }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">រយៈពេលប្រើប្រាស់ <br> Period</span></td>
-                                                            <td align="left">:</td>
-                                                            <td><span style="font-size: 13px;">{{ date('d-m-Y',strtotime($invoices->effective_date)) }} to {{ date('d-m-Y',strtotime($invoices->end_period_date)) }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">យោង​ <br> Reference</span></td>
-                                                            <td align="left">:</td>
-                                                            <td><span style="font-size: 13px;">{{ $invoices->reference }}</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="col-md-1"​ style="max-width: 1px">
+
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="row">
+                                                    <div style="background-color: #1fa8e1;height: 34px;padding: 5px;color:white" class="col-sm-12">BILL INFORMATION</div>
+
+                                                    <div class="col-sm-5"><span>លេខរៀងវិក្ក​​យបត្រ<br/>Invoice No</span></div>
+                                                    <div class="col-sm-7">
+                                                        <div>: TT-01-INV-00000046</div>
+                                                    </div>
+                                                    <div class="col-sm-5"><span>ថ្ងៃចេញវិក្កយបត្រ<br/>Billing Date</span></div>
+                                                    <div class="col-sm-7">
+                                                        <div>: 21-12-2020</div>
+                                                    </div>
+                                                    <div class="col-sm-5"><span>ថ្ងៃចេញវិក្កយបត្រ<br/>Billing Date</span></div>
+                                                    <div class="col-sm-7">
+                                                        <div>: 21-12-2020</div>
+                                                    </div>
+                                                    <div class="col-sm-5"><span>ថ្ងៃផុតកំណត់បង់ប្រាក់​<br/>Due Date</span></div>
+                                                    <div class="col-sm-7">
+                                                        <div>: 21-12-2020</div>
+                                                    </div>
+                                                    <div class="col-sm-5"><span>រយៈពេលប្រើប្រាស់<br/>End Period Date</span></div>
+                                                    <div class="col-sm-7">
+                                                        <div>: 21-12-2020</div>
+                                                    </div>
+                                                    <div class="col-sm-5"><span>យោង​<br/>Reference</span></div>
+                                                    <div class="col-sm-7">
+                                                        <div>: TT-01-INV-00000046</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-
-                                    </body>
-                                    </html>
+                                    </div>
                                 </div>
                             </div>
                             <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
