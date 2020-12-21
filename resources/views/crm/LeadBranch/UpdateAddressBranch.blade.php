@@ -60,7 +60,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                     </div>
-                                    <select class="form-control select2 addresscode"  id="addresscode" name="addresscode" onchange="getbranch(this,'district','s','/district')" >
+                                    <select class="form-control addresscode"  id="addresscode" name="addresscode" onchange="getbranch(this,'district','s','/district')" >
                                         <option></option>
                                         @foreach($province as $row )
                                         <option value="{{$row->code}}" {{$row->name_latin==$address[0]['province'] ? 'selected="selected"':''}}>{{$row->name_latin}} / {{$row->name_kh}}</option>
@@ -113,8 +113,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                     </div>
-                                    <select class="form-control select2 dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
-                                        <option value="{{$address[0]['district']}}">{{$address[0]['district']}}</option>
+                                    <input type="hidden" id="district_hidden" value="{{$address[0]['district_code']}}">
+                                    <select class="form-control dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
+                                        {{-- <option value=""></option> --}}
                                     </select>
                                     <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
                                         <strong></strong>
@@ -143,6 +144,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                     </div>
+                                    <input type="hidden" id="commune_hidden" value="{{$address[0]['commune_code']}}">
                                     <select class="form-control select2 dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
                                         <option value="{{$address[0]['commune']}}">{{$address[0]['commune']}}</option>
                                     </select>
@@ -171,6 +173,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                     </div>
+                                    <input type="hidden" id="village_hidden" value="{{$address[0]['village_code']}}">
                                     <select class="form-control select2" name="village" id="village" dats-dependent="village" >
                                         <option value="{{$address[0]['gazetteer_code']}}">{{$address[0]['village']}}</option>
                                     </select>
@@ -272,14 +275,24 @@
 
     $(function() {
         //Initialize Select2 Elements
-        $('.select2').select2({
+        $('#addresscode').select2({
             width:'85%',
-            placeholder:'Please Select '
-        })
-
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
-        })
-        getbranch($('#addresscode'),'district','s','/district')
+        });
+        $('#district').select2({
+            width:'85%',
+        });
+        $('#commune').select2({
+            width:'85%',
+        });
+        $('#village').select2({
+            width:'85%',
+        });
+        getbranch(document.getElementById("addresscode"),'district','s','/district');
+        var district = $('#district_hidden').val();
+        $('#district').val(district).trigger('change');
+        var commune = $('#commune_hidden').val();
+        $('#commune').val(commune).trigger('change');
+        var village = $('#village_hidden').val();
+        $('#village').val(village).trigger('change');
     })
 </script>
