@@ -27,16 +27,15 @@ class path_config extends Controller
         return $st;
     }
     public static function Move_Upload($fileMove,$path){
-        $filename = $fileMove['name'];
-        $file = $fileMove['tmp_name'];
+        $filename = $fileMove->getClientOriginalName();
         $url_path = public_path($path); //path for move
         if (!file_exists($url_path)) {
             mkdir($url_path, 0777, true);
         }
-        $renamefile= path_config::img_en(basename($filename));
+        $renamefile= path_config::img_en($filename);
         $uploadfile = $url_path.$renamefile;
         $filedirectory = $path.$renamefile;
-        if (move_uploaded_file($file, $uploadfile)) {
+        if (move_uploaded_file($fileMove, $uploadfile)) {
             return $filedirectory;
         } else {
             return false;
