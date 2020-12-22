@@ -15,7 +15,6 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                             </div>
-                            <input type="text" hidden value="{{$_SESSION['token'] ??""}}" id="getlead">
                             <select class="form-control select2"  name="lead_id" id="lead_id" >
                                 <option value='0'>-- Select Lead To Add Branch --</option>
                             </select>

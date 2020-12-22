@@ -66,6 +66,22 @@ class CrmLeadStatusController extends Controller
         }
         return $this->sendResponse($result, '');
     }
+    function getConvertCustomerStatus(){
+        try{
+            $result = $this->leadStatus->getConertCustomerStatus();
+        } catch(QueryException $e){
+            $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
+    function getConvertCustomerStatusChild($id){
+        try{
+            $result = $this->leadStatus->getConertCustomerStatusChild($id);
+        } catch(QueryException $e){
+            $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
     function deleteData(Request $request){
         $id = $request->input('id');
         $userId = $request->input('user_id');

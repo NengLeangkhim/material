@@ -37,7 +37,8 @@ function CrmSelectChange(url, div, id) {
 }
 // Function Insert And Update CRM is amazing
 function CrmSubmitFormFull(form, url, goto, alert) {
-
+    var formElement = document.getElementById(form);
+    var formData = new FormData(formElement);
     $("#" + form + " input").removeClass("is-invalid"); //remove all error message
     $("#" + form + " select").removeClass("is-invalid"); //remove all error message
     $("#" + form + " textarea").removeClass("is-invalid"); //remove all error message
@@ -48,9 +49,10 @@ function CrmSubmitFormFull(form, url, goto, alert) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: //_token: $('#token').val(),
-            $('#' + form + '').serialize(),
-
+        data: formData,
+            processData: false,
+            contentType: false,
+        
         success: function(data) {
             if (typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                 // console.log(data);
@@ -507,6 +509,35 @@ function CrmLeadBranchView(url, table) {
         }
     });
 }
+    function CreateBranchAddress(type,lead_id,branch_id){
+        $.ajax({
+            url: '/crm/leadbranch/addresscreate', //get URL to route
+            type: "get",
+            data: {
+                type: type,
+                lead_id:lead_id,
+                branch_id:branch_id,
+            },
+            success: function(data) {
+                $('#view_address').html(data);
+                $('#crm_branch_address_modal').modal('show');
+            }
+        });
+    }
+    function UpdateBranchAddress(lead_address_id,branch_id){
+        $.ajax({
+            url: '/crm/leadbranch/addressget', //get URL to route
+            type: "get",
+            data: {
+                lead_address_id:lead_address_id,
+                branch_id:branch_id,
+            },
+            success: function(data) {
+                $('#view_address').html(data);
+                $('#crm_branch_address_modal').modal('show');
+            }
+        });
+    }
 function CrmLeadBrancStatusChild(url,div_id){
     $.ajax({
         url:url,  //get URL to route

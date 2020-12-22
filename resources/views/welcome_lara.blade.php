@@ -96,5 +96,6 @@
                 </div>
             </div>
         </div>
+        <form action="/aes_test" method="post" enctype="multipart/form-data">@csrf<input type="file" name="file" id=""> <input type="submit"></form>
     </body>
 </html>

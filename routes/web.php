@@ -40,6 +40,8 @@ Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
 Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
 
+Route::get('/companybranch','crm\LeadController@getcompanybranch');// get  company branch 
+
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch
@@ -68,7 +70,7 @@ Route::get('/leadbranch','crm\LeadBranchController@index');
 //     return view('crm.LeadBranch.FormStepByStep');
 // });
 // All
-Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/status/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
 Route::get('/crm/leadbranch/status/child/{status}','crm\LeadBranchController@getLeadStatusChild');
 Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
@@ -76,6 +78,11 @@ Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//
 Route::get('/crm/leadbranch/survey/{branch_id}','crm\LeadBranchController@SurveyLeadBranch');//  survey branch
 Route::get('/crm/leadbranch/address/{branch_id}','crm\LeadBranchController@ManageAddress');// address branch
 Route::get('/crm/leadbranch/search','crm\LeadBranchController@CrmLeadBranchSearch');//Search Lead brnach
+Route::get('/crm/leadbranch/addresscreate','crm\LeadBranchController@CreateManageAddress');//Search Lead brnach
+Route::post('/crm/leadbranch/addresscreate','crm\LeadBranchController@StoreBranchAddress');//Search Lead brnach
+Route::get('/crm/leadbranch/addressget','crm\LeadBranchController@UpdateManageAddress');//Search Lead brnach
+Route::post('/crm/leadbranch/addressupdate','crm\LeadBranchController@UpdateBranchAddress');//Search Lead brnach
+// end lead branch StoreBranchAddress
 // end lead branch
 
 //end lead branch
@@ -226,6 +233,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm_convert_to_customer','crm\CrmConvertToCustomerController@index');
     Route::get('/crm_convert_to_customer/before_convert','crm\CrmConvertToCustomerController@beforeConvert');
     Route::get('/crm_convert_to_customer/after_convert','crm\CrmConvertToCustomerController@afterConvert');
+    Route::get('/crm_convert_to_customer/status/child/{status}','crm\CrmConvertToCustomerController@getConvertToCustomerStatusChild');
 // END Convert To Customer
 
 //===========================END CRM=================================
@@ -269,6 +277,7 @@ Route::post('/change_pass','change_password@change_pass');//profile change_passw
 Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 
 Route::get('/aes_test','aes_example@example');//AES test
+Route::post('/aes_test','aes_example@example');//AES test
 //route for clear cache
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

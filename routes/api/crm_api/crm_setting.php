@@ -42,3 +42,6 @@ Route::get('/crm/leadStatus','api\crm\CrmLeadStatusController@getAllData');
 Route::get('/crm/leadActiveStatus','api\crm\CrmLeadStatusController@getActiveData');
 Route::get('/crm/leadChildStatus/{id}','api\crm\CrmLeadStatusController@getChildData');
 Route::delete('/crm/leadStatus','api\crm\CrmLeadStatusController@deleteData');
+Route::get('/crm/leadConvertToCustomerStatus','api\crm\CrmLeadStatusController@getConvertCustomerStatus');
+Route::get('/crm/leadConvertToCustomerChildStatus/{id}','api\crm\CrmLeadStatusController@getConvertCustomerStatusChild');
+

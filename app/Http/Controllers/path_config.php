@@ -27,16 +27,18 @@ class path_config extends Controller
         return $st;
     }
     public static function Move_Upload($fileMove,$path){
-        $filename = $fileMove['name'];
-        $file = $fileMove['tmp_name'];
+        if($fileMove== null){
+            return false;
+        }
+        $filename = $fileMove->getClientOriginalName();
         $url_path = public_path($path); //path for move
         if (!file_exists($url_path)) {
             mkdir($url_path, 0777, true);
         }
-        $renamefile= path_config::img_en(basename($filename));
+        $renamefile= path_config::img_en($filename);
         $uploadfile = $url_path.$renamefile;
         $filedirectory = $path.$renamefile;
-        if (move_uploaded_file($file, $uploadfile)) {
+        if (move_uploaded_file($fileMove, $uploadfile)) {
             return $filedirectory;
         } else {
             return false;
@@ -45,9 +47,12 @@ class path_config extends Controller
     //Upload file and insert to table ma_uploaded_file return id of this table
     public static function InsertUploadedFile($file,$path,$create_by){
         $FilePath=self::Move_Upload($file,$path);
+        if(!$FilePath&&!is_object($file)){
+            return null;
+        }
         DB::beginTransaction();
         try {
-            $result= DB::selectOne("SELECT public.insert_ma_uploaded_files(?, ?) as id",[$FilePath,$create_by]);
+            $result= DB::selectOne("SELECT public.insert_ma_uploaded_files(?, ?,?,?) as id",[$FilePath,$create_by,''.$file->getClientOriginalName(),''.$file->getClientOriginalExtension()]);
             DB::commit();
             return $result->id;
         } catch(\Exception $e){
