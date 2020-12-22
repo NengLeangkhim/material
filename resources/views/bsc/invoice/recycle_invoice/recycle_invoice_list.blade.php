@@ -59,7 +59,7 @@
                                     <th class="background_color_td">Total Amount</th>
                                     <th class="background_color_td">VAT Total</th>
                                     <th class="background_color_td">Grand Total</th>
-                                    <th class="background_color_td">Detail</th>
+                                    <th class="background_color_td">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,7 +77,8 @@
                                     <td>10</td>
                                     <td>110</td>
                                     <td style="text-align-last: center">
-                                        <a title="View Detail" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_recycle_view_detail')"><i class="far fa-eye"></i></a>
+                                        <a title="View Detail" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_recycle_view_detail')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;
+                                        <a title="Recycle" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_form')"><i class="fas fa-exchange-alt"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

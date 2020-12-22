@@ -1,13 +1,10 @@
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-4">
-                <h1><span><i class="fas fa-file"></i></span> Customer Connection View</h1>
+            <div class="col-sm-6">
+                <h3><span><i class="fas fa-file"></i></span> Customer Detail</h3>
             </div>
-            <div class="col-md-5">
-
-            </div>
-            <div class="col-sm-3">
+            <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Home</a></li>
                     <li class="breadcrumb-item active">New Invoice</li>
@@ -91,7 +88,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new_cus" role="tab" aria-controls="home" aria-selected="true">Customer Info</a>
                                             </li>
-                                            <li class="nav-item">
+                                            <li class="nav-item" id="customer_account">
                                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">Customer Acc</a>
                                             </li>
                                             <li class="nav-item">
@@ -108,10 +105,10 @@
                                         {{-- ======================= End Tab menu =================== --}}
                                         <div class="tab-content" id="myTabContent">
                                             {{-- ================ start tap customer information ============ --}}
-                                            <div class="tab-pane fade show active" id="new_cus" role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="tab-pane fade  show active" id="new_cus" role="tabpanel" aria-labelledby="home-tab">
                                                 {{-- <div class="card-body"> --}}
                                                     {{-- <div class="table-responsive"> --}}
-                                                        
+
                                                         <h4 style="color: #1fa8e1;text-align: center;"> <strong>Customer Information</strong> </h4>
                                                         <table class="table table-border" style="border: 2px solid #1fa8e1">
                                                             <tbody>
@@ -181,7 +178,7 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                       
+
                                                     {{-- </div> --}}
                                                 {{-- </div> --}}
                                             </div>
@@ -190,9 +187,7 @@
                                             {{-- ================ start tap customer account ============== --}}
                                             <div class="tab-pane fade" id="closed_cus" role="tabpanel" aria-labelledby="profile-tab">
                                                 <div class="tab-content" id="myTabContent">
-                                                    <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
-                                                        
-                                                        <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist" style="float: right">
+                                                        {{-- <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist" style="float: right">
                                                             <h6 style="margin-top: 12px;"> <strong>View Mode:</strong></h6>
                                                             <li class="nav-item">
                                                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">Inactive</a>
@@ -209,38 +204,42 @@
                                                             <li class="nav-item">
                                                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#closed_cus" role="tab" aria-controls="profile" aria-selected="false">All Status</a>
                                                             </li>
-                                                        </ul><br>
-                                                        <table id="customer_acc" class="table table-bordered table-striped" style="white-space: nowrap">
-                                                            <thead>
-                                                                <tr class="background_color_tr">
-                                                                    <th class="background_color_td">ACCID</th>
-                                                                    <th class="background_color_td">Account</th>
-                                                                    <th class="background_color_td">Tariff</th>
-                                                                    <th class="background_color_td">Payment</th>
-                                                                    <th class="background_color_td">Status</th>
-                                                                    <th class="background_color_td">Username</th>
-                                                                    <th class="background_color_td">Password</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>001-090-000503-02</td>
-                                                                    <td> <a href="javascript:void(0);" onclick="go_to('bsc_customer_account_view')">Chroy Changva Branch</a> </td>
-                                                                    <td>DPLC Connection</td>
-                                                                    <td rowspan="2" style="vertical-align : middle;text-align:center;">1 Months</td>
-                                                                    <td rowspan="2" class="text-center bg-blue" style="vertical-align : middle;text-align:center;">Active</td>
-                                                                    <td>TT2020101702</td>
-                                                                    <td>TT20202101702@turbo</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="2">Start Bill: 18/12/2020</td>
-                                                                    <td>Next Bill: 18/01/2021</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                        </ul><br> --}}
+                                                        <div class="card-body">
+                                                            <div id="customer_detail">
+                                                                <table id="customer_acc" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                                    <thead>
+                                                                        <tr class="background_color_tr">
+                                                                            <th class="background_color_td">ACCID</th>
+                                                                            <th class="background_color_td">Account</th>
+                                                                            <th class="background_color_td">Tariff</th>
+                                                                            <th class="background_color_td">Payment</th>
+                                                                            <th class="background_color_td">Status</th>
+                                                                            {{-- <th class="background_color_td">Username</th>
+                                                                            <th class="background_color_td">Password</th> --}}
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>001-090-000503-02</td>
+                                                                            {{-- <td> <a href="javascript:void(0);"  onclick="go_to('bsc_customer_account_view')">Chroy Changva Branch</a> </td> --}}
+                                                                            <td> <a href="javascript:void(0);"  onclick="detailCustomer()">Chroy Changva Branch</a> </td>
+                                                                            <td>DPLC Connection</td>
+                                                                            <td rowspan="2" style="vertical-align : middle;text-align:center;">1 Months</td>
+                                                                            <td rowspan="2" class="text-center bg-blue" style="vertical-align : middle;text-align:center;">Active</td>
+                                                                            {{-- <td>TT2020101702</td>
+                                                                            <td>TT20202101702@turbo</td> --}}
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Start Bill: 18/12/2020</td>
+                                                                            <td>Next Bill: 18/01/2021</td>
+                                                                            {{-- <td></td>
+                                                                            <td></td>
+                                                                        </tr> --}}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                 </div>
                                             </div>
                                             {{-- ================ end tap customer account ========= --}}
@@ -261,7 +260,8 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th colspan="7" style="background: #ccc">
-                                                                        <a href="#" onclick="go_to('bsc_customer_account_view')">Sok San</a>
+                                                                        {{-- <a href="#" onclick="go_to('bsc_customer_account_view')">Sok San</a> --}}
+                                                                        <a href="#">Sok San</a>
                                                                     </th>
                                                                 </tr>
                                                                 <tr class="background_color_tr">
@@ -291,7 +291,7 @@
                                             {{-- ================ start tap customer log ======= --}}
                                             <div class="tab-pane fade" id="ass" role="tabpanel" aria-labelledby="profile-tab">
                                                 <div class="tab-content" id="myTabContent">
-                                                    <div class="table-responsive" style="padding-left: 20px;padding-top: 20px">
+                                                    <div class="card-body">
                                                         <table id="customer_log" class="table table-bordered table-striped" style="white-space: nowrap">
                                                             <thead>
                                                                 <tr class="background_color_tr">
@@ -303,7 +303,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -322,21 +322,117 @@
 
 </section>
 <script>
+
+    function detailCustomer(){
+        let tr ='<div class="card-body">'+
+                    '<h4 style="color: #1fa8e1;text-align: center;"> <strong>Account Information</strong> </h4>'+
+                    '<table class="table table-border" style="border: 2px solid #1fa8e1">'+
+                        '<tbody>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Account ID</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 001-090-000503-02</td>'+
+                                '<td width="10%"> Account Name</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> Chroy Changva Branch</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Current Status</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> <i class="btn btn-sm btn-info">Active</i></td>'+
+                                '<td width="10%"> Address</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> #97E2,St274, Sangkat Chakto Mukh, Khan Doun Penh, Phnom Penh</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> KH Address</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> ផ្តះលេខ​ ៩៧អុឺដឺ ផ្លូវលេខ ២៧៤ សង្កាត់ ចតុមុខ ខណ្ឌ ដូនពេញ</td>'+
+                                '<td width="10%"> Install Address</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> #97E2,St274, Phum 1 Village Sangkat Chakto Mukh, Khan Doun Penh, Phnom Penh</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Map</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 11.565841, 104.88853</td>'+
+                                '<td width="10%"> Product Type</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> DPLC Connection</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%" class="alert-success"> Monthly Fee</td>'+
+                                '<td class="alert-success"> :</td>'+
+                                '<td width="40%" class="alert-success"> $ 120.0000</td>'+
+                                '<td width="10%"> Payment</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 1 (Months) | Free 0 (Months)</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Start Billing Date</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 18/12/2020</td>'+
+                                '<td width="10%"> Next Billing Date</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 18/01/2020</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> IP Address</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 0.0.0.0</td>'+
+                                '<td width="10%"> Router / BRAS</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 1_Default | Vlan 3314</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Switch</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> default | Switch port</td>'+
+                                '<td width="10%"> Username/Password</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> TT2020101702 | TT2020101702@turbo</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Speed</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 10 Mbps/ 10Mbps</td>'+
+                                '<td width="10%"> YouTube Speed Type</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> 0 Mbps | x1</td>'+
+                            '</tr>'+
+                            '<tr style="font-size: 14px;">'+
+                                '<td width="10%"> Remark</td>'+
+                                '<td> :</td>'+
+                                '<td width="40%"> </td>'+
+                                '<td width="10%"> </td>'+
+                                '<td> </td>'+
+                                '<td width="40%"> </td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                '</div>';
+        $("#customer_detail").html(tr);
+    }
     $(function () {
-        $("#customer_log").DataTable({
+        // $("#customer_log").DataTable({
+        //     "scrollX":true,
+        //     "autoWidth": false,
+        //     "scrollY": "400px",
+        //     "scrollCollapse": false
+        // });
+        $("#customer_acc").DataTable({
             "scrollX":true,
             "autoWidth": false,
             "scrollY": "400px",
             "scrollCollapse": false
         });
-        
-        
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $($.fn.dataTable.tables(true)).DataTable()
-                .columns.adjust()
-                .responsive.recalc();
-        });
+
+        // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //     $($.fn.dataTable.tables(true)).DataTable()
+        //         .columns.adjust()
+        //         .responsive.recalc();
+        // });
 
     });
 </script>

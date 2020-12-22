@@ -48,6 +48,7 @@
                                 <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                     <thead>
                                         <tr class="background_color_tr">
+                                            <th class="background_color_td">Detail</th>
                                             <th class="background_color_td">CIF</th>
                                             <th class="background_color_td">CID</th>
                                             <th class="background_color_td">Customer</th>
@@ -71,11 +72,37 @@
                                             <th class="background_color_td">Speed</th>
                                             <th class="background_color_td">Seller</th>
                                             <th class="background_color_td">Status</th>
-                                            <th class="background_color_td">Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        <tr>
+                                            <td style="text-align-last: center">
+                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_connection_view')"><i class="far fa-eye"></i></a>
+                                            </td>
+                                            <td>TT-001</td>
+                                            <td>TT-001</td>
+                                            <td>Touch Rith</td>
+                                            <td>ទូច រិទ្ធ</td>
+                                            <td>Touch Rith</td>
+                                            <td>21-12-2020</td>
+                                            <td>21-12-2020</td>
+                                            <td>21-12-2020</td>
+                                            <td>Include</td>
+                                            <td>TT-NIV-0020002</td>
+                                            <td>Phnom Penh</td>
+                                            <td>0968990987</td>
+                                            <td>touchrith@gmail.com</td>
+                                            <td>21-12-2020</td>
+                                            <td>Internet</td>
+                                            <td>$100</td>
+                                            <td>$100</td>
+                                            <td>10</td>
+                                            <td>10</td>
+                                            <td>VAT</td>
+                                            <td>12GB</td>
+                                            <td>Touch Rith</td>
+                                            <td>New</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -89,6 +116,7 @@
                                     <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
+                                                <th class="background_color_td">Detail</th>
                                                 <th class="background_color_td">CIF</th>
                                                 <th class="background_color_td">CID</th>
                                                 <th class="background_color_td">Customer</th>
@@ -112,12 +140,37 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
-                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            <tr>
+                                                <td style="text-align-last: center">
+                                                    <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_connection_view')"><i class="far fa-eye"></i></a>
+                                                </td>
+                                                <td>TT-001</td>
+                                                <td>TT-001</td>
+                                                <td>Touch Rith</td>
+                                                <td>ទូច រិទ្ធ</td>
+                                                <td>Touch Rith</td>
+                                                <td>21-12-2020</td>
+                                                <td>21-12-2020</td>
+                                                <td>21-12-2020</td>
+                                                <td>Include</td>
+                                                <td>TT-NIV-0020002</td>
+                                                <td>Phnom Penh</td>
+                                                <td>0968990987</td>
+                                                <td>touchrith@gmail.com</td>
+                                                <td>21-12-2020</td>
+                                                <td>Internet</td>
+                                                <td>$100</td>
+                                                <td>$100</td>
+                                                <td>10</td>
+                                                <td>10</td>
+                                                <td>VAT</td>
+                                                <td>12GB</td>
+                                                <td>Touch Rith</td>
+                                                <td>New</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -131,6 +184,7 @@
                                     <table id="example3" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
+                                                <th class="background_color_td">Detail</th>
                                                 <th class="background_color_td">CIF</th>
                                                 <th class="background_color_td">CID</th>
                                                 <th class="background_color_td">Customer</th>
@@ -154,12 +208,36 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
-                                                {{-- <th>Action</th> --}}
-                                            </tr>
                                         </thead>
                                         <tbody>
-
+                                            <tr>
+                                                <td style="text-align-last: center">
+                                                    <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_connection_view')"><i class="far fa-eye"></i></a>
+                                                </td>
+                                                <td>TT-001</td>
+                                                <td>TT-001</td>
+                                                <td>Touch Rith</td>
+                                                <td>ទូច រិទ្ធ</td>
+                                                <td>Touch Rith</td>
+                                                <td>21-12-2020</td>
+                                                <td>21-12-2020</td>
+                                                <td>21-12-2020</td>
+                                                <td>Include</td>
+                                                <td>TT-NIV-0020002</td>
+                                                <td>Phnom Penh</td>
+                                                <td>0968990987</td>
+                                                <td>touchrith@gmail.com</td>
+                                                <td>21-12-2020</td>
+                                                <td>Internet</td>
+                                                <td>$100</td>
+                                                <td>$100</td>
+                                                <td>10</td>
+                                                <td>10</td>
+                                                <td>VAT</td>
+                                                <td>12GB</td>
+                                                <td>Touch Rith</td>
+                                                <td>New</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -173,6 +251,7 @@
                                     <table id="example4" class="table table-bordered table-striped" style="white-space: nowrap">
                                         <thead>
                                             <tr class="background_color_tr">
+                                                <th class="background_color_td">Detail</th>
                                                 <th class="background_color_td">CIF</th>
                                                 <th class="background_color_td">CID</th>
                                                 <th class="background_color_td">Customer</th>
@@ -196,12 +275,37 @@
                                                 <th class="background_color_td">Speed</th>
                                                 <th class="background_color_td">Seller</th>
                                                 <th class="background_color_td">Status</th>
-                                                <th class="background_color_td">Detail</th>
-                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            <tr>
+                                                <td style="text-align-last: center">
+                                                    <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_connection_view')"><i class="far fa-eye"></i></a>
+                                                </td>
+                                                <td>TT-001</td>
+                                                <td>TT-001</td>
+                                                <td>Touch Rith</td>
+                                                <td>ទូច រិទ្ធ</td>
+                                                <td>Touch Rith</td>
+                                                <td>21-12-2020</td>
+                                                <td>21-12-2020</td>
+                                                <td>21-12-2020</td>
+                                                <td>Include</td>
+                                                <td>TT-NIV-0020002</td>
+                                                <td>Phnom Penh</td>
+                                                <td>0968990987</td>
+                                                <td>touchrith@gmail.com</td>
+                                                <td>21-12-2020</td>
+                                                <td>Internet</td>
+                                                <td>$100</td>
+                                                <td>$100</td>
+                                                <td>10</td>
+                                                <td>10</td>
+                                                <td>VAT</td>
+                                                <td>12GB</td>
+                                                <td>Touch Rith</td>
+                                                <td>New</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
