@@ -1,11 +1,7 @@
-
-
-
-
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js" ></script>
+<script src="plugins/jquery/jquery.min.js"></script>
 
-<script src="plugins/jquery/jquery.doubleScroll.js" ></script>
+<script src="plugins/jquery/jquery.doubleScroll.js"></script>
 
 <!-- Bootstrap -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -45,7 +41,8 @@
 
 {{-- STOCK --}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js">
+</script>
 
 <script src="dist/js/pages/dashboard2.js"></script>
 <script src="stJS/js_Expoert_excel_PDF/xlsx.js"></script>
@@ -69,69 +66,71 @@
 {{--Google Chart--}}
 <script type="text/javascript" src="js/google_chart.js"></script>
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
+
 </script>
 <!-- My js -->
 <script src="js/myjs.js"></script>
 <script src="js/e_request/addRow.js"></script>
 <script src="js/e_request/getvalues.js"></script>
 <script>
-  $(document).ready(
-    function(){
-      go_to('welcome');
-      $('body').overlayScrollbars({
-    scrollbars : {
-        visibility       : "auto",
-        autoHide         : "scroll",
-        autoHideDelay    : 800,
-        dragScrolling    : true,
-        clickScrolling   : false,
-        touchSupport     : true,
-        snapHandle       : false
-    },
-});
-$(window).on('shown.bs.modal', function() {
-  $('.modal').overlayScrollbars({
-    className            : "os-theme-dark",
-    resize               : "none",
-    sizeAutoCapable      : true,
-    clipAlways           : true,
-    normalizeRTL         : true,
-    paddingAbsolute      : false,
-    autoUpdate           : null,
-    autoUpdateInterval   : 33,
-    nativeScrollbarsOverlaid : {
-        showNativeScrollbars   : false,
-        initialize             : true
-    },
-    scrollbars : {
-        visibility       : "auto",
-        autoHide         : "scroll",
-        autoHideDelay    : 800,
-        dragScrolling    : true,
-        clickScrolling   : false,
-        touchSupport     : true,
-        snapHandle       : false
-    },
-});
-});
+    $(document).ready(
+        function() {
+            go_to('welcome');
+            $('body').overlayScrollbars({
+                scrollbars: {
+                    visibility: "auto",
+                    autoHide: "scroll",
+                    autoHideDelay: 800,
+                    dragScrolling: true,
+                    clickScrolling: false,
+                    touchSupport: true,
+                    snapHandle: false
+                },
+            });
+            $(window).on('shown.bs.modal', function() {
+                $('.modal').overlayScrollbars({
+                    className: "os-theme-dark",
+                    resize: "none",
+                    sizeAutoCapable: true,
+                    clipAlways: true,
+                    normalizeRTL: true,
+                    paddingAbsolute: false,
+                    autoUpdate: null,
+                    autoUpdateInterval: 33,
+                    nativeScrollbarsOverlaid: {
+                        showNativeScrollbars: false,
+                        initialize: true
+                    },
+                    scrollbars: {
+                        visibility: "auto",
+                        autoHide: "scroll",
+                        autoHideDelay: 800,
+                        dragScrolling: true,
+                        clickScrolling: false,
+                        touchSupport: true,
+                        snapHandle: false
+                    },
+                });
+            });
 
-    }
-  );
+        }
+    );
+
 </script>
 <script>
 </script>
@@ -140,9 +139,10 @@ $(window).on('shown.bs.modal', function() {
 <script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
 <script src="js/hrms/hrmssambo.js"></script>
 <script src="js/hrms/hrms.js"></script>
-<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js" ></script>
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
-{{-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> --}}
+{{-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+--}}
 {{-- <script src="js/canvasjs.min.js"></script> --}}
 
 
@@ -172,9 +172,10 @@ $(window).on('shown.bs.modal', function() {
 <script src="plugins/fullcalendar-bootstrap/main.min.js"></script>
 
 
-<script src="plugins/jsTableExport/jsExportExcel.js"></script>  <!-- this js use for export table to any file -->
-<script src="plugins/jsTableExport/html2canvas.min.js"></script>  <!-- this js html2canvas use to support export to pdf  -->
-<script src="plugins/jsTableExport/pdfmake.min.js"></script>  <!-- this js use for export data table to pdf -->
+<script src="plugins/jsTableExport/jsExportExcel.js"></script> <!-- this js use for export table to any file -->
+<script src="plugins/jsTableExport/html2canvas.min.js"></script>
+<!-- this js html2canvas use to support export to pdf  -->
+<script src="plugins/jsTableExport/pdfmake.min.js"></script> <!-- this js use for export data table to pdf -->
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -185,8 +186,9 @@ $(window).on('shown.bs.modal', function() {
 {{-- validation --}}
 <script src="stJS/validation.js"></script>
 
-<script  type="text/javascript">
-  $(document).ready(function () {
-  bsCustomFileInput.init();
-});
-  </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        bsCustomFileInput.init();
+    });
+
+</script>
